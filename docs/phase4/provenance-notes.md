@@ -91,3 +91,15 @@ spans 1..i reverted â‡’ the gap at position i isolates span i in both ladders â€
 the earlier draft inverted reverse indices; screening had not yet run);
 (5) sentinel check-0 baseline made write-once on disk. Dry-all re-validated
 after these fixes.
+
+## Event-schema addition: `seed` on `llm.requested` (2026-07-24, before any live call)
+Follow-up review round found that phase-4 `llm.responded` events carry
+`seed=None` by design (providers run unseeded sampling per protocol), so
+event-store recovery keyed sentinel runs on a null seed and could not
+guarantee at-most-once redispatch after an ambiguous interruption; the
+per-seed X2 analyses would have collapsed for the same reason. Fix: the
+scheduled environment seed is now recorded on every `llm.requested` payload
+(additive field; passed explicitly, prompt-render inputs untouched so
+template byte-parity is unaffected). Driver reconciliation and the
+adjudicator read the requested-side seed as authoritative, with the phase-3
+event shape as fallback. No live phase-4 events existed before this change.

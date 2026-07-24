@@ -84,8 +84,11 @@ def load_phase4_runs() -> dict[str, dict]:
                      episodeIndex=p.get("episodeIndex"),
                      sentinelCheckIndex=p.get("sentinelCheckIndex"),
                      model=p.get("model"), engineCommit=p.get("engineCommit"))
+            if p.get("seed") is not None:
+                r["seed"] = p["seed"]  # authoritative scheduled seed (requested-side)
         elif typ == "llm.responded":
-            r["seed"] = p.get("seed")
+            if r.get("seed") is None:
+                r["seed"] = p.get("seed")  # legacy fallback (phase-3 event shape)
             r["responded"].append({
                 "seat": p.get("seat"), "round": p.get("roundNumber"),
                 "attempt": p.get("attempt"), "model": p.get("model"),

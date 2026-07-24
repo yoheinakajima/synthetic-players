@@ -95,6 +95,7 @@ def _decide_live_p4(
     registry: dict,
     llm_cfg: dict,
     game_def: dict,
+    seed: int,
     seat: int,
     round_number: int,
     num_rounds: int,
@@ -152,6 +153,7 @@ def _decide_live_p4(
                 "armsManifestSha256": llm_cfg["armsManifestSha256"],
                 "promptId": llm_cfg["promptId"],
                 "prompt_hash": ph,
+                "seed": seed,  # environment seed — exact event-store identity for recovery (additive; disclosed)
                 "seat": seat, "roundNumber": round_number,
                 "episodeIndex": llm_cfg.get("episodeIndex"),
                 "sentinelCheckIndex": llm_cfg.get("sentinelCheckIndex"),
@@ -348,7 +350,7 @@ def run_llm_p4(
                     action, raw, attempt = _decide_live_p4(
                         graph=graph, provider=provider, provider_kind=provider_kind,
                         ledger=ledger, run_id=run_id, registry=registry,
-                        llm_cfg=llm_cfg, game_def=game_def, seat=player_num,
+                        llm_cfg=llm_cfg, game_def=game_def, seed=seed, seat=player_num,
                         round_number=n, num_rounds=num_rounds, history=history,
                         counters=counters, seen_hashes=seen_hashes,
                     )

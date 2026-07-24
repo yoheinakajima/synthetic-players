@@ -396,8 +396,11 @@ def reconcile(state: dict) -> None:
                        episodeIndex=p.get("episodeIndex"),
                        sentinelCheckIndex=p.get("sentinelCheckIndex"),
                        model=p.get("model"))
+            if p.get("seed") is not None:
+                rec["seed"] = p["seed"]  # authoritative scheduled seed (requested-side)
         elif typ == "llm.responded":
-            rec["seed"] = p.get("seed")
+            if rec.get("seed") is None:
+                rec["seed"] = p.get("seed")  # legacy fallback (phase-3 event shape)
         elif typ == "run.completed":
             rec["completed"] = True
         elif typ == "trial.invalidated":
@@ -431,9 +434,13 @@ def reconcile(state: dict) -> None:
                 if "armId" not in r or r["completed"] or r["invalid"]:
                     return False
                 if key.startswith("sent"):
-                    k, arm_id, model, _seed = key.split("|")
-                    return (r.get("sentinelCheckIndex") == int(k[4:])
-                            and r.get("armId") == arm_id and r.get("model") == model)
+                    k, arm_id, model, seed_s = key.split("|")
+                    if (r.get("sentinelCheckIndex") != int(k[4:])
+                            or r.get("armId") != arm_id or r.get("model") != model):
+                        return False
+                    # exact when the partial recorded its seed (llm.requested now
+                    # carries it); conservative cell-level match otherwise
+                    return r.get("seed") is None or str(r.get("seed")) == seed_s
                 blk, arm_id, ep = key.split("|")
                 return (r.get("block") == blk and r.get("armId") == arm_id
                         and f"ep{r.get('episodeIndex')}" == ep)
