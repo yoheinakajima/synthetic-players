@@ -141,3 +141,9 @@ byte checks keep the original evidence bit-exact-verifiable forever.
 **How to apply:** when a study needs new prompts post-seal, bump the registry version
 string, append templates, record both shas in the prereg amendment, and re-verify the
 full old corpus replays green before running new arms.
+
+## Gate-reversion discipline (gate-reversion)
+When a pre-set design gate fails by a hair (F stabilization: |Δstay|=0.0512 vs 0.05 threshold), follow the registered reversion rule and report the margin — never round, re-window, or argue the gate away. The near-miss itself goes in the packet.
+
+## Freeze-packet pattern
+One generator materializes ALL templates/arms/seeds/schedules with **byte-exact endpoint assertions** (derived artifacts must reproduce sealed originals); manifests are machine-written and prose docs quote manifest values — never hand-copied SHAs, seeds, or counts (a hand-quoted seed range contradicted the sealed manifest and was caught only in review). Append-only guard: hash sealed entries pre/post write with a RECURSIVE canonical serializer (key-whitelist JSON.stringify silently drops nested objects from hashed material) and abort on drift.

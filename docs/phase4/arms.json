@@ -1,0 +1,7419 @@
+{
+ "generatedAt": "2026-07-24T14:55:13.781Z",
+ "scheduleSeed": 20260724,
+ "models": {
+  "primary": "gpt-4.1",
+  "cross": "claude-haiku-4-5"
+ },
+ "sealedPhase3Shas": {
+  "pd-oneshot-v1": "d408f3642d3bf4920dce50a8d38372e63f035bd9bb463bb355466ce3bc021292",
+  "pd-repeated-v1": "520d8c2b76d04c0c2789bd088054a880f301b7a806f9c2ef00e46087b9bff7d6",
+  "pd-repeated-v2a": "696281c8d49f1312327748fbd566387a0b0229de6cd2c89aef3656a64cd7efab",
+  "pd-repeated-v2b": "02dfe52f3726bee648d4520b33acc1fb4fc6cb744d9d0efb66ee171806eec784",
+  "rps-v1": "9d976ee85a49987590bdacaa54e784ea65bf5db5efbb43254de46736187ff7e9"
+ },
+ "templateShas": {
+  "pd-os-w1-neu-cf-ad": "acb55981c0cf530ca0a6624994d8b318d98b610b073c6a288a98e7424ca5f964",
+  "pd-rep-w1-neu-cf-ad": "8e00dbdf2e515c33b523101b5435170ef029b1a7e8800f0207de12f879185dfe",
+  "pd-os-w1-neu-cf-pm": "6764b2185d9c70333343cbd1972f3559e16c9acf8a2628c3a912884c3f41b324",
+  "pd-rep-w1-neu-cf-pm": "aa820aef537262c13c67ea4acddfb6096fd8b4f3da8af80ce6735cfd0b524cd5",
+  "pd-os-w1-neu-df-ad": "3503bbde8eead8b15f1e774636dd463ae95c7496985690a84095abbd6a30cd9e",
+  "pd-rep-w1-neu-df-ad": "e71f29112aafff38caffd7af162654915fcb01358815083affcaf87516639d1f",
+  "pd-os-w1-neu-df-pm": "8bb5ddb2c7e25c063c7fa7a7216a492d2c6f8ddbc7d8898f5e0a10b66ba38160",
+  "pd-rep-w1-neu-df-pm": "b319f37c1358b16872809e1f42f27c9eedea0a458c395e619e15932ae5ed7895",
+  "pd-os-w1-sem-cf-ad": "6ca600202bfddd3f6d1e4bc2a92aaad5643875dd03a05bcda3fe67055a3b4361",
+  "pd-rep-w1-sem-cf-ad": "ed4361ec185a119d98e73e87f6c9a89f7c050fc352e6f53505c97ca10ebd16fe",
+  "pd-os-w1-sem-cf-pm": "648779e7794f1d4d96436981d55568506467a6ff84857b4b0fa88a49ecf1aeba",
+  "pd-rep-w1-sem-cf-pm": "2eb7b1f7ec2af67080835204152e1a85a0515a8a51d47fe52f253a084a0ee207",
+  "pd-os-w1-sem-df-ad": "6cf7b213c8ee1716d7c0cedd55fdc982807787481f4cf7eeedb0644c681b33c5",
+  "pd-rep-w1-sem-df-ad": "dc55d3329b5848c278a9dd662623efa606910c3e309e116f716d8994a40494cc",
+  "pd-os-w1-sem-df-pm": "e18e7945c87e14cb3b07b55a18e962f72de78d18bfe9e4736cb7e00345a67aa2",
+  "pd-rep-w1-sem-df-pm": "1a4da1778869a81c603ba2e6dc235deffa66327add178cb3861a98399744e780",
+  "pd-os-w2a-neu-cf-ad": "846fdd25d4a99fc8bddd4e433bc127888f038202feef52b5ea6144e5f0897a3b",
+  "pd-rep-w2a-neu-cf-ad": "20c6cfea1cf32eccbcef4f29d982ca366257c857d3525dc108b93846191ba5a4",
+  "pd-os-w2a-neu-cf-pm": "697c44acbda3400d68df248ff8d2b36281e7e631b4edc012a058e42f14476cf7",
+  "pd-rep-w2a-neu-cf-pm": "5a53beb4ee131a38c8e83d686208561bbe35092930cccdf75ca0d228c031fd00",
+  "pd-os-w2a-neu-df-ad": "65cd0e67a808e2211fe3accf46670ff34057ac80d04a419fc8685482f0beea47",
+  "pd-rep-w2a-neu-df-ad": "dd84a957f89fa2de182c3d18105a8ba4a9fe5dee03944bb42e44183830b6a878",
+  "pd-os-w2a-neu-df-pm": "df74d626345eec69e4c80f7be4075b32daedf37c9d6e9314f374932edb1883bf",
+  "pd-rep-w2a-neu-df-pm": "4db348bb573947789f95df5c6966bb7ea28d662756f0daae42a020c321f552ab",
+  "pd-os-w2a-sem-cf-ad": "68d9a4d4818452a33dd08211761fa19ce8040e194ea8a84ddcbd49df873a1d83",
+  "pd-rep-w2a-sem-cf-ad": "c17c0087880dd85163c47d1bca926e746e7ddf780cdcdc0cd5cc85e084fbe7f7",
+  "pd-os-w2a-sem-cf-pm": "2d61d31e09670575ee7cef70f81d27d9b62813ddd07c0af7a986e40f5c2131e0",
+  "pd-rep-w2a-sem-cf-pm": "e984fc2c6448a93d5eabd3282d400e6a9d7a7df6d956a5bb08805e78fa44e4fb",
+  "pd-os-w2a-sem-df-ad": "4cbca13a55608f214f9b1a6020ea5e5e36aeb0597a8ba23f01111bd13068e24e",
+  "pd-rep-w2a-sem-df-ad": "399d043dff335eb5f8f53da5ed56e0de91b1ffd7a3d8d4a84e11a97984f921a1",
+  "pd-os-w2a-sem-df-pm": "81069f5c74ebd5b48778d6cde503eaa098b0dc0c2071bac7e6391788b5e3af59",
+  "pd-rep-w2a-sem-df-pm": "ea042055db8f148d19fb12ebeb020edb5ed69507f5bb06f13a8f46f411e2a04e",
+  "pd-rep-community-w1": "743231b6be137c89867384b653bc486d38855c426aa6b7685513b243e4d4ac9e",
+  "pd-x2-f1": "1ffd8365eee2c5d6fdf43beafe922f9ddb1c58c3068e94f53b8226ae13fe9c15",
+  "pd-x2-r1": "6e596275c6ddb30a94de6935425ad68a6bf25a5168638db5d5f12de406204750",
+  "pd-x2-f2": "e6f14799225dd2847417c558f86d3e54ec1d122ab76c6c3c7b87805bdb83d9f8",
+  "pd-x2-r2": "b76465d94c3e8ff0988b31d77ad88a77dd337c7304b7d855dd7fd57017f2dfc6",
+  "pd-x2-f3": "78354fc88b563e33d0faac882e6cf55ff639f89d8240868956268cad4c5e2e21",
+  "pd-x2-r3": "af2711b7bd31b1f28afdd70bfe8d72662d8b58c38f04f6eb9f1b232d64a44e72",
+  "pd-x2-f4": "fd041f2ac8313429d6781705cd64f55e9415fccb6fa7dabe83ade12487cb5be8",
+  "pd-x2-r4": "33f28f072284980ba9494f51741712638fd07307d6eed8792dd664ffcad241ba",
+  "pd-x2-f5": "5dcd1f83050a8378fc1e5b7b6fb26fdcc40e9ba2cbba08b486baa357e471b1d3",
+  "pd-x2-r5": "89a8da81e94b67e838bf969f66912a9d53f27c4f5ccee72d20a09fe22868bb05",
+  "rps-sym-v1": "c1e8527f39539d3ddb570078d61c9f938aa5e5675271d4f39c23ac9b4f4811dd"
+ },
+ "seedPolicy": "Phase 4 experimental seeds 2001+ (disjoint from Phase 3 1–20/1000+ and X1); X2 screening reuses X1 seeds 1–10 by registered rule; sentinel pool 9001+",
+ "arms": [
+  {
+   "armId": "p4-d1-can-w1-neu-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-neu-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-neu-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-neu-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-neu-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-neu-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-neu-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2031,
+    2032,
+    2033,
+    2034,
+    2035,
+    2036,
+    2037,
+    2038,
+    2039,
+    2040
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-neu-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2031,
+    2032,
+    2033,
+    2034,
+    2035,
+    2036,
+    2037,
+    2038,
+    2039,
+    2040
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-sem-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2041,
+    2042,
+    2043,
+    2044,
+    2045,
+    2046,
+    2047,
+    2048,
+    2049,
+    2050
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-sem-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2041,
+    2042,
+    2043,
+    2044,
+    2045,
+    2046,
+    2047,
+    2048,
+    2049,
+    2050
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-sem-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2051,
+    2052,
+    2053,
+    2054,
+    2055,
+    2056,
+    2057,
+    2058,
+    2059,
+    2060
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-sem-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2051,
+    2052,
+    2053,
+    2054,
+    2055,
+    2056,
+    2057,
+    2058,
+    2059,
+    2060
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-sem-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2061,
+    2062,
+    2063,
+    2064,
+    2065,
+    2066,
+    2067,
+    2068,
+    2069,
+    2070
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-sem-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2061,
+    2062,
+    2063,
+    2064,
+    2065,
+    2066,
+    2067,
+    2068,
+    2069,
+    2070
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-sem-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2071,
+    2072,
+    2073,
+    2074,
+    2075,
+    2076,
+    2077,
+    2078,
+    2079,
+    2080
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w1-sem-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2071,
+    2072,
+    2073,
+    2074,
+    2075,
+    2076,
+    2077,
+    2078,
+    2079,
+    2080
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-neu-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2081,
+    2082,
+    2083,
+    2084,
+    2085,
+    2086,
+    2087,
+    2088,
+    2089,
+    2090
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-neu-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2081,
+    2082,
+    2083,
+    2084,
+    2085,
+    2086,
+    2087,
+    2088,
+    2089,
+    2090
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-neu-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2091,
+    2092,
+    2093,
+    2094,
+    2095,
+    2096,
+    2097,
+    2098,
+    2099,
+    2100
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-neu-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2091,
+    2092,
+    2093,
+    2094,
+    2095,
+    2096,
+    2097,
+    2098,
+    2099,
+    2100
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-neu-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2101,
+    2102,
+    2103,
+    2104,
+    2105,
+    2106,
+    2107,
+    2108,
+    2109,
+    2110
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-neu-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2101,
+    2102,
+    2103,
+    2104,
+    2105,
+    2106,
+    2107,
+    2108,
+    2109,
+    2110
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-neu-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2111,
+    2112,
+    2113,
+    2114,
+    2115,
+    2116,
+    2117,
+    2118,
+    2119,
+    2120
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-neu-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2111,
+    2112,
+    2113,
+    2114,
+    2115,
+    2116,
+    2117,
+    2118,
+    2119,
+    2120
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-sem-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2121,
+    2122,
+    2123,
+    2124,
+    2125,
+    2126,
+    2127,
+    2128,
+    2129,
+    2130
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-sem-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2121,
+    2122,
+    2123,
+    2124,
+    2125,
+    2126,
+    2127,
+    2128,
+    2129,
+    2130
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-sem-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2131,
+    2132,
+    2133,
+    2134,
+    2135,
+    2136,
+    2137,
+    2138,
+    2139,
+    2140
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-sem-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2131,
+    2132,
+    2133,
+    2134,
+    2135,
+    2136,
+    2137,
+    2138,
+    2139,
+    2140
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-sem-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2141,
+    2142,
+    2143,
+    2144,
+    2145,
+    2146,
+    2147,
+    2148,
+    2149,
+    2150
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-sem-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2141,
+    2142,
+    2143,
+    2144,
+    2145,
+    2146,
+    2147,
+    2148,
+    2149,
+    2150
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-sem-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2151,
+    2152,
+    2153,
+    2154,
+    2155,
+    2156,
+    2157,
+    2158,
+    2159,
+    2160
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-can-w2a-sem-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2151,
+    2152,
+    2153,
+    2154,
+    2155,
+    2156,
+    2157,
+    2158,
+    2159,
+    2160
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-neu-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2161,
+    2162,
+    2163,
+    2164,
+    2165,
+    2166,
+    2167,
+    2168,
+    2169,
+    2170
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-neu-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2161,
+    2162,
+    2163,
+    2164,
+    2165,
+    2166,
+    2167,
+    2168,
+    2169,
+    2170
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-neu-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2171,
+    2172,
+    2173,
+    2174,
+    2175,
+    2176,
+    2177,
+    2178,
+    2179,
+    2180
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-neu-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2171,
+    2172,
+    2173,
+    2174,
+    2175,
+    2176,
+    2177,
+    2178,
+    2179,
+    2180
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-neu-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2181,
+    2182,
+    2183,
+    2184,
+    2185,
+    2186,
+    2187,
+    2188,
+    2189,
+    2190
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-neu-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2181,
+    2182,
+    2183,
+    2184,
+    2185,
+    2186,
+    2187,
+    2188,
+    2189,
+    2190
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-neu-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2191,
+    2192,
+    2193,
+    2194,
+    2195,
+    2196,
+    2197,
+    2198,
+    2199,
+    2200
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-neu-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2191,
+    2192,
+    2193,
+    2194,
+    2195,
+    2196,
+    2197,
+    2198,
+    2199,
+    2200
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-sem-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2201,
+    2202,
+    2203,
+    2204,
+    2205,
+    2206,
+    2207,
+    2208,
+    2209,
+    2210
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-sem-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2201,
+    2202,
+    2203,
+    2204,
+    2205,
+    2206,
+    2207,
+    2208,
+    2209,
+    2210
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-sem-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2211,
+    2212,
+    2213,
+    2214,
+    2215,
+    2216,
+    2217,
+    2218,
+    2219,
+    2220
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-sem-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2211,
+    2212,
+    2213,
+    2214,
+    2215,
+    2216,
+    2217,
+    2218,
+    2219,
+    2220
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-sem-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2221,
+    2222,
+    2223,
+    2224,
+    2225,
+    2226,
+    2227,
+    2228,
+    2229,
+    2230
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-sem-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2221,
+    2222,
+    2223,
+    2224,
+    2225,
+    2226,
+    2227,
+    2228,
+    2229,
+    2230
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-sem-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2231,
+    2232,
+    2233,
+    2234,
+    2235,
+    2236,
+    2237,
+    2238,
+    2239,
+    2240
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w1-sem-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2231,
+    2232,
+    2233,
+    2234,
+    2235,
+    2236,
+    2237,
+    2238,
+    2239,
+    2240
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-neu-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2241,
+    2242,
+    2243,
+    2244,
+    2245,
+    2246,
+    2247,
+    2248,
+    2249,
+    2250
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-neu-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2241,
+    2242,
+    2243,
+    2244,
+    2245,
+    2246,
+    2247,
+    2248,
+    2249,
+    2250
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-neu-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2251,
+    2252,
+    2253,
+    2254,
+    2255,
+    2256,
+    2257,
+    2258,
+    2259,
+    2260
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-neu-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2251,
+    2252,
+    2253,
+    2254,
+    2255,
+    2256,
+    2257,
+    2258,
+    2259,
+    2260
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-neu-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2261,
+    2262,
+    2263,
+    2264,
+    2265,
+    2266,
+    2267,
+    2268,
+    2269,
+    2270
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-neu-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2261,
+    2262,
+    2263,
+    2264,
+    2265,
+    2266,
+    2267,
+    2268,
+    2269,
+    2270
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-neu-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2271,
+    2272,
+    2273,
+    2274,
+    2275,
+    2276,
+    2277,
+    2278,
+    2279,
+    2280
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-neu-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2271,
+    2272,
+    2273,
+    2274,
+    2275,
+    2276,
+    2277,
+    2278,
+    2279,
+    2280
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-sem-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2281,
+    2282,
+    2283,
+    2284,
+    2285,
+    2286,
+    2287,
+    2288,
+    2289,
+    2290
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-sem-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2281,
+    2282,
+    2283,
+    2284,
+    2285,
+    2286,
+    2287,
+    2288,
+    2289,
+    2290
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-sem-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2291,
+    2292,
+    2293,
+    2294,
+    2295,
+    2296,
+    2297,
+    2298,
+    2299,
+    2300
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-sem-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2291,
+    2292,
+    2293,
+    2294,
+    2295,
+    2296,
+    2297,
+    2298,
+    2299,
+    2300
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-sem-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2301,
+    2302,
+    2303,
+    2304,
+    2305,
+    2306,
+    2307,
+    2308,
+    2309,
+    2310
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-sem-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2301,
+    2302,
+    2303,
+    2304,
+    2305,
+    2306,
+    2307,
+    2308,
+    2309,
+    2310
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-sem-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2311,
+    2312,
+    2313,
+    2314,
+    2315,
+    2316,
+    2317,
+    2318,
+    2319,
+    2320
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-aff-w2a-sem-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "aff",
+    "rr": 11,
+    "rs": 2,
+    "rt": 17,
+    "rp": 5,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2311,
+    2312,
+    2313,
+    2314,
+    2315,
+    2316,
+    2317,
+    2318,
+    2319,
+    2320
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-neu-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2321,
+    2322,
+    2323,
+    2324,
+    2325,
+    2326,
+    2327,
+    2328,
+    2329,
+    2330
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-neu-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2321,
+    2322,
+    2323,
+    2324,
+    2325,
+    2326,
+    2327,
+    2328,
+    2329,
+    2330
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-neu-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2331,
+    2332,
+    2333,
+    2334,
+    2335,
+    2336,
+    2337,
+    2338,
+    2339,
+    2340
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-neu-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2331,
+    2332,
+    2333,
+    2334,
+    2335,
+    2336,
+    2337,
+    2338,
+    2339,
+    2340
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-neu-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2341,
+    2342,
+    2343,
+    2344,
+    2345,
+    2346,
+    2347,
+    2348,
+    2349,
+    2350
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-neu-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2341,
+    2342,
+    2343,
+    2344,
+    2345,
+    2346,
+    2347,
+    2348,
+    2349,
+    2350
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-neu-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2351,
+    2352,
+    2353,
+    2354,
+    2355,
+    2356,
+    2357,
+    2358,
+    2359,
+    2360
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-neu-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2351,
+    2352,
+    2353,
+    2354,
+    2355,
+    2356,
+    2357,
+    2358,
+    2359,
+    2360
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-sem-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2361,
+    2362,
+    2363,
+    2364,
+    2365,
+    2366,
+    2367,
+    2368,
+    2369,
+    2370
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-sem-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2361,
+    2362,
+    2363,
+    2364,
+    2365,
+    2366,
+    2367,
+    2368,
+    2369,
+    2370
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-sem-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2371,
+    2372,
+    2373,
+    2374,
+    2375,
+    2376,
+    2377,
+    2378,
+    2379,
+    2380
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-sem-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2371,
+    2372,
+    2373,
+    2374,
+    2375,
+    2376,
+    2377,
+    2378,
+    2379,
+    2380
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-sem-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2381,
+    2382,
+    2383,
+    2384,
+    2385,
+    2386,
+    2387,
+    2388,
+    2389,
+    2390
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-sem-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2381,
+    2382,
+    2383,
+    2384,
+    2385,
+    2386,
+    2387,
+    2388,
+    2389,
+    2390
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-sem-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2391,
+    2392,
+    2393,
+    2394,
+    2395,
+    2396,
+    2397,
+    2398,
+    2399,
+    2400
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w1-sem-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2391,
+    2392,
+    2393,
+    2394,
+    2395,
+    2396,
+    2397,
+    2398,
+    2399,
+    2400
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-neu-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2401,
+    2402,
+    2403,
+    2404,
+    2405,
+    2406,
+    2407,
+    2408,
+    2409,
+    2410
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-neu-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2401,
+    2402,
+    2403,
+    2404,
+    2405,
+    2406,
+    2407,
+    2408,
+    2409,
+    2410
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-neu-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2411,
+    2412,
+    2413,
+    2414,
+    2415,
+    2416,
+    2417,
+    2418,
+    2419,
+    2420
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-neu-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2411,
+    2412,
+    2413,
+    2414,
+    2415,
+    2416,
+    2417,
+    2418,
+    2419,
+    2420
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-neu-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2421,
+    2422,
+    2423,
+    2424,
+    2425,
+    2426,
+    2427,
+    2428,
+    2429,
+    2430
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-neu-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2421,
+    2422,
+    2423,
+    2424,
+    2425,
+    2426,
+    2427,
+    2428,
+    2429,
+    2430
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-neu-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2431,
+    2432,
+    2433,
+    2434,
+    2435,
+    2436,
+    2437,
+    2438,
+    2439,
+    2440
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-neu-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2431,
+    2432,
+    2433,
+    2434,
+    2435,
+    2436,
+    2437,
+    2438,
+    2439,
+    2440
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-sem-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2441,
+    2442,
+    2443,
+    2444,
+    2445,
+    2446,
+    2447,
+    2448,
+    2449,
+    2450
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-sem-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2441,
+    2442,
+    2443,
+    2444,
+    2445,
+    2446,
+    2447,
+    2448,
+    2449,
+    2450
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-sem-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2451,
+    2452,
+    2453,
+    2454,
+    2455,
+    2456,
+    2457,
+    2458,
+    2459,
+    2460
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-sem-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2451,
+    2452,
+    2453,
+    2454,
+    2455,
+    2456,
+    2457,
+    2458,
+    2459,
+    2460
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-sem-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2461,
+    2462,
+    2463,
+    2464,
+    2465,
+    2466,
+    2467,
+    2468,
+    2469,
+    2470
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-sem-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2461,
+    2462,
+    2463,
+    2464,
+    2465,
+    2466,
+    2467,
+    2468,
+    2469,
+    2470
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-sem-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2471,
+    2472,
+    2473,
+    2474,
+    2475,
+    2476,
+    2477,
+    2478,
+    2479,
+    2480
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nva-w2a-sem-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nva",
+    "rr": 4,
+    "rs": 1,
+    "rt": 6,
+    "rp": 2,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2471,
+    2472,
+    2473,
+    2474,
+    2475,
+    2476,
+    2477,
+    2478,
+    2479,
+    2480
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-neu-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2481,
+    2482,
+    2483,
+    2484,
+    2485,
+    2486,
+    2487,
+    2488,
+    2489,
+    2490
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-neu-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2481,
+    2482,
+    2483,
+    2484,
+    2485,
+    2486,
+    2487,
+    2488,
+    2489,
+    2490
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-neu-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2491,
+    2492,
+    2493,
+    2494,
+    2495,
+    2496,
+    2497,
+    2498,
+    2499,
+    2500
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-neu-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2491,
+    2492,
+    2493,
+    2494,
+    2495,
+    2496,
+    2497,
+    2498,
+    2499,
+    2500
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-neu-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2501,
+    2502,
+    2503,
+    2504,
+    2505,
+    2506,
+    2507,
+    2508,
+    2509,
+    2510
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-neu-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2501,
+    2502,
+    2503,
+    2504,
+    2505,
+    2506,
+    2507,
+    2508,
+    2509,
+    2510
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-neu-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2511,
+    2512,
+    2513,
+    2514,
+    2515,
+    2516,
+    2517,
+    2518,
+    2519,
+    2520
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-neu-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2511,
+    2512,
+    2513,
+    2514,
+    2515,
+    2516,
+    2517,
+    2518,
+    2519,
+    2520
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-sem-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2521,
+    2522,
+    2523,
+    2524,
+    2525,
+    2526,
+    2527,
+    2528,
+    2529,
+    2530
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-sem-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2521,
+    2522,
+    2523,
+    2524,
+    2525,
+    2526,
+    2527,
+    2528,
+    2529,
+    2530
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-sem-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2531,
+    2532,
+    2533,
+    2534,
+    2535,
+    2536,
+    2537,
+    2538,
+    2539,
+    2540
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-sem-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2531,
+    2532,
+    2533,
+    2534,
+    2535,
+    2536,
+    2537,
+    2538,
+    2539,
+    2540
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-sem-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2541,
+    2542,
+    2543,
+    2544,
+    2545,
+    2546,
+    2547,
+    2548,
+    2549,
+    2550
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-sem-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2541,
+    2542,
+    2543,
+    2544,
+    2545,
+    2546,
+    2547,
+    2548,
+    2549,
+    2550
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-sem-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2551,
+    2552,
+    2553,
+    2554,
+    2555,
+    2556,
+    2557,
+    2558,
+    2559,
+    2560
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w1-sem-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w1-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2551,
+    2552,
+    2553,
+    2554,
+    2555,
+    2556,
+    2557,
+    2558,
+    2559,
+    2560
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-neu-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2561,
+    2562,
+    2563,
+    2564,
+    2565,
+    2566,
+    2567,
+    2568,
+    2569,
+    2570
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-neu-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2561,
+    2562,
+    2563,
+    2564,
+    2565,
+    2566,
+    2567,
+    2568,
+    2569,
+    2570
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-neu-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2571,
+    2572,
+    2573,
+    2574,
+    2575,
+    2576,
+    2577,
+    2578,
+    2579,
+    2580
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-neu-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2571,
+    2572,
+    2573,
+    2574,
+    2575,
+    2576,
+    2577,
+    2578,
+    2579,
+    2580
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-neu-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2581,
+    2582,
+    2583,
+    2584,
+    2585,
+    2586,
+    2587,
+    2588,
+    2589,
+    2590
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-neu-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2581,
+    2582,
+    2583,
+    2584,
+    2585,
+    2586,
+    2587,
+    2588,
+    2589,
+    2590
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-neu-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2591,
+    2592,
+    2593,
+    2594,
+    2595,
+    2596,
+    2597,
+    2598,
+    2599,
+    2600
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-neu-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-neu-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2591,
+    2592,
+    2593,
+    2594,
+    2595,
+    2596,
+    2597,
+    2598,
+    2599,
+    2600
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-sem-cf-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2601,
+    2602,
+    2603,
+    2604,
+    2605,
+    2606,
+    2607,
+    2608,
+    2609,
+    2610
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-sem-cf-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2601,
+    2602,
+    2603,
+    2604,
+    2605,
+    2606,
+    2607,
+    2608,
+    2609,
+    2610
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-sem-cf-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2611,
+    2612,
+    2613,
+    2614,
+    2615,
+    2616,
+    2617,
+    2618,
+    2619,
+    2620
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-sem-cf-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-cf-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2611,
+    2612,
+    2613,
+    2614,
+    2615,
+    2616,
+    2617,
+    2618,
+    2619,
+    2620
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-sem-df-ad-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2621,
+    2622,
+    2623,
+    2624,
+    2625,
+    2626,
+    2627,
+    2628,
+    2629,
+    2630
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-sem-df-ad-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2621,
+    2622,
+    2623,
+    2624,
+    2625,
+    2626,
+    2627,
+    2628,
+    2629,
+    2630
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-sem-df-pm-gpt",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2631,
+    2632,
+    2633,
+    2634,
+    2635,
+    2636,
+    2637,
+    2638,
+    2639,
+    2640
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d1-nvb-w2a-sem-df-pm-cvx",
+   "block": "D1",
+   "templateId": "pd-os-w2a-sem-df-pm",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "nvb",
+    "rr": 7,
+    "rs": 2,
+    "rt": 9,
+    "rp": 3,
+    "labelRoleMap": "aligned"
+   },
+   "episodes": 10,
+   "seeds": [
+    2631,
+    2632,
+    2633,
+    2634,
+    2635,
+    2636,
+    2637,
+    2638,
+    2639,
+    2640
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w1-can-al-gpt",
+   "block": "D2",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2641,
+    2642,
+    2643,
+    2644,
+    2645,
+    2646,
+    2647,
+    2648,
+    2649,
+    2650,
+    2651,
+    2652,
+    2653,
+    2654,
+    2655,
+    2656,
+    2657,
+    2658,
+    2659,
+    2660
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w1-can-al-cvx",
+   "block": "D2",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2641,
+    2642,
+    2643,
+    2644,
+    2645,
+    2646,
+    2647,
+    2648,
+    2649,
+    2650,
+    2651,
+    2652,
+    2653,
+    2654,
+    2655,
+    2656,
+    2657,
+    2658,
+    2659,
+    2660
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w1-can-sw-gpt",
+   "block": "D2",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "swapped",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2661,
+    2662,
+    2663,
+    2664,
+    2665,
+    2666,
+    2667,
+    2668,
+    2669,
+    2670,
+    2671,
+    2672,
+    2673,
+    2674,
+    2675,
+    2676,
+    2677,
+    2678,
+    2679,
+    2680
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w1-can-sw-cvx",
+   "block": "D2",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "swapped",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2661,
+    2662,
+    2663,
+    2664,
+    2665,
+    2666,
+    2667,
+    2668,
+    2669,
+    2670,
+    2671,
+    2672,
+    2673,
+    2674,
+    2675,
+    2676,
+    2677,
+    2678,
+    2679,
+    2680
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w1-cfd-al-gpt",
+   "block": "D2",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "cfd",
+    "rr": 5,
+    "rs": 4,
+    "rt": 3,
+    "rp": 1,
+    "labelRoleMap": "aligned",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2681,
+    2682,
+    2683,
+    2684,
+    2685,
+    2686,
+    2687,
+    2688,
+    2689,
+    2690,
+    2691,
+    2692,
+    2693,
+    2694,
+    2695,
+    2696,
+    2697,
+    2698,
+    2699,
+    2700
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w1-cfd-al-cvx",
+   "block": "D2",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "cfd",
+    "rr": 5,
+    "rs": 4,
+    "rt": 3,
+    "rp": 1,
+    "labelRoleMap": "aligned",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2681,
+    2682,
+    2683,
+    2684,
+    2685,
+    2686,
+    2687,
+    2688,
+    2689,
+    2690,
+    2691,
+    2692,
+    2693,
+    2694,
+    2695,
+    2696,
+    2697,
+    2698,
+    2699,
+    2700
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w1-cfd-sw-gpt",
+   "block": "D2",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "cfd",
+    "rr": 5,
+    "rs": 4,
+    "rt": 3,
+    "rp": 1,
+    "labelRoleMap": "swapped",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2701,
+    2702,
+    2703,
+    2704,
+    2705,
+    2706,
+    2707,
+    2708,
+    2709,
+    2710,
+    2711,
+    2712,
+    2713,
+    2714,
+    2715,
+    2716,
+    2717,
+    2718,
+    2719,
+    2720
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w1-cfd-sw-cvx",
+   "block": "D2",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "cfd",
+    "rr": 5,
+    "rs": 4,
+    "rt": 3,
+    "rp": 1,
+    "labelRoleMap": "swapped",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2701,
+    2702,
+    2703,
+    2704,
+    2705,
+    2706,
+    2707,
+    2708,
+    2709,
+    2710,
+    2711,
+    2712,
+    2713,
+    2714,
+    2715,
+    2716,
+    2717,
+    2718,
+    2719,
+    2720
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w2a-can-al-gpt",
+   "block": "D2",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2721,
+    2722,
+    2723,
+    2724,
+    2725,
+    2726,
+    2727,
+    2728,
+    2729,
+    2730,
+    2731,
+    2732,
+    2733,
+    2734,
+    2735,
+    2736,
+    2737,
+    2738,
+    2739,
+    2740
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w2a-can-al-cvx",
+   "block": "D2",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "aligned",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2721,
+    2722,
+    2723,
+    2724,
+    2725,
+    2726,
+    2727,
+    2728,
+    2729,
+    2730,
+    2731,
+    2732,
+    2733,
+    2734,
+    2735,
+    2736,
+    2737,
+    2738,
+    2739,
+    2740
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w2a-can-sw-gpt",
+   "block": "D2",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "swapped",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2741,
+    2742,
+    2743,
+    2744,
+    2745,
+    2746,
+    2747,
+    2748,
+    2749,
+    2750,
+    2751,
+    2752,
+    2753,
+    2754,
+    2755,
+    2756,
+    2757,
+    2758,
+    2759,
+    2760
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w2a-can-sw-cvx",
+   "block": "D2",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "labelRoleMap": "swapped",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2741,
+    2742,
+    2743,
+    2744,
+    2745,
+    2746,
+    2747,
+    2748,
+    2749,
+    2750,
+    2751,
+    2752,
+    2753,
+    2754,
+    2755,
+    2756,
+    2757,
+    2758,
+    2759,
+    2760
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w2a-cfd-al-gpt",
+   "block": "D2",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "cfd",
+    "rr": 5,
+    "rs": 4,
+    "rt": 3,
+    "rp": 1,
+    "labelRoleMap": "aligned",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2761,
+    2762,
+    2763,
+    2764,
+    2765,
+    2766,
+    2767,
+    2768,
+    2769,
+    2770,
+    2771,
+    2772,
+    2773,
+    2774,
+    2775,
+    2776,
+    2777,
+    2778,
+    2779,
+    2780
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w2a-cfd-al-cvx",
+   "block": "D2",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "cfd",
+    "rr": 5,
+    "rs": 4,
+    "rt": 3,
+    "rp": 1,
+    "labelRoleMap": "aligned",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2761,
+    2762,
+    2763,
+    2764,
+    2765,
+    2766,
+    2767,
+    2768,
+    2769,
+    2770,
+    2771,
+    2772,
+    2773,
+    2774,
+    2775,
+    2776,
+    2777,
+    2778,
+    2779,
+    2780
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w2a-cfd-sw-gpt",
+   "block": "D2",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "cfd",
+    "rr": 5,
+    "rs": 4,
+    "rt": 3,
+    "rp": 1,
+    "labelRoleMap": "swapped",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2781,
+    2782,
+    2783,
+    2784,
+    2785,
+    2786,
+    2787,
+    2788,
+    2789,
+    2790,
+    2791,
+    2792,
+    2793,
+    2794,
+    2795,
+    2796,
+    2797,
+    2798,
+    2799,
+    2800
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d2-w2a-cfd-sw-cvx",
+   "block": "D2",
+   "templateId": "pd-os-w2a-sem-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "cfd",
+    "rr": 5,
+    "rs": 4,
+    "rt": 3,
+    "rp": 1,
+    "labelRoleMap": "swapped",
+    "note": "swapped: the word COOPERATE displays the defection-role; payoff values bound to displayed words via the role map; parser records the DISPLAYED choice; strategic role derived in analysis from this binding"
+   },
+   "episodes": 20,
+   "seeds": [
+    2781,
+    2782,
+    2783,
+    2784,
+    2785,
+    2786,
+    2787,
+    2788,
+    2789,
+    2790,
+    2791,
+    2792,
+    2793,
+    2794,
+    2795,
+    2796,
+    2797,
+    2798,
+    2799,
+    2800
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord1-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2801,
+    2802
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord1-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2801,
+    2802
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord2-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2803,
+    2804
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord2-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2803,
+    2804
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord3-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2805,
+    2806
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord3-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2805,
+    2806
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord4-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2807,
+    2808
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord4-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2807,
+    2808
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord5-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2809,
+    2810
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord5-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2809,
+    2810
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord6-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2811,
+    2812
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map1-ord6-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "paper",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2811,
+    2812
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord1-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2813,
+    2814
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord1-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2813,
+    2814
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord2-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2815,
+    2816
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord2-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2815,
+    2816
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord3-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2817,
+    2818
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord3-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2817,
+    2818
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord4-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2819,
+    2820
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord4-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2819,
+    2820
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord5-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2821,
+    2822
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord5-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2821,
+    2822
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord6-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2823,
+    2824
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map2-ord6-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "rock",
+     "Y": "scissors",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2823,
+    2824
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord1-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2825,
+    2826
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord1-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2825,
+    2826
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord2-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2827,
+    2828
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord2-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2827,
+    2828
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord3-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2829,
+    2830
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord3-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2829,
+    2830
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord4-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2831,
+    2832
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord4-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2831,
+    2832
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord5-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2833,
+    2834
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord5-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2833,
+    2834
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord6-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2835,
+    2836
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map3-ord6-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "rock",
+     "Z": "scissors"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2835,
+    2836
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord1-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2837,
+    2838
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord1-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2837,
+    2838
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord2-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2839,
+    2840
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord2-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2839,
+    2840
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord3-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2841,
+    2842
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord3-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2841,
+    2842
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord4-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2843,
+    2844
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord4-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2843,
+    2844
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord5-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2845,
+    2846
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord5-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2845,
+    2846
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord6-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2847,
+    2848
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map4-ord6-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "paper",
+     "Y": "scissors",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2847,
+    2848
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord1-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2849,
+    2850
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord1-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2849,
+    2850
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord2-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2851,
+    2852
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord2-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2851,
+    2852
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord3-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2853,
+    2854
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord3-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2853,
+    2854
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord4-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2855,
+    2856
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord4-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2855,
+    2856
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord5-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2857,
+    2858
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord5-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2857,
+    2858
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord6-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2859,
+    2860
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map5-ord6-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "rock",
+     "Z": "paper"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2859,
+    2860
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord1-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2861,
+    2862
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord1-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "X",
+     "Y",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2861,
+    2862
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord2-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2863,
+    2864
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord2-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "X",
+     "Z",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2863,
+    2864
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord3-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2865,
+    2866
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord3-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Y",
+     "X",
+     "Z"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2865,
+    2866
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord4-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2867,
+    2868
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord4-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Y",
+     "Z",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2867,
+    2868
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord5-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2869,
+    2870
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord5-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Z",
+     "X",
+     "Y"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2869,
+    2870
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord6-gpt",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2871,
+    2872
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-d3-map6-ord6-cvx",
+   "block": "D3",
+   "templateId": "rps-sym-v1",
+   "game": "RPS 1-round self-play",
+   "bindings": {
+    "roleMapping": {
+     "X": "scissors",
+     "Y": "paper",
+     "Z": "rock"
+    },
+    "displayOrder": [
+     "Z",
+     "Y",
+     "X"
+    ],
+    "renderRule": "optList = displayOrder joined with ', ' and final ' or '; beatsLine derived from roleMapping via the fixed sentence '<winner> beats <loser>' over the three beat relations in display order"
+   },
+   "episodes": 2,
+   "seeds": [
+    2871,
+    2872
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-e-community-d10-gpt",
+   "block": "E",
+   "templateId": "pd-rep-community-w1",
+   "game": "repeated PD self-play, geometric horizon cap 120",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 20,
+   "seeds": [
+    2873,
+    2874,
+    2875,
+    2876,
+    2877,
+    2878,
+    2879,
+    2880,
+    2881,
+    2882,
+    2883,
+    2884,
+    2885,
+    2886,
+    2887,
+    2888,
+    2889,
+    2890,
+    2891,
+    2892
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": 10
+  },
+  {
+   "armId": "p4-e-community-d10-cvx",
+   "block": "E",
+   "templateId": "pd-rep-community-w1",
+   "game": "repeated PD self-play, geometric horizon cap 120",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 20,
+   "seeds": [
+    2873,
+    2874,
+    2875,
+    2876,
+    2877,
+    2878,
+    2879,
+    2880,
+    2881,
+    2882,
+    2883,
+    2884,
+    2885,
+    2886,
+    2887,
+    2888,
+    2889,
+    2890,
+    2891,
+    2892
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": 10
+  },
+  {
+   "armId": "p4-e-community-d90-gpt",
+   "block": "E",
+   "templateId": "pd-rep-community-w1",
+   "game": "repeated PD self-play, geometric horizon cap 120",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 20,
+   "seeds": [
+    2893,
+    2894,
+    2895,
+    2896,
+    2897,
+    2898,
+    2899,
+    2900,
+    2901,
+    2902,
+    2903,
+    2904,
+    2905,
+    2906,
+    2907,
+    2908,
+    2909,
+    2910,
+    2911,
+    2912
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-e-community-d90-cvx",
+   "block": "E",
+   "templateId": "pd-rep-community-w1",
+   "game": "repeated PD self-play, geometric horizon cap 120",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 20,
+   "seeds": [
+    2893,
+    2894,
+    2895,
+    2896,
+    2897,
+    2898,
+    2899,
+    2900,
+    2901,
+    2902,
+    2903,
+    2904,
+    2905,
+    2906,
+    2907,
+    2908,
+    2909,
+    2910,
+    2911,
+    2912
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-e-dselected-d10-gpt",
+   "block": "E",
+   "templateId": "RESOLVED-BY-D1-SELECTION(pd-rep-*)",
+   "game": "repeated PD self-play, geometric horizon cap 120",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "selectionRule": "D1 cell (primary-model data only) with episode-level round-1 cooperation nearest 0.5; tie-break lowest sealed arm ID; repeated-family counterpart of the selected one-shot template; selection written to event store before any E run"
+   },
+   "episodes": 20,
+   "seeds": [
+    2913,
+    2914,
+    2915,
+    2916,
+    2917,
+    2918,
+    2919,
+    2920,
+    2921,
+    2922,
+    2923,
+    2924,
+    2925,
+    2926,
+    2927,
+    2928,
+    2929,
+    2930,
+    2931,
+    2932
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": 10
+  },
+  {
+   "armId": "p4-e-dselected-d10-cvx",
+   "block": "E",
+   "templateId": "RESOLVED-BY-D1-SELECTION(pd-rep-*)",
+   "game": "repeated PD self-play, geometric horizon cap 120",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "selectionRule": "D1 cell (primary-model data only) with episode-level round-1 cooperation nearest 0.5; tie-break lowest sealed arm ID; repeated-family counterpart of the selected one-shot template; selection written to event store before any E run"
+   },
+   "episodes": 20,
+   "seeds": [
+    2913,
+    2914,
+    2915,
+    2916,
+    2917,
+    2918,
+    2919,
+    2920,
+    2921,
+    2922,
+    2923,
+    2924,
+    2925,
+    2926,
+    2927,
+    2928,
+    2929,
+    2930,
+    2931,
+    2932
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": 10
+  },
+  {
+   "armId": "p4-e-dselected-d90-gpt",
+   "block": "E",
+   "templateId": "RESOLVED-BY-D1-SELECTION(pd-rep-*)",
+   "game": "repeated PD self-play, geometric horizon cap 120",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "selectionRule": "D1 cell (primary-model data only) with episode-level round-1 cooperation nearest 0.5; tie-break lowest sealed arm ID; repeated-family counterpart of the selected one-shot template; selection written to event store before any E run"
+   },
+   "episodes": 20,
+   "seeds": [
+    2933,
+    2934,
+    2935,
+    2936,
+    2937,
+    2938,
+    2939,
+    2940,
+    2941,
+    2942,
+    2943,
+    2944,
+    2945,
+    2946,
+    2947,
+    2948,
+    2949,
+    2950,
+    2951,
+    2952
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-e-dselected-d90-cvx",
+   "block": "E",
+   "templateId": "RESOLVED-BY-D1-SELECTION(pd-rep-*)",
+   "game": "repeated PD self-play, geometric horizon cap 120",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "selectionRule": "D1 cell (primary-model data only) with episode-level round-1 cooperation nearest 0.5; tie-break lowest sealed arm ID; repeated-family counterpart of the selected one-shot template; selection written to event store before any E run"
+   },
+   "episodes": 20,
+   "seeds": [
+    2933,
+    2934,
+    2935,
+    2936,
+    2937,
+    2938,
+    2939,
+    2940,
+    2941,
+    2942,
+    2943,
+    2944,
+    2945,
+    2946,
+    2947,
+    2948,
+    2949,
+    2950,
+    2951,
+    2952
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-f1",
+   "block": "X2-screening",
+   "templateId": "pd-x2-f1",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-r1",
+   "block": "X2-screening",
+   "templateId": "pd-x2-r1",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-f2",
+   "block": "X2-screening",
+   "templateId": "pd-x2-f2",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-r2",
+   "block": "X2-screening",
+   "templateId": "pd-x2-r2",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-f3",
+   "block": "X2-screening",
+   "templateId": "pd-x2-f3",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-r3",
+   "block": "X2-screening",
+   "templateId": "pd-x2-r3",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-f4",
+   "block": "X2-screening",
+   "templateId": "pd-x2-f4",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-r4",
+   "block": "X2-screening",
+   "templateId": "pd-x2-r4",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-f5",
+   "block": "X2-screening",
+   "templateId": "pd-x2-f5",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-r5",
+   "block": "X2-screening",
+   "templateId": "pd-x2-r5",
+   "game": "repeated PD self-play, δ=.90, X1-matched horizons",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1
+   },
+   "episodes": 10,
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "seedNote": "X1 environment-seed list (first 10) with matched horizon draws",
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-conf-lo",
+   "block": "X2-confirmation",
+   "templateId": "RESOLVED-BY-SCREENING(minimal pair)",
+   "game": "repeated PD self-play, δ=.90",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "rule": "exact minimal pair around the selected span; fresh seeds; runs only if screening finds an adjacent |Δ| ≥ 0.50"
+   },
+   "episodes": 20,
+   "seeds": [
+    2953,
+    2954,
+    2955,
+    2956,
+    2957,
+    2958,
+    2959,
+    2960,
+    2961,
+    2962,
+    2963,
+    2964,
+    2965,
+    2966,
+    2967,
+    2968,
+    2969,
+    2970,
+    2971,
+    2972
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-x2-conf-hi",
+   "block": "X2-confirmation",
+   "templateId": "RESOLVED-BY-SCREENING(minimal pair)",
+   "game": "repeated PD self-play, δ=.90",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "rule": "exact minimal pair around the selected span; fresh seeds; runs only if screening finds an adjacent |Δ| ≥ 0.50"
+   },
+   "episodes": 20,
+   "seeds": [
+    2953,
+    2954,
+    2955,
+    2956,
+    2957,
+    2958,
+    2959,
+    2960,
+    2961,
+    2962,
+    2963,
+    2964,
+    2965,
+    2966,
+    2967,
+    2968,
+    2969,
+    2970,
+    2971,
+    2972
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-f-fo-tracker-gpt",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "fo-tracker",
+    "rounds": 50,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    2973,
+    2974,
+    2975,
+    2976,
+    2977,
+    2978,
+    2979,
+    2980,
+    2981,
+    2982,
+    2983,
+    2984,
+    2985,
+    2986,
+    2987,
+    2988,
+    2989,
+    2990,
+    2991,
+    2992
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-fo-tracker-cvx",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "fo-tracker",
+    "rounds": 50,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    2973,
+    2974,
+    2975,
+    2976,
+    2977,
+    2978,
+    2979,
+    2980,
+    2981,
+    2982,
+    2983,
+    2984,
+    2985,
+    2986,
+    2987,
+    2988,
+    2989,
+    2990,
+    2991,
+    2992
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-ngram2-gpt",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "ngram2",
+    "rounds": 50,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    2993,
+    2994,
+    2995,
+    2996,
+    2997,
+    2998,
+    2999,
+    3000,
+    3001,
+    3002,
+    3003,
+    3004,
+    3005,
+    3006,
+    3007,
+    3008,
+    3009,
+    3010,
+    3011,
+    3012
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-ngram2-cvx",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "ngram2",
+    "rounds": 50,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    2993,
+    2994,
+    2995,
+    2996,
+    2997,
+    2998,
+    2999,
+    3000,
+    3001,
+    3002,
+    3003,
+    3004,
+    3005,
+    3006,
+    3007,
+    3008,
+    3009,
+    3010,
+    3011,
+    3012
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-ngram3-gpt",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "ngram3",
+    "rounds": 50,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    3013,
+    3014,
+    3015,
+    3016,
+    3017,
+    3018,
+    3019,
+    3020,
+    3021,
+    3022,
+    3023,
+    3024,
+    3025,
+    3026,
+    3027,
+    3028,
+    3029,
+    3030,
+    3031,
+    3032
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-wsls-targeter-gpt",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "wsls-targeter",
+    "rounds": 50,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    3033,
+    3034,
+    3035,
+    3036,
+    3037,
+    3038,
+    3039,
+    3040,
+    3041,
+    3042,
+    3043,
+    3044,
+    3045,
+    3046,
+    3047,
+    3048,
+    3049,
+    3050,
+    3051,
+    3052
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-wsls-targeter-cvx",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "wsls-targeter",
+    "rounds": 50,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    3033,
+    3034,
+    3035,
+    3036,
+    3037,
+    3038,
+    3039,
+    3040,
+    3041,
+    3042,
+    3043,
+    3044,
+    3045,
+    3046,
+    3047,
+    3048,
+    3049,
+    3050,
+    3051,
+    3052
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-switcher-r26-gpt",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "switcher-r26",
+    "rounds": 50,
+    "switchRound": 26,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    3053,
+    3054,
+    3055,
+    3056,
+    3057,
+    3058,
+    3059,
+    3060,
+    3061,
+    3062,
+    3063,
+    3064,
+    3065,
+    3066,
+    3067,
+    3068,
+    3069,
+    3070,
+    3071,
+    3072
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-switcher-r26-cvx",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "switcher-r26",
+    "rounds": 50,
+    "switchRound": 26,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    3053,
+    3054,
+    3055,
+    3056,
+    3057,
+    3058,
+    3059,
+    3060,
+    3061,
+    3062,
+    3063,
+    3064,
+    3065,
+    3066,
+    3067,
+    3068,
+    3069,
+    3070,
+    3071,
+    3072
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-shuffled-history-gpt",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "shuffled-history",
+    "rounds": 50,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    3073,
+    3074,
+    3075,
+    3076,
+    3077,
+    3078,
+    3079,
+    3080,
+    3081,
+    3082,
+    3083,
+    3084,
+    3085,
+    3086,
+    3087,
+    3088,
+    3089,
+    3090,
+    3091,
+    3092
+   ],
+   "model": "gpt-4.1",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-f-shuffled-history-cvx",
+   "block": "F",
+   "templateId": "rps-v1",
+   "game": "RPS 50 rounds vs engine adversary",
+   "bindings": {
+    "opponent": "shuffled-history",
+    "rounds": 50,
+    "signConvention": "reported payoff = ADVERSARY per-round payoff against the subject; positive = adversary exploits subject"
+   },
+   "episodes": 20,
+   "seeds": [
+    3073,
+    3074,
+    3075,
+    3076,
+    3077,
+    3078,
+    3079,
+    3080,
+    3081,
+    3082,
+    3083,
+    3084,
+    3085,
+    3086,
+    3087,
+    3088,
+    3089,
+    3090,
+    3091,
+    3092
+   ],
+   "model": "claude-haiku-4-5",
+   "deltaPct": null
+  },
+  {
+   "armId": "p4-sent-v1",
+   "block": "sentinel",
+   "templateId": "pd-repeated-v1",
+   "game": "repeated PD self-play, horizon forced to 1 (round-1 fingerprint)",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "monitoringOnly": true,
+    "note": "never pooled into experimental inference; third cell switches to the D-selected representation once written to the event store"
+   },
+   "episodes": 10,
+   "seeds": "per-check: 9001+checkIndex*10 … +9",
+   "model": "per-check: each subject model",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-sent-v2a",
+   "block": "sentinel",
+   "templateId": "pd-repeated-v2a",
+   "game": "repeated PD self-play, horizon forced to 1 (round-1 fingerprint)",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "monitoringOnly": true,
+    "note": "never pooled into experimental inference; third cell switches to the D-selected representation once written to the event store"
+   },
+   "episodes": 10,
+   "seeds": "per-check: 9001+checkIndex*10 … +9",
+   "model": "per-check: each subject model",
+   "deltaPct": 90
+  },
+  {
+   "armId": "p4-sent-fallback",
+   "block": "sentinel",
+   "templateId": "pd-os-w1-neu-cf-ad",
+   "game": "one-shot PD self-play",
+   "bindings": {
+    "matrix": "can",
+    "rr": 3,
+    "rs": 0,
+    "rt": 5,
+    "rp": 1,
+    "monitoringOnly": true,
+    "note": "never pooled into experimental inference; third cell switches to the D-selected representation once written to the event store"
+   },
+   "episodes": 10,
+   "seeds": "per-check: 9001+checkIndex*10 … +9",
+   "model": "per-check: each subject model",
+   "deltaPct": null
+  }
+ ]
+}

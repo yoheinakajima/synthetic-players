@@ -1,0 +1,47 @@
+Phase 4 prompt for Replit agent
+
+Context: you're finishing the Phase 3 follow-ups (δ-in-prompt check, extra models, persona arm). This is the next block, shaped by an external methods review. We haven't published yet, and the bar is a contribution that isn't an adjusted repeat of prior work: repeated PD with δ sweeps and framing across multiple LLMs already exists, and so do label/payoff perturbation studies. What doesn't exist is the instrument we've been building: a preregistered, mechanically adjudicated, externally anchored protocol for deciding whether a specific model-policy deployment can stand in for human subjects. Everything below serves that. One scope decision is now fixed: the paper ships with zero human data. The claim is the validation protocol plus a boundary study of specific model-policy deployments — substitution validity is explicitly out of scope for paper 1 and framed as a registered follow-on. Every publishable claim must come from machine-side experiments. Nothing below edits Phase 3 results; retrofits are additive and labeled post-hoc.
+
+1. Report retrofit: two-layer verdicts
+
+Registered verdicts stay immutable. Add a second layer per claim: an estimand-aware statistical interpretation, clearly separated from the mechanical verdict.
+
+All-zero cells get exact Clopper-Pearson intervals at the run level, not "sd=0, no CI needed." Zero observed cooperation in 20 runs bounds the policy rate near 14-17%, it doesn't establish zero. The corpus statement stays exact; the policy statement gets the interval.
+Every predicate gets a unit-of-analysis row: raw decision count, run-seat count, independent run count, cluster level, CI method. C2 especially — resolve whether n=61 is nested decisions or run summaries, and recompute with a cluster bootstrap that resamples whole trajectories.
+Where one arm has zero variance (B1), supplement Welch with a run-level permutation test.
+Language fixes throughout: "exploitability" becomes "performance against the registered first-order tracker"; "20 seeded replicates" becomes "20 environment-seeded episodes with archived model draws" (provider-side sampling isn't seeded and we shouldn't imply it is); A4(b) gets flagged as non-diagnostic at the behavioral floor; "no shadow of the future — at all" becomes "no round-1 cooperation observed under any tested δ in this configuration."
+Provenance additions on every run: exact provider model revision (not alias), response IDs, decoding params, parser version, code commit, adjudicator version.
+Anchor the prereg registry SHA externally — GitHub release plus a signed timestamp or transparency log. A hash proves content identity; only an external anchor proves chronology.
+Drift sentinel: a small fixed cell (10 one-shot PD calls per framing condition) reruns live on a weekly schedule and stores distributional distance over time. Replay proves what happened; the sentinel tells us whether the deployed subject is still the same subject.
+Retitle toward "Can an LLM Serve as a Behavioral Subject? A Preregistered Validation Study in Strategic Games." Related work must cite the repeated-games-with-LLMs literature honestly (the 2025 Nature Human Behaviour paper, the 2026 five-model PD preprint, the counterfactual-games workshop line) and position us as building the validation and audit machinery they lack, not as discovering that LLMs play PD. The paper's closing claim: a highly auditable LLM deployment produced stable, interpretable behavioral signatures but failed preregistered incentive-sensitivity and human-reference tests, demonstrating why subject substitution must be validated per model-policy, task, and estimand — with the matched human comparison registered and pending, not run.
+2. Experiment D: representation-robustness battery
+
+The affine isomorph was too weak — it preserved labels, order, framing, and the recognizable PD shape. Build a crossed battery:
+
+PD factors: {canonical payoffs, affine transform, novel same-class matrices} × {semantic action labels, neutral symbols} × randomized option order × row/column permutation.
+Counterfactual games: keep the PD story and labels but change payoffs so cooperation strictly dominates, and one variant where the equilibrium flips. The question is whether the model follows the numbers or the story. Prior work says models keep canonical strategies when payoffs change; our battery should catch exactly that.
+RPS counterbalancing: map {rock, paper, scissors} to randomized neutral symbols {X, Y, Z} with independently randomized display order. Decompose P(rock-role) from P(first-listed option) from P(token) from P(symbol). This decides whether the 80% rock finding is a strategic bias or a presentation artifact, and it's cheap.
+Full cross may explode. Before freezing, give me the cell count and a proposed fractional design with which interactions we sacrifice.
+3. Experiment E: δ off the floor
+
+This is the paper-critical experiment. Phase 3's δ null has no assay sensitivity: cooperation was at floor everywhere, so incentive-insensitivity and floor artifact are confounded. Fix it by testing δ where cooperation is measurable:
+
+Cross δ ∈ {0.10, 0.90} with the Community framing (known to elicit 17.5%) and with whichever representation from Experiment D elicits the most cooperation.
+Preregister: within-condition round-1 cooperation slope in δ > 0.
+If cooperation is off-floor and still δ-flat, incentive-insensitivity is established with assay sensitivity — the strongest version of the finding. If a slope appears, the Phase 3 null was a floor artifact and human-likeness lives partly in the framing. Either outcome is the central figure of the paper.
+4. Experiment F: adversary suite
+
+The tracker sign reversal is descriptive, not evidence of strategic exploitation. Resolve it:
+
+Opponents: order-2 and order-3 n-gram trackers; an outcome-conditioned adversary that targets win-stay/lose-shift play; a tracker that switches policy mid-episode; a shuffled-history control.
+Preregister the prediction: the WSLS-targeting adversary heavily exploits the LLM, because P(shift|lose) = 0.974 is nearly deterministic. If that holds while the LLM beats the first-order tracker, the Phase 3 reversal was structural, not strategic, and we say so.
+All results reported as "performance against adversary X," never "exploitability" unbranded.
+5. Post-publication track: human-arm scaffold (not a paper dependency)
+
+We are publishing without human data, so nothing in the paper may depend on this section. Two pieces still matter, in this order:
+
+Register the substitution estimand now, run it later: D = Δ_agent − Δ_human on the framing effect and the δ slope, equivalence margin ε set at sign-off, with a power analysis for human n per cell at that ε. Registering before publication costs nothing and lets the paper cite the substitution study as registered-and-pending instead of hand-waved future work.
+The browser participant interface (same engine and event store, yoked fixed opponents identical to the agent arm, session codes, consent screen, no PII in the store, byte-verified human sessions) is build-if-time-allows, strictly after sections 1 through 4 are done. A Prolific-ready URL at publication is nice to have, not a gate.
+6. Scope, order, gates
+
+Priority: retrofit (1) first, then D and E together, then F. The human scaffold is strictly last and optional; the estimand registration in section 5 is the only part of it that happens before publication. Run D, E, F on the primary subject plus at least one cross-vendor model from the expansion you're finishing; full model grid only if budget allows. Same discipline as before: predicates, thresholds, cell counts, and total call estimate come to me for sign-off before anything runs. Predicates freeze first. Phase 3 stays untouched except the labeled two-layer additions.

@@ -35,3 +35,7 @@ description: Quirks of the activegraph package (v1.10.x) and the Python game eng
   burning real provider calls — and failed rows carry no runMeta, so the burned
   calls become invisible to budget accounting. Give the LLM-run route its own
   `Agent({ headersTimeout, bodyTimeout })` of an hour+.
+
+## Event-store extraction traps
+- Don't guess payload field names — print one event's keys first (an assumed-name extraction returned `<NOFIELD>` for a whole corpus). Numeric-looking fields may be strings: cast before arithmetic.
+- The store archives more than you'd expect (full rendered messages, raw completions): check what's already captured before declaring a provenance gap or re-running anything.

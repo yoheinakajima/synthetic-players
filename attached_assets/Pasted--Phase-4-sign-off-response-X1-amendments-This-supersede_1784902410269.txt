@@ -1,0 +1,997 @@
+# Phase 4 sign-off response + X1 amendments
+
+This supersedes the earlier addendum.
+
+**Verdict: approved with amendments, but not yet authorized to run.** The proposal was written before Extension X1 landed, and X1 changes both the paper’s headline and the design requirements. Fold in everything below, then return the complete freeze packet for one-line approval.
+
+No new LLM calls may occur before that approval. Static prompt diffs, analysis of already stored trajectories, engine work, registry construction, and provider-path tests that do not call a subject model are permitted.
+
+Phase 3 and X1 remain untouched. Their registered predicates and mechanical verdicts are historical records and must not be rewritten.
+
+---
+
+# 1. Scientific positioning
+
+X1 is now the flagship result.
+
+The defensible conclusion is:
+
+> For this fixed GPT-4.1 deployment and repeated-PD task, meaning-preserving prompt rewording moved observed behavior from one corner to the opposite corner. A single prompt therefore identifies the behavior of that prompt–model configuration, not a representation-invariant behavioral property of the model.
+
+Do **not** state categorically that behavior is “not incentive-determined.” X1 establishes overwhelming prompt-surface sensitivity and overturns the Phase 3 incentive-insensitivity interpretation, but it does not yet establish that incentives cannot matter under other wording. D2 and E are designed to test that stronger proposition.
+
+Preferred headline language:
+
+> **Prompt wording dominated the tested incentive manipulation and rendered single-wording behavioral inference non-identifiable.**
+
+A broader methodological statement is permitted:
+
+> Any behavioral claim intended to generalize beyond its exact prompt requires representation-robustness evidence.
+
+Do not claim that “most prior literature is invalid” or equivalent language unless that literature is separately and systematically audited. The paper may state that single-wording studies leave representation-general claims unidentified unless they provide an equivalent robustness design.
+
+X1 must be labeled accurately as a **result-informed but prospectively registered extension**: it was conceived after Phase 3 results, registered before any X1 data, and then executed. Report the exact registration and first-evidence timestamps. In prose, explain what `postRegistered=false` means rather than relying on that field name.
+
+---
+
+# 2. Required X1 report amendments
+
+## 2.1 Prompt disclosure
+
+Publish the complete serialized message bundles for v1, v2a, and v2b side by side, including:
+
+- system message;
+- user message;
+- any schema or response-format instruction;
+- dynamic substitutions;
+- stop configuration;
+- action-label mapping;
+- parser contract.
+
+Highlight every differing span.
+
+Add an invariance table confirming that the following were held fixed:
+
+- payoff structure;
+- continuation probability;
+- available actions;
+- information available to the subject;
+- round-one game state;
+- environment-seed list;
+- geometric horizon draws;
+- seat handling;
+- decoding settings;
+- parser version;
+- provider route and returned model identifier.
+
+Use “environment seeds and matched horizon draws,” not “model seeds,” unless the provider actually exposed and honored a generation seed.
+
+## 2.2 Semantic-equivalence evidence
+
+Add:
+
+1. a structured human audit of whether v1, v2a, and v2b specify the same game, incentives, continuation process, information, and required response;
+2. model-based semantic-equivalence ratings as supplementary evidence only, not proof;
+3. the exact rating prompts, model identifiers, and raw ratings.
+
+At least two blinded human readers should independently complete the structured invariance checklist if feasible. Disagreement must be disclosed rather than reconciled silently.
+
+## 2.3 Parser audit
+
+Do more than one spot check.
+
+Publish every unique raw completion string from the X1 v2a and v2b arms, its frequency, and the parser mapping applied to it. Manually inspect:
+
+- every unique raw completion;
+- at least one complete end-to-end transcript from each X1 arm.
+
+Confirm that the parsed actions were genuine model choices and not consequences of a wording-dependent parser rule.
+
+## 2.4 Statistical layer
+
+Apply the uncertainty layer at the **episode level**, not by treating seats or rounds as independent subjects.
+
+For the round-one corners, report the two-sided 95% Clopper–Pearson bounds using \(n=20\) independent episodes:
+
+- observed 0/20: approximately [0, 0.168];
+- observed 20/20: approximately [0.832, 1].
+
+The 159 within-arm rounds are serially nested within 20 episodes. Report all-round cooperation descriptively and with trajectory-level summaries; do not construct a binomial interval treating 159 rounds as independent.
+
+Use language such as:
+
+> “All 20 recorded episodes began with defection under v1.”
+
+and:
+
+> “All 20 recorded episodes began with cooperation under v2a.”
+
+Do not describe the underlying stochastic policy as proven deterministic.
+
+A4(b) remains explicitly labeled **non-diagnostic at the 0–0 floor**.
+
+---
+
+# 3. Global Phase 4 analysis rules
+
+These rules apply to D, E, X2, and F.
+
+## 3.1 Independent unit
+
+The independent unit is the complete episode/run.
+
+For one-shot self-play, record both seat decisions, but analyze the episode-level cooperation mean:
+
+\[
+Y_i \in \{0,\;0.5,\;1\}.
+\]
+
+For repeated games, rounds are nested within trajectories. Transition-level analyses must use trajectory-clustered inference or a hierarchical model.
+
+Never present the total number of calls, seat decisions, or round transitions as the number of independent subjects.
+
+## 3.2 Registered verdict versus statistical interpretation
+
+Preserve two explicit layers:
+
+1. **registered mechanical verdict** under the frozen predicate;
+2. **estimand-aware statistical interpretation**.
+
+A zero sample standard deviation permits an exact statement about the recorded corpus. It does not remove uncertainty about the model-policy distribution.
+
+## 3.3 Statistical methods
+
+Do not default to Welch intervals for binary corner data.
+
+For balanced factorial experiments, use episode-level randomized contrasts or a preregistered linear-probability factorial model with heteroskedasticity-robust inference. Report cell-level exact or cluster-aware intervals separately.
+
+For conditional sequential behavior, resample or model complete trajectories rather than individual rounds.
+
+Every predicate in the freeze packet must state:
+
+- estimand;
+- independent unit;
+- contrast;
+- direction or equivalence margin;
+- interval/test construction;
+- multiplicity treatment;
+- conditional branches;
+- model and prompt configuration to which it applies.
+
+## 3.4 Multiplicity
+
+Distinguish primary confirmatory predicates from secondary diagnostics.
+
+Use Holm adjustment within any family containing multiple confirmatory contrasts, unless the predicate is a valid intersection–union conjunction. Do not turn every D1 coefficient into an independent confirmatory claim.
+
+---
+
+# 4. Experiment D — representation-robustness battery
+
+## D1. Full PD presentation cross
+
+Add wording \(W\) as a first-class factor.
+
+Factors:
+
+- **M — payoff matrix**
+  - canonical: \((R,S,T,P)=(3,0,5,1)\);
+  - affine: canonical ×3 +2;
+  - novel-A: \((4,1,6,2)\);
+  - novel-B: \((7,2,9,3)\).
+
+- **W — wording family**
+  - v1-style;
+  - v2a-style.
+
+  These are registered one-shot adaptations, not informal paraphrases generated during execution. Publish the exact pair and complete the semantic-invariance audit before sealing.
+
+- **L — visible action labels**
+  - semantic: “Cooperate” / “Defect”;
+  - neutral: “J” / “F”.
+
+- **O — option order**
+  - cooperative-role first;
+  - defect-role first.
+
+- **P — payoff presentation order**
+  - as defined;
+  - permuted.
+
+### Design decision
+
+Use the **full 4 × 2 × 2 × 2 × 2 factorial**:
+
+\[
+64 \text{ cells} \times 10 \text{ episodes/cell} \times 2 \text{ calls}
+= 1{,}280 \text{ calls/model}.
+\]
+
+Do not use the proposed 32-cell fraction.
+
+The full cross costs exactly the same as 32 cells at 20 episodes/cell and avoids aliasing. That is now the correct trade because X1 makes representation interactions central to the paper. Primary factorial contrasts aggregate across many cells, so they retain substantially more than 10 episodes of effective support.
+
+### Analysis
+
+Use the episode-level cooperation mean as the outcome.
+
+Freeze a factorial analysis containing:
+
+- all main effects;
+- all two-factor interactions.
+
+The primary confirmatory family must contain only the theoretically loaded terms:
+
+- \(W\) main effect;
+- \(W \times M\);
+- \(W \times L\);
+- \(M \times L\).
+
+Treat O, P, and their interactions as registered presentation diagnostics. Because the design is now complete, no O/P alias-resolution follow-up is needed.
+
+The freeze packet must give the exact contrast coding for the four-level matrix factor. In addition to omnibus terms, specify planned interpretable contrasts, including at minimum:
+
+- canonical versus affine;
+- canonical versus the average of novel-A and novel-B;
+- novel-A versus novel-B.
+
+Do not rely only on omnibus p-values.
+
+---
+
+## D2. Words versus numerical incentives
+
+Replace the partially redundant counterfactual-cell proposal with a complete three-factor design.
+
+Factors:
+
+- **W — wording**
+  - v1-style;
+  - v2a-style.
+
+- **G — payoff structure**
+  - canonical PD, in which the underlying defect-role is strictly dominant;
+  - cooperation-dominant counterfactual:
+    \[
+    (R,S,T,P)=(5,4,3,1),
+    \]
+    in which the underlying cooperation-role is strictly dominant.
+
+- **S — visible label-to-role mapping**
+  - aligned: cooperation-role displayed as “Cooperate,” defect-role as “Defect”;
+  - swapped: cooperation-role displayed as “Defect,” defect-role as “Cooperate.”
+
+This gives:
+
+\[
+2 \times 2 \times 2 = 8 \text{ cells}.
+\]
+
+Run:
+
+\[
+8 \times 20 \text{ episodes} \times 2 \text{ calls}
+= 320 \text{ calls/model}.
+\]
+
+Fix option and payoff presentation order in D2 to their registered canonical values so D2 isolates wording, numbers, and semantic labels. D1 already identifies order effects.
+
+The engine must maintain immutable underlying action IDs. For every choice, store separately:
+
+- underlying strategic role selected;
+- visible label selected;
+- payoff-dominant role;
+- whether the visible word and numerical dominance align or conflict.
+
+The parser must map the emitted response to the displayed action ID first. All analysis then derives strategic role from archived run metadata. This is essential in the swapped-label conditions.
+
+### D2 estimands
+
+Freeze planned contrasts for:
+
+1. **Numerical responsiveness:** when the strictly dominant role changes, does choice move toward the newly dominant underlying role while wording and label mapping are held fixed?
+
+2. **Surface-word responsiveness:** when “Cooperate” is moved from one underlying role to the other while payoffs and wording are held fixed, does choice follow the visible word?
+
+3. **Relative surface versus numerical effect:** compare the magnitude of the label-mapping effect with the payoff-structure effect.
+
+4. **Conflict-cell accuracy:** in cells where the word “Cooperate” points to the dominated role, report the probability of selecting:
+   - the numerically dominant role;
+   - the action visibly labeled “Cooperate.”
+
+The prior \(\ge 0.80\) correct-dominant threshold may remain as a secondary strong-performance criterion, but support must require the lower confidence bound—not merely the observed proportion—to meet the threshold. If the planned sample size cannot support that claim except at a perfect corner, state that explicitly in the freeze packet.
+
+The X1-informed directional prediction is that visible wording and labels may dominate numerical structure. The opposing outcome is equally publishable.
+
+---
+
+## D3. RPS role, token, and position counterbalancing
+
+Keep the conceptual design, but use an exactly balanced schedule.
+
+There are:
+
+- 6 mappings of \(\{X,Y,Z\}\) onto rock/paper/scissors roles;
+- 6 display orders.
+
+Run every mapping × display-order combination twice:
+
+\[
+36 \times 2 = 72 \text{ episodes}.
+\]
+
+With two one-round seats:
+
+\[
+72 \times 2 = 144 \text{ calls/model}.
+\]
+
+Archive for every episode:
+
+- role mapping;
+- display order;
+- token selected;
+- display position selected;
+- strategic role selected;
+- environment seed.
+
+Use a fixed, preregistered schedule randomized in execution order. Do not rely on 40 independent random draws that may leave mapping/order combinations imbalanced.
+
+### D3 analysis
+
+Primary descriptive quantities:
+
+\[
+P(\text{first-listed}),
+\quad
+P(\text{rock-role}),
+\quad
+P(X), P(Y), P(Z).
+\]
+
+Use episode-clustered intervals.
+
+The primary X1-informed contrast should be uncertainty-aware:
+
+\[
+P(\text{first-listed})-P(\text{rock-role})>0,
+\]
+
+supported only if its 95% lower confidence bound is above zero.
+
+Token-identity effects are secondary and must use simultaneous or multiplicity-adjusted intervals.
+
+A conditional multinomial-choice model may be included as a supporting decomposition, with alternative-level features for:
+
+- rock role;
+- first display position;
+- token identity.
+
+Because complete or quasi-complete separation is plausible, specify a penalized or Bayesian method in advance rather than relying on ordinary maximum-likelihood logistic regression.
+
+Do not call a surviving rock-role effect “strategic reasoning” by itself. It is evidence of a role-specific prior after removal of token and order confounds.
+
+### D total
+
+Per model:
+
+| Block | Calls |
+|---|---:|
+| D1 | 1,280 |
+| D2 | 320 |
+| D3 | 144 |
+| **D total** | **1,744** |
+
+---
+
+# 5. Experiment E — δ off the floor and ceiling
+
+Approved with the following changes.
+
+Presentations:
+
+1. Community-framed repeated PD;
+2. the D1 cell selected by the registered interior-cell rule.
+
+Conditions:
+
+\[
+\delta \in \{0.10,0.90\}
+\times
+\text{presentation} \in \{\text{Community},\text{D-selected}\}.
+\]
+
+Run 20 episodes per cell with the same registered geometric-horizon mechanism and safety cap.
+
+Estimated calls remain approximately 725/model, subject to the exact selected prompt lengths and observed horizon draws.
+
+## 5.1 D-selected representation rule
+
+Select the D1 cell whose episode-level round-one cooperation estimate is nearest 0.5 using **primary-model D1 data only**.
+
+Use that exact representation for both the primary and cross-vendor model. Do not independently optimize a different representation for each model, because that would eliminate stimulus comparability.
+
+Tie-break by the lowest preassigned sealed registry arm ID. Do not use an undefined “simpler representation” judgment after seeing D results.
+
+The selected arm ID and selection calculation must be written to the event store before any E run begins.
+
+## 5.2 Two-sided assay-sensitivity gate
+
+The original gate was one-sided and would misclassify a ceiling as successful assay sensitivity.
+
+For each presentation, the gate passes only if at least one δ cell is credibly away from both corners.
+
+Use an uncertainty-aware rule:
+
+> At least one δ cell must have its episode-level 95% interval wholly contained within \((0.05,0.95)\).
+
+If neither cell passes:
+
+- both near zero → **floor-confounded**;
+- both near one → **ceiling-confounded**;
+- opposite corners without an interior cell → report the observed discontinuity, but do not call the assay locally sensitive without a separately defined criterion.
+
+The freeze packet must define the interval method for episode outcomes that can take 0, 0.5, or 1.
+
+## 5.3 δ-slope predicate
+
+For each presentation passing the gate, estimate:
+
+\[
+\Delta_\delta
+=
+P(C_1\mid\delta=.90)
+-
+P(C_1\mid\delta=.10).
+\]
+
+A positive slope is supported only if the 95% lower confidence bound for \(\Delta_\delta\) exceeds zero.
+
+### Critical interpretation rule
+
+Do not infer “δ-flat” or “incentive-insensitive” merely because the positive-slope predicate is not supported.
+
+The verdict branches are:
+
+1. **corner-confounded** — assay gate fails;
+2. **positive δ slope detected** — gate passes and lower CI for \(\Delta_\delta\) exceeds zero;
+3. **no positive slope detected / inconclusive** — gate passes but the CI includes zero.
+
+A formal “δ-flat” conclusion requires a separately frozen equivalence margin and a sample size capable of placing the complete CI inside that margin. At 20 episodes per cell, this is unlikely for a substantively narrow margin. Do not add an equivalence claim without returning a power calculation and revised call budget for approval.
+
+The primary E claim is the GPT-4.1 slope in the D-selected presentation. Community and cross-vendor slope tests are secondary and must use the stated multiplicity adjustment.
+
+## 5.4 Historical v1 control
+
+Phase 3’s v1 δ sweep may be cited as a historical registered result, but not treated as a contemporaneous randomized control for E.
+
+Run the drift-sentinel battery immediately before and after E. If the v1/v2a corner fingerprint has changed, disclose that and do not pool Phase 3 with Phase 4 inference.
+
+---
+
+# 6. New Experiment X2 — wording-switch localization
+
+X2 runs on the primary GPT-4.1 configuration only unless separately expanded.
+
+The purpose is to localize the v1-to-v2a wording transition without overstating a path-dependent ladder result as a unique lexical cause.
+
+## 6.1 Freeze the span decomposition first
+
+Before any X2 data:
+
+1. mechanically diff v1 against v2a;
+2. divide the differences into \(k\) atomic semantic spans;
+3. assign each span a fixed index;
+4. publish the exact v1 and v2 text for every span;
+5. seal the replacement operation and all resulting prompts in registry v3.
+
+Span boundaries may not be revised after X2 execution begins.
+
+The freeze packet must include:
+
+- \(k\);
+- exact span list;
+- exact rung prompts;
+- evidence that every intermediate prompt remains grammatical;
+- a semantic-invariance checklist for every rung.
+
+## 6.2 Complementary screening ladders
+
+Use two complementary paths with the same registered span order.
+
+Forward path:
+
+\[
+F_i =
+\text{v1 with spans }1\ldots i\text{ replaced by v2a},
+\quad i=0,\ldots,k.
+\]
+
+Complementary reverse path:
+
+\[
+R_i =
+\text{v2a with spans }1\ldots i\text{ reverted to v1},
+\quad i=0,\ldots,k.
+\]
+
+This construction is intentional. Do not use a reverse order that merely recreates the forward ladder in reverse.
+
+The two endpoints are the existing X1 corners. The new prompt count is therefore:
+
+\[
+2(k-1)
+\]
+
+intermediate rungs.
+
+Run 10 episodes per new rung at \(\delta=0.90\), using the X1 environment-seed list and matched horizon draws. These are matched environment conditions, not seeded model generations unless provider seeding exists.
+
+The ladder stage is **screening/exploratory**. Plot the complete response curves with episode-level intervals.
+
+A candidate switch is any adjacent rung pair whose observed absolute round-one cooperation difference is at least 0.50.
+
+If several qualify, select exactly one confirmation candidate using:
+
+1. largest absolute adjacent difference;
+2. lowest span index as the tie-break;
+3. forward path before complementary path as the final tie-break.
+
+## 6.3 Held-out confirmatory minimal pair
+
+The selected pair must be rerun on fresh, previously unused environment seeds:
+
+- 20 new episodes on each side of the exact minimal pair;
+- same payoffs, δ, horizon mechanism, provider configuration, and parser;
+- prompts differ only in the selected span.
+
+The confirmatory predicate is:
+
+\[
+|\Delta_{\text{span}}| > 0.50
+\]
+
+with the one-sided 95% lower confidence bound on the absolute difference also above 0.50, and with the direction matching the screening estimate.
+
+This held-out stage—not the selected screening contrast—is the confirmatory evidence.
+
+If no screening contrast reaches 0.50, X2’s registered existence claim is refuted and no candidate confirmation runs.
+
+If the two paths identify different spans, or the same span acts differently by context, report path dependence. Do not call one phrase “the unique minimal lexical switch.” Use “switch-bearing span under the tested context” unless necessity and sufficiency are both established.
+
+## 6.4 X2 call estimate
+
+Using the X1 mean of approximately 15.9 calls per \(\delta=.90\) episode:
+
+Screening:
+
+\[
+2(k-1)\times10\times15.9
+\approx318(k-1)
+\text{ calls}.
+\]
+
+Held-out confirmation, if triggered:
+
+\[
+2\times20\times15.9
+\approx636
+\text{ calls}.
+\]
+
+Total maximum planned X2 calls:
+
+\[
+318(k-1)+636.
+\]
+
+Examples:
+
+| Differing spans \(k\) | Approximate X2 calls |
+|---:|---:|
+| 3 | 1,272 |
+| 4 | 1,590 |
+| 5 | 1,908 |
+
+Return the actual span count and exact estimate before approval.
+
+---
+
+# 7. Experiment F — adversary suite
+
+The conceptual design and naming discipline are approved, with a required contemporaneous control.
+
+All claims are indexed to the sealed canonical RPS wording. No wording multiplication is required in F.
+
+Use “performance against adversary X.” Do not use unqualified “exploitability.”
+
+## 7.1 Opponents
+
+Primary model:
+
+1. first-order tracker — contemporaneous control;
+2. order-2 n-gram tracker;
+3. order-3 n-gram tracker;
+4. WSLS-targeter;
+5. mid-episode policy switcher;
+6. shuffled-history tracker control.
+
+Cross-vendor model:
+
+1. first-order tracker — required;
+2. order-2 n-gram tracker;
+3. WSLS-targeter;
+4. mid-episode policy switcher;
+5. shuffled-history tracker control.
+
+Drop order-3 only for the cross-vendor model.
+
+Do not use the historical Phase 3 first-order arm as the sole comparator. It differs in run date and planned episode length, and no corresponding historical arm exists for the second model.
+
+## 7.2 Thirty-round stabilization gate
+
+Before freezing 30 rounds, compute from the stored Phase 3 trajectories:
+
+- \(P(\text{stay}\mid\text{win})\) over rounds 1–30 and 1–50;
+- \(P(\text{shift}\mid\text{lose})\) over rounds 1–30 and 1–50;
+- first-order-tracker payoff per round over rounds 1–30 and 1–50.
+
+Thirty rounds is approved only if:
+
+- each conditional-rate estimate differs by no more than 0.05;
+- first-order-tracker payoff differs by no more than 0.03 per round;
+- each conditional estimate has at least 30 usable pooled transitions by round 30.
+
+Return the actual stabilization table and trajectory plot in the freeze packet.
+
+If the rule fails, F reverts to 50 rounds and the call table must update automatically.
+
+For a 30-round switcher, switch policies immediately before round 16, not round 26.
+
+## 7.3 Shuffled-history implementation
+
+The shuffled-history opponent must be causal.
+
+At round \(t\), it may use only rounds \(1,\ldots,t-1\). It must never receive a permutation constructed using future events.
+
+Use a deterministic, seed-recorded permutation of the observed prefix. Archive the exact shuffled prefix supplied at every decision. Preserve observed-prefix marginals while destroying chronological order.
+
+## 7.4 F central predicate
+
+Let \(\bar U_{\text{WSLS}}\) be the LLM opponent’s mean per-round payoff against the WSLS-targeter and \(\bar U_{\text{FO}}\) its mean per-round payoff against the contemporaneous first-order tracker, using a fixed sign convention stated in the registry.
+
+The registered central conjunction is:
+
+\[
+\bar U_{\text{WSLS}}-\bar U_{\text{FO}}>0
+\]
+
+and
+
+\[
+\bar U_{\text{WSLS}}>0,
+\]
+
+with both 95% lower confidence bounds above zero.
+
+Use episode-level mean payoffs as the independent observations. State clearly whose payoff is positive in every table and formula.
+
+The WSLS-targeter policy must be completely specified before runs, including:
+
+- first-round action;
+- response to each previous outcome;
+- tie handling;
+- behavior after invalid or unavailable history.
+
+The policy may use Phase 3 to motivate its construction, but no Phase 4 data may alter it.
+
+## 7.5 F calls
+
+At 30 rounds:
+
+| Subject | Opponents | Episodes | Rounds | Calls |
+|---|---:|---:|---:|---:|
+| Primary | 6 | 20 each | 30 | 3,600 |
+| Cross-vendor | 5 | 20 each | 30 | 3,000 |
+
+If the stabilization gate requires 50 rounds:
+
+| Subject | Opponents | Episodes | Rounds | Calls |
+|---|---:|---:|---:|---:|
+| Primary | 6 | 20 each | 50 | 6,000 |
+| Cross-vendor | 5 | 20 each | 50 | 5,000 |
+
+---
+
+# 8. Cross-vendor subject and provider route
+
+The frozen packet must contain one exact second-model identifier. “Gemini Flash or Claude Haiku” is not a frozen selection.
+
+Operational requirement:
+
+- a small standard chat model from a second vendor;
+- no enabled extended-reasoning mode;
+- exact returned model identifier archived;
+- exact provider and route archived.
+
+A LiteLLM-style OpenAI-compatible proxy is acceptable only if all of the following are verified:
+
+- no prompt rewriting or normalization;
+- no automatic provider fallback;
+- no automatic model fallback;
+- no silent retry to a different route;
+- raw provider response ID preserved;
+- returned model identifier preserved;
+- request and response bodies archived;
+- routing metadata preserved.
+
+Disable fallback behavior explicitly.
+
+If the provider does not expose an immutable revision, do not claim the model is “revision-pinned.” Report the exact requested model ID, returned model ID, date/time, provider route, and drift-sentinel results.
+
+Do not assume that `temperature=0.7` represents the same stochastic process across vendors. Record identical requested settings where supported, but describe this as parameter matching rather than decoding-distribution equivalence.
+
+Interleave model and condition execution order according to a sealed schedule. Do not run every primary-model condition first and every cross-vendor condition later, because model/time would then be confounded.
+
+---
+
+# 9. Drift sentinel
+
+Use a 30-call first-round fingerprint per model per scheduled check:
+
+- 10 calls: v1 repeated-PD wording at \(\delta=.90\);
+- 10 calls: v2a repeated-PD wording at \(\delta=.90\);
+- 10 calls: the D-selected interior representation once available.
+
+Before D has selected an interior arm, use a sealed neutral fallback cell for the third sentinel.
+
+Run the sentinel:
+
+- immediately before each major experimental block;
+- immediately after each major experimental block;
+- weekly thereafter while the study remains active.
+
+Sentinel calls are monitoring data, not confirmatory experimental evidence. Do not pool them into D, E, X2, or F.
+
+Return a frozen alert rule and display all sentinel trajectories over calendar time. Budget them separately as:
+
+\[
+30 \text{ calls/model/check}.
+\]
+
+For two models, weekly monitoring is 60 calls/week.
+
+---
+
+# 10. Registry v3 and engine hardening
+
+Wording is now the treatment variable. Prompt-hash enforcement therefore belongs in the engine rather than only in the runner.
+
+## 10.1 Server-side arm-to-hash enforcement
+
+Before any Phase 4 run, implement server-side rejection when:
+
+- the requested arm is absent from the sealed registry;
+- the arm points to an unexpected template SHA;
+- the rendered message bundle violates the registered template/dynamic-field policy;
+- the parser version is not the registered version;
+- the provider/model route is not allowed for that arm.
+
+Store for every model call:
+
+1. arm ID;
+2. template SHA;
+3. dynamic substitutions;
+4. canonical serialized message-bundle SHA;
+5. complete rendered system/user messages;
+6. request-body SHA;
+7. raw response;
+8. parsed action;
+9. parser version;
+10. code commit;
+11. provider route;
+12. provider response ID;
+13. requested model ID;
+14. returned model ID;
+15. timestamp.
+
+Adjudication and replay must verify these values.
+
+A template SHA alone is insufficient because dynamic substitutions and serialization can alter the actual treatment.
+
+## 10.2 Failures and budget accounting
+
+Preserve the new partial-failure accounting.
+
+Every provider call must count toward the budget whether the episode later succeeds or fails. Retries must be separately counted and linked to the original attempt. No provider spend may disappear because a run failed before normal persistence.
+
+The freeze packet must show:
+
+- expected calls;
+- hard maximum calls;
+- estimated input and output tokens;
+- worst-case horizon-cap exposure;
+- monitoring calls;
+- semantic-rating calls;
+- retry allowance;
+- kill-switch threshold.
+
+---
+
+# 11. External chronology anchoring
+
+Connect the GitHub repository now.
+
+Before any Phase 4 evidence row exists:
+
+1. commit the sealed registry, claims, preregistration, analysis code, and design manifest;
+2. create a signed annotated tag;
+3. create a GitHub release containing a checksum manifest;
+4. record the repository URL, commit SHA, tag, release timestamp, and asset SHAs in the study metadata.
+
+Where available, add an external append-only timestamp or archival deposit for the checksum manifest. GitHub publication is strong public evidence, but should not be described as cryptographically immutable by itself.
+
+Registry v3 should be the first externally anchored release. Any later amendment must be a new append-only release and must preserve all prior artifacts.
+
+---
+
+# 12. Revised provisional call table
+
+Assuming the 30-round F gate passes:
+
+| Block | Primary model | Cross-vendor | Combined |
+|---|---:|---:|---:|
+| D1 | 1,280 | 1,280 | 2,560 |
+| D2 | 320 | 320 | 640 |
+| D3 | 144 | 144 | 288 |
+| E | ~725 | ~725 | ~1,450 |
+| F | 3,600 | 3,000 | 6,600 |
+| **Core subtotal excluding X2** | **~6,069** | **~5,469** | **~11,538** |
+| X2 | \(318(k-1)+636\) maximum | 0 | same |
+| Sentinels | 30/check | 30/check | 60/check |
+
+Illustrative total including X2:
+
+| X2 spans | X2 calls | Approximate combined one-time total |
+|---:|---:|---:|
+| 3 | 1,272 | 12,810 |
+| 4 | 1,590 | 13,128 |
+| 5 | 1,908 | 13,446 |
+
+These totals exclude weekly sentinels, semantic-rating calls, and retry allowance.
+
+Return both the 30-round and 50-round fallback tables. Also return token-based cost estimates because F’s long histories make raw call counts an incomplete measure of spend.
+
+---
+
+# 13. Required freeze packet
+
+Return one complete packet containing all of the following.
+
+## A. Final predicate table
+
+For every claim:
+
+- claim ID;
+- experiment and arm IDs;
+- subject model;
+- exact estimand;
+- independent unit;
+- sample size;
+- contrast;
+- threshold or margin;
+- direction;
+- CI/test method;
+- multiplicity rule;
+- conditional gate;
+- supported/refuted/inconclusive logic;
+- exact evidence rows the adjudicator will accept.
+
+Include the complete predicates for D1, D2, D3, E, X2, and F. No prose-only predicates.
+
+## B. Registry v3 manifest
+
+List every template and arm, including:
+
+- D1’s 64 cells;
+- D2’s eight cells;
+- D3 mapping/order schedule;
+- both E presentations and δ arms;
+- every X2 rung and confirmation template;
+- every F opponent;
+- drift-sentinel cells.
+
+For each, include:
+
+- arm ID;
+- complete template;
+- permitted dynamic fields;
+- template SHA;
+- canonical render/hash rule;
+- parser contract.
+
+Actual SHAs must be present, not placeholders.
+
+## C. Randomization and execution schedule
+
+Include:
+
+- complete environment-seed lists;
+- D1 cell schedule;
+- D3’s balanced 36-combination schedule with two replicates;
+- model/condition interleaving;
+- X2 fresh confirmation seeds;
+- F opponent ordering;
+- sentinel placement;
+- retry behavior.
+
+## D. X2 diff packet
+
+Include:
+
+- exact \(k\);
+- atomic span list;
+- forward and complementary rung list;
+- exact prompt text for every rung;
+- call estimate from the actual span count;
+- candidate-selection rule;
+- held-out confirmation rule.
+
+## E. F stabilization packet
+
+Include:
+
+- rounds 1–30 versus 1–50 conditional estimates;
+- first-order-tracker payoff comparison;
+- usable transition counts;
+- pass/fail under the registered 30-round gate;
+- resulting F call table.
+
+## F. Provider and provenance packet
+
+Include:
+
+- exact primary requested and returned model IDs;
+- exact cross-vendor requested and returned model IDs;
+- provider routes;
+- proxy no-fallback verification;
+- response-ID capture;
+- code commit;
+- parser version;
+- registry release/tag information;
+- external chronology anchor.
+
+## G. Complete budget
+
+Include:
+
+- expected calls;
+- hard maximum calls;
+- estimated tokens and cost by block/model;
+- X2 conditional maximum;
+- 50-round F fallback;
+- semantic-rating calls;
+- pre/post-block sentinels;
+- weekly sentinel rate;
+- retry and failed-call allowance;
+- kill-switch values.
+
+---
+
+# 14. Execution order after final approval
+
+1. Complete X1 report and parser/provenance amendments.
+2. Implement server-side arm-to-SHA enforcement and provider metadata capture.
+3. Seal and externally anchor registry v3, predicates, code, and execution manifest.
+4. Run X2 screening and D.
+5. If X2 triggers, run the held-out confirmation on fresh seeds.
+6. Select the E representation mechanically from D1 and record the selection.
+7. Run E.
+8. Run F.
+9. Verify every completed run through zero-call replay and metric recomputation.
+10. Adjudicate mechanically.
+11. Write interpretation only after adjudication.
+
+The human-substitution scaffold remains a separate future registration. No human-equivalence or human-replacement conclusion may be drawn from Phase 4 without a matched human arm and a separately approved substitution margin.
+
+Return the freeze packet only. Nothing runs until the one-line approval is issued.

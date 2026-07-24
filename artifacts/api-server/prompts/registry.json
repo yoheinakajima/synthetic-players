@@ -1,55 +1,699 @@
 {
-  "registryVersion": "phase3-v2",
-  "createdAt": "2026-07-24",
-  "notes": "Phase 3 behavioral prompt registry (pre-registered, docs/phase3-preregistration.md). Design rules: neutral action labels (J/F for the dilemma games, ROCK/PAPER/SCISSORS for the cyclic game), no game-theory vocabulary (no cooperate/defect/prisoner/Nash/strategy/opponent-modeling terms), full payoff disclosure for both players, continuation probability disclosed for repeated play with realized horizon hidden, fixed horizon disclosed for the cyclic game. Parser: strip whitespace, uppercase, exact match against options; one corrective retry (new prompt hash), then the trial is invalidated. Seat tag in the system prompt guarantees per-seat prompt-hash uniqueness in self-play. APPEND-ONLY POLICY: existing prompt specs are never edited once any run has used them (replay verifies every rendered prompt byte-exactly against recorded hashes); phase3-v2 appends pd-repeated-v2a/v2b for the pre-registered paraphrase-robustness extension X1 and changes nothing else.",
-  "prompts": {
-    "pd-repeated-v1": {
-      "options": ["J", "F"],
-      "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
-      "user": "You and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (J or F):",
-      "historyHeader": "Previous rounds:",
-      "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
-      "firstRound": "This is the first round.",
-      "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F."
-    },
-    "pd-oneshot-v1": {
-      "options": ["J", "F"],
-      "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
-      "user": "{framingLine}You and another participant each choose one letter, J or F, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n\nYour choice (J or F):",
-      "framings": {
-        "community": "This is called the Community Game. ",
-        "wallstreet": "This is called the Wall Street Game. ",
-        "neutral": ""
-      },
-      "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F."
-    },
-    "rps-v1": {
-      "options": ["ROCK", "PAPER", "SCISSORS"],
-      "system": "You are Player {seat} in a decision-making study. In each round you make one choice. Reply with exactly one word and nothing else.",
-      "user": "You are playing rock-paper-scissors against another player for {numRounds} rounds.\nEach round, you and the other player choose ROCK, PAPER, or SCISSORS at the same time.\nROCK beats SCISSORS, SCISSORS beats PAPER, PAPER beats ROCK. The same choice is a tie.\nScoring each round: win +1 point, tie 0 points, loss -1 point.\n\n{history}\n\nRound {round}. Your choice (ROCK, PAPER, or SCISSORS):",
-      "historyHeader": "Previous rounds:",
-      "historyLine": "Round {n}: you chose {you}, the other chose {them}. {outcome}",
-      "outcomes": { "win": "You won (+1).", "tie": "Tie (0).", "lose": "You lost (-1)." },
-      "firstRound": "This is the first round.",
-      "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: ROCK, PAPER, or SCISSORS."
-    },
-    "pd-repeated-v2a": {
-      "options": ["J", "F"],
-      "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
-      "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: J or F.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n\n{history}\n\nRound {round}. Pick J or F:",
-      "historyHeader": "Rounds so far:",
-      "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
-      "firstRound": "No rounds have happened yet.",
-      "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: J or F."
-    },
-    "pd-repeated-v2b": {
-      "options": ["J", "F"],
-      "system": "You are Player {seat} taking part in a study of choices. Every round involves one decision, and points depend on your decision together with a co-player's decision. Respond with one letter and nothing more.",
-      "user": "Each round, you and a co-player simultaneously select J or F.\nOutcomes per round:\nJ+J: {rr} points each.\nJ+F: the one who selected J gets {rs}, the one who selected F gets {rt}.\nF+F: {rp} points each.\nOnce a round finishes, the session continues to a further round with probability {deltaPct} in 100.\n\n{history}\n\nRound {round}. Select J or F:",
-      "historyHeader": "History:",
-      "historyLine": "Round {n} — you: {you}, co-player: {them}. Points: {youPts} (you), {themPts} (co-player).",
-      "firstRound": "This is round one; nothing has been played yet.",
-      "retrySuffix": "\n\nInvalid response. Respond with one letter only: J or F."
-    }
+ "registryVersion": "phase4-v3-proposed",
+ "createdAt": "2026-07-24",
+ "notes": "Phase 3 behavioral prompt registry (pre-registered, docs/phase3-preregistration.md). Design rules: neutral action labels (J/F for the dilemma games, ROCK/PAPER/SCISSORS for the cyclic game), no game-theory vocabulary (no cooperate/defect/prisoner/Nash/strategy/opponent-modeling terms), full payoff disclosure for both players, continuation probability disclosed for repeated play with realized horizon hidden, fixed horizon disclosed for the cyclic game. Parser: strip whitespace, uppercase, exact match against options; one corrective retry (new prompt hash), then the trial is invalidated. Seat tag in the system prompt guarantees per-seat prompt-hash uniqueness in self-play. APPEND-ONLY POLICY: existing prompt specs are never edited once any run has used them (replay verifies every rendered prompt byte-exactly against recorded hashes); phase3-v2 appends pd-repeated-v2a/v2b for the pre-registered paraphrase-robustness extension X1 and changes nothing else. | 2026-07-24 v3-proposed: Phase 4 templates appended (append-only; Phase 3 entries byte-untouched, per-prompt shas verified). Arms/bindings/seeds: docs/phase4/arms.json. Runs blocked pending one-line approval.",
+ "prompts": {
+  "pd-repeated-v1": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F."
+  },
+  "pd-oneshot-v1": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "{framingLine}You and another participant each choose one letter, J or F, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n\nYour choice (J or F):",
+   "framings": {
+    "community": "This is called the Community Game. ",
+    "wallstreet": "This is called the Wall Street Game. ",
+    "neutral": ""
+   },
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F."
+  },
+  "rps-v1": {
+   "options": [
+    "ROCK",
+    "PAPER",
+    "SCISSORS"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice. Reply with exactly one word and nothing else.",
+   "user": "You are playing rock-paper-scissors against another player for {numRounds} rounds.\nEach round, you and the other player choose ROCK, PAPER, or SCISSORS at the same time.\nROCK beats SCISSORS, SCISSORS beats PAPER, PAPER beats ROCK. The same choice is a tie.\nScoring each round: win +1 point, tie 0 points, loss -1 point.\n\n{history}\n\nRound {round}. Your choice (ROCK, PAPER, or SCISSORS):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. {outcome}",
+   "outcomes": {
+    "win": "You won (+1).",
+    "tie": "Tie (0).",
+    "lose": "You lost (-1)."
+   },
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: ROCK, PAPER, or SCISSORS."
+  },
+  "pd-repeated-v2a": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: J or F.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n\n{history}\n\nRound {round}. Pick J or F:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: J or F."
+  },
+  "pd-repeated-v2b": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} taking part in a study of choices. Every round involves one decision, and points depend on your decision together with a co-player's decision. Respond with one letter and nothing more.",
+   "user": "Each round, you and a co-player simultaneously select J or F.\nOutcomes per round:\nJ+J: {rr} points each.\nJ+F: the one who selected J gets {rs}, the one who selected F gets {rt}.\nF+F: {rp} points each.\nOnce a round finishes, the session continues to a further round with probability {deltaPct} in 100.\n\n{history}\n\nRound {round}. Select J or F:",
+   "historyHeader": "History:",
+   "historyLine": "Round {n} — you: {you}, co-player: {them}. Points: {youPts} (you), {themPts} (co-player).",
+   "firstRound": "This is round one; nothing has been played yet.",
+   "retrySuffix": "\n\nInvalid response. Respond with one letter only: J or F."
+  },
+  "pd-os-w1-neu-cf-ad": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, J or F, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n\nYour choice (J or F):",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w1-neu-cf-ad": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w1-neu-cf-pm": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, J or F, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n\nYour choice (J or F):",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w1-neu-cf-pm": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w1-neu-df-ad": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, F or J, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n\nYour choice (F or J):",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: F or J.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w1-neu-df-ad": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, F or J, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (F or J):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: F or J.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w1-neu-df-pm": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, F or J, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n\nYour choice (F or J):",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: F or J.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w1-neu-df-pm": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, F or J, at the same time.\nPoints for each combination:\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (F or J):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: F or J.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w1-sem-cf-ad": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one word and nothing else.",
+   "user": "You and another participant each choose one word, COOPERATE or DEFECT, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose COOPERATE, other chooses COOPERATE: you earn {rr} points; they earn {rr} points.\n- You choose COOPERATE, other chooses DEFECT: you earn {rs} points; they earn {rt} points.\n- You choose DEFECT, other chooses COOPERATE: you earn {rt} points; they earn {rs} points.\n- You choose DEFECT, other chooses DEFECT: you earn {rp} points; they earn {rp} points.\n\nYour choice (COOPERATE or DEFECT):",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: COOPERATE or DEFECT.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w1-sem-cf-ad": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one word and nothing else.",
+   "user": "You and another participant each choose one word, COOPERATE or DEFECT, at the same time.\nPoints for each combination:\n- You choose COOPERATE, other chooses COOPERATE: you earn {rr} points; they earn {rr} points.\n- You choose COOPERATE, other chooses DEFECT: you earn {rs} points; they earn {rt} points.\n- You choose DEFECT, other chooses COOPERATE: you earn {rt} points; they earn {rs} points.\n- You choose DEFECT, other chooses DEFECT: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (COOPERATE or DEFECT):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: COOPERATE or DEFECT.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w1-sem-cf-pm": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one word and nothing else.",
+   "user": "You and another participant each choose one word, COOPERATE or DEFECT, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose DEFECT, other chooses DEFECT: you earn {rp} points; they earn {rp} points.\n- You choose DEFECT, other chooses COOPERATE: you earn {rt} points; they earn {rs} points.\n- You choose COOPERATE, other chooses DEFECT: you earn {rs} points; they earn {rt} points.\n- You choose COOPERATE, other chooses COOPERATE: you earn {rr} points; they earn {rr} points.\n\nYour choice (COOPERATE or DEFECT):",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: COOPERATE or DEFECT.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w1-sem-cf-pm": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one word and nothing else.",
+   "user": "You and another participant each choose one word, COOPERATE or DEFECT, at the same time.\nPoints for each combination:\n- You choose DEFECT, other chooses DEFECT: you earn {rp} points; they earn {rp} points.\n- You choose DEFECT, other chooses COOPERATE: you earn {rt} points; they earn {rs} points.\n- You choose COOPERATE, other chooses DEFECT: you earn {rs} points; they earn {rt} points.\n- You choose COOPERATE, other chooses COOPERATE: you earn {rr} points; they earn {rr} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (COOPERATE or DEFECT):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: COOPERATE or DEFECT.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w1-sem-df-ad": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one word and nothing else.",
+   "user": "You and another participant each choose one word, DEFECT or COOPERATE, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose COOPERATE, other chooses COOPERATE: you earn {rr} points; they earn {rr} points.\n- You choose COOPERATE, other chooses DEFECT: you earn {rs} points; they earn {rt} points.\n- You choose DEFECT, other chooses COOPERATE: you earn {rt} points; they earn {rs} points.\n- You choose DEFECT, other chooses DEFECT: you earn {rp} points; they earn {rp} points.\n\nYour choice (DEFECT or COOPERATE):",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: DEFECT or COOPERATE.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w1-sem-df-ad": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one word and nothing else.",
+   "user": "You and another participant each choose one word, DEFECT or COOPERATE, at the same time.\nPoints for each combination:\n- You choose COOPERATE, other chooses COOPERATE: you earn {rr} points; they earn {rr} points.\n- You choose COOPERATE, other chooses DEFECT: you earn {rs} points; they earn {rt} points.\n- You choose DEFECT, other chooses COOPERATE: you earn {rt} points; they earn {rs} points.\n- You choose DEFECT, other chooses DEFECT: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (DEFECT or COOPERATE):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: DEFECT or COOPERATE.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w1-sem-df-pm": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one word and nothing else.",
+   "user": "You and another participant each choose one word, DEFECT or COOPERATE, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose DEFECT, other chooses DEFECT: you earn {rp} points; they earn {rp} points.\n- You choose DEFECT, other chooses COOPERATE: you earn {rt} points; they earn {rs} points.\n- You choose COOPERATE, other chooses DEFECT: you earn {rs} points; they earn {rt} points.\n- You choose COOPERATE, other chooses COOPERATE: you earn {rr} points; they earn {rr} points.\n\nYour choice (DEFECT or COOPERATE):",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: DEFECT or COOPERATE.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w1-sem-df-pm": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one word and nothing else.",
+   "user": "You and another participant each choose one word, DEFECT or COOPERATE, at the same time.\nPoints for each combination:\n- You choose DEFECT, other chooses DEFECT: you earn {rp} points; they earn {rp} points.\n- You choose DEFECT, other chooses COOPERATE: you earn {rt} points; they earn {rs} points.\n- You choose COOPERATE, other chooses DEFECT: you earn {rs} points; they earn {rt} points.\n- You choose COOPERATE, other chooses COOPERATE: you earn {rr} points; they earn {rr} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (DEFECT or COOPERATE):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: DEFECT or COOPERATE.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w2a-neu-cf-ad": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. You pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "You and another person each pick one letter at the same time: J or F. This happens one time only.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n\nYour pick (J or F):",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: J or F.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w2a-neu-cf-ad": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: J or F.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n\n{history}\n\nRound {round}. Pick J or F:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: J or F.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w2a-neu-cf-pm": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. You pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "You and another person each pick one letter at the same time: J or F. This happens one time only.\nThe points work like this:\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n\nYour pick (J or F):",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: J or F.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w2a-neu-cf-pm": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: J or F.\nThe points work like this:\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n\n{history}\n\nRound {round}. Pick J or F:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: J or F.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w2a-neu-df-ad": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. You pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "You and another person each pick one letter at the same time: F or J. This happens one time only.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n\nYour pick (F or J):",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: F or J.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w2a-neu-df-ad": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: F or J.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n\n{history}\n\nRound {round}. Pick F or J:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: F or J.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w2a-neu-df-pm": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. You pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "You and another person each pick one letter at the same time: F or J. This happens one time only.\nThe points work like this:\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n\nYour pick (F or J):",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: F or J.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w2a-neu-df-pm": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: F or J.\nThe points work like this:\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n\n{history}\n\nRound {round}. Pick F or J:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single letter: F or J.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w2a-sem-cf-ad": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making session. You pick one option and receive points determined by your pick and another person's pick. Answer with a single word only.",
+   "user": "You and another person each pick one word at the same time: COOPERATE or DEFECT. This happens one time only.\nThe points work like this:\n- If you pick COOPERATE and they pick COOPERATE, you receive {rr} points and they receive {rr} points.\n- If you pick COOPERATE and they pick DEFECT, you receive {rs} points and they receive {rt} points.\n- If you pick DEFECT and they pick COOPERATE, you receive {rt} points and they receive {rs} points.\n- If you pick DEFECT and they pick DEFECT, you receive {rp} points and they receive {rp} points.\n\nYour pick (COOPERATE or DEFECT):",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single word: COOPERATE or DEFECT.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w2a-sem-cf-ad": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single word only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one word at the same time: COOPERATE or DEFECT.\nThe points work like this:\n- If you pick COOPERATE and they pick COOPERATE, you receive {rr} points and they receive {rr} points.\n- If you pick COOPERATE and they pick DEFECT, you receive {rs} points and they receive {rt} points.\n- If you pick DEFECT and they pick COOPERATE, you receive {rt} points and they receive {rs} points.\n- If you pick DEFECT and they pick DEFECT, you receive {rp} points and they receive {rp} points.\n\n{history}\n\nRound {round}. Pick COOPERATE or DEFECT:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single word: COOPERATE or DEFECT.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w2a-sem-cf-pm": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making session. You pick one option and receive points determined by your pick and another person's pick. Answer with a single word only.",
+   "user": "You and another person each pick one word at the same time: COOPERATE or DEFECT. This happens one time only.\nThe points work like this:\n- If you pick DEFECT and they pick DEFECT, you receive {rp} points and they receive {rp} points.\n- If you pick DEFECT and they pick COOPERATE, you receive {rt} points and they receive {rs} points.\n- If you pick COOPERATE and they pick DEFECT, you receive {rs} points and they receive {rt} points.\n- If you pick COOPERATE and they pick COOPERATE, you receive {rr} points and they receive {rr} points.\n\nYour pick (COOPERATE or DEFECT):",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single word: COOPERATE or DEFECT.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w2a-sem-cf-pm": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single word only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one word at the same time: COOPERATE or DEFECT.\nThe points work like this:\n- If you pick DEFECT and they pick DEFECT, you receive {rp} points and they receive {rp} points.\n- If you pick DEFECT and they pick COOPERATE, you receive {rt} points and they receive {rs} points.\n- If you pick COOPERATE and they pick DEFECT, you receive {rs} points and they receive {rt} points.\n- If you pick COOPERATE and they pick COOPERATE, you receive {rr} points and they receive {rr} points.\n\n{history}\n\nRound {round}. Pick COOPERATE or DEFECT:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single word: COOPERATE or DEFECT.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w2a-sem-df-ad": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making session. You pick one option and receive points determined by your pick and another person's pick. Answer with a single word only.",
+   "user": "You and another person each pick one word at the same time: DEFECT or COOPERATE. This happens one time only.\nThe points work like this:\n- If you pick COOPERATE and they pick COOPERATE, you receive {rr} points and they receive {rr} points.\n- If you pick COOPERATE and they pick DEFECT, you receive {rs} points and they receive {rt} points.\n- If you pick DEFECT and they pick COOPERATE, you receive {rt} points and they receive {rs} points.\n- If you pick DEFECT and they pick DEFECT, you receive {rp} points and they receive {rp} points.\n\nYour pick (DEFECT or COOPERATE):",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single word: DEFECT or COOPERATE.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w2a-sem-df-ad": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single word only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one word at the same time: DEFECT or COOPERATE.\nThe points work like this:\n- If you pick COOPERATE and they pick COOPERATE, you receive {rr} points and they receive {rr} points.\n- If you pick COOPERATE and they pick DEFECT, you receive {rs} points and they receive {rt} points.\n- If you pick DEFECT and they pick COOPERATE, you receive {rt} points and they receive {rs} points.\n- If you pick DEFECT and they pick DEFECT, you receive {rp} points and they receive {rp} points.\n\n{history}\n\nRound {round}. Pick DEFECT or COOPERATE:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single word: DEFECT or COOPERATE.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-os-w2a-sem-df-pm": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making session. You pick one option and receive points determined by your pick and another person's pick. Answer with a single word only.",
+   "user": "You and another person each pick one word at the same time: DEFECT or COOPERATE. This happens one time only.\nThe points work like this:\n- If you pick DEFECT and they pick DEFECT, you receive {rp} points and they receive {rp} points.\n- If you pick DEFECT and they pick COOPERATE, you receive {rt} points and they receive {rs} points.\n- If you pick COOPERATE and they pick DEFECT, you receive {rs} points and they receive {rt} points.\n- If you pick COOPERATE and they pick COOPERATE, you receive {rr} points and they receive {rr} points.\n\nYour pick (DEFECT or COOPERATE):",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single word: DEFECT or COOPERATE.",
+   "phase": "4-proposed",
+   "family": "d1-oneshot"
+  },
+  "pd-rep-w2a-sem-df-pm": {
+   "options": [
+    "COOPERATE",
+    "DEFECT"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single word only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one word at the same time: DEFECT or COOPERATE.\nThe points work like this:\n- If you pick DEFECT and they pick DEFECT, you receive {rp} points and they receive {rp} points.\n- If you pick DEFECT and they pick COOPERATE, you receive {rt} points and they receive {rs} points.\n- If you pick COOPERATE and they pick DEFECT, you receive {rs} points and they receive {rt} points.\n- If you pick COOPERATE and they pick COOPERATE, you receive {rr} points and they receive {rr} points.\n\n{history}\n\nRound {round}. Pick DEFECT or COOPERATE:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nThat was not a valid answer. Answer with a single word: DEFECT or COOPERATE.",
+   "phase": "4-proposed",
+   "family": "e-repeated-candidate"
+  },
+  "pd-rep-community-w1": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "This is called the Community Game. You and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "e-community"
+  },
+  "pd-x2-f1": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "You and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-forward",
+   "spansApplied": [
+    1
+   ]
+  },
+  "pd-x2-r1": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: J or F.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n\n{history}\n\nRound {round}. Pick J or F:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-reverse",
+   "spansReverted": [
+    1
+   ]
+  },
+  "pd-x2-f2": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-forward",
+   "spansApplied": [
+    1,
+    2
+   ]
+  },
+  "pd-x2-r2": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another person each pick one letter at the same time: J or F.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Pick J or F:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-reverse",
+   "spansReverted": [
+    1,
+    2
+   ]
+  },
+  "pd-x2-f3": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: J or F.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-forward",
+   "spansApplied": [
+    1,
+    2,
+    3
+   ]
+  },
+  "pd-x2-r3": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, J or F, at the same time.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Pick J or F:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-reverse",
+   "spansReverted": [
+    1,
+    2,
+    3
+   ]
+  },
+  "pd-x2-f4": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: J or F.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-forward",
+   "spansApplied": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "pd-x2-r4": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Pick J or F:",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-reverse",
+   "spansReverted": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "pd-x2-f5": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making session. Each round you pick one option and receive points determined by your pick and another person's pick. Answer with a single letter only.",
+   "user": "At the end of each round there is a {deltaPct}% chance that the session goes on for one more round.\nYou and another person each pick one letter at the same time: J or F.\nThe points work like this:\n- If you pick J and they pick J, you receive {rr} points and they receive {rr} points.\n- If you pick J and they pick F, you receive {rs} points and they receive {rt} points.\n- If you pick F and they pick J, you receive {rt} points and they receive {rs} points.\n- If you pick F and they pick F, you receive {rp} points and they receive {rp} points.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+   "historyHeader": "Rounds so far:",
+   "historyLine": "Round {n}: you picked {you} and they picked {them} — {youPts} points for you, {themPts} for them.",
+   "firstRound": "No rounds have happened yet.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-forward",
+   "spansApplied": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "pd-x2-r5": {
+   "options": [
+    "J",
+    "F"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+   "user": "You and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Pick J or F:",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F.",
+   "phase": "4-proposed",
+   "family": "x2-reverse",
+   "spansReverted": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "rps-sym-v1": {
+   "options": [
+    "X",
+    "Y",
+    "Z"
+   ],
+   "system": "You are Player {seat} in a decision-making study. In each round you make one choice. Reply with exactly one letter and nothing else.",
+   "user": "You are playing a symbol game against another player for {numRounds} rounds.\nEach round, you and the other player choose {optList} at the same time.\n{beatsLine} The same choice is a tie.\nScoring each round: win +1 point, tie 0 points, loss -1 point.\n\n{history}\n\nRound {round}. Your choice ({optList}):",
+   "historyHeader": "Previous rounds:",
+   "historyLine": "Round {n}: you chose {you}, the other chose {them}. {outcome}",
+   "outcomes": {
+    "win": "You won (+1).",
+    "tie": "Tie (0).",
+    "lose": "You lost (-1)."
+   },
+   "firstRound": "This is the first round.",
+   "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: {optList}.",
+   "phase": "4-proposed",
+   "family": "d3-rps-symbols"
   }
+ }
 }
