@@ -1,0 +1,29 @@
+We’re extending the Game Theory Research Lab with Phase 3: LLM as behavioral subject. The point is to test whether an LLM, prompted cold like a human participant, deviates from Nash the way humans do in games where the human data is well quantified. This phase is the validation battery I’ll cite later when I run studies that use AI subjects in place of human participants, so provenance and preregistration matter more than speed. Everything here is additive. Don’t touch the v2 algorithmic experiments, metrics, or results.
+1. LLM subject infrastructure
+Add a new strategy type: LLM Subject. One decision = one LLM call, and every call must route through ActiveGraph’s LLM layer so the full request and response land in the graph as events: rendered prompt, completion, model id, temperature, token usage, latency, all linked to experiment id, round, and seat. No direct provider calls anywhere.
+Frozen reruns are a hard requirement. Add a replay mode that re-executes any experiment with zero live calls, pulling recorded completions keyed by (experiment, round, seat). Hash every rendered prompt at record time. On replay, re-render the prompt and check the hash against the recorded one. Mismatch = fail loudly. Never fall back to a live call in replay mode. Expose POST /api/experiments/{id}/replay and a verify check that confirms replay reproduces every metric bit for bit, same as the seeded PRNG guarantee on the algorithmic side.
+Subject protocol: a participant is one sampled completion at a fixed temperature (default 0.7, configurable, stored on the experiment row along with model id and prompt version hash). 20 participants per cell.
+Subject-frame prompt: minimal and behavioral. Describe the situation and payoffs in plain language and ask for one choice. No game theory vocabulary, no strategy names, no “think step by step”, no persona. Version and hash every prompt in a prompt registry; experiments reference the version. The verbatim prompts go in the docs.
+Parsing: deterministic parser, one retry on an unparseable response, then mark the trial invalid and record it as an event. The exclusion rule is preregistered, never decided after looking at results.
+2. Predicate lock
+Every claim in this phase gets a structured predicate with a human-anchored threshold sourced from the literature: Dal Bó & Fréchette’s 2018 meta-analysis for the continuation probability experiment, Liberman/Samuels/Ross 2004 for framing, published human RPS data for round-1 bias and win-stay/lose-shift. Predicates get written and locked before any LLM experiment runs. The adjudicator enforces timestamp ordering: a predicate created after its evidence gets flagged, never adjudicated. v2 took my vote away on verdicts; this phase takes it away on thresholds too.
+3. Experiment A: continuation probability sweep (repeated PD)
+Implement random-termination repeated PD: after each round, continue with probability delta, with termination driven by the seeded PRNG so supergame lengths replay exactly.
+	•	Delta grid: 0.10, 0.50, 0.75, 0.90. Compute and store the risk-dominance critical delta* for the payoff matrix.
+	•	LLM vs LLM, 20 supergames per delta.
+	•	Metrics: round-1 cooperation rate per supergame (the Dal Bó & Fréchette standard), plus overall cooperation rate, reported per delta.
+	•	Contamination arm: rerun the full sweep on a payoff-perturbed isomorph (same ordinal structure, different numbers, neutral action labels). One predicate tests whether the delta trend survives de-familiarization. If it collapses, the model was reciting, and that’s a result too.
+	•	Predicates: round-1 cooperation increases monotonically in delta; cooperation separates above vs below delta* in the human direction; high-delta cooperation falls inside the human range from the meta-analysis.
+4. Experiment B: framing
+One-shot PD in three conditions: “Community Game”, “Wall Street Game”, and neutral labels. Identical payoffs, identical prompt, only the label changes. 20 participants per condition per seat.
+Predicates: cooperation under Community exceeds Wall Street (human anchor is roughly a 2x gap), and neutral lands between. This doubles as our prompt-sensitivity control, so report the full distribution per condition, plus effect size against the human gap.
+5. Experiment C: RPS exploitability
+LLM subject plays Rock-Paper-Scissors against three opponents: the existing first-order pattern tracker, Nash mixed, and a second LLM subject. 50 rounds per run, 20 runs per matchup.
+The existing zero-sum metrics apply unchanged: marginal exploitability, tracker exploitability, TV distance from Nash, G-test. Add three behavioral metrics: round-1 action distribution (human anchor: rock bias), lag-1 self-transition matrix, and win-stay / lose-shift conditional rates.
+Predicates: round-1 rock share vs the human anchor range; presence or absence of the win-stay/lose-shift signature; tracker exploitability of LLM play compared against the Nash-mixed baseline from v2.
+6. Reporting and guardrails
+	•	New results sections with per-cell tables, 95% CIs over participants, effect sizes against human anchors, canonical vs de-familiarized side by side.
+	•	Verdicts publish whatever they are. Refuted claims go in the paper the way E1 did.
+	•	Cost guard: estimate total LLM call count up front, enforce a hard cap, and make batches resumable so a crash doesn’t strand half a sweep.
+	•	Every figure and table must be regenerable from replay mode alone, zero live calls.
+Before writing any code: give me (1) the total call-count estimate per experiment, and (2) the full locked predicate list with the exact human-anchored thresholds and their sources, for my sign-off. Predicates freeze first, then runs.
