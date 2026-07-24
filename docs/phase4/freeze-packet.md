@@ -1,14 +1,33 @@
-# Phase 4 Freeze Packet — submitted for one-line approval
+# Phase 4 Freeze Packet — APPROVED
 
-**Status: COMPLETE and INERT.** Everything below is sealed design; **no Phase 4 LLM
-call runs until the approval line is given.** Prepared 2026-07-24 against the Phase 4
-sign-off response (approved-with-amendments; its amendments are incorporated here in
-full). Phase 3 + X1 remain immutable; their report amendments (§B below) are editorial
-and evidence-preserving.
+**Status: APPROVED — EXECUTING.** Approval recorded **2026-07-24T15:18:49Z (UTC)**
+via the structured decision form: *freeze approved, Gate 0 authorized*; cross-vendor
+subject **claude-haiku-4-5 confirmed**; GitHub anchoring: user will connect the
+integration (pending user action; local sealing proceeds and anchoring attaches when
+connected). Execution follows the order in §Execution below — nothing outside the
+sealed schedule runs.
 
-**The approval being requested:** *"Approved: run Phase 4 as frozen in
-docs/phase4/freeze-packet.md."* — with the open items in §H resolved or explicitly
-deferred.
+*(Pre-approval status, kept for provenance: packet prepared 2026-07-24 as COMPLETE
+and INERT against the Phase 4 sign-off response, approved-with-amendments, all
+amendments incorporated; no Phase 4 LLM call was made before the approval timestamp
+above. Phase 3 + X1 remain immutable; their report amendments (§B) are editorial and
+evidence-preserving.)*
+
+**Gate 0 (2026-07-24T15:23–15:25Z): EXECUTED — FAIL; phase blocked at step 1, escalated.**
+gpt-4.1 verified in full (response IDs, exact revision `gpt-4.1-2025-04-14` on every
+call, clean `stop`, token accounting, parser round-trip on attempt 0).
+claude-haiku-4-5: IDs / returned revision `claude-haiku-4-5-20251001` / token
+accounting verified, **but the model cannot complete a turn at the protocol's
+maxTokens=16** — it opens with analysis prose and truncates (`stop_reason=max_tokens`;
+a logged 64-token diagnostic still truncated mid-payoff-enumeration). The protocol's
+single retry rescues it (exact `'J'`, `end_turn`, parsed) but would inject the retry
+suffix into claude's effective stimulus on essentially every decision, while gpt-4.1
+saw zero retries in all of Phase 3 — a model×stimulus confound. 8 infrastructure calls
+spent (≤10 budget), all event-sourced (`gate0_*`, `gate0diag_*`); full record in
+[`gate0-report.md`](gate0-report.md). Per the frozen rule, this failure is escalated
+for a registered amendment, not worked around. Experimental rows remain blocked;
+step-2 engine work (model-agnostic, zero LLM calls) proceeds; registry sealing (step
+3) waits on the amendment because cross-vendor arms bind the model string.
 
 | § | Deliverable | Where | Status |
 |---|---|---|---|
@@ -30,13 +49,16 @@ written to event store → E · 7. F · 8. replay-verify all → mechanical adju
 layer-2 companion → interpretation. Human-scaffold comparison stays a separate future
 registration ([`../substitution-estimand-preregistration.md`](../substitution-estimand-preregistration.md), ε pending).
 
-## §H Open items needing the user (none block packet review)
+## §H Open items — status at approval (2026-07-24)
 
-1. **GitHub connection** for external anchoring (signed tag + release). Without it:
-   local sealing only, honestly labeled.
-2. **Cross-vendor model confirmation:** claude-haiku-4-5 as named. (Uses Replit AI
-   Integrations — no API key needed, billed to credits.)
+1. **GitHub connection** for external anchoring: user opted **connect now** — pending
+   the user action; until attached, local sealing only, honestly labeled.
+2. **Cross-vendor model:** ✅ **claude-haiku-4-5 CONFIRMED** (Replit AI Integrations
+   Anthropic route — no API key, billed to credits).
 3. **Semantic-equivalence third rater** (default: gemini-class small model) and the
-   two human readers for the §2.2 instrument.
-4. **ε for the substitution estimand** TOST band (human phase; table in that prereg).
-5. **The one-line approval.**
+   two human readers for the §2.2 instrument — still open; does not block execution
+   (rating calls are a separate 18-call line item).
+4. **ε for the substitution estimand** TOST band — still open (human phase; table in
+   that prereg).
+5. **The one-line approval:** ✅ **GIVEN 2026-07-24T15:18:49Z** (structured form,
+   option "Approve — freeze the design and authorize Gate 0").
