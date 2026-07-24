@@ -17,6 +17,8 @@ import {
   GetExperimentResponse,
   RunExperimentParams,
   RunExperimentResponse,
+  ReplayExperimentParams,
+  ReplayExperimentResponse,
   RunExperimentBatchBody,
   RunExperimentBatchResponse,
   DeleteExperimentParams,
@@ -29,6 +31,9 @@ import {
   engineErrorStatus,
   ensureEngineRun,
   forkExperimentFromParent,
+  replayPhase3Experiment,
+  parsePhase3Protocol,
+  type Phase3Protocol,
   toGameDef,
   EngineDriftError,
 } from "../lib/experiment-service";
@@ -131,6 +136,23 @@ router.post("/experiments", async (req, res): Promise<void> => {
     return;
   }
 
+  // Phase 3 protocol validation at creation time, so a protocol can never be
+  // attached to a classic matchup and a Phase 3 subject can never be created
+  // without one (the run path re-checks, but failing here is cheaper).
+  const llmProtocol = parsed.data.llmProtocol ?? null;
+  const hasAiSeat = p1.type === "ai_model" || p2.type === "ai_model";
+  if (llmProtocol != null && !hasAiSeat) {
+    res.status(400).json({ error: "llmProtocol requires at least one LLM (ai_model) seat" });
+    return;
+  }
+  if (llmProtocol == null && (p1.slug === "llm-gpt-4.1" || p2.slug === "llm-gpt-4.1")) {
+    res.status(400).json({
+      error:
+        "llm-gpt-4.1 is a Phase 3 subject — experiments must be created with llmProtocol (pre-registered design)",
+    });
+    return;
+  }
+
   try {
     const [exp] = await db
       .insert(experimentsTable)
@@ -142,6 +164,7 @@ router.post("/experiments", async (req, res): Promise<void> => {
         seed: parsed.data.seed ?? generateSeed(),
         batchLabel: parsed.data.batchLabel ?? null,
         notes: parsed.data.notes ?? null,
+        llmMetaJson: llmProtocol != null ? JSON.stringify({ protocol: llmProtocol }) : null,
       })
       .returning();
     const detail = await buildExperimentDetail(exp);
@@ -168,7 +191,51 @@ router.post("/experiments", async (req, res): Promise<void> => {
           )
         );
       if (existing) {
-        const detail = await buildExperimentDetail(existing);
+        // Never silently reuse a row whose stored protocol differs from the
+        // one submitted — a resumed runner would run under the WRONG protocol.
+        const normalize = (p: Phase3Protocol | null) =>
+          p == null
+            ? null
+            : JSON.stringify({
+                promptId: p.promptId,
+                temperature: p.temperature,
+                maxTokens: p.maxTokens,
+                framing: p.framing ?? null,
+                deltaPct: p.deltaPct ?? null,
+                horizonRule: p.horizonRule ?? null,
+              });
+        const submitted: Phase3Protocol | null =
+          llmProtocol != null
+            ? {
+                promptId: llmProtocol.promptId,
+                temperature: llmProtocol.temperature,
+                maxTokens: llmProtocol.maxTokens,
+                framing: llmProtocol.framing ?? null,
+                deltaPct: llmProtocol.deltaPct ?? null,
+                horizonRule: llmProtocol.horizonRule ?? null,
+              }
+            : null;
+        let row = existing;
+        if (normalize(parsePhase3Protocol(existing.llmMetaJson)) !== normalize(submitted)) {
+          if (existing.status === "pending" || existing.status === "failed") {
+            // No evidence produced yet — adopt the submitted protocol so a
+            // corrected runner can recover this seed slot.
+            const [updated] = await db
+              .update(experimentsTable)
+              .set({
+                llmMetaJson: submitted != null ? JSON.stringify({ protocol: submitted }) : null,
+              })
+              .where(eq(experimentsTable.id, existing.id))
+              .returning();
+            row = updated;
+          } else {
+            res.status(409).json({
+              error: `Experiment ${existing.id} already ran (status "${existing.status}") under a different llmProtocol — refusing to reuse or mutate it`,
+            });
+            return;
+          }
+        }
+        const detail = await buildExperimentDetail(row);
         res.status(200).json(CreateExperimentResponse.parse(detail));
         return;
       }
@@ -331,12 +398,52 @@ router.post("/experiments/:id/run", async (req, res): Promise<void> => {
     // Keep run semantics aligned with the batch route: every completed run
     // gets its v2 analysis immediately, so claims adjudication always sees
     // singly-run experiments (LLM replicates run through this path).
-    await analyzeExperiment(updated.id);
+    // Invalid trials (Phase 3 unparseable-response rule) have no rounds and
+    // never receive an analysis — they are excluded from evidence by status.
+    if (updated.status === "completed") {
+      await analyzeExperiment(updated.id);
+    }
     const detail = await buildExperimentDetail(updated);
     res.json(RunExperimentResponse.parse(detail));
   } catch (err) {
     const { status, message } = engineErrorStatus(err);
     res.status(status).json({ error: `Experiment execution failed: ${message}` });
+  }
+});
+
+/**
+ * Zero-live-call verification of a completed Phase 3 LLM experiment:
+ * engine-side replay from the event-sourced LLM cache + local metric
+ * recomputation against the stored analysis. Always 200 with ok:false on
+ * verification mismatch (auditing must be able to report every experiment);
+ * 400 only when the experiment is not replayable at all.
+ */
+router.post("/experiments/:id/replay", async (req, res): Promise<void> => {
+  const params = ReplayExperimentParams.safeParse(req.params);
+  if (!params.success) {
+    res.status(400).json({ error: params.error.message });
+    return;
+  }
+
+  const [exp] = await db
+    .select()
+    .from(experimentsTable)
+    .where(eq(experimentsTable.id, params.data.id));
+  if (!exp) {
+    res.status(404).json({ error: "Experiment not found" });
+    return;
+  }
+
+  try {
+    const report = await replayPhase3Experiment(exp.id);
+    res.json(ReplayExperimentResponse.parse(report));
+  } catch (err) {
+    const { status, message } = engineErrorStatus(err);
+    // Plain service errors here are precondition failures (not Phase 3 /
+    // not completed), not server faults.
+    res
+      .status(status === 500 ? 400 : status)
+      .json({ error: `Replay verification failed: ${message}` });
   }
 });
 

@@ -141,6 +141,30 @@ router.patch("/claims/:id", async (req, res): Promise<void> => {
     return;
   }
 
+  // HARKing guard: once a claim has been adjudicated against evidence its
+  // predicate is immutable. Re-thresholding after seeing data would let a
+  // refuted claim be quietly re-scoped into support — register a new claim
+  // instead. (Prose fields stay editable; verdicts are recomputed from the
+  // locked predicate only.)
+  if (body.data.predicateJson != null) {
+    const [existing] = await db
+      .select()
+      .from(claimsTable)
+      .where(eq(claimsTable.id, params.data.id));
+    if (!existing) {
+      res.status(404).json({ error: "Claim not found" });
+      return;
+    }
+    if (existing.adjudicationJson != null) {
+      res.status(409).json({
+        error:
+          "Predicate is locked: this claim has already been adjudicated against evidence. " +
+          "Changing a predicate after seeing data is HARKing — register a new claim instead.",
+      });
+      return;
+    }
+  }
+
   const updates: Partial<typeof claimsTable.$inferSelect> = {};
   if (body.data.title != null) updates.title = body.data.title;
   if (body.data.statement != null) updates.statement = body.data.statement;
@@ -190,7 +214,7 @@ router.post("/claims/adjudicate-all", async (_req, res): Promise<void> => {
 
     try {
       const predicate = JSON.parse(claim.predicateJson) as ClaimPredicate;
-      const record = await adjudicatePredicate(predicate);
+      const record = await adjudicatePredicate(predicate, claim.createdAt);
       await db
         .update(claimsTable)
         .set({
@@ -254,7 +278,7 @@ router.post("/claims/:id/adjudicate", async (req, res): Promise<void> => {
 
   invalidateEvidenceCache();
   const predicate = JSON.parse(claim.predicateJson) as ClaimPredicate;
-  const record = await adjudicatePredicate(predicate);
+  const record = await adjudicatePredicate(predicate, claim.createdAt);
 
   const [updated] = await db
     .update(claimsTable)

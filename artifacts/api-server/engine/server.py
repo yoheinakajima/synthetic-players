@@ -16,6 +16,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 from engine import Engine
+from llm_runner import replay_llm, run_llm
+from llm_subject import load_registry
 
 DB_PATH = os.environ.get(
     "ENGINE_DB_PATH",
@@ -62,6 +64,27 @@ class ForkRequest(BaseModel):
     scripted2: Optional[list[ScriptedMove]] = None
 
 
+class LlmConfigModel(BaseModel):
+    """Subject-protocol parameters, stored verbatim on the run for provenance."""
+
+    model: str
+    temperature: float = Field(ge=0.0, le=2.0)
+    maxTokens: int = Field(default=16, ge=1, le=64)
+    promptId: str
+    framing: Optional[str] = None
+    deltaPct: Optional[float] = Field(default=None, ge=0, le=100)
+    horizonRule: Optional[str] = None
+
+
+class LlmRunRequest(BaseModel):
+    game: GameDefModel
+    strategy1Slug: str
+    strategy2Slug: str
+    numRounds: int = Field(ge=1, le=200)
+    seed: int = Field(ge=0, le=0xFFFFFFFF)
+    llm: LlmConfigModel
+
+
 def _moves(items: Optional[list[ScriptedMove]]) -> Optional[list[dict]]:
     return [m.model_dump() for m in items] if items is not None else None
 
@@ -79,6 +102,10 @@ def _guard(fn, *args, **kwargs) -> Any:
             raise HTTPException(status_code=404, detail=str(e))
         except ValueError as e:
             raise HTTPException(status_code=400, detail=str(e))
+        except RuntimeError as e:
+            # Structured mid-run failures (e.g. partial LLM spend payloads)
+            # must reach the caller as JSON detail, not an opaque 500.
+            raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/runs")
@@ -116,6 +143,39 @@ def get_trace(run_id: str) -> dict[str, Any]:
 @app.get("/runs/{parent_run_id}/diff/{fork_run_id}")
 def get_diff(parent_run_id: str, fork_run_id: str) -> dict[str, Any]:
     return _guard(engine.diff, parent_run_id, fork_run_id)
+
+
+@app.get("/llm-registry")
+def llm_registry() -> dict[str, Any]:
+    """Current prompt registry identity — runners assert this before batches."""
+    reg, sha = load_registry()
+    return {
+        "registryVersion": reg.get("registryVersion"),
+        "sha256": sha,
+        "promptIds": sorted(reg["prompts"].keys()),
+    }
+
+
+@app.post("/llm-runs")
+def create_llm_run(body: LlmRunRequest) -> dict[str, Any]:
+    """Live LLM behavioral run. Holds the engine lock for the whole run —
+    Phase 3 runs are executed sequentially by design (budget enforcement)."""
+    return _guard(
+        run_llm,
+        engine,
+        game_def=body.game.model_dump(),
+        strategy1_slug=body.strategy1Slug,
+        strategy2_slug=body.strategy2Slug,
+        num_rounds=body.numRounds,
+        seed=body.seed,
+        llm=body.llm.model_dump(exclude_none=True),
+    )
+
+
+@app.post("/llm-runs/{run_id}/replay")
+def replay_llm_run(run_id: str) -> dict[str, Any]:
+    """Pure replay verification: zero live calls, structural."""
+    return _guard(replay_llm, engine, run_id)
 
 
 if __name__ == "__main__":

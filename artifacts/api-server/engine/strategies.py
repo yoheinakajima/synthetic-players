@@ -122,6 +122,52 @@ def _generous_tit_for_tat(history, player_num, game, rng):
     return opp, f"Mirror opponent: {opp}."
 
 
+def _pattern_tracker(history, player_num, game, rng):
+    """First-order conditional-frequency tracker (Phase 3, pre-registered).
+
+    Deterministic, zero RNG draws. Mirrors the metrics.ts conditional-
+    exploitability tracker exactly: Laplace alpha=1 transition counts over the
+    opponent's action pairs, 10-round burn-in, first-index argmax best
+    response against the predicted distribution.
+
+    Rounds 1..10 (burn-in): deterministic cycle (n-1) % numActions.
+    Round n >= 11: predict opponent's next action from their lag-1 transition
+    row (strictly prior rounds only), best-respond via expected payoff.
+    """
+    n_actions = game["numActions"]
+    n = len(history) + 1  # current round number, 1-based
+    if n <= 10:
+        action = (n - 1) % n_actions
+        return action, f"Burn-in round {n}: cycling action {action}."
+
+    opp_actions = [
+        (r["p2Action"] if player_num == 1 else r["p1Action"]) for r in history
+    ]
+    # Laplace alpha=1 over lag-1 transitions from strictly prior rounds.
+    counts = [[1] * n_actions for _ in range(n_actions)]
+    for i in range(len(opp_actions) - 1):
+        counts[opp_actions[i]][opp_actions[i + 1]] += 1
+    row = counts[opp_actions[-1]]
+    total = sum(row)
+    dist = [c / total for c in row]
+
+    matrix = game["payoffMatrix"]
+    best_action = 0
+    best_ev = None
+    for a in range(n_actions):
+        ev = 0.0
+        for o in range(n_actions):
+            payoff = matrix[a][o][0] if player_num == 1 else matrix[o][a][1]
+            ev += dist[o] * payoff
+        if best_ev is None or ev > best_ev:  # strict > keeps first-index argmax
+            best_ev = ev
+            best_action = a
+    return best_action, (
+        f"Tracker: opp last {opp_actions[-1]}, row counts {row}; "
+        f"best response {best_action} (EV {_fmt(best_ev)})."
+    )
+
+
 STRATEGIES = {
     "always-cooperate": _always_cooperate,
     "always-defect": _always_defect,
@@ -131,6 +177,7 @@ STRATEGIES = {
     "win-stay-lose-shift": _win_stay_lose_shift,
     "nash-mixed": _nash_mixed,
     "generous-tit-for-tat": _generous_tit_for_tat,
+    "pattern-tracker": _pattern_tracker,
 }
 
 

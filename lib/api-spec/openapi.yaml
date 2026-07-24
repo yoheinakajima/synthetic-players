@@ -130,7 +130,7 @@ paths:
           in: query
           schema:
             type: string
-            enum: [pending, running, completed, failed]
+            enum: [pending, running, completed, failed, invalid]
         - name: batchLabel
           in: query
           schema:
@@ -220,6 +220,29 @@ paths:
                 $ref: "#/components/schemas/ExperimentDetail"
         "400":
           description: Experiment already run or invalid state
+        "404":
+          description: Not found
+
+  /experiments/{id}/replay:
+    post:
+      operationId: replayExperiment
+      tags: [experiments]
+      summary: Verify a completed Phase 3 LLM experiment by zero-live-call engine replay + metric recomputation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Replay verification report (ok=false on mismatch, still 200)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExperimentReplayReport"
+        "400":
+          description: Not a Phase 3 LLM experiment or not completed
         "404":
           description: Not found
 
@@ -836,6 +859,76 @@ components:
           type: string
         notes:
           type: string
+        llmProtocol:
+          type: object
+          description: >-
+            Phase 3 subject protocol for engine-live LLM experiments. Required
+            for llm-gpt-4.1 seats; forbidden for classic-only matchups. Stored
+            verbatim under llmMetaJson.protocol at creation time.
+          required: [promptId, temperature, maxTokens]
+          properties:
+            promptId:
+              type: string
+              description: Prompt template id from the engine's versioned registry
+            temperature:
+              type: number
+            maxTokens:
+              type: integer
+            framing:
+              type: ["string", "null"]
+              description: One-shot framing key (community | wallstreet | neutral)
+            deltaPct:
+              type: ["integer", "null"]
+              description: Disclosed continuation probability in percent (repeated PD)
+            horizonRule:
+              type: ["string", "null"]
+              description: How the horizon was drawn (e.g. geometric-delta-seedxor)
+
+    ExperimentReplayReport:
+      type: object
+      required: [experimentId, engineRunId, ok, llm, metrics]
+      properties:
+        experimentId:
+          type: integer
+        engineRunId:
+          type: string
+        ok:
+          type: boolean
+          description: True only when the zero-live-call replay verified AND recomputed metrics match stored analysis exactly
+        llm:
+          type: object
+          required: [ok, invalidTrial, recordedLlmCalls, llmCallsVerified, roundsCompared, liveCalls, promptRegistrySha256, mismatches]
+          properties:
+            ok:
+              type: boolean
+            invalidTrial:
+              type: boolean
+            recordedLlmCalls:
+              type: integer
+            llmCallsVerified:
+              type: integer
+            roundsCompared:
+              type: integer
+            liveCalls:
+              type: integer
+              description: Always 0 — replay never contacts the provider
+            promptRegistrySha256:
+              type: string
+            mismatches:
+              type: array
+              items:
+                type: string
+        metrics:
+          type: object
+          required: [match, mismatches]
+          properties:
+            match:
+              type: boolean
+              description: Recomputed metricsV2 from stored rounds equals the stored analysis JSON exactly
+            mismatches:
+              type: array
+              items:
+                type: string
 
     Experiment:
       type: object
@@ -879,7 +972,7 @@ components:
           description: Round at which this fork branched from its parent
         status:
           type: string
-          enum: [pending, running, completed, failed]
+          enum: [pending, running, completed, failed, invalid]
         player1AvgPayoffPerRound:
           type: ["number", "null"]
           description: player1TotalPayoff / numRounds (computed)
@@ -921,7 +1014,7 @@ components:
           type: integer
         status:
           type: string
-          enum: [pending, running, completed, failed]
+          enum: [pending, running, completed, failed, invalid]
         player1TotalPayoff:
           type: ["number", "null"]
         player2TotalPayoff:

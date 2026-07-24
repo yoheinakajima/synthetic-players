@@ -18,3 +18,20 @@ description: Quirks of the activegraph package (v1.10.x) and the Python game eng
 # How to apply
 - Engine is internal-only: second service in api-server artifact.toml with `paths = []`, dev cwd is the artifact dir (`uv run python engine/server.py`), prod cwd is repo root. Express reaches it via ENGINE_URL.
 - Any new strategy must go in engine/strategies.py and consume RNG in a fixed order (p1 then p2 per round).
+
+# Engine-live LLM seats (Phase 3 pattern)
+- Every live model call is event-sourced as an `LLMCache` event keyed by prompt
+  hash; replay reads the cache instead of the provider and must report
+  `liveCalls: 0`. **Prompt hashes must be unique per seat+round context** — in
+  self-play both seats can see byte-identical histories, so bake an explicit
+  seat tag into the prompt text or the two seats collide on one cache entry.
+- OpenAI-compatible calls go through a client whose base URL/key come from the
+  AI-Integrations env; gpt-4.1 is a non-reasoning model — tiny `maxTokens`
+  (16) is safe for single-token action answers, and `temperature`/`seed` are
+  honored (unlike the gpt-5 family, which pins sampling).
+- **Node→engine calls for LLM runs need a long-timeout undici dispatcher.**
+  Default fetch aborts when response headers take >5 min; a 100-call self-play
+  run near that edge gets marked failed client-side while the engine keeps
+  burning real provider calls — and failed rows carry no runMeta, so the burned
+  calls become invisible to budget accounting. Give the LLM-run route its own
+  `Agent({ headersTimeout, bodyTimeout })` of an hour+.

@@ -86,3 +86,20 @@ Spec requires temperature 0.7 (configurable, stored). Constraint discovered in T
 | gpt-4o | Yes | ~10–20 | Alternative non-reasoning subject; slightly costlier family than 4.1 |
 
 All options run through the existing Replit AI Integrations proxy (no new keys; billed to credits).
+
+---
+
+## Amendments (disclosed — added July 24, 2026, after study completion; original text above is unmodified)
+
+1. **Procedural lock #1 deviation.** "The adjudicator enforces timestamp ordering… (never
+   adjudicated)" was not implemented in the adjudicator at study time; the ordering was
+   enforced by the study runner only (claims step refuses to register if any `:t3` row
+   exists; runs step refuses to run without all 10 claims). Post-study, adjudicator-level
+   enforcement was added as a **disclosed `postRegistered` flag stamped on every
+   adjudication** (claim registration time vs earliest cited evidence row), not as
+   refusal-to-adjudicate — refusal would suppress the v1 corpus whose disclosed post-hoc
+   status is intentional. Machine check result: all 10 P3 claims `postRegistered=false`;
+   re-adjudication flipped no verdict. Additionally, predicates are now immutable after
+   first adjudication (HTTP 409).
+2. **Failed-run spend accounting hardened.** Mid-run engine failures now persist partial
+   provider-call counts on the failed row. Not exercised: 0/280 failures in this study.

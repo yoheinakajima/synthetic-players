@@ -76,3 +76,37 @@ creates two replicates for one design slot (same seed/label), decide by a rule
 fixed before looking at results — e.g. "first completedAt wins; relabel the
 other to an overflow batch with a note". Deleting nothing, disclosing the
 relabel, and never choosing by outcome keeps the evidence set defensible.
+
+**Idempotent create must reconcile config, not just return the old row.** A
+create-on-conflict path that silently returns the existing row will resurrect a
+*stale protocol* (old temperature/prompt version) when a rerun submits a
+revised one — the run then executes under parameters nobody registered. Rule:
+for rows with no data yet (pending/failed), adopt the newly submitted config
+and say so; for rows with data (completed/running/invalid), refuse loudly on
+any mismatch instead of picking either side.
+
+**Pre-registration promises must be machine-checked, not procedural.** A
+prereg doc that promises adjudicator-level enforcement the code doesn't
+implement is an erratum waiting for a reviewer. Now enforced: every
+adjudication stamps `postRegistered` (claim createdAt vs earliest cited
+evidence createdAt) and predicates lock (409) after first adjudication.
+**Why:** post-study review found the gap; fixed + disclosed as an amendment.
+**How to apply:** when a protocol doc says "X is enforced", grep for the
+enforcement code before running the study.
+
+**Design edge rules — they fire.** A pre-registered ratio predicate hit its
+denominator-exactly-zero case in the very first study using it (a framing cell
+with 0% cooperation). Without the pre-registered "supported iff numerator ≥
+floor" rule the item would have needed a post-hoc decision — which is HARKing.
+Any ratio/normalized predicate needs its degenerate cases decided at
+registration time. Corollary: subjects can produce *uniform corner solutions*
+(every replicate identical, sd = 0), so difference-of-means predicates must
+route degenerate variance to exact comparison rather than dividing by zero.
+
+**Spend budgets must count failures and invalid trials.** Recompute spend from
+stored per-run call counts (all statuses) rather than trusting the runner's
+in-memory tally: invalid trials burn real calls, and any run that fails
+*client-side* while the server continues would otherwise spend invisibly. Keep
+client timeouts far above worst-case run duration so "failed but still
+spending" cannot happen, and make the kill-switch a DB-derived check before
+every run, not a counter.

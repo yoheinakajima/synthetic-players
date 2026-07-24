@@ -44,6 +44,9 @@ export interface MetricsV2 {
   mutualCooperationRate: number | null;
   /** Realized joint payoff / maximum joint payoff available in the matrix. */
   welfareRatio: number | null;
+  /** First-round cooperation indicator (action 0) per seat: 1 or 0. Null for zero-sum. */
+  round1CoopP1: number | null;
+  round1CoopP2: number | null;
 
   // ── Coordination only ───────────────────────────────────────────────────
   /** Fraction of rounds where both players chose the same action index. */
@@ -69,6 +72,26 @@ export interface MetricsV2 {
   lag1RepeatDeviationP2: number | null;
   /** G-test p-value of observed joint outcomes vs the uniform Nash mixed outcome distribution. */
   gTestPValue: number | null;
+  /** First-round action indicators for 3-action zero-sum games (null otherwise). */
+  round1RockP1: number | null;
+  round1RockP2: number | null;
+  round1PaperP1: number | null;
+  round1PaperP2: number | null;
+  round1ScissorsP1: number | null;
+  round1ScissorsP2: number | null;
+  /** P(repeat previous action | previous round won). Win = payoff > 0; ties excluded. Null when no wins. */
+  wslsStayGivenWinP1: number | null;
+  wslsStayGivenWinP2: number | null;
+  /** P(change action | previous round lost). Loss = payoff < 0; ties excluded. Null when no losses. */
+  wslsShiftGivenLoseP1: number | null;
+  wslsShiftGivenLoseP2: number | null;
+  /**
+   * EXPLORATORY ONLY: lag-1 transition counts keyed "prev,next". Deliberately
+   * an object field so flattenMetrics never exposes it to the adjudicator
+   * (pre-registration lock: transition heatmaps are never adjudicated).
+   */
+  lag1TransitionsP1: Record<string, number> | null;
+  lag1TransitionsP2: Record<string, number> | null;
 }
 
 // ── Small numerics ─────────────────────────────────────────────────────────
@@ -247,6 +270,47 @@ function lag1RepeatDeviation(numActions: number, actions: number[]): number | nu
   return Math.abs(repeats / (n - 1) - expectedRepeat);
 }
 
+/**
+ * Win-stay / lose-shift conditionals for zero-sum play. Win = previous-round
+ * payoff > 0, loss = < 0; ties are excluded from both denominators (locked in
+ * the Phase 3 pre-registration). Null when a denominator is 0 — never 0/0=0.
+ */
+function wslsConditionals(
+  actions: number[],
+  payoffs: number[]
+): { stayGivenWin: number | null; shiftGivenLose: number | null } {
+  let winN = 0;
+  let winStay = 0;
+  let loseN = 0;
+  let loseShift = 0;
+  for (let t = 1; t < actions.length; t++) {
+    const prevPay = payoffs[t - 1];
+    if (prevPay > 0) {
+      winN++;
+      if (actions[t] === actions[t - 1]) winStay++;
+    } else if (prevPay < 0) {
+      loseN++;
+      if (actions[t] !== actions[t - 1]) loseShift++;
+    }
+  }
+  return {
+    stayGivenWin: winN > 0 ? winStay / winN : null,
+    shiftGivenLose: loseN > 0 ? loseShift / loseN : null,
+  };
+}
+
+/** Lag-1 transition counts, keyed "prev,next". Exploratory — never flattened. */
+function lag1Transitions(numActions: number, actions: number[]): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (let i = 0; i < numActions; i++) {
+    for (let j = 0; j < numActions; j++) counts[`${i},${j}`] = 0;
+  }
+  for (let t = 1; t < actions.length; t++) {
+    counts[`${actions[t - 1]},${actions[t]}`]++;
+  }
+  return counts;
+}
+
 /** G-test of joint outcome counts vs uniform Nash mixed prediction (each cell 1/k²). */
 function gTestVsUniform(game: GameDef, rounds: RoundData[]): number {
   const k = game.numActions;
@@ -333,6 +397,14 @@ export function computeMetricsV2(
   const jointPerRound = (p1Total + p2Total) / n;
   const welfareRatio = isZeroSum || maxJoint === 0 ? null : jointPerRound / maxJoint;
 
+  const p1Payoffs = rounds.map((r) => r.player1Payoff);
+  const p2Payoffs = rounds.map((r) => r.player2Payoff);
+  const wsls1 = isZeroSum ? wslsConditionals(p1Actions, p1Payoffs) : null;
+  const wsls2 = isZeroSum ? wslsConditionals(p2Actions, p2Payoffs) : null;
+  const isThreeAction = k === 3;
+  const round1Indicator = (actions: number[], idx: number): number | null =>
+    isZeroSum && isThreeAction ? (actions[0] === idx ? 1 : 0) : null;
+
   return {
     gameClass,
     numRounds: n,
@@ -349,6 +421,8 @@ export function computeMetricsV2(
       p1Coop != null && p2Coop != null ? (p1Coop + p2Coop) / 2 : null,
     mutualCooperationRate: mutualCoop,
     welfareRatio,
+    round1CoopP1: isZeroSum ? null : p1Actions[0] === 0 ? 1 : 0,
+    round1CoopP2: isZeroSum ? null : p2Actions[0] === 0 ? 1 : 0,
 
     coordinationRate:
       gameClass === "coordination"
@@ -364,6 +438,18 @@ export function computeMetricsV2(
     lag1RepeatDeviationP1: isZeroSum ? lag1RepeatDeviation(k, p1Actions) : null,
     lag1RepeatDeviationP2: isZeroSum ? lag1RepeatDeviation(k, p2Actions) : null,
     gTestPValue: isZeroSum ? gTestVsUniform(game, rounds) : null,
+    round1RockP1: round1Indicator(p1Actions, 0),
+    round1RockP2: round1Indicator(p2Actions, 0),
+    round1PaperP1: round1Indicator(p1Actions, 1),
+    round1PaperP2: round1Indicator(p2Actions, 1),
+    round1ScissorsP1: round1Indicator(p1Actions, 2),
+    round1ScissorsP2: round1Indicator(p2Actions, 2),
+    wslsStayGivenWinP1: wsls1?.stayGivenWin ?? null,
+    wslsStayGivenWinP2: wsls2?.stayGivenWin ?? null,
+    wslsShiftGivenLoseP1: wsls1?.shiftGivenLose ?? null,
+    wslsShiftGivenLoseP2: wsls2?.shiftGivenLose ?? null,
+    lag1TransitionsP1: isZeroSum ? lag1Transitions(k, p1Actions) : null,
+    lag1TransitionsP2: isZeroSum ? lag1Transitions(k, p2Actions) : null,
   };
 }
 
@@ -394,6 +480,19 @@ export function flattenMetrics(m: MetricsV2): Record<string, number> {
     "lag1RepeatDeviationP1",
     "lag1RepeatDeviationP2",
     "gTestPValue",
+    "round1CoopP1",
+    "round1CoopP2",
+    "round1RockP1",
+    "round1RockP2",
+    "round1PaperP1",
+    "round1PaperP2",
+    "round1ScissorsP1",
+    "round1ScissorsP2",
+    "wslsStayGivenWinP1",
+    "wslsStayGivenWinP2",
+    "wslsShiftGivenLoseP1",
+    "wslsShiftGivenLoseP2",
+    // lag1Transitions* stay OFF this list by design: exploratory, never adjudicated.
   ];
   for (const key of scalarKeys) {
     const v = m[key];

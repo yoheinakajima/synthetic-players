@@ -14,4 +14,5 @@ export const ListExperimentsStatus = {
   running: 'running',
   completed: 'completed',
   failed: 'failed',
+  invalid: 'invalid',
 } as const;

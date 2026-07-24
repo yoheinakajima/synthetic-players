@@ -32,6 +32,7 @@ meaningful, and is `null` elsewhere.
 | `actionCooperationRateOverall` | Mean of the two players' action-level rates. |
 | `mutualCooperationRate` | Fraction of rounds where **both** chose action 0. This is the stricter statistic; v1's `cooperationRate` was implicitly this and was mislabeled. |
 | `welfareRatio` | `jointPayoffPerRound ÷ max joint payoff cell in the matrix`. 1.0 = Pareto-optimal play every round. |
+| `round1CoopP1/P2` | Indicator (0/1): the player cooperated in round 1. Primary Phase 3 "shadow of the future" statistic — round-1 behavior is uncontaminated by within-supergame dynamics, matching how the human meta-analyses report it. |
 
 ## Coordination games (Stag Hunt, Battle of the Sexes, Pure Coordination)
 
@@ -60,6 +61,10 @@ The game value is computed as the expected payoff under uniform mixed play
 | `tvFromUniformP1/P2` | Total-variation distance between the empirical marginal and the uniform Nash mixed strategy. |
 | `lag1RepeatDeviationP1/P2` | \|P(aₜ = aₜ₋₁) − Σₐ pₐ²\| — lag-1 serial dependence beyond what the marginal alone implies. |
 | `gTestPValue` | G-test (likelihood-ratio χ², df = k²−1) of joint outcome counts against the Nash-mixed prediction (uniform over cells). Small p ⇒ observed play distribution deviates from equilibrium prediction. This **replaces** the per-round "Nash rate" for mixed-equilibrium games. |
+| `round1{Rock,Paper,Scissors}P1/P2` | Round-1 action indicators (0/1); 3-action zero-sum games only. |
+| `wslsStayGivenWinP1/P2` | P(repeat previous action \| previous round **won**, payoff > 0). Ties are excluded from both conditionals. `null` if the player never won. |
+| `wslsShiftGivenLoseP1/P2` | P(change action \| previous round **lost**, payoff < 0). `null` if the player never lost. Independence nulls for a 3-action game: stay 1/3, shift 2/3. |
+| `lag1TransitionsP1/P2` | Raw k×k lag-1 transition counts. Descriptive only — a nested map, deliberately **not** flattened, so predicates cannot reference it. |
 
 ## Aggregation (across seeds)
 
@@ -70,11 +75,38 @@ metric's sample rather than counted as zero.
 
 ## Claim adjudication rules
 
-A claim predicate is a conjunction of items `{metric, op, threshold, scope}`
+A claim predicate is a conjunction of items
 (`op ∈ {>, >=, <, <=, between, approx}`); scopes select evidence by game,
-strategy slugs (exact seats, either order, any-of, pair-from), and batch label.
-Metric names ending in `Focus`/`Opponent` resolve to the seat occupied by
-`focusStrategySlug`.
+strategy slugs (exact seats, either order, any-of, pair-from), and batch
+label(s). Metric names ending in `Focus`/`Opponent` resolve to the seat
+occupied by `focusStrategySlug`; in self-play the two seats are the same
+strategy, so `Focus` under the `experiment` aggregate is the **mean of both
+seats** (one value per experiment — seats within a run are not independent),
+while the `seatDecision` aggregate contributes **each seat separately**
+(pooling both self-play seats is only used where pre-registered).
+
+Item scope **merges over** the claim scope (shallow spread, item wins), so a
+claim can fix `gameSlug`/`focusStrategySlug` once and items override just the
+`batchLabels`. `minExperiments` (claim-level) applies to every evidence side
+of every item — below it, the item is `untested`, never guessed.
+
+Item kinds beyond the plain `threshold` comparison:
+
+- `metricVsMetric` — compare two metrics on the same evidence rows
+  (`metric` vs `metricB`), e.g. round-1 rock share > paper share.
+- `diffScopes` — difference of a metric between two scopes
+  (`scope` − `scopeB`); `absolute: true` compares |difference|.
+- `ratioScopes` — ratio `scope ÷ scopeB`, with a pre-registered
+  `ratioEdge.denomZero.numerAtLeast` rule: if the denominator is exactly 0,
+  the item is supported iff the numerator clears that floor, else
+  inconclusive (never a division by zero, never silently skipped).
+- `orderedScopes` — a monotone chain over `scopesOrdered` (ties allowed),
+  e.g. wallstreet ≤ neutral ≤ community.
+- `aggregate: "seatDecision"` — evidence units are individual seat decisions
+  (metric key **without** the P1/P2 suffix) instead of per-experiment values.
+- `evaluate: "point"` — adjudicate on the point estimate instead of the CI
+  (used where the pre-registration specifies a point comparison, e.g. range
+  membership and ratio magnitudes).
 
 Per item:
 - **n = 0** → `untested`.
@@ -176,3 +208,31 @@ Consequences for claims and experiment design:
   stay open for many minutes); replicates run individually via
   `POST /experiments` + `POST /experiments/:id/run`, which also computes the
   v2 analysis.
+
+## Phase 3: engine-live LLM subjects
+
+Phase 3 (pre-registered in `docs/phase3-preregistration.md`) upgrades LLM
+runs from the Node-side live loop to an **engine-live** path used whenever an
+experiment carries an `llmProtocol` and an `ai_model` seat:
+
+- The **engine** drives the decision loop. Every prompt is built from a
+  versioned registry (`GET /llm-registry`; sha256 pinned by the runner — any
+  drift aborts the study). Every call is event-sourced as an `LLMCache` event
+  (prompt hash, params, raw response, parsed action) in the engine's store.
+- The protocol `{promptId, temperature, maxTokens, deltaPct?/framing?}` is
+  stored in `llmMetaJson.protocol`; per-run call/token/retry counts in
+  `llmMetaJson.runMeta`. Budget accounting sums `runMeta.llmCalls` across
+  **all** statuses — invalid trials burn real calls and are counted.
+- **Invalid trials** (unparseable response after retry, provider failure):
+  the experiment is stored with status `invalid`, no rounds, and the seed
+  stays claimed; the pre-registered replacement is seed 1000+k, drawn once.
+  Invalid rows are never evidence but are always disclosed.
+- **Replay** (`POST /experiments/:id/replay`) re-executes the run from the
+  event store with **zero live calls**, byte-compares every action/payoff,
+  and independently recomputes v2 metrics from stored rounds, byte-comparing
+  against the stored analysis. `ok: true` means the run is bit-exact
+  reproducible from the database + event store alone.
+- Random-termination horizons (family A) are drawn client-side by the runner
+  (`mulberry32(seed ^ 0x54524D)`, geometric continuation, safety cap 120 —
+  cap hits are excluded and disclosed, P≈3e-6 per draw at δ=.90). The subject
+  never sees the realized horizon, only the continuation probability.

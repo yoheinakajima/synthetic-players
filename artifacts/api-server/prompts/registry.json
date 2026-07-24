@@ -1,0 +1,37 @@
+{
+  "registryVersion": "phase3-v1",
+  "createdAt": "2026-07-24",
+  "notes": "Phase 3 behavioral prompt registry (pre-registered, docs/phase3-preregistration.md). Design rules: neutral action labels (J/F for the dilemma games, ROCK/PAPER/SCISSORS for the cyclic game), no game-theory vocabulary (no cooperate/defect/prisoner/Nash/strategy/opponent-modeling terms), full payoff disclosure for both players, continuation probability disclosed for repeated play with realized horizon hidden, fixed horizon disclosed for the cyclic game. Parser: strip whitespace, uppercase, exact match against options; one corrective retry (new prompt hash), then the trial is invalidated. Seat tag in the system prompt guarantees per-seat prompt-hash uniqueness in self-play.",
+  "prompts": {
+    "pd-repeated-v1": {
+      "options": ["J", "F"],
+      "system": "You are Player {seat} in a decision-making study. In each round you make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+      "user": "You and another participant each choose one letter, J or F, at the same time.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\nAfter every round there is a {deltaPct}% chance the session continues with another round.\n\n{history}\n\nRound {round}. Your choice (J or F):",
+      "historyHeader": "Previous rounds:",
+      "historyLine": "Round {n}: you chose {you}, the other chose {them}. You earned {youPts} points; they earned {themPts} points.",
+      "firstRound": "This is the first round.",
+      "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F."
+    },
+    "pd-oneshot-v1": {
+      "options": ["J", "F"],
+      "system": "You are Player {seat} in a decision-making study. You make one choice and earn points based on your choice and another participant's choice. Reply with exactly one letter and nothing else.",
+      "user": "{framingLine}You and another participant each choose one letter, J or F, at the same time. This happens exactly once.\nPoints for each combination:\n- You choose J, other chooses J: you earn {rr} points; they earn {rr} points.\n- You choose J, other chooses F: you earn {rs} points; they earn {rt} points.\n- You choose F, other chooses J: you earn {rt} points; they earn {rs} points.\n- You choose F, other chooses F: you earn {rp} points; they earn {rp} points.\n\nYour choice (J or F):",
+      "framings": {
+        "community": "This is called the Community Game. ",
+        "wallstreet": "This is called the Wall Street Game. ",
+        "neutral": ""
+      },
+      "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one letter: J or F."
+    },
+    "rps-v1": {
+      "options": ["ROCK", "PAPER", "SCISSORS"],
+      "system": "You are Player {seat} in a decision-making study. In each round you make one choice. Reply with exactly one word and nothing else.",
+      "user": "You are playing rock-paper-scissors against another player for {numRounds} rounds.\nEach round, you and the other player choose ROCK, PAPER, or SCISSORS at the same time.\nROCK beats SCISSORS, SCISSORS beats PAPER, PAPER beats ROCK. The same choice is a tie.\nScoring each round: win +1 point, tie 0 points, loss -1 point.\n\n{history}\n\nRound {round}. Your choice (ROCK, PAPER, or SCISSORS):",
+      "historyHeader": "Previous rounds:",
+      "historyLine": "Round {n}: you chose {you}, the other chose {them}. {outcome}",
+      "outcomes": { "win": "You won (+1).", "tie": "Tie (0).", "lose": "You lost (-1)." },
+      "firstRound": "This is the first round.",
+      "retrySuffix": "\n\nYour previous reply was not a valid choice. Reply with exactly one word: ROCK, PAPER, or SCISSORS."
+    }
+  }
+}

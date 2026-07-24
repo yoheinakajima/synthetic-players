@@ -14,4 +14,5 @@ export const ExperimentStatus = {
   running: 'running',
   completed: 'completed',
   failed: 'failed',
+  invalid: 'invalid',
 } as const;

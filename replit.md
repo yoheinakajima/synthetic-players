@@ -36,7 +36,10 @@ A public academic research platform that runs classic game theory experiments, r
 - `artifacts/api-server/src/routes/` — one file per domain (games, strategies, experiments, rounds, analyses, claims, papers, dashboard)
 - `artifacts/lab/src/pages/` — frontend pages (Dashboard, GameCatalog, GameDetail, Experiments, NewExperiment, ExperimentDetail, Claims, Papers, PaperDetail)
 - `scripts/run-phase1.mjs` — reproducible pipeline driver (v2 analyses → 20-seed batches → adjudicate-all → paper)
+- `scripts/run-phase2-track2.mjs`, `scripts/run-phase3.mjs` — pre-registered study runners (claims → runs → verify → adjudicate; resumable, budget-capped)
+- `artifacts/api-server/engine/llm_subject.py`, `llm_runner.py` — engine-live LLM seat (prompt registry, OpenAI provider, LLMCache event sourcing, zero-live-call replay)
 - `docs/METRICS.md`, `docs/POSTMORTEM.md`, `docs/v1/` — metric definitions, v1 error record, frozen v1 artifacts
+- `docs/phase3-preregistration.md` — Phase 3 pre-registration (predicates, budgets, invalid-trial + truncation rules)
 
 ## Architecture decisions
 
@@ -52,6 +55,9 @@ A public academic research platform that runs classic game theory experiments, r
 - **Presentation rule:** UI and paper lead with per-round averages; totals always labeled as totals
 - **Fork exclusion rule:** fork-lineage experiments (parentExperimentId set) are exploratory, never evidence — no analysis rows, skipped by the adjudicator, aggregate endpoint, and leaderboard. Study forks via the parent-vs-fork diff view. Only engine-era experiments (with engineRunId) are forkable; pre-engine runs would need a seeded re-run to backfill engineRunId
 - **Fork-comparison evidence (Phase 2 · Track 1):** the one principled exception to fork exclusion — paired parent-vs-fork metrics over the shared post-fork window (`postFork.*` metrics, `scope.fork` predicate blocks; see docs/METRICS.md). `POST /experiments/fork-batch` forks a whole batch idempotently, auto-materializing engine runs via verified seeded replay (`POST /experiments/:id/engine-run`, 409 on determinism drift, writes nothing on mismatch). Entire seeded corpus (396 runs) backfilled with 0 drift. Adjudicator treats sd < 1e-12 as deterministic evidence (float residue ≠ variance)
+
+- **Phase 3 results (July 2026):** 280 runs, 5,184 calls, 0 invalid, 280/280 replay-verified. gpt-4.1 @0.7: zero round-1 cooperation in ALL repeated PD (A family fully refuted); framing effect real (community 17.5% vs wallstreet 0%, B1 supported); RPS rock 80% (human band refuted), WSLS supported (shift|lose 0.97); tracker LOST to the LLM (C3 sign-reversed refutation). See docs/phase3-report.md
+- **LLM as behavioral subject (Phase 3):** experiments with `llmMetaJson.protocol` + an `ai_model` seat run **engine-live** — the engine drives the LLM loop (gpt-4.1, temperature/maxTokens pinned in the protocol), event-sources every call as `LLMCache` events, and replays with zero live calls via `POST /experiments/:id/replay` (byte-compares actions/payoffs and recomputes metrics). Invalid trials (unparseable after retry) persist as status `invalid` with call counts — they claim their seed and spend budget but are never evidence; replacement seeds are 1000+k, drawn once. Prompt registry sha is pinned by the runner; drift aborts the study. Engine-client uses a long-timeout undici dispatcher for `/llm-runs` (default 5-min fetch cap would fail long self-play runs while the engine keeps spending)
 
 ## Product
 

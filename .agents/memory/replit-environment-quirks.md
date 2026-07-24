@@ -19,6 +19,21 @@ adequate timeout; make them idempotent/resumable and invoke repeatedly if they
 might exceed the 5-minute cap; use a workflow for anything genuinely
 long-running.
 
+**`setsid nohup … &` does not fix it.** The double-detached process survives
+the launching shell call by ~10–40 seconds, then is reaped anyway (cgroup-level
+cleanup): the log freezes mid-stream with no error line and `ps` shows nothing.
+The reliable detachment mechanism is a **console workflow** wrapping a one-shot
+command: `node runner.mjs 2>&1 | tee -a /tmp/x.log; tail -f /dev/null`. The
+`tail -f` hold keeps the workflow "running" after the runner exits, so the
+platform never auto-restarts it — critical when a crashed runner's retry loop
+could re-spend real API budget. Remove the workflow when the job is done.
+
+**Resumable runners must also handle orphaned `pending` rows.** A runner dying
+between "create row" and "start run" leaves a pending row that no server-side
+work will ever advance. Treat pending (created-but-never-executed) as
+re-runnable via the idempotent create → run path; only actively `running` rows
+stay claimed as in-flight.
+
 **Server-side work outlives a killed client.** When a shell-call timeout kills
 a script mid-HTTP-request, the Express handler keeps running and usually
 completes (rows land minutes later). A resumable runner that only checks

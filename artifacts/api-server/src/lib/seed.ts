@@ -214,6 +214,50 @@ export async function ensureAiStrategies(): Promise<void> {
         type: "ai_model",
         modelId: "gpt-5-mini",
       },
+      {
+        slug: "llm-gpt-4.1",
+        name: "LLM Subject (GPT-4.1)",
+        description:
+          "Phase 3 behavioral subject: GPT-4.1 at temperature 0.7 via Replit AI Integrations, one sampled completion per decision. Prompts come exclusively from the versioned, SHA-256-hashed prompt registry (neutral labels, no game-theory vocabulary); every call is event-sourced on the engine (llm.requested/llm.responded) for zero-live-call replay verification. Requires a Phase 3 protocol on the experiment (llmMetaJson.protocol) — direct ad-hoc runs are refused to protect the pre-registered design.",
+        type: "ai_model",
+        modelId: "gpt-4.1",
+      },
+      {
+        slug: "pattern-tracker",
+        name: "Pattern Tracker",
+        description:
+          "First-order conditional-frequency tracker (Phase 3, pre-registered): rounds 1-10 cycle actions deterministically (burn-in), then predicts the opponent's next action from Laplace-smoothed (alpha=1) lag-1 transition counts over strictly prior rounds and plays the first-index-argmax best response by expected payoff. Deterministic, zero RNG draws. Mirrors the conditional-exploitability tracker in metrics v2 exactly.",
+        type: "deterministic",
+      },
     ])
     .onConflictDoNothing({ target: strategiesTable.slug });
+}
+
+/**
+ * Ensure Phase 3 games exist. Idempotent via ON CONFLICT DO NOTHING on slug;
+ * runs unconditionally at startup so existing databases pick it up.
+ */
+export async function ensurePhase3Games(): Promise<void> {
+  await db
+    .insert(gamesTable)
+    .values([
+      {
+        slug: "prisoners-dilemma-iso",
+        name: "Prisoner's Dilemma (Payoff Isomorph)",
+        description:
+          "Affine transform (x3+2) of the canonical Prisoner's Dilemma: payoffs (R,S,T,P) = (11,2,17,5) instead of (3,0,5,1). Preserves delta_SPE = 0.50 and the risk-dominance threshold delta* = 0.60 exactly. Phase 3 contamination probe: a subject reasoning from incentives should behave identically here; a subject pattern-matching the famous 3/0/5/1 matrix should not.",
+        numActions: 2,
+        actionLabels: JSON.stringify(["J", "F"]),
+        payoffMatrix: JSON.stringify([
+          [[11, 11], [2, 17]],
+          [[17, 2], [5, 5]],
+        ]),
+        nashEquilibria: JSON.stringify([[1, 1]]),
+        nashDescription:
+          "Mutual F (defection) is the unique Nash equilibrium, exactly as in the canonical matrix — the affine transform preserves all best-response relations.",
+        theoreticalCooperationRate: 0.0,
+        category: "social_dilemma",
+      },
+    ])
+    .onConflictDoNothing({ target: gamesTable.slug });
 }

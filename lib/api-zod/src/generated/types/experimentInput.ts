@@ -5,6 +5,7 @@
  * Game Theory Research Lab API
  * OpenAPI spec version: 0.1.0
  */
+import type { ExperimentInputLlmProtocol } from './experimentInputLlmProtocol';
 
 export interface ExperimentInput {
   gameId: number;
@@ -19,4 +20,6 @@ export interface ExperimentInput {
   seed?: number;
   batchLabel?: string;
   notes?: string;
+  /** Phase 3 subject protocol for engine-live LLM experiments. Required for llm-gpt-4.1 seats; forbidden for classic-only matchups. Stored verbatim under llmMetaJson.protocol at creation time. */
+  llmProtocol?: ExperimentInputLlmProtocol;
 }

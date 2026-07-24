@@ -62,6 +62,31 @@ export interface Strategy {
   createdAt: string;
 }
 
+/**
+ * Phase 3 subject protocol for engine-live LLM experiments. Required for llm-gpt-4.1 seats; forbidden for classic-only matchups. Stored verbatim under llmMetaJson.protocol at creation time.
+ */
+export type ExperimentInputLlmProtocol = {
+  /** Prompt template id from the engine's versioned registry */
+  promptId: string;
+  temperature: number;
+  maxTokens: number;
+  /**
+     * One-shot framing key (community | wallstreet | neutral)
+     * @nullable
+     */
+  framing?: string | null;
+  /**
+     * Disclosed continuation probability in percent (repeated PD)
+     * @nullable
+     */
+  deltaPct?: number | null;
+  /**
+     * How the horizon was drawn (e.g. geometric-delta-seedxor)
+     * @nullable
+     */
+  horizonRule?: string | null;
+};
+
 export interface ExperimentInput {
   gameId: number;
   player1StrategyId: number;
@@ -75,6 +100,35 @@ export interface ExperimentInput {
   seed?: number;
   batchLabel?: string;
   notes?: string;
+  /** Phase 3 subject protocol for engine-live LLM experiments. Required for llm-gpt-4.1 seats; forbidden for classic-only matchups. Stored verbatim under llmMetaJson.protocol at creation time. */
+  llmProtocol?: ExperimentInputLlmProtocol;
+}
+
+export type ExperimentReplayReportLlm = {
+  ok: boolean;
+  invalidTrial: boolean;
+  recordedLlmCalls: number;
+  llmCallsVerified: number;
+  roundsCompared: number;
+  /** Always 0 — replay never contacts the provider */
+  liveCalls: number;
+  promptRegistrySha256: string;
+  mismatches: string[];
+};
+
+export type ExperimentReplayReportMetrics = {
+  /** Recomputed metricsV2 from stored rounds equals the stored analysis JSON exactly */
+  match: boolean;
+  mismatches: string[];
+};
+
+export interface ExperimentReplayReport {
+  experimentId: number;
+  engineRunId: string;
+  /** True only when the zero-live-call replay verified AND recomputed metrics match stored analysis exactly */
+  ok: boolean;
+  llm: ExperimentReplayReportLlm;
+  metrics: ExperimentReplayReportMetrics;
 }
 
 export type ExperimentStatus = typeof ExperimentStatus[keyof typeof ExperimentStatus];
@@ -85,6 +139,7 @@ export const ExperimentStatus = {
   running: 'running',
   completed: 'completed',
   failed: 'failed',
+  invalid: 'invalid',
 } as const;
 
 export interface Experiment {
@@ -162,6 +217,7 @@ export const ExperimentDetailStatus = {
   running: 'running',
   completed: 'completed',
   failed: 'failed',
+  invalid: 'invalid',
 } as const;
 
 export interface Round {
@@ -711,6 +767,7 @@ export const ListExperimentsStatus = {
   running: 'running',
   completed: 'completed',
   failed: 'failed',
+  invalid: 'invalid',
 } as const;
 
 export type GetAggregateAnalysisParams = {

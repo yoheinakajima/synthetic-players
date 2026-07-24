@@ -35,6 +35,7 @@ import type {
   ExperimentDetail,
   ExperimentDiff,
   ExperimentInput,
+  ExperimentReplayReport,
   ExperimentTrace,
   ForkExperimentBatchInput,
   ForkExperimentBatchResult,
@@ -837,6 +838,77 @@ export const useRunExperiment = <TError = ErrorType<void>,
         TContext
       > => {
       return useMutation(getRunExperimentMutationOptions(options));
+    }
+
+export const getReplayExperimentUrl = (id: number,) => {
+
+
+
+
+  return `/api/experiments/${id}/replay`
+}
+
+/**
+ * @summary Verify a completed Phase 3 LLM experiment by zero-live-call engine replay + metric recomputation
+ */
+export const replayExperiment = async (id: number, options?: RequestInit): Promise<ExperimentReplayReport> => {
+
+  return customFetch<ExperimentReplayReport>(getReplayExperimentUrl(id),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getReplayExperimentMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof replayExperiment>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof replayExperiment>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['replayExperiment'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof replayExperiment>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  replayExperiment(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ReplayExperimentMutationResult = NonNullable<Awaited<ReturnType<typeof replayExperiment>>>
+
+    export type ReplayExperimentMutationError = ErrorType<void>
+
+    /**
+ * @summary Verify a completed Phase 3 LLM experiment by zero-live-call engine replay + metric recomputation
+ */
+export const useReplayExperiment = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof replayExperiment>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof replayExperiment>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getReplayExperimentMutationOptions(options));
     }
 
 export const getForkExperimentUrl = (id: number,) => {

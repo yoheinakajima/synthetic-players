@@ -4,7 +4,21 @@
  * remains the only Postgres writer.
  */
 
+import { fetch as undiciFetch, Agent } from "undici";
+
 const ENGINE_URL = process.env.ENGINE_URL ?? "http://127.0.0.1:8090";
+
+/**
+ * LLM subject runs make one live model call per decision and can legitimately
+ * take many minutes (a 50-round self-play supergame is ~100 calls). The
+ * default fetch dispatcher aborts when response headers take >5 minutes,
+ * which would mark the experiment failed while the engine keeps making
+ * budgeted LLM calls — silently corrupting Phase 3 budget accounting. LLM
+ * runs therefore go through a dedicated long-timeout dispatcher.
+ */
+const llmRunAgent = new Agent({ headersTimeout: 3_600_000, bodyTimeout: 3_600_000 });
+const llmRunFetch = ((input: Parameters<typeof undiciFetch>[0], init?: Parameters<typeof undiciFetch>[1]) =>
+  undiciFetch(input, { ...init, dispatcher: llmRunAgent })) as unknown as typeof fetch;
 
 export class EngineUnreachableError extends Error {
   constructor(cause: string) {
@@ -87,10 +101,14 @@ export interface EngineTraceEvent {
   payload: Record<string, unknown>;
 }
 
-async function engineFetch<T>(path: string, init?: RequestInit): Promise<T> {
+async function engineFetch<T>(
+  path: string,
+  init?: RequestInit,
+  fetchImpl: typeof fetch = fetch
+): Promise<T> {
   let res: Response;
   try {
-    res = await fetch(`${ENGINE_URL}${path}`, {
+    res = await fetchImpl(`${ENGINE_URL}${path}`, {
       ...init,
       headers: { "Content-Type": "application/json", ...init?.headers },
     });
@@ -160,4 +178,87 @@ export function traceOnEngine(
   engineRunId: string
 ): Promise<{ engineRunId: string; events: EngineTraceEvent[] }> {
   return engineFetch(`/runs/${encodeURIComponent(engineRunId)}/trace`);
+}
+
+// ── Phase 3: engine-side LLM behavioral runs ───────────────────────────────
+
+/** Subject-protocol parameters passed through to the engine (and stored on the run). */
+export interface EngineLlmConfig {
+  model: string;
+  temperature: number;
+  maxTokens: number;
+  promptId: string;
+  framing?: string;
+  deltaPct?: number;
+  horizonRule?: string;
+}
+
+export interface EngineLlmRunMeta {
+  llmCalls: number;
+  retriedCalls: number;
+  inputTokens: number;
+  outputTokens: number;
+  model: string;
+  temperature: number;
+  maxTokens: number;
+  promptId: string;
+  promptRegistrySha256: string;
+}
+
+export interface EngineLlmRunResult {
+  engineRunId: string;
+  seed: number;
+  invalidTrial: boolean;
+  rounds: EngineRound[];
+  meta: EngineLlmRunMeta;
+  // present only when invalidTrial === false:
+  player1TotalPayoff?: number;
+  player2TotalPayoff?: number;
+  cooperationRate?: number;
+  nashDeviationScore?: number;
+}
+
+export interface EngineLlmReplayResult {
+  engineRunId: string;
+  ok: boolean;
+  invalidTrial: boolean;
+  recordedLlmCalls: number;
+  llmCallsVerified: number;
+  roundsCompared: number;
+  liveCalls: number;
+  promptRegistrySha256: string;
+  mismatches: string[];
+}
+
+export function runLlmOnEngine(input: {
+  game: EngineGameDef;
+  strategy1Slug: string;
+  strategy2Slug: string;
+  numRounds: number;
+  seed: number;
+  llm: EngineLlmConfig;
+}): Promise<EngineLlmRunResult> {
+  return engineFetch<EngineLlmRunResult>(
+    "/llm-runs",
+    {
+      method: "POST",
+      body: JSON.stringify(input),
+    },
+    llmRunFetch
+  );
+}
+
+export function replayLlmOnEngine(engineRunId: string): Promise<EngineLlmReplayResult> {
+  return engineFetch<EngineLlmReplayResult>(
+    `/llm-runs/${encodeURIComponent(engineRunId)}/replay`,
+    { method: "POST" }
+  );
+}
+
+export function getEngineLlmRegistry(): Promise<{
+  registryVersion: string;
+  sha256: string;
+  promptIds: string[];
+}> {
+  return engineFetch("/llm-registry");
 }

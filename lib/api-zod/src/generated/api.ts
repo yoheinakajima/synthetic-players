@@ -97,7 +97,7 @@ export const GetStrategyResponse = zod.object({
  */
 export const ListExperimentsQueryParams = zod.object({
   "gameId": zod.coerce.number().optional(),
-  "status": zod.enum(['pending', 'running', 'completed', 'failed']).optional(),
+  "status": zod.enum(['pending', 'running', 'completed', 'failed', 'invalid']).optional(),
   "batchLabel": zod.coerce.string().optional()
 })
 
@@ -116,7 +116,7 @@ export const ListExperimentsResponseItem = zod.object({
   "llmMetaJson": zod.string().nullish().describe('LLM-run provenance as a JSON string (model per seat, prompt version, token usage). Null for non-LLM experiments. LLM runs are event-sourced rather than seed-reproducible.'),
   "parentExperimentId": zod.number().nullish().describe('Parent experiment id when this experiment is a fork'),
   "forkRound": zod.number().nullish().describe('Round at which this fork branched from its parent'),
-  "status": zod.enum(['pending', 'running', 'completed', 'failed']),
+  "status": zod.enum(['pending', 'running', 'completed', 'failed', 'invalid']),
   "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
   "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
   "player1TotalPayoff": zod.number().nullish(),
@@ -145,7 +145,15 @@ export const CreateExperimentBody = zod.object({
   "numRounds": zod.number().min(1).max(createExperimentBodyNumRoundsMax),
   "seed": zod.number().optional().describe('RNG seed for reproducibility; auto-generated if omitted'),
   "batchLabel": zod.string().optional(),
-  "notes": zod.string().optional()
+  "notes": zod.string().optional(),
+  "llmProtocol": zod.object({
+  "promptId": zod.string().describe('Prompt template id from the engine\'s versioned registry'),
+  "temperature": zod.number(),
+  "maxTokens": zod.number(),
+  "framing": zod.string().nullish().describe('One-shot framing key (community | wallstreet | neutral)'),
+  "deltaPct": zod.number().nullish().describe('Disclosed continuation probability in percent (repeated PD)'),
+  "horizonRule": zod.string().nullish().describe('How the horizon was drawn (e.g. geometric-delta-seedxor)')
+}).optional().describe('Phase 3 subject protocol for engine-live LLM experiments. Required for llm-gpt-4.1 seats; forbidden for classic-only matchups. Stored verbatim under llmMetaJson.protocol at creation time.')
 })
 
 export const CreateExperimentResponse = zod.object({
@@ -163,7 +171,7 @@ export const CreateExperimentResponse = zod.object({
   "llmMetaJson": zod.string().nullish().describe('LLM-run provenance as a JSON string (model per seat, prompt version, token usage). Null for non-LLM experiments. LLM runs are event-sourced rather than seed-reproducible.'),
   "parentExperimentId": zod.number().nullish().describe('Parent experiment id when this experiment is a fork'),
   "forkRound": zod.number().nullish().describe('Round at which this fork branched from its parent'),
-  "status": zod.enum(['pending', 'running', 'completed', 'failed']),
+  "status": zod.enum(['pending', 'running', 'completed', 'failed', 'invalid']),
   "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
   "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
   "player1TotalPayoff": zod.number().nullish(),
@@ -190,7 +198,7 @@ export const GetExperimentResponse = zod.object({
   "player1StrategyId": zod.number(),
   "player2StrategyId": zod.number(),
   "numRounds": zod.number(),
-  "status": zod.enum(['pending', 'running', 'completed', 'failed']),
+  "status": zod.enum(['pending', 'running', 'completed', 'failed', 'invalid']),
   "player1TotalPayoff": zod.number().nullish(),
   "player2TotalPayoff": zod.number().nullish(),
   "cooperationRate": zod.number().nullish(),
@@ -278,7 +286,7 @@ export const RunExperimentResponse = zod.object({
   "player1StrategyId": zod.number(),
   "player2StrategyId": zod.number(),
   "numRounds": zod.number(),
-  "status": zod.enum(['pending', 'running', 'completed', 'failed']),
+  "status": zod.enum(['pending', 'running', 'completed', 'failed', 'invalid']),
   "player1TotalPayoff": zod.number().nullish(),
   "player2TotalPayoff": zod.number().nullish(),
   "cooperationRate": zod.number().nullish(),
@@ -344,6 +352,34 @@ export const RunExperimentResponse = zod.object({
 
 
 /**
+ * @summary Verify a completed Phase 3 LLM experiment by zero-live-call engine replay + metric recomputation
+ */
+export const ReplayExperimentParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const ReplayExperimentResponse = zod.object({
+  "experimentId": zod.number(),
+  "engineRunId": zod.string(),
+  "ok": zod.boolean().describe('True only when the zero-live-call replay verified AND recomputed metrics match stored analysis exactly'),
+  "llm": zod.object({
+  "ok": zod.boolean(),
+  "invalidTrial": zod.boolean(),
+  "recordedLlmCalls": zod.number(),
+  "llmCallsVerified": zod.number(),
+  "roundsCompared": zod.number(),
+  "liveCalls": zod.number().describe('Always 0 — replay never contacts the provider'),
+  "promptRegistrySha256": zod.string(),
+  "mismatches": zod.array(zod.string())
+}),
+  "metrics": zod.object({
+  "match": zod.boolean().describe('Recomputed metricsV2 from stored rounds equals the stored analysis JSON exactly'),
+  "mismatches": zod.array(zod.string())
+})
+})
+
+
+/**
  * @summary Fork a completed experiment at a round, optionally swapping strategies
  */
 export const ForkExperimentParams = zod.object({
@@ -366,7 +402,7 @@ export const ForkExperimentResponse = zod.object({
   "player1StrategyId": zod.number(),
   "player2StrategyId": zod.number(),
   "numRounds": zod.number(),
-  "status": zod.enum(['pending', 'running', 'completed', 'failed']),
+  "status": zod.enum(['pending', 'running', 'completed', 'failed', 'invalid']),
   "player1TotalPayoff": zod.number().nullish(),
   "player2TotalPayoff": zod.number().nullish(),
   "cooperationRate": zod.number().nullish(),

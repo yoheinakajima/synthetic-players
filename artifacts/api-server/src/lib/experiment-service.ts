@@ -20,11 +20,44 @@ import { computeAnalysis, type GameDef } from "./game-engine";
 import {
   runOnEngine,
   forkOnEngine,
+  runLlmOnEngine,
+  replayLlmOnEngine,
   EngineUnreachableError,
   EngineRequestError,
+  type EngineLlmReplayResult,
 } from "./engine-client";
-import { computeMetricsV2 } from "./metrics";
+import { computeMetricsV2, flattenMetrics, type MetricsV2 } from "./metrics";
 import { invalidateEvidenceCache } from "./adjudicator";
+
+/**
+ * Structured payload the engine embeds in a mid-run LLM failure (llm_runner
+ * wraps unexpected exceptions as JSON so partial provider spend stays
+ * auditable). Returns null for any other error shape.
+ */
+interface EnginePartialSpend {
+  error: string;
+  engineRunId: string | null;
+  llmCalls: number;
+  inputTokens: number | null;
+  outputTokens: number | null;
+}
+
+function parseEnginePartialSpend(err: unknown): EnginePartialSpend | null {
+  if (!(err instanceof EngineRequestError)) return null;
+  try {
+    const raw = JSON.parse(err.message) as Record<string, unknown>;
+    if (raw?.partial !== true || typeof raw.llmCalls !== "number") return null;
+    return {
+      error: typeof raw.error === "string" ? raw.error : "unknown engine failure",
+      engineRunId: typeof raw.engineRunId === "string" ? raw.engineRunId : null,
+      llmCalls: raw.llmCalls,
+      inputTokens: typeof raw.inputTokens === "number" ? raw.inputTokens : null,
+      outputTokens: typeof raw.outputTokens === "number" ? raw.outputTokens : null,
+    };
+  } catch {
+    return null;
+  }
+}
 
 /** Stored rounds and a fresh engine replay disagree — determinism is broken somewhere. */
 export class EngineDriftError extends Error {
@@ -74,6 +107,56 @@ export function toGameDef(game: GameRow): GameDef & { category: string } {
 /** Random 31-bit seed. Only the seed is random — the run itself is fully determined by it. */
 export function generateSeed(): number {
   return Math.floor(Math.random() * 2147483647);
+}
+
+// ── Phase 3: engine-live LLM subject protocol ──────────────────────────────
+
+/** Subject protocol stored under llmMetaJson.protocol at experiment creation. */
+export interface Phase3Protocol {
+  promptId: string;
+  temperature: number;
+  maxTokens: number;
+  framing?: string | null;
+  deltaPct?: number | null;
+  horizonRule?: string | null;
+}
+
+/**
+ * Extract the Phase 3 protocol from llmMetaJson. Returns null for non-Phase-3
+ * rows (no "protocol" key — e.g. Track 2 runMeta or classic experiments).
+ * A PRESENT but malformed protocol throws: silently downgrading a Phase 3
+ * experiment to the legacy path would corrupt the pre-registered design.
+ */
+export function parsePhase3Protocol(llmMetaJson: string | null): Phase3Protocol | null {
+  if (!llmMetaJson) return null;
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(llmMetaJson);
+  } catch {
+    return null;
+  }
+  if (parsed == null || typeof parsed !== "object" || !("protocol" in parsed)) return null;
+  const p = (parsed as { protocol: unknown }).protocol;
+  if (p == null || typeof p !== "object")
+    throw new Error("llmMetaJson.protocol is present but not an object");
+  const proto = p as Record<string, unknown>;
+  if (
+    typeof proto.promptId !== "string" ||
+    typeof proto.temperature !== "number" ||
+    typeof proto.maxTokens !== "number"
+  ) {
+    throw new Error(
+      "llmMetaJson.protocol is malformed: promptId (string), temperature (number) and maxTokens (number) are required"
+    );
+  }
+  return {
+    promptId: proto.promptId,
+    temperature: proto.temperature,
+    maxTokens: proto.maxTokens,
+    framing: typeof proto.framing === "string" ? proto.framing : null,
+    deltaPct: typeof proto.deltaPct === "number" ? proto.deltaPct : null,
+    horizonRule: typeof proto.horizonRule === "string" ? proto.horizonRule : null,
+  };
 }
 
 /** Add computed per-round payoff averages (presentation values — totals stay totals). */
@@ -144,9 +227,126 @@ export async function executeExperiment(expId: number): Promise<ExperimentRow> {
     let result: EngineRunResult;
     let llmMetaJson: string | null = null;
 
-    if (p1Strat.type === "ai_model" || p2Strat.type === "ai_model") {
-      // LLM seats: play live (model decides each round), then materialize the
-      // decision log on the engine as scripted events and verify exactly.
+    const protocol = parsePhase3Protocol(exp.llmMetaJson);
+    const hasAiSeat = p1Strat.type === "ai_model" || p2Strat.type === "ai_model";
+
+    if (hasAiSeat && protocol != null) {
+      // Phase 3 subject run: the ENGINE drives the LLM loop and event-sources
+      // every prompt/response (llm.requested / llm.responded) for
+      // zero-live-call replay verification. Express only persists results.
+      const subject = p1Strat.type === "ai_model" ? p1Strat : p2Strat;
+      if (!subject.modelId)
+        throw new Error(`AI strategy "${subject.slug}" has no modelId configured`);
+      if (
+        p1Strat.type === "ai_model" &&
+        p2Strat.type === "ai_model" &&
+        p1Strat.modelId !== p2Strat.modelId
+      )
+        throw new Error("Phase 3 self-play requires the same model in both seats");
+
+      let llmRun: Awaited<ReturnType<typeof runLlmOnEngine>>;
+      try {
+        llmRun = await runLlmOnEngine({
+          game: gameDef,
+          strategy1Slug: p1Strat.type === "ai_model" ? "llm-subject" : p1Strat.slug,
+          strategy2Slug: p2Strat.type === "ai_model" ? "llm-subject" : p2Strat.slug,
+          numRounds: exp.numRounds,
+          seed,
+          llm: {
+            model: subject.modelId,
+            temperature: protocol.temperature,
+            maxTokens: protocol.maxTokens,
+            promptId: protocol.promptId,
+            ...(protocol.framing != null ? { framing: protocol.framing } : {}),
+            ...(protocol.deltaPct != null ? { deltaPct: protocol.deltaPct } : {}),
+            ...(protocol.horizonRule != null ? { horizonRule: protocol.horizonRule } : {}),
+          },
+        });
+      } catch (engineErr) {
+        const partial = parseEnginePartialSpend(engineErr);
+        if (partial) {
+          // The engine failed mid-run but reported the provider calls it had
+          // already made. Persist that spend BEFORE the generic failure
+          // handler marks the row failed: the Phase 3 runner sums
+          // runMeta.llmCalls over ALL statuses, so burned calls stay visible
+          // to budget accounting even on failure.
+          await db
+            .update(experimentsTable)
+            .set({
+              engineRunId: partial.engineRunId,
+              llmMetaJson: JSON.stringify({
+                protocol,
+                runMeta: {
+                  llmCalls: partial.llmCalls,
+                  inputTokens: partial.inputTokens,
+                  outputTokens: partial.outputTokens,
+                  partial: true,
+                },
+              }),
+            })
+            .where(eq(experimentsTable.id, exp.id));
+          throw new Error(
+            `Engine LLM run failed after ${partial.llmCalls} provider call(s) — ` +
+              `spend persisted on the failed row: ${partial.error}`
+          );
+        }
+        throw engineErr;
+      }
+
+      if (llmRun.invalidTrial) {
+        // Pre-registered invalid-trial rule: unparseable subject response
+        // after one retry. No rounds are stored, the row is excluded from
+        // evidence (status filter) and its seed is dead — the Phase 3 runner
+        // substitutes a replacement seed (1000+k). Calls made before
+        // invalidation still count against the budget via runMeta.llmCalls.
+        await db.delete(roundsTable).where(eq(roundsTable.experimentId, exp.id));
+        const [invalidRow] = await db
+          .update(experimentsTable)
+          .set({
+            status: "invalid",
+            engineRunId: llmRun.engineRunId,
+            player1TotalPayoff: null,
+            player2TotalPayoff: null,
+            cooperationRate: null,
+            nashDeviationScore: null,
+            llmMetaJson: JSON.stringify({ protocol, runMeta: llmRun.meta }),
+            completedAt: null,
+            errorMessage:
+              "Invalid trial: subject response unparseable after one retry (pre-registered exclusion rule)",
+          })
+          .where(eq(experimentsTable.id, exp.id))
+          .returning();
+        invalidateEvidenceCache();
+        return invalidRow;
+      }
+
+      if (
+        llmRun.player1TotalPayoff == null ||
+        llmRun.player2TotalPayoff == null ||
+        llmRun.cooperationRate == null ||
+        llmRun.nashDeviationScore == null
+      )
+        throw new Error("Engine returned a valid LLM trial without summary totals");
+
+      result = {
+        engineRunId: llmRun.engineRunId,
+        seed: llmRun.seed,
+        rounds: llmRun.rounds,
+        player1TotalPayoff: llmRun.player1TotalPayoff,
+        player2TotalPayoff: llmRun.player2TotalPayoff,
+        cooperationRate: llmRun.cooperationRate,
+        nashDeviationScore: llmRun.nashDeviationScore,
+      };
+      llmMetaJson = JSON.stringify({ protocol, runMeta: llmRun.meta });
+    } else if (hasAiSeat) {
+      // Track 2 legacy path (Node-driven live loop + scripted materialization).
+      // Phase 3 subjects must never take it: their design requires the
+      // engine-side event log, registry prompts and the invalid-trial rule.
+      if (p1Strat.slug === "llm-gpt-4.1" || p2Strat.slug === "llm-gpt-4.1")
+        throw new Error(
+          "llm-gpt-4.1 is a Phase 3 subject: create the experiment with llmProtocol " +
+            "(stored as llmMetaJson.protocol) — ad-hoc runs are refused to protect the pre-registered design"
+        );
       const llmRun = await runLlmExperiment({
         gameDef: { ...gameDef, name: game.name },
         p1Strat,
@@ -483,6 +683,85 @@ async function runLlmExperiment(input: {
   }
 
   return { result, llmMetaJson: JSON.stringify(live.meta) };
+}
+
+export interface Phase3ReplayReport {
+  experimentId: number;
+  engineRunId: string;
+  ok: boolean;
+  llm: Omit<EngineLlmReplayResult, "engineRunId">;
+  metrics: { match: boolean; mismatches: string[] };
+}
+
+/**
+ * Verify a completed Phase 3 experiment end to end WITHOUT any live LLM call:
+ *   1. Engine replay — re-renders every prompt from the registry + stored
+ *      actions, replays responses from the event-sourced LLM cache, re-parses,
+ *      recomputes deterministic seats, and compares to stored rounds.
+ *   2. Metric recomputation — recomputes metricsV2 from stored DB rounds and
+ *      compares byte-for-byte against the stored analysis JSON.
+ * Returns ok=false with itemized mismatches rather than throwing, so audits
+ * can report on every experiment (HTTP 200 either way).
+ */
+export async function replayPhase3Experiment(expId: number): Promise<Phase3ReplayReport> {
+  const [exp] = await db.select().from(experimentsTable).where(eq(experimentsTable.id, expId));
+  if (!exp) throw new Error(`Experiment ${expId} not found`);
+  const protocol = parsePhase3Protocol(exp.llmMetaJson);
+  if (protocol == null)
+    throw new Error(
+      `Experiment ${expId} is not a Phase 3 LLM experiment (no llmMetaJson.protocol)`
+    );
+  if (exp.status !== "completed" || !exp.engineRunId)
+    throw new Error(
+      `Experiment ${expId} has status "${exp.status}"${exp.engineRunId ? "" : " and no engine run"} — only completed Phase 3 runs can be replay-verified`
+    );
+
+  const llmFull = await replayLlmOnEngine(exp.engineRunId);
+  const { engineRunId: _ignored, ...llm } = llmFull;
+
+  const mismatches: string[] = [];
+  let match = false;
+  const [game] = await db.select().from(gamesTable).where(eq(gamesTable.id, exp.gameId));
+  const [analysis] = await db
+    .select()
+    .from(analysesTable)
+    .where(eq(analysesTable.experimentId, exp.id));
+  const rounds = await db
+    .select()
+    .from(roundsTable)
+    .where(eq(roundsTable.experimentId, exp.id))
+    .orderBy(asc(roundsTable.roundNumber));
+
+  if (!game) {
+    mismatches.push("game row missing");
+  } else if (rounds.length === 0) {
+    mismatches.push("no stored rounds");
+  } else if (!analysis?.metricsJson || analysis.analysisVersion < 2) {
+    mismatches.push("no stored v2 analysis to compare");
+  } else {
+    const recomputed = computeMetricsV2(toGameDef(game), rounds);
+    match = JSON.stringify(recomputed) === analysis.metricsJson;
+    if (!match) {
+      const a = flattenMetrics(recomputed);
+      const b = flattenMetrics(JSON.parse(analysis.metricsJson) as MetricsV2);
+      for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
+        if (a[key] !== b[key]) {
+          mismatches.push(`${key}: recomputed ${a[key]} vs stored ${b[key]}`);
+          if (mismatches.length >= 20) break;
+        }
+      }
+      if (mismatches.length === 0)
+        mismatches.push("non-scalar metric fields differ (exact JSON mismatch)");
+    }
+  }
+
+  return {
+    experimentId: exp.id,
+    engineRunId: exp.engineRunId,
+    ok: llm.ok && match,
+    llm,
+    metrics: { match, mismatches },
+  };
 }
 
 /**
