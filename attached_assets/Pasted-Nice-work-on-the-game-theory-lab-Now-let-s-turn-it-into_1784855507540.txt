@@ -1,0 +1,17 @@
+Nice work on the game theory lab. Now let's turn it into something worth publishing. Two phases.
+
+Phase 1, harden what exists before we open source it. Add a claim adjudication step that mechanically checks every claim against its linked experiments and marks it supported / refuted / untested with effect sizes. Claim #1 currently contradicts our own data (TFT vs Always Defect shows 0% cooperation, claim says >50%). That should get caught automatically, and the writeup should say so plainly. Redesign metrics per game class: exploitability for zero-sum, equilibrium-outcome frequency for coordination games, joint welfare ratio for dilemmas. Kill "cooperation rate" for zero-sum games, it's meaningless there. Rerun every matchup involving a probabilistic strategy across 20 seeds with confidence intervals. Find and fix whatever produced the Chicken TFT vs Always Defect payoffs of 1.0/4.0, that looks like a rounds bug. Then clean the repo for open sourcing: readme, reproduction instructions, and a short honest postmortem on what the first autonomous writeup got wrong.
+
+Phase 2, the interesting part. Add an LLMStrategy class that plays any game by calling a model each round. Configurable: model, temperature, and most importantly history_projection, meaning what the LLM sees about past rounds. Modes: none, last_k, full_log, rolling_summary, winloss_stats_only. No strategy hints in the prompt, just the payoff matrix and the projected history. Capture the model's one-line rationale for every move as a provenance object.
+
+Run three experiment blocks:
+
+1. Exploitability. LLM in Matching Pennies and RPS vs Nash Mixed and vs a pattern-tracking best-response bot. Measure regret vs best response. Hypothesis: LLMs can't randomize and get exploited.
+
+2. Emergent conditionality. LLM in iterated PD vs Always Defect, Always Cooperate, TFT, and itself. Does it discover tit-for-tat-like behavior on its own? Does it exploit Always Cooperate? Also Stag Hunt: does it pick the payoff-dominant or risk-dominant equilibrium, and does that flip with history projection?
+
+3. Memory shapes strategy. Same model, same game, sweep history_projection with everything else fixed. Hypothesis: how history is represented changes strategic behavior more than temperature does. This is the headline claim, design it with enough seeds to say something real.
+
+If budget allows, add a pre-round cheap-talk message channel in the coordination games and see if communication resolves equilibrium selection.
+
+Every LLM run gets full round-level provenance: prompt sent, response, rationale, action, payoff. Generate claims from the results and run them through the new adjudication step before writing anything. Be honest about what refuted. Before you build, tell me what's weak in this design and what am I missing.
