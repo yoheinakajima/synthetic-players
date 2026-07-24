@@ -6,12 +6,12 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type ClaimUpdateStatus = typeof ClaimUpdateStatus[keyof typeof ClaimUpdateStatus];
+export type AdjudicationResultStatus = typeof AdjudicationResultStatus[keyof typeof AdjudicationResultStatus];
 
 
-export const ClaimUpdateStatus = {
-  hypothesis: 'hypothesis',
+export const AdjudicationResultStatus = {
   supported: 'supported',
   refuted: 'refuted',
   inconclusive: 'inconclusive',
+  untested: 'untested',
 } as const;

@@ -32,6 +32,20 @@ export interface ExperimentDetail {
   /** @nullable */
   completedAt?: Date | null;
   createdAt: Date;
+  /** @nullable */
+  seed?: number | null;
+  /** @nullable */
+  batchLabel?: string | null;
+  /**
+     * player1TotalPayoff / numRounds (computed)
+     * @nullable
+     */
+  player1AvgPayoffPerRound?: number | null;
+  /**
+     * player2TotalPayoff / numRounds (computed)
+     * @nullable
+     */
+  player2AvgPayoffPerRound?: number | null;
   game: Game;
   player1Strategy: Strategy;
   player2Strategy: Strategy;

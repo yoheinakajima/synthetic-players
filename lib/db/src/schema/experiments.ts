@@ -8,6 +8,8 @@ export const experimentsTable = pgTable("experiments", {
   player1StrategyId: integer("player1_strategy_id").notNull(),
   player2StrategyId: integer("player2_strategy_id").notNull(),
   numRounds: integer("num_rounds").notNull(),
+  seed: integer("seed"), // RNG seed for reproducibility; null for legacy unseeded runs
+  batchLabel: text("batch_label"), // groups multi-seed replicate runs of the same matchup
   status: text("status").notNull().default("pending"), // pending | running | completed | failed
   player1TotalPayoff: real("player1_total_payoff"),
   player2TotalPayoff: real("player2_total_payoff"),

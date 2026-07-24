@@ -6,6 +6,7 @@ import {
   gamesTable,
   strategiesTable,
   roundsTable,
+  analysesTable,
 } from "@workspace/db";
 import {
   ListExperimentsQueryParams,
@@ -16,9 +17,17 @@ import {
   GetExperimentResponse,
   RunExperimentParams,
   RunExperimentResponse,
+  RunExperimentBatchBody,
+  RunExperimentBatchResponse,
   DeleteExperimentParams,
 } from "@workspace/api-zod";
-import { runGame, type GameDef } from "../lib/game-engine";
+import {
+  executeExperiment,
+  analyzeExperiment,
+  generateSeed,
+  withPerRoundAverages,
+} from "../lib/experiment-service";
+import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
 
@@ -33,7 +42,7 @@ async function buildExperimentDetail(exp: typeof experimentsTable.$inferSelect) 
     .orderBy(roundsTable.roundNumber);
 
   return {
-    ...exp,
+    ...withPerRoundAverages(exp),
     game: game ? { ...game, actionLabels: JSON.parse(game.actionLabels) as string[] } : game,
     player1Strategy: p1Strategy,
     player2Strategy: p2Strategy,
@@ -55,6 +64,9 @@ router.get("/experiments", async (req, res): Promise<void> => {
   if (query.data.status != null) {
     conditions.push(eq(experimentsTable.status, query.data.status));
   }
+  if (query.data.batchLabel != null) {
+    conditions.push(eq(experimentsTable.batchLabel, query.data.batchLabel));
+  }
 
   const experiments = await db
     .select()
@@ -69,7 +81,7 @@ router.get("/experiments", async (req, res): Promise<void> => {
   const stratMap = new Map(strategies.map((s) => [s.id, s]));
 
   const enriched = experiments.map((exp) => ({
-    ...exp,
+    ...withPerRoundAverages(exp),
     gameName: gamesMap.get(exp.gameId)?.name ?? null,
     player1StrategyName: stratMap.get(exp.player1StrategyId)?.name ?? null,
     player2StrategyName: stratMap.get(exp.player2StrategyId)?.name ?? null,
@@ -106,12 +118,92 @@ router.post("/experiments", async (req, res): Promise<void> => {
       player1StrategyId: parsed.data.player1StrategyId,
       player2StrategyId: parsed.data.player2StrategyId,
       numRounds: parsed.data.numRounds,
+      seed: parsed.data.seed ?? generateSeed(),
+      batchLabel: parsed.data.batchLabel ?? null,
       notes: parsed.data.notes ?? null,
     })
     .returning();
 
   const detail = await buildExperimentDetail(exp);
   res.status(201).json(CreateExperimentResponse.parse(detail));
+});
+
+/**
+ * Seeded replicate batch: creates one experiment per seed, runs each
+ * deterministically, and computes its v2 analysis. This is how matchups
+ * involving probabilistic strategies get distributions instead of anecdotes.
+ */
+router.post("/experiments/batch", async (req, res): Promise<void> => {
+  const parsed = RunExperimentBatchBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ error: parsed.error.message });
+    return;
+  }
+
+  const [game] = await db.select().from(gamesTable).where(eq(gamesTable.id, parsed.data.gameId));
+  if (!game) {
+    res.status(400).json({ error: "Game not found" });
+    return;
+  }
+  const [p1] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, parsed.data.player1StrategyId));
+  const [p2] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, parsed.data.player2StrategyId));
+  if (!p1 || !p2) {
+    res.status(400).json({ error: "Strategy not found" });
+    return;
+  }
+
+  const uniqueSeeds = new Set(parsed.data.seeds);
+  if (uniqueSeeds.size !== parsed.data.seeds.length) {
+    res.status(400).json({ error: "Seeds must be unique within a batch" });
+    return;
+  }
+
+  const batchLabel = parsed.data.batchLabel ?? `${game.slug}:${p1.slug}-vs-${p2.slug}`;
+
+  // Idempotency: a seed that already exists for this matchup + batchLabel is
+  // skipped, never re-run. Re-submitting a partially completed batch fills in
+  // only the missing seeds — duplicate seeds would be pseudo-replicates
+  // (identical deterministic runs counted twice) and would corrupt CIs.
+  const existing = await db
+    .select({ seed: experimentsTable.seed })
+    .from(experimentsTable)
+    .where(
+      and(
+        eq(experimentsTable.gameId, parsed.data.gameId),
+        eq(experimentsTable.player1StrategyId, parsed.data.player1StrategyId),
+        eq(experimentsTable.player2StrategyId, parsed.data.player2StrategyId),
+        eq(experimentsTable.batchLabel, batchLabel)
+      )
+    );
+  const existingSeeds = new Set(existing.map((e) => e.seed).filter((s): s is number => s != null));
+  const newSeeds = parsed.data.seeds.filter((s) => !existingSeeds.has(s));
+  const skippedSeeds = parsed.data.seeds.filter((s) => existingSeeds.has(s));
+
+  const experimentIds: number[] = [];
+  for (const seed of newSeeds) {
+    const [exp] = await db
+      .insert(experimentsTable)
+      .values({
+        gameId: parsed.data.gameId,
+        player1StrategyId: parsed.data.player1StrategyId,
+        player2StrategyId: parsed.data.player2StrategyId,
+        numRounds: parsed.data.numRounds,
+        seed,
+        batchLabel,
+        notes: parsed.data.notes ?? `Batch replicate (seed ${seed})`,
+      })
+      .returning();
+
+    await executeExperiment(exp.id);
+    await analyzeExperiment(exp.id);
+    experimentIds.push(exp.id);
+  }
+
+  logger.info(
+    `Batch "${batchLabel}": ran ${experimentIds.length} seeded replicates, skipped ${skippedSeeds.length} existing (${game.slug}, ${p1.slug} vs ${p2.slug}, ${parsed.data.numRounds} rounds each)`
+  );
+
+  res.status(201).json(RunExperimentBatchResponse.parse({ batchLabel, experimentIds, skippedSeeds }));
 });
 
 router.get("/experiments/:id", async (req, res): Promise<void> => {
@@ -161,78 +253,12 @@ router.post("/experiments/:id/run", async (req, res): Promise<void> => {
     return;
   }
 
-  // Load game and strategies
-  const [game] = await db.select().from(gamesTable).where(eq(gamesTable.id, exp.gameId));
-  const [p1Strat] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, exp.player1StrategyId));
-  const [p2Strat] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, exp.player2StrategyId));
-
-  if (!game || !p1Strat || !p2Strat) {
-    res.status(400).json({ error: "Game or strategy not found" });
-    return;
-  }
-
-  // Mark as running
-  await db
-    .update(experimentsTable)
-    .set({ status: "running" })
-    .where(eq(experimentsTable.id, exp.id));
-
   try {
-    const gameDef: GameDef = {
-      id: game.id,
-      slug: game.slug,
-      numActions: game.numActions,
-      actionLabels: JSON.parse(game.actionLabels) as string[],
-      payoffMatrix: JSON.parse(game.payoffMatrix) as number[][][],
-      nashEquilibria: JSON.parse(game.nashEquilibria) as number[][],
-    };
-
-    const result = runGame(gameDef, p1Strat.slug, p2Strat.slug, exp.numRounds);
-
-    // Delete any existing rounds (re-run scenario)
-    await db.delete(roundsTable).where(eq(roundsTable.experimentId, exp.id));
-
-    // Insert rounds
-    if (result.rounds.length > 0) {
-      await db.insert(roundsTable).values(
-        result.rounds.map((r) => ({
-          experimentId: exp.id,
-          roundNumber: r.roundNumber,
-          player1Action: r.player1Action,
-          player2Action: r.player2Action,
-          player1Payoff: r.player1Payoff,
-          player2Payoff: r.player2Payoff,
-          player1Reasoning: r.player1Reasoning,
-          player2Reasoning: r.player2Reasoning,
-          isNashOutcome: r.isNashOutcome,
-        }))
-      );
-    }
-
-    // Update experiment with results
-    const [updated] = await db
-      .update(experimentsTable)
-      .set({
-        status: "completed",
-        player1TotalPayoff: result.player1TotalPayoff,
-        player2TotalPayoff: result.player2TotalPayoff,
-        cooperationRate: result.cooperationRate,
-        nashDeviationScore: result.nashDeviationScore,
-        completedAt: new Date(),
-        errorMessage: null,
-      })
-      .where(eq(experimentsTable.id, exp.id))
-      .returning();
-
+    const updated = await executeExperiment(exp.id);
     const detail = await buildExperimentDetail(updated);
     res.json(RunExperimentResponse.parse(detail));
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    await db
-      .update(experimentsTable)
-      .set({ status: "failed", errorMessage: message })
-      .where(eq(experimentsTable.id, exp.id));
-
     res.status(500).json({ error: `Experiment execution failed: ${message}` });
   }
 });
@@ -244,8 +270,9 @@ router.delete("/experiments/:id", async (req, res): Promise<void> => {
     return;
   }
 
-  // Delete rounds first (no cascade)
+  // Delete dependents first (no cascade)
   await db.delete(roundsTable).where(eq(roundsTable.experimentId, params.data.id));
+  await db.delete(analysesTable).where(eq(analysesTable.experimentId, params.data.id));
 
   const [deleted] = await db
     .delete(experimentsTable)

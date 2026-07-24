@@ -16,4 +16,6 @@ export interface ClaimInput {
   /** @nullable */
   analysisId?: number | null;
   evidenceSummary?: string;
+  /** JSON-encoded structured predicate for mechanical adjudication */
+  predicateJson?: string;
 }

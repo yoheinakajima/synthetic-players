@@ -19,7 +19,24 @@ export interface Experiment {
   /** @nullable */
   player2StrategyName?: string | null;
   numRounds: number;
+  /**
+     * RNG seed; null for legacy unseeded runs
+     * @nullable
+     */
+  seed?: number | null;
+  /** @nullable */
+  batchLabel?: string | null;
   status: ExperimentStatus;
+  /**
+     * player1TotalPayoff / numRounds (computed)
+     * @nullable
+     */
+  player1AvgPayoffPerRound?: number | null;
+  /**
+     * player2TotalPayoff / numRounds (computed)
+     * @nullable
+     */
+  player2AvgPayoffPerRound?: number | null;
   /** @nullable */
   player1TotalPayoff?: number | null;
   /** @nullable */

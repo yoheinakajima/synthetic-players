@@ -21,7 +21,11 @@ import type {
 
 import type {
   ActivityItem,
+  AdjudicationResult,
+  AggregateResponse,
   Analysis,
+  BatchExperimentInput,
+  BatchExperimentResponse,
   Claim,
   ClaimInput,
   ClaimUpdate,
@@ -31,6 +35,7 @@ import type {
   ExperimentInput,
   Game,
   GameSummary,
+  GetAggregateAnalysisParams,
   GetRecentActivityParams,
   HealthStatus,
   ListClaimsParams,
@@ -828,6 +833,77 @@ export const useRunExperiment = <TError = ErrorType<void>,
       return useMutation(getRunExperimentMutationOptions(options));
     }
 
+export const getRunExperimentBatchUrl = () => {
+
+
+
+
+  return `/api/experiments/batch`
+}
+
+/**
+ * @summary Create, run, and analyze a batch of seeded replicate experiments
+ */
+export const runExperimentBatch = async (batchExperimentInput: BatchExperimentInput, options?: RequestInit): Promise<BatchExperimentResponse> => {
+
+  return customFetch<BatchExperimentResponse>(getRunExperimentBatchUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(batchExperimentInput)
+  }
+);}
+
+
+
+
+
+export const getRunExperimentBatchMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof runExperimentBatch>>, TError,{data: BodyType<BatchExperimentInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof runExperimentBatch>>, TError,{data: BodyType<BatchExperimentInput>}, TContext> => {
+
+const mutationKey = ['runExperimentBatch'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof runExperimentBatch>>, {data: BodyType<BatchExperimentInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  runExperimentBatch(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type RunExperimentBatchMutationResult = NonNullable<Awaited<ReturnType<typeof runExperimentBatch>>>
+    export type RunExperimentBatchMutationBody = BodyType<BatchExperimentInput>
+    export type RunExperimentBatchMutationError = ErrorType<void>
+
+    /**
+ * @summary Create, run, and analyze a batch of seeded replicate experiments
+ */
+export const useRunExperimentBatch = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof runExperimentBatch>>, TError,{data: BodyType<BatchExperimentInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof runExperimentBatch>>,
+        TError,
+        {data: BodyType<BatchExperimentInput>},
+        TContext
+      > => {
+      return useMutation(getRunExperimentBatchMutationOptions(options));
+    }
+
 export const getListRoundsUrl = (experimentId: number,) => {
 
 
@@ -1052,6 +1128,90 @@ export const useCreateAnalysis = <TError = ErrorType<void>,
       > => {
       return useMutation(getCreateAnalysisMutationOptions(options));
     }
+
+export const getGetAggregateAnalysisUrl = (params?: GetAggregateAnalysisParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/analyses/aggregate?${stringifiedParams}` : `/api/analyses/aggregate`
+}
+
+/**
+ * @summary Aggregate v2 metrics across analyzed experiments (mean, sd, 95% CI)
+ */
+export const getAggregateAnalysis = async (params?: GetAggregateAnalysisParams, options?: RequestInit): Promise<AggregateResponse> => {
+
+  return customFetch<AggregateResponse>(getGetAggregateAnalysisUrl(params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetAggregateAnalysisQueryKey = (params?: GetAggregateAnalysisParams,) => {
+    return [
+    `/api/analyses/aggregate`, ...(params ? [params] : [])
+    ] as const;
+    }
+
+
+export const getGetAggregateAnalysisQueryOptions = <TData = Awaited<ReturnType<typeof getAggregateAnalysis>>, TError = ErrorType<unknown>>(params?: GetAggregateAnalysisParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAggregateAnalysis>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAggregateAnalysisQueryKey(params);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAggregateAnalysis>>> = ({ signal }) => getAggregateAnalysis(params, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAggregateAnalysis>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetAggregateAnalysisQueryResult = NonNullable<Awaited<ReturnType<typeof getAggregateAnalysis>>>
+export type GetAggregateAnalysisQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Aggregate v2 metrics across analyzed experiments (mean, sd, 95% CI)
+ */
+
+export function useGetAggregateAnalysis<TData = Awaited<ReturnType<typeof getAggregateAnalysis>>, TError = ErrorType<unknown>>(
+ params?: GetAggregateAnalysisParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAggregateAnalysis>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetAggregateAnalysisQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
 export const getListClaimsUrl = (params?: ListClaimsParams,) => {
   const normalizedParams = new URLSearchParams();
@@ -1426,6 +1586,148 @@ export const useDeleteClaim = <TError = ErrorType<void>,
         TContext
       > => {
       return useMutation(getDeleteClaimMutationOptions(options));
+    }
+
+export const getAdjudicateAllClaimsUrl = () => {
+
+
+
+
+  return `/api/claims/adjudicate-all`
+}
+
+/**
+ * @summary Mechanically adjudicate every claim that has a structured predicate
+ */
+export const adjudicateAllClaims = async ( options?: RequestInit): Promise<AdjudicationResult[]> => {
+
+  return customFetch<AdjudicationResult[]>(getAdjudicateAllClaimsUrl(),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getAdjudicateAllClaimsMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adjudicateAllClaims>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof adjudicateAllClaims>>, TError,void, TContext> => {
+
+const mutationKey = ['adjudicateAllClaims'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adjudicateAllClaims>>, void> = () => {
+
+
+          return  adjudicateAllClaims(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdjudicateAllClaimsMutationResult = NonNullable<Awaited<ReturnType<typeof adjudicateAllClaims>>>
+
+    export type AdjudicateAllClaimsMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Mechanically adjudicate every claim that has a structured predicate
+ */
+export const useAdjudicateAllClaims = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adjudicateAllClaims>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof adjudicateAllClaims>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getAdjudicateAllClaimsMutationOptions(options));
+    }
+
+export const getAdjudicateClaimUrl = (id: number,) => {
+
+
+
+
+  return `/api/claims/${id}/adjudicate`
+}
+
+/**
+ * @summary Mechanically adjudicate a single claim against matching experimental evidence
+ */
+export const adjudicateClaim = async (id: number, options?: RequestInit): Promise<Claim> => {
+
+  return customFetch<Claim>(getAdjudicateClaimUrl(id),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getAdjudicateClaimMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adjudicateClaim>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof adjudicateClaim>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['adjudicateClaim'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adjudicateClaim>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  adjudicateClaim(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdjudicateClaimMutationResult = NonNullable<Awaited<ReturnType<typeof adjudicateClaim>>>
+
+    export type AdjudicateClaimMutationError = ErrorType<void>
+
+    /**
+ * @summary Mechanically adjudicate a single claim against matching experimental evidence
+ */
+export const useAdjudicateClaim = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adjudicateClaim>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof adjudicateClaim>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getAdjudicateClaimMutationOptions(options));
     }
 
 export const getListPapersUrl = () => {

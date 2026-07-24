@@ -6,7 +6,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface ExperimentInput {
+export interface BatchExperimentInput {
   gameId: number;
   player1StrategyId: number;
   player2StrategyId: number;
@@ -15,8 +15,12 @@ export interface ExperimentInput {
      * @maximum 200
      */
   numRounds: number;
-  /** RNG seed for reproducibility; auto-generated if omitted */
-  seed?: number;
+  /**
+     * @minItems 1
+     * @maxItems 100
+     */
+  seeds: number[];
+  /** Defaults to an auto-generated label from game and strategies */
   batchLabel?: string;
   notes?: string;
 }

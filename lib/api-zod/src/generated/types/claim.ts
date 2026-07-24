@@ -23,6 +23,18 @@ export interface Claim {
   status: ClaimStatus;
   /** @nullable */
   evidenceSummary?: string | null;
+  /**
+     * JSON-encoded structured predicate for mechanical adjudication
+     * @nullable
+     */
+  predicateJson?: string | null;
+  /**
+     * JSON-encoded latest adjudication record (evidence, stats, verdict)
+     * @nullable
+     */
+  adjudicationJson?: string | null;
+  /** @nullable */
+  adjudicatedAt?: Date | null;
   createdAt: Date;
   updatedAt?: Date;
 }

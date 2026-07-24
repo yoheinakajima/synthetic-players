@@ -25,10 +25,16 @@ A public academic research platform that runs classic game theory experiments, r
 
 - `lib/api-spec/openapi.yaml` — single source of truth for all API contracts
 - `lib/db/src/schema/` — Drizzle table definitions (games, strategies, experiments, rounds, analyses, claims, papers)
-- `artifacts/api-server/src/lib/game-engine.ts` — all game theory strategy logic and game runner
+- `artifacts/api-server/src/lib/game-engine.ts` — strategy logic + seeded runGame (mulberry32; seed required)
+- `artifacts/api-server/src/lib/metrics.ts` — v2 per-game-class metric suite (see docs/METRICS.md)
+- `artifacts/api-server/src/lib/adjudicator.ts` — mechanical claim adjudication (predicates → verdicts with CIs/effect sizes)
+- `artifacts/api-server/src/lib/claim-predicates.ts` — structured predicates for the 11 v1 claims (startup backfill)
+- `artifacts/api-server/src/lib/experiment-service.ts` — shared execute/analyze logic used by single + batch runs
 - `artifacts/api-server/src/lib/seed.ts` — seeds 7 games and 8 strategies on startup (idempotent)
 - `artifacts/api-server/src/routes/` — one file per domain (games, strategies, experiments, rounds, analyses, claims, papers, dashboard)
 - `artifacts/lab/src/pages/` — frontend pages (Dashboard, GameCatalog, GameDetail, Experiments, NewExperiment, ExperimentDetail, Claims, Papers, PaperDetail)
+- `scripts/run-phase1.mjs` — reproducible pipeline driver (v2 analyses → 20-seed batches → adjudicate-all → paper)
+- `docs/METRICS.md`, `docs/POSTMORTEM.md`, `docs/v1/` — metric definitions, v1 error record, frozen v1 artifacts
 
 ## Architecture decisions
 
@@ -37,6 +43,10 @@ A public academic research platform that runs classic game theory experiments, r
 - Papers are generated server-side from experiment/claim data without requiring an LLM
 - Seed is idempotent (checks for existing rows) so restarting the server is safe
 - Dashboard aggregate queries use Drizzle's `sql<>` template with explicit `Number()` coercion (Postgres returns bigint aggregates as strings)
+- **Reproducibility (v2):** every run is seeded (mulberry32, seed stored on experiment); same seed ⇒ identical rounds. Probabilistic matchups run as 20-seed batches (`POST /experiments/batch`, batchLabel convention `game:p1-vs-p2:v2`)
+- **Honesty pipeline (v2):** claims carry `predicateJson`; `POST /claims/adjudicate-all` assigns supported/refuted/inconclusive/untested mechanically (95% t-CI vs threshold for sampled evidence, exact comparison for deterministic). Claims without predicates are `untested`. Verdicts are never hand-set; refuted claims stay on the record
+- **Per-class metrics (v2):** analysisVersion 2 + metricsJson; cooperation metrics null for zero-sum games (exploitability + G-test instead); per-round "Nash rate" null for mixed-equilibrium games. UI panels are class-aware
+- **Presentation rule:** UI and paper lead with per-round averages; totals always labeled as totals
 
 ## Product
 

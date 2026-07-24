@@ -12,7 +12,16 @@ import {
   UpdateClaimBody,
   UpdateClaimResponse,
   DeleteClaimParams,
+  AdjudicateClaimParams,
+  AdjudicateClaimResponse,
+  AdjudicateAllClaimsResponse,
 } from "@workspace/api-zod";
+import {
+  adjudicatePredicate,
+  invalidateEvidenceCache,
+  type ClaimPredicate,
+} from "../lib/adjudicator";
+import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
 
@@ -79,6 +88,7 @@ router.post("/claims", async (req, res): Promise<void> => {
       strategyId: parsed.data.strategyId ?? null,
       analysisId: parsed.data.analysisId ?? null,
       evidenceSummary: parsed.data.evidenceSummary ?? null,
+      predicateJson: parsed.data.predicateJson ?? null,
       status: "hypothesis",
     })
     .returning();
@@ -115,6 +125,16 @@ router.patch("/claims/:id", async (req, res): Promise<void> => {
     return;
   }
 
+  // Honesty invariant: verdicts are machine-assigned. A claim's status can
+  // only change via the adjudication endpoints, never by direct edit.
+  if (req.body && typeof req.body === "object" && "status" in req.body) {
+    res.status(400).json({
+      error:
+        "Claim status is machine-assigned by adjudication. Use POST /claims/{id}/adjudicate or POST /claims/adjudicate-all.",
+    });
+    return;
+  }
+
   const body = UpdateClaimBody.safeParse(req.body);
   if (!body.success) {
     res.status(400).json({ error: body.error.message });
@@ -124,9 +144,9 @@ router.patch("/claims/:id", async (req, res): Promise<void> => {
   const updates: Partial<typeof claimsTable.$inferSelect> = {};
   if (body.data.title != null) updates.title = body.data.title;
   if (body.data.statement != null) updates.statement = body.data.statement;
-  if (body.data.status != null) updates.status = body.data.status;
   if (body.data.evidenceSummary != null) updates.evidenceSummary = body.data.evidenceSummary;
   if (body.data.linkedAnalysisId !== undefined) updates.analysisId = body.data.linkedAnalysisId;
+  if (body.data.predicateJson != null) updates.predicateJson = body.data.predicateJson;
 
   const [claim] = await db
     .update(claimsTable)
@@ -141,6 +161,115 @@ router.patch("/claims/:id", async (req, res): Promise<void> => {
 
   const enriched = await enrichClaim(claim);
   res.json(UpdateClaimResponse.parse(enriched));
+});
+
+/**
+ * Adjudicate every claim that has a structured predicate. Claims without a
+ * predicate are marked untested — a claim we can't mechanically check is a
+ * claim we don't get to call supported.
+ */
+router.post("/claims/adjudicate-all", async (_req, res): Promise<void> => {
+  invalidateEvidenceCache();
+  const claims = await db.select().from(claimsTable).orderBy(claimsTable.id);
+
+  const results = [];
+  for (const claim of claims) {
+    if (!claim.predicateJson) {
+      await db
+        .update(claimsTable)
+        .set({ status: "untested", adjudicatedAt: new Date() })
+        .where(eq(claimsTable.id, claim.id));
+      results.push({
+        claimId: claim.id,
+        title: claim.title,
+        status: "untested" as const,
+        note: "No structured predicate defined — cannot be mechanically checked.",
+      });
+      continue;
+    }
+
+    try {
+      const predicate = JSON.parse(claim.predicateJson) as ClaimPredicate;
+      const record = await adjudicatePredicate(predicate);
+      await db
+        .update(claimsTable)
+        .set({
+          status: record.verdict,
+          adjudicationJson: JSON.stringify(record),
+          adjudicatedAt: new Date(),
+        })
+        .where(eq(claimsTable.id, claim.id));
+      results.push({
+        claimId: claim.id,
+        title: claim.title,
+        status: record.verdict,
+        note: record.note,
+      });
+      logger.info(`Adjudicated claim #${claim.id} "${claim.title}": ${record.verdict}`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      // Persist the failure as untested — a claim whose predicate can't be
+      // evaluated must not keep a stale supported/refuted verdict in the DB.
+      await db
+        .update(claimsTable)
+        .set({
+          status: "untested",
+          adjudicationJson: JSON.stringify({
+            verdict: "untested",
+            adjudicatedAt: new Date().toISOString(),
+            items: [],
+            note: `Adjudication error: ${message}`,
+          }),
+          adjudicatedAt: new Date(),
+        })
+        .where(eq(claimsTable.id, claim.id));
+      results.push({
+        claimId: claim.id,
+        title: claim.title,
+        status: "untested" as const,
+        note: `Adjudication error: ${message}`,
+      });
+    }
+  }
+
+  res.json(AdjudicateAllClaimsResponse.parse(results));
+});
+
+router.post("/claims/:id/adjudicate", async (req, res): Promise<void> => {
+  const params = AdjudicateClaimParams.safeParse(req.params);
+  if (!params.success) {
+    res.status(400).json({ error: params.error.message });
+    return;
+  }
+
+  const [claim] = await db.select().from(claimsTable).where(eq(claimsTable.id, params.data.id));
+  if (!claim) {
+    res.status(404).json({ error: "Claim not found" });
+    return;
+  }
+  if (!claim.predicateJson) {
+    res.status(400).json({ error: "Claim has no structured predicate to adjudicate" });
+    return;
+  }
+
+  invalidateEvidenceCache();
+  const predicate = JSON.parse(claim.predicateJson) as ClaimPredicate;
+  const record = await adjudicatePredicate(predicate);
+
+  const [updated] = await db
+    .update(claimsTable)
+    .set({
+      status: record.verdict,
+      adjudicationJson: JSON.stringify(record),
+      adjudicatedAt: new Date(),
+    })
+    .where(eq(claimsTable.id, claim.id))
+    .returning();
+
+  logger.info(`Adjudicated claim #${claim.id} "${claim.title}": ${record.verdict}`);
+
+  const enriched = await enrichClaim(updated);
+  res.json(AdjudicateClaimResponse.parse(enriched));
 });
 
 router.delete("/claims/:id", async (req, res): Promise<void> => {

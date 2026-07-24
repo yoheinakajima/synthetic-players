@@ -5,10 +5,10 @@
  * Game Theory Research Lab API
  * OpenAPI spec version: 0.1.0
  */
-import type { ListExperimentsStatus } from './listExperimentsStatus';
 
-export type ListExperimentsParams = {
+export type GetAggregateAnalysisParams = {
 gameId?: number;
-status?: ListExperimentsStatus;
+player1StrategyId?: number;
+player2StrategyId?: number;
 batchLabel?: string;
 };

@@ -9,8 +9,11 @@ export const claimsTable = pgTable("claims", {
   gameId: integer("game_id").notNull(),
   strategyId: integer("strategy_id"),
   analysisId: integer("analysis_id"),
-  status: text("status").notNull().default("hypothesis"), // hypothesis | supported | refuted | inconclusive
+  status: text("status").notNull().default("hypothesis"), // hypothesis | supported | refuted | inconclusive | untested
   evidenceSummary: text("evidence_summary"),
+  predicateJson: text("predicate_json"), // structured, machine-checkable predicate
+  adjudicationJson: text("adjudication_json"), // latest adjudication record (evidence, stats, verdict)
+  adjudicatedAt: timestamp("adjudicated_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow().$onUpdate(() => new Date()),
 });

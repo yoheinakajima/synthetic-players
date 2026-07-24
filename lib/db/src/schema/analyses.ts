@@ -18,6 +18,8 @@ export const analysesTable = pgTable("analyses", {
   mutualDefectionRate: real("mutual_defection_rate").notNull(),
   mixedOutcomeRate: real("mixed_outcome_rate").notNull(),
   roundByRoundJson: text("round_by_round_json"),
+  analysisVersion: integer("analysis_version").notNull().default(1),
+  metricsJson: text("metrics_json"), // v2 per-game-class metrics (JSON-encoded)
   summary: text("summary").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });

@@ -71,6 +71,9 @@ export interface ExperimentInput {
      * @maximum 200
      */
   numRounds: number;
+  /** RNG seed for reproducibility; auto-generated if omitted */
+  seed?: number;
+  batchLabel?: string;
   notes?: string;
 }
 
@@ -96,7 +99,24 @@ export interface Experiment {
   /** @nullable */
   player2StrategyName?: string | null;
   numRounds: number;
+  /**
+     * RNG seed; null for legacy unseeded runs
+     * @nullable
+     */
+  seed?: number | null;
+  /** @nullable */
+  batchLabel?: string | null;
   status: ExperimentStatus;
+  /**
+     * player1TotalPayoff / numRounds (computed)
+     * @nullable
+     */
+  player1AvgPayoffPerRound?: number | null;
+  /**
+     * player2TotalPayoff / numRounds (computed)
+     * @nullable
+     */
+  player2AvgPayoffPerRound?: number | null;
   /** @nullable */
   player1TotalPayoff?: number | null;
   /** @nullable */
@@ -163,6 +183,20 @@ export interface ExperimentDetail {
   /** @nullable */
   completedAt?: string | null;
   createdAt: string;
+  /** @nullable */
+  seed?: number | null;
+  /** @nullable */
+  batchLabel?: string | null;
+  /**
+     * player1TotalPayoff / numRounds (computed)
+     * @nullable
+     */
+  player1AvgPayoffPerRound?: number | null;
+  /**
+     * player2TotalPayoff / numRounds (computed)
+     * @nullable
+     */
+  player2AvgPayoffPerRound?: number | null;
   game: Game;
   player1Strategy: Strategy;
   player2Strategy: Strategy;
@@ -192,6 +226,13 @@ export interface Analysis {
      * @nullable
      */
   roundByRoundJson?: string | null;
+  /** 1 = legacy metrics; 2 = per-game-class metrics in metricsJson */
+  analysisVersion?: number;
+  /**
+     * JSON-encoded v2 metrics keyed by metric name (per game class)
+     * @nullable
+     */
+  metricsJson?: string | null;
   /** Human-readable analysis narrative */
   summary: string;
   createdAt: string;
@@ -207,25 +248,21 @@ export interface ClaimInput {
   /** @nullable */
   analysisId?: number | null;
   evidenceSummary?: string;
+  /** JSON-encoded structured predicate for mechanical adjudication */
+  predicateJson?: string;
 }
 
-export type ClaimUpdateStatus = typeof ClaimUpdateStatus[keyof typeof ClaimUpdateStatus];
-
-
-export const ClaimUpdateStatus = {
-  hypothesis: 'hypothesis',
-  supported: 'supported',
-  refuted: 'refuted',
-  inconclusive: 'inconclusive',
-} as const;
-
+/**
+ * Claim status is intentionally NOT updatable here — verdicts are machine-assigned via the adjudication endpoints only.
+ */
 export interface ClaimUpdate {
   title?: string;
   statement?: string;
-  status?: ClaimUpdateStatus;
   evidenceSummary?: string;
   /** @nullable */
   linkedAnalysisId?: number | null;
+  /** JSON-encoded structured predicate for mechanical adjudication */
+  predicateJson?: string;
 }
 
 export type ClaimStatus = typeof ClaimStatus[keyof typeof ClaimStatus];
@@ -236,6 +273,7 @@ export const ClaimStatus = {
   supported: 'supported',
   refuted: 'refuted',
   inconclusive: 'inconclusive',
+  untested: 'untested',
 } as const;
 
 export interface Claim {
@@ -254,8 +292,98 @@ export interface Claim {
   status: ClaimStatus;
   /** @nullable */
   evidenceSummary?: string | null;
+  /**
+     * JSON-encoded structured predicate for mechanical adjudication
+     * @nullable
+     */
+  predicateJson?: string | null;
+  /**
+     * JSON-encoded latest adjudication record (evidence, stats, verdict)
+     * @nullable
+     */
+  adjudicationJson?: string | null;
+  /** @nullable */
+  adjudicatedAt?: string | null;
   createdAt: string;
   updatedAt?: string;
+}
+
+export interface BatchExperimentInput {
+  gameId: number;
+  player1StrategyId: number;
+  player2StrategyId: number;
+  /**
+     * @minimum 1
+     * @maximum 200
+     */
+  numRounds: number;
+  /**
+     * @minItems 1
+     * @maxItems 100
+     */
+  seeds: number[];
+  /** Defaults to an auto-generated label from game and strategies */
+  batchLabel?: string;
+  notes?: string;
+}
+
+export interface BatchExperimentResponse {
+  batchLabel: string;
+  /** Experiments created and run by this request (new seeds only) */
+  experimentIds: number[];
+  /** Requested seeds that already existed for this matchup + batchLabel and were skipped. Batch submission is idempotent — re-running a partially completed batch fills in only the missing seeds and never creates duplicate replicates. */
+  skippedSeeds: number[];
+}
+
+export interface MetricAggregate {
+  name: string;
+  n: number;
+  mean: number;
+  /**
+     * Sample standard deviation; null when n < 2
+     * @nullable
+     */
+  sd?: number | null;
+  /**
+     * Lower bound of 95% t-interval; null when n < 2
+     * @nullable
+     */
+  ciLow?: number | null;
+  /** @nullable */
+  ciHigh?: number | null;
+}
+
+export interface AggregateResponse {
+  /** Number of analyzed experiments matching the filter */
+  n: number;
+  /** @nullable */
+  gameId?: number | null;
+  /** @nullable */
+  player1StrategyId?: number | null;
+  /** @nullable */
+  player2StrategyId?: number | null;
+  /** @nullable */
+  batchLabel?: string | null;
+  metrics: MetricAggregate[];
+}
+
+export type AdjudicationResultStatus = typeof AdjudicationResultStatus[keyof typeof AdjudicationResultStatus];
+
+
+export const AdjudicationResultStatus = {
+  supported: 'supported',
+  refuted: 'refuted',
+  inconclusive: 'inconclusive',
+  untested: 'untested',
+} as const;
+
+export interface AdjudicationResult {
+  claimId: number;
+  /** @nullable */
+  title?: string | null;
+  status: AdjudicationResultStatus;
+  /** @nullable */
+  note?: string | null;
 }
 
 export interface PaperInput {
@@ -364,6 +492,7 @@ export interface ActivityItem {
 export type ListExperimentsParams = {
 gameId?: number;
 status?: ListExperimentsStatus;
+batchLabel?: string;
 };
 
 export type ListExperimentsStatus = typeof ListExperimentsStatus[keyof typeof ListExperimentsStatus];
@@ -375,6 +504,13 @@ export const ListExperimentsStatus = {
   completed: 'completed',
   failed: 'failed',
 } as const;
+
+export type GetAggregateAnalysisParams = {
+gameId?: number;
+player1StrategyId?: number;
+player2StrategyId?: number;
+batchLabel?: string;
+};
 
 export type ListClaimsParams = {
 gameId?: number;
@@ -389,6 +525,7 @@ export const ListClaimsStatus = {
   supported: 'supported',
   refuted: 'refuted',
   inconclusive: 'inconclusive',
+  untested: 'untested',
 } as const;
 
 export type GetRecentActivityParams = {

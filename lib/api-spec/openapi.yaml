@@ -131,6 +131,10 @@ paths:
           schema:
             type: string
             enum: [pending, running, completed, failed]
+        - name: batchLabel
+          in: query
+          schema:
+            type: string
       responses:
         "200":
           description: List of experiments
@@ -219,6 +223,27 @@ paths:
         "404":
           description: Not found
 
+  /experiments/batch:
+    post:
+      operationId: runExperimentBatch
+      tags: [experiments]
+      summary: Create, run, and analyze a batch of seeded replicate experiments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BatchExperimentInput"
+      responses:
+        "201":
+          description: Batch complete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchExperimentResponse"
+        "400":
+          description: Invalid input
+
   # ── Rounds ───────────────────────────────────────────────────────────────
   /experiments/{experimentId}/rounds:
     get:
@@ -282,6 +307,36 @@ paths:
         "400":
           description: Experiment not completed
 
+  /analyses/aggregate:
+    get:
+      operationId: getAggregateAnalysis
+      tags: [analyses]
+      summary: Aggregate v2 metrics across analyzed experiments (mean, sd, 95% CI)
+      parameters:
+        - name: gameId
+          in: query
+          schema:
+            type: integer
+        - name: player1StrategyId
+          in: query
+          schema:
+            type: integer
+        - name: player2StrategyId
+          in: query
+          schema:
+            type: integer
+        - name: batchLabel
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Aggregated metrics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AggregateResponse"
+
   # ── Claims ───────────────────────────────────────────────────────────────
   /claims:
     get:
@@ -297,7 +352,7 @@ paths:
           in: query
           schema:
             type: string
-            enum: [hypothesis, supported, refuted, inconclusive]
+            enum: [hypothesis, supported, refuted, inconclusive, untested]
       responses:
         "200":
           description: List of claims
@@ -389,6 +444,44 @@ paths:
           description: Not found
 
   # ── Papers ───────────────────────────────────────────────────────────────
+  /claims/adjudicate-all:
+    post:
+      operationId: adjudicateAllClaims
+      tags: [claims]
+      summary: Mechanically adjudicate every claim that has a structured predicate
+      responses:
+        "200":
+          description: Adjudication results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdjudicationResult"
+
+  /claims/{id}/adjudicate:
+    post:
+      operationId: adjudicateClaim
+      tags: [claims]
+      summary: Mechanically adjudicate a single claim against matching experimental evidence
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Updated claim with adjudication record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Claim"
+        "400":
+          description: Claim has no structured predicate
+        "404":
+          description: Not found
+
   /papers:
     get:
       operationId: listPapers
@@ -592,6 +685,11 @@ components:
           type: integer
           minimum: 1
           maximum: 200
+        seed:
+          type: integer
+          description: RNG seed for reproducibility; auto-generated if omitted
+        batchLabel:
+          type: string
         notes:
           type: string
 
@@ -615,9 +713,20 @@ components:
           type: ["string", "null"]
         numRounds:
           type: integer
+        seed:
+          type: ["integer", "null"]
+          description: RNG seed; null for legacy unseeded runs
+        batchLabel:
+          type: ["string", "null"]
         status:
           type: string
           enum: [pending, running, completed, failed]
+        player1AvgPayoffPerRound:
+          type: ["number", "null"]
+          description: player1TotalPayoff / numRounds (computed)
+        player2AvgPayoffPerRound:
+          type: ["number", "null"]
+          description: player2TotalPayoff / numRounds (computed)
         player1TotalPayoff:
           type: ["number", "null"]
         player2TotalPayoff:
@@ -672,6 +781,16 @@ components:
         createdAt:
           type: string
           format: date-time
+        seed:
+          type: ["integer", "null"]
+        batchLabel:
+          type: ["string", "null"]
+        player1AvgPayoffPerRound:
+          type: ["number", "null"]
+          description: player1TotalPayoff / numRounds (computed)
+        player2AvgPayoffPerRound:
+          type: ["number", "null"]
+          description: player2TotalPayoff / numRounds (computed)
         game:
           $ref: "#/components/schemas/Game"
         player1Strategy:
@@ -752,6 +871,12 @@ components:
         roundByRoundJson:
           type: ["string", "null"]
           description: JSON array of cumulative stats per round
+        analysisVersion:
+          type: integer
+          description: 1 = legacy metrics; 2 = per-game-class metrics in metricsJson
+        metricsJson:
+          type: ["string", "null"]
+          description: JSON-encoded v2 metrics keyed by metric name (per game class)
         summary:
           type: string
           description: Human-readable analysis narrative
@@ -777,21 +902,27 @@ components:
           type: ["integer", "null"]
         evidenceSummary:
           type: string
+        predicateJson:
+          type: string
+          description: JSON-encoded structured predicate for mechanical adjudication
 
     ClaimUpdate:
       type: object
+      description: >-
+        Claim status is intentionally NOT updatable here — verdicts are
+        machine-assigned via the adjudication endpoints only.
       properties:
         title:
           type: string
         statement:
           type: string
-        status:
-          type: string
-          enum: [hypothesis, supported, refuted, inconclusive]
         evidenceSummary:
           type: string
         linkedAnalysisId:
           type: ["integer", "null"]
+        predicateJson:
+          type: string
+          description: JSON-encoded structured predicate for mechanical adjudication
 
     Claim:
       type: object
@@ -815,15 +946,125 @@ components:
           type: ["integer", "null"]
         status:
           type: string
-          enum: [hypothesis, supported, refuted, inconclusive]
+          enum: [hypothesis, supported, refuted, inconclusive, untested]
         evidenceSummary:
           type: ["string", "null"]
+        predicateJson:
+          type: ["string", "null"]
+          description: JSON-encoded structured predicate for mechanical adjudication
+        adjudicationJson:
+          type: ["string", "null"]
+          description: JSON-encoded latest adjudication record (evidence, stats, verdict)
+        adjudicatedAt:
+          type: ["string", "null"]
+          format: date-time
         createdAt:
           type: string
           format: date-time
         updatedAt:
           type: string
           format: date-time
+
+    # ── Batch & Aggregation ───────────────────────────────────────────────
+    BatchExperimentInput:
+      type: object
+      required: [gameId, player1StrategyId, player2StrategyId, numRounds, seeds]
+      properties:
+        gameId:
+          type: integer
+        player1StrategyId:
+          type: integer
+        player2StrategyId:
+          type: integer
+        numRounds:
+          type: integer
+          minimum: 1
+          maximum: 200
+        seeds:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+          maxItems: 100
+        batchLabel:
+          type: string
+          description: Defaults to an auto-generated label from game and strategies
+        notes:
+          type: string
+
+    BatchExperimentResponse:
+      type: object
+      required: [batchLabel, experimentIds, skippedSeeds]
+      properties:
+        batchLabel:
+          type: string
+        experimentIds:
+          type: array
+          description: Experiments created and run by this request (new seeds only)
+          items:
+            type: integer
+        skippedSeeds:
+          type: array
+          description: >-
+            Requested seeds that already existed for this matchup + batchLabel
+            and were skipped. Batch submission is idempotent — re-running a
+            partially completed batch fills in only the missing seeds and never
+            creates duplicate replicates.
+          items:
+            type: integer
+
+    MetricAggregate:
+      type: object
+      required: [name, n, mean]
+      properties:
+        name:
+          type: string
+        n:
+          type: integer
+        mean:
+          type: number
+        sd:
+          type: ["number", "null"]
+          description: Sample standard deviation; null when n < 2
+        ciLow:
+          type: ["number", "null"]
+          description: Lower bound of 95% t-interval; null when n < 2
+        ciHigh:
+          type: ["number", "null"]
+
+    AggregateResponse:
+      type: object
+      required: [n, metrics]
+      properties:
+        n:
+          type: integer
+          description: Number of analyzed experiments matching the filter
+        gameId:
+          type: ["integer", "null"]
+        player1StrategyId:
+          type: ["integer", "null"]
+        player2StrategyId:
+          type: ["integer", "null"]
+        batchLabel:
+          type: ["string", "null"]
+        metrics:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetricAggregate"
+
+    AdjudicationResult:
+      type: object
+      required: [claimId, status]
+      properties:
+        claimId:
+          type: integer
+        title:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [supported, refuted, inconclusive, untested]
+        note:
+          type: ["string", "null"]
 
     # ── Paper ─────────────────────────────────────────────────────────────
     PaperInput:

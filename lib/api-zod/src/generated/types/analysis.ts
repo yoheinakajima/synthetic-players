@@ -29,6 +29,13 @@ export interface Analysis {
      * @nullable
      */
   roundByRoundJson?: string | null;
+  /** 1 = legacy metrics; 2 = per-game-class metrics in metricsJson */
+  analysisVersion?: number;
+  /**
+     * JSON-encoded v2 metrics keyed by metric name (per game class)
+     * @nullable
+     */
+  metricsJson?: string | null;
   /** Human-readable analysis narrative */
   summary: string;
   createdAt: Date;

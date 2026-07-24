@@ -19,6 +19,69 @@ import { formatPercent, formatNumber } from '@/lib/format';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Play, BrainCircuit, Activity } from 'lucide-react';
 
+interface MetricEntry { label: string; value: string; big?: boolean }
+
+/**
+ * Class-aware analysis panel entries. Zero-sum games get exploitability and
+ * distribution tests — never cooperation rates (undefined there). The legacy
+ * per-round "Nash Eq. Rate" is only shown for games with pure equilibria.
+ */
+function metricEntries(
+  metricsJson: string | null | undefined,
+  nashEquilibriumRate: number,
+  mutualCooperationRate: number,
+  p1Deviation: number,
+  p2Deviation: number,
+): MetricEntry[] {
+  const pct = (v: number | null | undefined) => (v == null ? 'n/a' : `${(v * 100).toFixed(1)}%`);
+  const num = (v: number | null | undefined, d = 3) => (v == null ? 'n/a' : v.toFixed(d));
+
+  let m: any = null;
+  if (metricsJson) {
+    try { m = JSON.parse(metricsJson); } catch { m = null; }
+  }
+
+  if (!m) {
+    // Legacy v1 analysis fallback
+    return [
+      { label: 'Nash Eq. Rate', value: pct(nashEquilibriumRate), big: true },
+      { label: 'Mutual Coop', value: pct(mutualCooperationRate), big: true },
+      { label: 'P1 Deviation', value: pct(p1Deviation) },
+      { label: 'P2 Deviation', value: pct(p2Deviation) },
+    ];
+  }
+
+  if (m.gameClass === 'zero_sum') {
+    return [
+      { label: 'Tracker Exploitability P1', value: num(m.conditionalExploitabilityP1), big: true },
+      { label: 'Tracker Exploitability P2', value: num(m.conditionalExploitabilityP2), big: true },
+      { label: 'Marginal Exploit. P1', value: num(m.marginalExploitabilityP1) },
+      { label: 'Marginal Exploit. P2', value: num(m.marginalExploitabilityP2) },
+      { label: 'G-test vs Nash (p)', value: num(m.gTestPValue) },
+      { label: 'Pure Eq. Rate', value: m.eqOutcomeRate == null ? 'n/a (mixed eq.)' : pct(m.eqOutcomeRate) },
+    ];
+  }
+
+  if (m.gameClass === 'coordination') {
+    return [
+      { label: 'Equilibrium Outcomes', value: pct(m.eqOutcomeRate), big: true },
+      { label: 'Coordination Rate', value: pct(m.coordinationRate), big: true },
+      { label: 'Welfare Ratio', value: num(m.welfareRatio) },
+      { label: 'Mutual "Cooperate"', value: pct(m.mutualCooperationRate) },
+    ];
+  }
+
+  // social_dilemma
+  return [
+    { label: 'Welfare Ratio', value: num(m.welfareRatio), big: true },
+    { label: 'Mutual Cooperation', value: pct(m.mutualCooperationRate), big: true },
+    { label: 'Coop Rate P1', value: pct(m.actionCooperationRateP1) },
+    { label: 'Coop Rate P2', value: pct(m.actionCooperationRateP2) },
+    { label: 'Pure Eq. Outcomes', value: pct(m.eqOutcomeRate) },
+    { label: 'Joint Payoff / Round', value: num(m.jointPayoffPerRound, 2) },
+  ];
+}
+
 export default function ExperimentDetail() {
   const { id } = useParams();
   const experimentId = parseInt(id || '0', 10);
@@ -95,14 +158,19 @@ export default function ExperimentDetail() {
             </Badge>
           </div>
           <h1 className="text-3xl font-serif font-bold tracking-tight">
-            {exp.game?.name || exp.gameName}
+            {exp.game?.name}
           </h1>
-          <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground font-mono">
-            <span>P1: {exp.player1Strategy?.name || exp.player1StrategyName}</span>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-sm text-muted-foreground font-mono">
+            <span>P1: {exp.player1Strategy?.name}</span>
             <span>vs</span>
-            <span>P2: {exp.player2Strategy?.name || exp.player2StrategyName}</span>
+            <span>P2: {exp.player2Strategy?.name}</span>
             <span className="text-muted-foreground/50">|</span>
             <span>{exp.numRounds} Rounds</span>
+            <span className="text-muted-foreground/50">|</span>
+            <span data-testid="text-seed">Seed: {exp.seed ?? 'unseeded (v1 legacy)'}</span>
+            {exp.batchLabel && (
+              <Badge variant="outline" className="text-[9px] font-mono">{exp.batchLabel}</Badge>
+            )}
           </div>
         </div>
         <div className="flex gap-2">
@@ -124,6 +192,43 @@ export default function ExperimentDetail() {
       {exp.notes && (
         <div className="p-4 bg-muted/30 border rounded-md text-sm text-muted-foreground">
           <strong className="text-foreground">Notes:</strong> {exp.notes}
+        </div>
+      )}
+
+      {exp.status === 'completed' && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card>
+            <CardContent className="pt-5">
+              <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">P1 Payoff / Round</p>
+              <p className="text-2xl font-mono" data-testid="text-p1-avg">{exp.player1AvgPayoffPerRound?.toFixed(2) ?? '—'}</p>
+              <p className="text-[11px] text-muted-foreground font-mono mt-1">total {exp.player1TotalPayoff?.toFixed(1) ?? '—'} over {exp.numRounds} rounds</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-5">
+              <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">P2 Payoff / Round</p>
+              <p className="text-2xl font-mono" data-testid="text-p2-avg">{exp.player2AvgPayoffPerRound?.toFixed(2) ?? '—'}</p>
+              <p className="text-[11px] text-muted-foreground font-mono mt-1">total {exp.player2TotalPayoff?.toFixed(1) ?? '—'} over {exp.numRounds} rounds</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-5">
+              <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">Joint / Round</p>
+              <p className="text-2xl font-mono">
+                {exp.player1AvgPayoffPerRound != null && exp.player2AvgPayoffPerRound != null
+                  ? (exp.player1AvgPayoffPerRound + exp.player2AvgPayoffPerRound).toFixed(2)
+                  : '—'}
+              </p>
+              <p className="text-[11px] text-muted-foreground font-mono mt-1">sum of both players</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-5">
+              <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">Reproducibility</p>
+              <p className="text-2xl font-mono">{exp.seed != null ? 'seeded' : 'legacy'}</p>
+              <p className="text-[11px] text-muted-foreground font-mono mt-1">{exp.seed != null ? `re-run with seed ${exp.seed} for identical rounds` : 'pre-seeding v1 run'}</p>
+            </CardContent>
+          </Card>
         </div>
       )}
 
@@ -166,22 +271,12 @@ export default function ExperimentDetail() {
               {analysisLoading ? <Skeleton className="h-48 w-full" /> : analysis ? (
                 <div className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">Nash Eq. Rate</p>
-                      <p className="text-2xl font-mono">{formatPercent(analysis.nashEquilibriumRate)}</p>
-                    </div>
-                    <div>
-                      <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">Mutual Coop</p>
-                      <p className="text-2xl font-mono">{formatPercent(analysis.mutualCooperationRate)}</p>
-                    </div>
-                    <div>
-                      <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">P1 Deviation</p>
-                      <p className="text-lg font-mono text-muted-foreground">{formatPercent(analysis.player1PayoffDeviation)}</p>
-                    </div>
-                    <div>
-                      <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">P2 Deviation</p>
-                      <p className="text-lg font-mono text-muted-foreground">{formatPercent(analysis.player2PayoffDeviation)}</p>
-                    </div>
+                    {metricEntries(analysis.metricsJson, analysis.nashEquilibriumRate, analysis.mutualCooperationRate, analysis.player1PayoffDeviation, analysis.player2PayoffDeviation).map((entry) => (
+                      <div key={entry.label}>
+                        <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">{entry.label}</p>
+                        <p className={entry.big ? "text-2xl font-mono" : "text-lg font-mono text-muted-foreground"}>{entry.value}</p>
+                      </div>
+                    ))}
                   </div>
                   <div className="pt-4 border-t text-sm text-muted-foreground leading-relaxed">
                     {analysis.summary}

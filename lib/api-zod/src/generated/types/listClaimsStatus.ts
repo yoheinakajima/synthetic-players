@@ -14,4 +14,5 @@ export const ListClaimsStatus = {
   supported: 'supported',
   refuted: 'refuted',
   inconclusive: 'inconclusive',
+  untested: 'untested',
 } as const;

@@ -97,7 +97,8 @@ export const GetStrategyResponse = zod.object({
  */
 export const ListExperimentsQueryParams = zod.object({
   "gameId": zod.coerce.number().optional(),
-  "status": zod.enum(['pending', 'running', 'completed', 'failed']).optional()
+  "status": zod.enum(['pending', 'running', 'completed', 'failed']).optional(),
+  "batchLabel": zod.coerce.string().optional()
 })
 
 export const ListExperimentsResponseItem = zod.object({
@@ -109,7 +110,11 @@ export const ListExperimentsResponseItem = zod.object({
   "player2StrategyId": zod.number(),
   "player2StrategyName": zod.string().nullish(),
   "numRounds": zod.number(),
+  "seed": zod.number().nullish().describe('RNG seed; null for legacy unseeded runs'),
+  "batchLabel": zod.string().nullish(),
   "status": zod.enum(['pending', 'running', 'completed', 'failed']),
+  "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
+  "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
   "player1TotalPayoff": zod.number().nullish(),
   "player2TotalPayoff": zod.number().nullish(),
   "cooperationRate": zod.number().nullish(),
@@ -134,6 +139,8 @@ export const CreateExperimentBody = zod.object({
   "player1StrategyId": zod.number(),
   "player2StrategyId": zod.number(),
   "numRounds": zod.number().min(1).max(createExperimentBodyNumRoundsMax),
+  "seed": zod.number().optional().describe('RNG seed for reproducibility; auto-generated if omitted'),
+  "batchLabel": zod.string().optional(),
   "notes": zod.string().optional()
 })
 
@@ -146,7 +153,11 @@ export const CreateExperimentResponse = zod.object({
   "player2StrategyId": zod.number(),
   "player2StrategyName": zod.string().nullish(),
   "numRounds": zod.number(),
+  "seed": zod.number().nullish().describe('RNG seed; null for legacy unseeded runs'),
+  "batchLabel": zod.string().nullish(),
   "status": zod.enum(['pending', 'running', 'completed', 'failed']),
+  "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
+  "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
   "player1TotalPayoff": zod.number().nullish(),
   "player2TotalPayoff": zod.number().nullish(),
   "cooperationRate": zod.number().nullish(),
@@ -180,6 +191,10 @@ export const GetExperimentResponse = zod.object({
   "errorMessage": zod.string().nullish(),
   "completedAt": zod.coerce.date().nullish(),
   "createdAt": zod.coerce.date(),
+  "seed": zod.number().nullish(),
+  "batchLabel": zod.string().nullish(),
+  "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
+  "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
   "game": zod.object({
   "id": zod.number(),
   "slug": zod.string(),
@@ -260,6 +275,10 @@ export const RunExperimentResponse = zod.object({
   "errorMessage": zod.string().nullish(),
   "completedAt": zod.coerce.date().nullish(),
   "createdAt": zod.coerce.date(),
+  "seed": zod.number().nullish(),
+  "batchLabel": zod.string().nullish(),
+  "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
+  "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
   "game": zod.object({
   "id": zod.number(),
   "slug": zod.string(),
@@ -309,6 +328,32 @@ export const RunExperimentResponse = zod.object({
 
 
 /**
+ * @summary Create, run, and analyze a batch of seeded replicate experiments
+ */
+export const runExperimentBatchBodyNumRoundsMax = 200;
+
+export const runExperimentBatchBodySeedsMax = 100;
+
+
+
+export const RunExperimentBatchBody = zod.object({
+  "gameId": zod.number(),
+  "player1StrategyId": zod.number(),
+  "player2StrategyId": zod.number(),
+  "numRounds": zod.number().min(1).max(runExperimentBatchBodyNumRoundsMax),
+  "seeds": zod.array(zod.number()).min(1).max(runExperimentBatchBodySeedsMax),
+  "batchLabel": zod.string().optional().describe('Defaults to an auto-generated label from game and strategies'),
+  "notes": zod.string().optional()
+})
+
+export const RunExperimentBatchResponse = zod.object({
+  "batchLabel": zod.string(),
+  "experimentIds": zod.array(zod.number()).describe('Experiments created and run by this request (new seeds only)'),
+  "skippedSeeds": zod.array(zod.number()).describe('Requested seeds that already existed for this matchup + batchLabel and were skipped. Batch submission is idempotent — re-running a partially completed batch fills in only the missing seeds and never creates duplicate replicates.')
+})
+
+
+/**
  * @summary List rounds for an experiment
  */
 export const ListRoundsParams = zod.object({
@@ -354,6 +399,8 @@ export const GetAnalysisResponse = zod.object({
   "mutualDefectionRate": zod.number(),
   "mixedOutcomeRate": zod.number(),
   "roundByRoundJson": zod.string().nullish().describe('JSON array of cumulative stats per round'),
+  "analysisVersion": zod.number().optional().describe('1 = legacy metrics; 2 = per-game-class metrics in metricsJson'),
+  "metricsJson": zod.string().nullish().describe('JSON-encoded v2 metrics keyed by metric name (per game class)'),
   "summary": zod.string().describe('Human-readable analysis narrative'),
   "createdAt": zod.coerce.date()
 })
@@ -382,8 +429,37 @@ export const CreateAnalysisResponse = zod.object({
   "mutualDefectionRate": zod.number(),
   "mixedOutcomeRate": zod.number(),
   "roundByRoundJson": zod.string().nullish().describe('JSON array of cumulative stats per round'),
+  "analysisVersion": zod.number().optional().describe('1 = legacy metrics; 2 = per-game-class metrics in metricsJson'),
+  "metricsJson": zod.string().nullish().describe('JSON-encoded v2 metrics keyed by metric name (per game class)'),
   "summary": zod.string().describe('Human-readable analysis narrative'),
   "createdAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Aggregate v2 metrics across analyzed experiments (mean, sd, 95% CI)
+ */
+export const GetAggregateAnalysisQueryParams = zod.object({
+  "gameId": zod.coerce.number().optional(),
+  "player1StrategyId": zod.coerce.number().optional(),
+  "player2StrategyId": zod.coerce.number().optional(),
+  "batchLabel": zod.coerce.string().optional()
+})
+
+export const GetAggregateAnalysisResponse = zod.object({
+  "n": zod.number().describe('Number of analyzed experiments matching the filter'),
+  "gameId": zod.number().nullish(),
+  "player1StrategyId": zod.number().nullish(),
+  "player2StrategyId": zod.number().nullish(),
+  "batchLabel": zod.string().nullish(),
+  "metrics": zod.array(zod.object({
+  "name": zod.string(),
+  "n": zod.number(),
+  "mean": zod.number(),
+  "sd": zod.number().nullish().describe('Sample standard deviation; null when n < 2'),
+  "ciLow": zod.number().nullish().describe('Lower bound of 95% t-interval; null when n < 2'),
+  "ciHigh": zod.number().nullish()
+}))
 })
 
 
@@ -392,7 +468,7 @@ export const CreateAnalysisResponse = zod.object({
  */
 export const ListClaimsQueryParams = zod.object({
   "gameId": zod.coerce.number().optional(),
-  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive']).optional()
+  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive', 'untested']).optional()
 })
 
 export const ListClaimsResponseItem = zod.object({
@@ -404,8 +480,11 @@ export const ListClaimsResponseItem = zod.object({
   "strategyId": zod.number().nullish(),
   "strategyName": zod.string().nullish(),
   "analysisId": zod.number().nullish(),
-  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive']),
+  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive', 'untested']),
   "evidenceSummary": zod.string().nullish(),
+  "predicateJson": zod.string().nullish().describe('JSON-encoded structured predicate for mechanical adjudication'),
+  "adjudicationJson": zod.string().nullish().describe('JSON-encoded latest adjudication record (evidence, stats, verdict)'),
+  "adjudicatedAt": zod.coerce.date().nullish(),
   "createdAt": zod.coerce.date(),
   "updatedAt": zod.coerce.date().optional()
 })
@@ -421,7 +500,8 @@ export const CreateClaimBody = zod.object({
   "gameId": zod.number(),
   "strategyId": zod.number().nullish(),
   "analysisId": zod.number().nullish(),
-  "evidenceSummary": zod.string().optional()
+  "evidenceSummary": zod.string().optional(),
+  "predicateJson": zod.string().optional().describe('JSON-encoded structured predicate for mechanical adjudication')
 })
 
 export const CreateClaimResponse = zod.object({
@@ -433,8 +513,11 @@ export const CreateClaimResponse = zod.object({
   "strategyId": zod.number().nullish(),
   "strategyName": zod.string().nullish(),
   "analysisId": zod.number().nullish(),
-  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive']),
+  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive', 'untested']),
   "evidenceSummary": zod.string().nullish(),
+  "predicateJson": zod.string().nullish().describe('JSON-encoded structured predicate for mechanical adjudication'),
+  "adjudicationJson": zod.string().nullish().describe('JSON-encoded latest adjudication record (evidence, stats, verdict)'),
+  "adjudicatedAt": zod.coerce.date().nullish(),
   "createdAt": zod.coerce.date(),
   "updatedAt": zod.coerce.date().optional()
 })
@@ -456,8 +539,11 @@ export const GetClaimResponse = zod.object({
   "strategyId": zod.number().nullish(),
   "strategyName": zod.string().nullish(),
   "analysisId": zod.number().nullish(),
-  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive']),
+  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive', 'untested']),
   "evidenceSummary": zod.string().nullish(),
+  "predicateJson": zod.string().nullish().describe('JSON-encoded structured predicate for mechanical adjudication'),
+  "adjudicationJson": zod.string().nullish().describe('JSON-encoded latest adjudication record (evidence, stats, verdict)'),
+  "adjudicatedAt": zod.coerce.date().nullish(),
   "createdAt": zod.coerce.date(),
   "updatedAt": zod.coerce.date().optional()
 })
@@ -473,10 +559,10 @@ export const UpdateClaimParams = zod.object({
 export const UpdateClaimBody = zod.object({
   "title": zod.string().optional(),
   "statement": zod.string().optional(),
-  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive']).optional(),
   "evidenceSummary": zod.string().optional(),
-  "linkedAnalysisId": zod.number().nullish()
-})
+  "linkedAnalysisId": zod.number().nullish(),
+  "predicateJson": zod.string().optional().describe('JSON-encoded structured predicate for mechanical adjudication')
+}).describe('Claim status is intentionally NOT updatable here — verdicts are machine-assigned via the adjudication endpoints only.')
 
 export const UpdateClaimResponse = zod.object({
   "id": zod.number(),
@@ -487,8 +573,11 @@ export const UpdateClaimResponse = zod.object({
   "strategyId": zod.number().nullish(),
   "strategyName": zod.string().nullish(),
   "analysisId": zod.number().nullish(),
-  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive']),
+  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive', 'untested']),
   "evidenceSummary": zod.string().nullish(),
+  "predicateJson": zod.string().nullish().describe('JSON-encoded structured predicate for mechanical adjudication'),
+  "adjudicationJson": zod.string().nullish().describe('JSON-encoded latest adjudication record (evidence, stats, verdict)'),
+  "adjudicatedAt": zod.coerce.date().nullish(),
   "createdAt": zod.coerce.date(),
   "updatedAt": zod.coerce.date().optional()
 })
@@ -502,6 +591,44 @@ export const DeleteClaimParams = zod.object({
 })
 
 export const DeleteClaimResponse = zod.void()
+
+
+/**
+ * @summary Mechanically adjudicate every claim that has a structured predicate
+ */
+export const AdjudicateAllClaimsResponseItem = zod.object({
+  "claimId": zod.number(),
+  "title": zod.string().nullish(),
+  "status": zod.enum(['supported', 'refuted', 'inconclusive', 'untested']),
+  "note": zod.string().nullish()
+})
+export const AdjudicateAllClaimsResponse = zod.array(AdjudicateAllClaimsResponseItem)
+
+
+/**
+ * @summary Mechanically adjudicate a single claim against matching experimental evidence
+ */
+export const AdjudicateClaimParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const AdjudicateClaimResponse = zod.object({
+  "id": zod.number(),
+  "title": zod.string(),
+  "statement": zod.string(),
+  "gameId": zod.number(),
+  "gameName": zod.string().nullish(),
+  "strategyId": zod.number().nullish(),
+  "strategyName": zod.string().nullish(),
+  "analysisId": zod.number().nullish(),
+  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive', 'untested']),
+  "evidenceSummary": zod.string().nullish(),
+  "predicateJson": zod.string().nullish().describe('JSON-encoded structured predicate for mechanical adjudication'),
+  "adjudicationJson": zod.string().nullish().describe('JSON-encoded latest adjudication record (evidence, stats, verdict)'),
+  "adjudicatedAt": zod.coerce.date().nullish(),
+  "createdAt": zod.coerce.date(),
+  "updatedAt": zod.coerce.date().optional()
+})
 
 
 /**

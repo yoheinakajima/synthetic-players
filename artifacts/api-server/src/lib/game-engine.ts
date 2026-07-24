@@ -19,12 +19,30 @@ export interface RoundHistory {
   p2Payoff: number;
 }
 
+// ── Seeded PRNG ───────────────────────────────────────────────────────────────
+
+/**
+ * mulberry32: small, fast, seedable PRNG. Same seed → same run, forever.
+ * Used instead of Math.random() so every experiment is reproducible.
+ */
+export function mulberry32(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 // ── Strategy implementations ──────────────────────────────────────────────────
 
 type StrategyFn = (
   history: RoundHistory[],
   playerNum: 1 | 2,
-  game: GameDef
+  game: GameDef,
+  rng: () => number
 ) => { action: number; reasoning: string };
 
 const strategies: Record<string, StrategyFn> = {
@@ -64,8 +82,8 @@ const strategies: Record<string, StrategyFn> = {
     return { action: 0, reasoning: "Opponent has always cooperated; cooperating." };
   },
 
-  "random": (_history, _playerNum, game) => {
-    const action = Math.floor(Math.random() * game.numActions);
+  "random": (_history, _playerNum, game, rng) => {
+    const action = Math.floor(rng() * game.numActions);
     return { action, reasoning: `Randomly selected action ${action}.` };
   },
 
@@ -86,42 +104,45 @@ const strategies: Record<string, StrategyFn> = {
     return { action: newAction, reasoning: `Lost last round (payoff ${myLastPayoff.toFixed(2)} < avg ${avgPayoff.toFixed(2)}); shifting to action ${newAction}.` };
   },
 
-  "nash-mixed": (_history, _playerNum, game) => {
+  "nash-mixed": (_history, _playerNum, game, rng) => {
     // Play a uniformly random Nash equilibrium action, or uniform random over actions
     // For games with pure Nash, pick one randomly; otherwise uniform random
     if (game.nashEquilibria.length > 0) {
-      const ne = game.nashEquilibria[Math.floor(Math.random() * game.nashEquilibria.length)];
+      const ne = game.nashEquilibria[Math.floor(rng() * game.nashEquilibria.length)];
       // p1 is index 0, p2 is index 1 in nashEquilibria - but we'll just use the p1 action for both
       const action = ne[0];
       return { action, reasoning: `Playing action from Nash equilibrium: ${action}.` };
     }
     // Matching Pennies / RPS: uniform random (Nash mixed strategy)
-    const action = Math.floor(Math.random() * game.numActions);
+    const action = Math.floor(rng() * game.numActions);
     return { action, reasoning: `Nash mixed strategy: uniform random action ${action}.` };
   },
 
-  "generous-tit-for-tat": (history, playerNum, game) => {
+  "generous-tit-for-tat": (history, playerNum, game, rng) => {
     if (history.length === 0) {
       return { action: 0, reasoning: "First round: cooperate." };
     }
     const lastRound = history[history.length - 1];
     const opponentLastAction = playerNum === 1 ? lastRound.p2Action : lastRound.p1Action;
     // 10% chance to cooperate even after opponent defects
-    if (opponentLastAction === game.numActions - 1 && Math.random() < 0.1) {
+    if (opponentLastAction === game.numActions - 1 && rng() < 0.1) {
       return { action: 0, reasoning: "Opponent defected but forgiving with 10% probability." };
     }
     return { action: opponentLastAction, reasoning: `Mirror opponent: ${opponentLastAction}.` };
   },
 };
 
+export const PROBABILISTIC_STRATEGY_SLUGS = ["random", "nash-mixed", "generous-tit-for-tat"] as const;
+
 export function getActionForStrategy(
   strategySlug: string,
   history: RoundHistory[],
   playerNum: 1 | 2,
-  game: GameDef
+  game: GameDef,
+  rng: () => number
 ): { action: number; reasoning: string } {
   const fn = strategies[strategySlug] ?? strategies["random"];
-  return fn(history, playerNum, game);
+  return fn(history, playerNum, game, rng);
 }
 
 // ── Game execution ────────────────────────────────────────────────────────────
@@ -147,10 +168,15 @@ export function runGame(
   game: GameDef,
   strategy1Slug: string,
   strategy2Slug: string,
-  numRounds: number
+  numRounds: number,
+  seed: number
 ): RunResult {
   const history: RoundHistory[] = [];
   const rounds: RunResult["rounds"] = [];
+
+  // Single seeded stream, consumed in deterministic order (p1 then p2 each round).
+  // Same seed → identical run, byte for byte.
+  const rng = mulberry32(seed);
 
   let p1Total = 0;
   let p2Total = 0;
@@ -161,8 +187,8 @@ export function runGame(
   const nashSet = new Set(game.nashEquilibria.map(([a, b]) => `${a},${b}`));
 
   for (let i = 1; i <= numRounds; i++) {
-    const p1Result = getActionForStrategy(strategy1Slug, history, 1, game);
-    const p2Result = getActionForStrategy(strategy2Slug, history, 2, game);
+    const p1Result = getActionForStrategy(strategy1Slug, history, 1, game, rng);
+    const p2Result = getActionForStrategy(strategy2Slug, history, 2, game, rng);
 
     const p1Action = p1Result.action;
     const p2Action = p2Result.action;

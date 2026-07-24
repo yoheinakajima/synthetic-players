@@ -1,22 +1,84 @@
 import { Router, type IRouter } from "express";
-import { eq, asc } from "drizzle-orm";
-import {
-  db,
-  analysesTable,
-  experimentsTable,
-  roundsTable,
-  gamesTable,
-  strategiesTable,
-} from "@workspace/db";
+import { eq, and } from "drizzle-orm";
+import { db, analysesTable, experimentsTable } from "@workspace/db";
 import {
   GetAnalysisParams,
   GetAnalysisResponse,
   CreateAnalysisParams,
   CreateAnalysisResponse,
+  GetAggregateAnalysisQueryParams,
+  GetAggregateAnalysisResponse,
 } from "@workspace/api-zod";
-import { computeAnalysis, type GameDef } from "../lib/game-engine";
+import { analyzeExperiment } from "../lib/experiment-service";
+import { flattenMetrics, type MetricsV2 } from "../lib/metrics";
+import { sampleStats } from "../lib/adjudicator";
 
 const router: IRouter = Router();
+
+/**
+ * Aggregate v2 metrics across analyzed experiments matching the filter.
+ * Returns mean / sd / 95% t-interval per metric — the numbers behind every
+ * "X ± Y" statement in the paper.
+ */
+router.get("/analyses/aggregate", async (req, res): Promise<void> => {
+  const query = GetAggregateAnalysisQueryParams.safeParse(req.query);
+  if (!query.success) {
+    res.status(400).json({ error: query.error.message });
+    return;
+  }
+
+  const conditions = [eq(experimentsTable.status, "completed")];
+  if (query.data.gameId != null) conditions.push(eq(experimentsTable.gameId, query.data.gameId));
+  if (query.data.player1StrategyId != null)
+    conditions.push(eq(experimentsTable.player1StrategyId, query.data.player1StrategyId));
+  if (query.data.player2StrategyId != null)
+    conditions.push(eq(experimentsTable.player2StrategyId, query.data.player2StrategyId));
+  if (query.data.batchLabel != null)
+    conditions.push(eq(experimentsTable.batchLabel, query.data.batchLabel));
+
+  const rows = await db
+    .select({ analysis: analysesTable })
+    .from(analysesTable)
+    .innerJoin(experimentsTable, eq(analysesTable.experimentId, experimentsTable.id))
+    .where(and(...conditions));
+
+  const flats: Record<string, number>[] = [];
+  for (const { analysis } of rows) {
+    if (analysis.analysisVersion < 2 || !analysis.metricsJson) continue;
+    try {
+      flats.push(flattenMetrics(JSON.parse(analysis.metricsJson) as MetricsV2));
+    } catch {
+      // skip malformed
+    }
+  }
+
+  const metricNames = new Set<string>();
+  for (const flat of flats) for (const key of Object.keys(flat)) metricNames.add(key);
+
+  const metrics = [...metricNames].sort().map((name) => {
+    const values = flats.map((f) => f[name]).filter((v): v is number => typeof v === "number");
+    const stats = sampleStats(values);
+    return {
+      name,
+      n: stats.n,
+      mean: stats.mean ?? 0,
+      sd: stats.sd,
+      ciLow: stats.ciLow,
+      ciHigh: stats.ciHigh,
+    };
+  });
+
+  res.json(
+    GetAggregateAnalysisResponse.parse({
+      n: flats.length,
+      gameId: query.data.gameId ?? null,
+      player1StrategyId: query.data.player1StrategyId ?? null,
+      player2StrategyId: query.data.player2StrategyId ?? null,
+      batchLabel: query.data.batchLabel ?? null,
+      metrics,
+    })
+  );
+});
 
 router.get("/experiments/:experimentId/analysis", async (req, res): Promise<void> => {
   const params = GetAnalysisParams.safeParse(req.params);
@@ -60,58 +122,13 @@ router.post("/experiments/:experimentId/analysis", async (req, res): Promise<voi
     return;
   }
 
-  const [game] = await db.select().from(gamesTable).where(eq(gamesTable.id, exp.gameId));
-  const [p1Strat] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, exp.player1StrategyId));
-  const [p2Strat] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, exp.player2StrategyId));
-
-  if (!game || !p1Strat || !p2Strat) {
-    res.status(400).json({ error: "Game or strategy not found" });
-    return;
+  try {
+    const analysis = await analyzeExperiment(exp.id);
+    res.status(201).json(CreateAnalysisResponse.parse(analysis));
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    res.status(400).json({ error: message });
   }
-
-  const rounds = await db
-    .select()
-    .from(roundsTable)
-    .where(eq(roundsTable.experimentId, exp.id))
-    .orderBy(asc(roundsTable.roundNumber));
-
-  if (rounds.length === 0) {
-    res.status(400).json({ error: "No rounds found for experiment" });
-    return;
-  }
-
-  const gameDef: GameDef = {
-    id: game.id,
-    slug: game.slug,
-    numActions: game.numActions,
-    actionLabels: JSON.parse(game.actionLabels) as string[],
-    payoffMatrix: JSON.parse(game.payoffMatrix) as number[][][],
-    nashEquilibria: JSON.parse(game.nashEquilibria) as number[][],
-  };
-
-  const result = computeAnalysis(rounds, gameDef, p1Strat.name, p2Strat.name);
-
-  // Upsert analysis
-  const [existing] = await db
-    .select()
-    .from(analysesTable)
-    .where(eq(analysesTable.experimentId, exp.id));
-
-  let analysis;
-  if (existing) {
-    [analysis] = await db
-      .update(analysesTable)
-      .set(result)
-      .where(eq(analysesTable.experimentId, exp.id))
-      .returning();
-  } else {
-    [analysis] = await db
-      .insert(analysesTable)
-      .values({ experimentId: exp.id, ...result })
-      .returning();
-  }
-
-  res.status(201).json(CreateAnalysisResponse.parse(analysis));
 });
 
 export default router;
