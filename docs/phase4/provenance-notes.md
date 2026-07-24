@@ -72,3 +72,8 @@ verdicts issue only from the step-8 full replay + adjudication pass.**
    the sealed order with adjudication + a report to the researcher at each
    block boundary. These interim reports never substitute for the step-8
    full pass.
+
+## OpenTimestamps second anchor (2026-07-24)
+- Stamped: `SHA256SUMS.txt` asset of release `phase4-v3-seal`, fetched from GitHub and verified sha256 `082942c06faf6df88dc5cc74960f0d9eaeb53a8485731ffdae924d02a0706fb9`.
+- Calendars accepting the digest: a.pool.opentimestamps.org, b.pool.opentimestamps.org, a.pool.eternitywall.com, ots.btc.catallaxy.com.
+- Proof committed at `docs/phase4/SHA256SUMS.txt.ots` and attached to the release as an additional asset (addition only; no sealed asset modified). Status: **pending** Bitcoin attestation — run `ots upgrade docs/phase4/SHA256SUMS.txt.ots` after ~24h, then `ots verify` against the release asset. Tooling note: client run with an OpenSSL-3 `LD_PRELOAD` workaround (does not affect proof bytes).
