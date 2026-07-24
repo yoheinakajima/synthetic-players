@@ -127,3 +127,87 @@ the event store (run_1784926714_684aa1fd / run_1784926714_21adc5ac) before any
 confirmation dispatch, per the sealed packet. Sentinel check 1 at the X2/D1
 boundary: zero alerts against the sealed baseline. Confirmation itself remains
 step 5 of the frozen order (after D1→D2→D3).
+
+## D2/D3 adjudication pins (2026-07-24, written during block D1 dispatch — pre-data for D2/D3)
+
+The registered interval spec ("BCa(seed) = bias-corrected accelerated
+bootstrap, 10,000 resamples over episodes, mulberry32 seed 20260801"; constant
+cells → exact comparison + CP bounds per cell) leaves implementation details
+open. They are pinned here BEFORE any D2/D3 episode exists, and the code was
+committed and pushed before any D2/D3 dispatch:
+
+- BCa resampler runs on the engine's bit-identical mulberry32; one stream per
+  claim, seed 20260801. Draw order: per resample, groups in estimand order
+  (minuend first), n index draws per group in position order, index =
+  floor(u·n). z0 = Φ⁻¹(#{θ* < θ̂}/B) with strict inequality; acceleration from
+  delete-one jackknife across all observations of all groups; endpoint
+  quantile k = clamp(floor(α_adj·(B+1)), 1, B), k-th order statistic.
+- Exact fallback fires iff either contributing cell is constant: exact
+  difference, per-cell CP on seat-level trials (2 per episode), and a
+  conservative Bonferroni difference interval (each cell at 1−α/2).
+- Verdict p-values by interval inversion (smallest α whose (1−α) interval
+  excludes 0), floored at 1/(B+1) so bootstrap precision is never overstated.
+  Directional claims (P4-D2-1/2) invert one-sided exclusion; P4-D2-4
+  two-sided. Holm step-down at the registered family size m=4 over the three
+  CI claims (strictly conservative); P4-D2-3 is adjudicated solely by its
+  registered CP thresholds (≥.80 / ≤.20) and consumes no Holm slot.
+- D3: one-sided 95% lower bound = the α=.05 BCa endpoint; exact sign-test
+  fallback (binomial, H1: median > 0) iff the D_ep sample is constant. The
+  support-only Dirichlet(1) posterior (never confirmatory) uses numpy
+  default_rng(20260801), 100k draws, seat-level categories {first-only,
+  rock-only, both, neither}; the support-only penalized multinomial logit is
+  deferred to step 8. Every D3 run's rendered actionLabels are checked against
+  the sealed displayOrder binding; any mismatch refuses adjudication.
+- Machinery validated on synthetic data (determinism under stream restart,
+  known-separation recovery, constant-cell fallback trigger, Holm
+  monotonicity, one-sided bound, sign-test path) plus no-data smokes against a
+  temporary docs dir so no report file was written before data existed.
+
+Worktree disclosure: these additions were edited into phase4_adjudicate.py
+(analysis tooling only — never imported by engine, server, or runner) while
+block D1 was dispatching. Engine-process stamps for D1 therefore reflect the
+running engine code exactly; the D1 block's dispatch code is byte-identical to
+its preflight HEAD.
+
+## Registration gap: E-dselected selection rule (found 2026-07-24, during block D1 dispatch, BEFORE D1 adjudication)
+
+predicates.md §Family E and registry-v3-manifest.md both reference the
+D-selected presentation as "resolved by the sealed rule from D1 primary-model
+data" / "RESOLVED-BY-D1-SELECTION(pd-rep-*)" — but no document in the sealed
+packet states the rule itself (verified: predicates.md incl. full git history,
+freeze-packet.md, registry-v3-manifest.md, seal-record.md, x2-diff-packet.md,
+provider-packet.md, budget.md). The engine constrains the resolution only to
+prefix `pd-rep-` (16 sealed e-repeated-candidate templates,
+`pd-rep-{W}-{L}-{O}-{P}`, all M=can as in the community comparator).
+
+Two complete candidate rules are drafted here. Timing, stated exactly: both
+rules were drafted while block D1 was still dispatching, before the D1
+adjudication mode was run; they are committed at the D1 boundary in the same
+push as the D1 report, so commit order alone cannot prove drafting precedence.
+The externally checkable pre-commitment is the one that matters mechanically:
+both rules are committed and pushed BEFORE the operator's choice between them,
+before any resolution write, and before any step-6 dispatch. The operator
+(user) picks ONE by name — a choice between two fully specified mechanical
+rules, not a free selection informed by cell means. The resolution note will
+cite this ledger entry, the chosen rule, and the D1 cell means that
+mechanically determine the selection.
+
+- **Rule INTERIOR (recommended):** select the candidate (W,L,O,P) whose D1
+  primary-model M=can cell mean Ȳ (10 episodes, cooperation-role share at
+  round 1) is closest to 0.5; ties → the earlier template in
+  registry-v3-manifest.md line order. Rationale: §E's assay gate requires an
+  episode-level 95% interval wholly inside (0.05, 0.95) in at least one δ
+  cell; the most interior one-shot presentation maximizes the probability the
+  δ-slope assay is valid at all, and refers to no δ quantity (outcome-blind
+  for P4-E-1).
+- **Rule MAXCOOP:** select the candidate whose D1 primary-model M=can cell
+  mean Ȳ is largest; ties → earlier manifest line order. Rationale: probes
+  δ-sensitivity where one-shot cooperation is already elevated; higher corner
+  risk (gate may fail → registered "corner-confounded" outcome).
+
+Neither rule may be exchanged for the other after D1 cell means are known
+outside this pre-commitment; choosing between them is the operator's call and
+is disclosed either way. Sentinel third-cell note: per the sealed sentinel
+spec, checks continue on the fallback `pd-os-w1-neu-cf-ad` until the
+resolution is written; the switch (and its fresh third-cell baseline, first
+check after resolution) will be disclosed when it happens.

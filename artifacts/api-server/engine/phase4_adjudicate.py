@@ -434,6 +434,127 @@ def x2_screening() -> int:
     return 0
 
 
+# ── Shared BCa machinery (frozen: predicates.md "Interval methods") ──────────
+#
+# BCa(seed) = bias-corrected accelerated bootstrap, 10,000 resamples over
+# episodes, mulberry32 seed 20260801 (bit-identical engine PRNG). Procedural
+# pins made BEFORE any D2/D3 data existed (disclosed in provenance-notes.md):
+#   draw order    — per resample: groups in argument order, n index draws per
+#                   group in position order; index = floor(u·n).
+#   z0            — Φ⁻¹(#{θ*_b < θ̂}/B), strict inequality.
+#   acceleration  — delete-one jackknife across all observations of all groups.
+#   quantile rule — k = clamp(floor(α_adj·(B+1)), 1, B); k-th order statistic.
+#   degenerate    — constant bootstrap distribution or infinite z0 → the claim's
+#                   registered exact fallback (constant cells: exact comparison
+#                   + CP bounds per cell, seat-level trials).
+#   p for Holm    — CI inversion: smallest α at which the (1−α) BCa interval
+#                   excludes 0 (bisection); under exact fallback, inversion of
+#                   the conservative CP-difference interval (per-cell CP at
+#                   1−α/2 each, Bonferroni).
+
+BCA_SEED = 20260801
+BCA_B = 10000
+
+
+def _bca_fit(groups: list[list[float]], stat, seed: int = BCA_SEED, B: int = BCA_B):
+    """One bootstrap pass. Returns (theta, sorted_boots, z0, a, degen|None).
+    The fit is computed ONCE per claim; every endpoint/inversion reuses it, so
+    the pinned mulberry32 stream is consumed exactly once per claim."""
+    from scipy.stats import norm
+    rng = mulberry32(seed & 0xFFFFFFFF)
+    theta = stat(groups)
+    boots = []
+    for _ in range(B):
+        res = [[g[int(rng() * len(g))] for _ in range(len(g))] for g in groups]
+        boots.append(stat(res))
+    sb = sorted(boots)
+    if sb[0] == sb[-1]:
+        return theta, sb, None, None, "degenerate bootstrap distribution"
+    less = sum(1 for b in boots if b < theta)
+    if less == 0 or less == B:
+        return theta, sb, None, None, "z0 infinite (all resamples on one side)"
+    z0 = float(norm.ppf(less / B))
+    jk = []
+    for gi, g in enumerate(groups):
+        for i in range(len(g)):
+            jg = [gg if gj != gi else g[:i] + g[i + 1:] for gj, gg in enumerate(groups)]
+            jk.append(stat(jg))
+    jbar = sum(jk) / len(jk)
+    num = sum((jbar - v) ** 3 for v in jk)
+    den = 6.0 * (sum((jbar - v) ** 2 for v in jk)) ** 1.5
+    a = 0.0 if den == 0 else num / den
+    return theta, sb, z0, a, None
+
+
+def _bca_endpoint(sb: list[float], z0: float, a: float, al: float) -> float:
+    from scipy.stats import norm
+    z = float(norm.ppf(al))
+    adj = float(norm.cdf(z0 + (z0 + z) / (1 - a * (z0 + z))))
+    k = min(max(int(adj * (len(sb) + 1)), 1), len(sb))
+    return sb[k - 1]
+
+
+def _invert_p(excludes, floor: float = 0.0) -> float:
+    """Smallest α at which the (1−α) interval excludes 0 (monotone; bisection).
+    `floor` prevents overstating precision: bootstrap-based p is floored at
+    1/(B+1) — the finest resolution 10k resamples can support."""
+    if not excludes(0.9999):
+        return 1.0
+    lo_a, hi_a = 1e-9, 0.9999
+    for _ in range(60):
+        mid = (lo_a + hi_a) / 2
+        if excludes(mid):
+            hi_a = mid
+        else:
+            lo_a = mid
+    return max(hi_a, floor)
+
+
+def _bca_diff_claim(g_hi: list[float], g_lo: list[float], two_sided: bool) -> dict:
+    """Difference-of-means claim: BCa CI + inversion p; registered exact
+    fallback when either cell is constant (predicates.md 'Degenerate designs')."""
+    stat = lambda gs: sum(gs[0]) / len(gs[0]) - sum(gs[1]) / len(gs[1])
+    const_hi, const_lo = len(set(g_hi)) == 1, len(set(g_lo)) == 1
+    est = stat([g_hi, g_lo])
+    if const_hi or const_lo:
+        from scipy.stats import beta
+
+        def cp(g, cell_alpha):
+            k = int(round(sum(g) * 2)); n = 2 * len(g)   # 2 seat trials/episode
+            lo = 0.0 if k == 0 else float(beta.ppf(cell_alpha / 2, k, n - k + 1))
+            hi = 1.0 if k == n else float(beta.ppf(1 - cell_alpha / 2, k + 1, n - k))
+            return lo, hi
+
+        def cons_interval(alpha):                        # Bonferroni: α/2 per cell
+            (l1, h1), (l2, h2) = cp(g_hi, alpha / 2), cp(g_lo, alpha / 2)
+            return l1 - h2, h1 - l2
+
+        def excludes(alpha):
+            l, h = cons_interval(alpha)
+            return ((l > 0) or (h < 0)) if two_sided else (l > 0)
+
+        lo95, hi95 = cons_interval(0.05)
+        return {"method": "exact fallback (constant cell): exact diff + "
+                          "CP-conservative interval (seat-level trials)",
+                "estimate": est, "ci95": [lo95, hi95],
+                "cellCP95": {"hi": cp(g_hi, 0.05), "lo": cp(g_lo, 0.05)},
+                "constantCells": {"hi": const_hi, "lo": const_lo},
+                "p": _invert_p(excludes)}
+    theta, sb, z0, a, degen = _bca_fit([g_hi, g_lo], stat)
+    if degen:
+        raise SystemExit(f"BCa degenerate ({degen}) with non-constant cells — "
+                         f"unregistered condition, refusing")
+
+    def excludes(alpha):
+        l = _bca_endpoint(sb, z0, a, alpha / 2)
+        h = _bca_endpoint(sb, z0, a, 1 - alpha / 2)
+        return ((l > 0) or (h < 0)) if two_sided else (l > 0)
+
+    return {"method": "BCa(20260801), 10000 resamples", "estimate": theta,
+            "ci95": [_bca_endpoint(sb, z0, a, 0.025), _bca_endpoint(sb, z0, a, 0.975)],
+            "p": _invert_p(excludes, floor=1.0 / (BCA_B + 1))}
+
+
 # ── D1 confirmatory analysis (frozen: predicates.md §Family D1) ──────────────
 #
 # Episode-level OLS of Y on all five factor main effects plus the registered
@@ -679,6 +800,232 @@ def d1() -> int:
     return 0
 
 
+# ── D2 confirmatory analysis (frozen: predicates.md §Family D2) ──────────────
+#
+# Pinned pre-data (disclosed in provenance-notes.md): Holm step-down uses
+# m = 4 (the registered family size) applied over the three CI-based claims
+# D2-1/2/4 — strictly conservative; D2-3 is adjudicated solely by its
+# registered CP thresholds. p for directional claims (D2-1/2: "CI > 0") is
+# the one-sided inversion; D2-4 ("CI excludes 0") two-sided.
+
+def _d2_word_idx(db, rid: str, template_hint: str) -> int:
+    rows = list(db.execute(
+        """SELECT json_extract(payload,'$.object.data.gameDef.actionLabels')
+           FROM events WHERE run_id=? AND type='object.created'
+             AND json_extract(payload,'$.object.type')='game'""", (rid,)))
+    if len(rows) != 1:
+        raise SystemExit(f"D2 run {rid}: {len(rows)} game objects — refusing")
+    labels = json.loads(rows[0][0])
+    hits = [i for i, lab in enumerate(labels) if "cooperate" in lab.lower()]
+    if len(hits) != 1:
+        raise SystemExit(f"D2 run {rid}: actionLabels {labels} do not contain exactly "
+                         f"one COOPERATE-word option — refusing ({template_hint})")
+    return hits[0]
+
+
+def d2() -> int:
+    runs = load_phase4_runs()
+    db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+    fams: dict[str, dict] = {f: {"role": {}, "word": {}, "B": [], "invalid": []}
+                             for f in ("gpt", "cvx")}
+    for rid, r in runs.items():
+        if r.get("block") != "D2":
+            continue
+        parts = r.get("armId", "").split("-")     # p4-d2-{w}-{g}-{s}-{fam}
+        if len(parts) != 6 or parts[:2] != ["p4", "d2"]:
+            raise SystemExit(f"UNPARSEABLE D2 armId {r.get('armId')!r} — refusing")
+        _, _, w, g, s_, fam = parts
+        F = fams[fam]
+        cell = (g, s_)
+        if r["invalid"] or not r["completed"] or 1 not in r["rounds"]:
+            F["invalid"].append(f"{r['armId']} seed {r.get('seed')}")
+            continue
+        cw = _d2_word_idx(db, rid, r["armId"])
+        a1, a2 = r["rounds"][1]
+        word_ep = ((a1 == cw) + (a2 == cw)) / 2
+        role_idx = cw if s_ == "al" else 1 - cw
+        role_ep = ((a1 == role_idx) + (a2 == role_idx)) / 2
+        F["role"].setdefault(cell, []).append(role_ep)
+        F["word"].setdefault(cell, []).append(word_ep)
+        if cell == ("cfd", "sw"):
+            F["B"].append(1.0 if (a1 == cw and a2 == cw) else 0.0)
+    db.close()
+
+    report = {"generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+              "frozenSpec": "predicates.md §Family D2; BCa(20260801) 10k; exact fallback on "
+                            "constant cells; Holm m=4 over the three CI claims (pinned pre-data)",
+              "families": {}}
+    md = ["# D2 interim adjudication (final verdicts in step 8)", "",
+          f"Generated {report['generatedAt']}.", ""]
+    for fam, role_name in (("gpt", "primary"), ("cvx", "secondary (cross-vendor mirror)")):
+        F = fams[fam]
+        n_eps = sum(len(v) for v in F["role"].values())
+        fr: dict = {"role": role_name, "episodes": n_eps,
+                    "invalidOrIncomplete": F["invalid"]}
+        if n_eps == 0:
+            fr["status"] = "no data"
+            report["families"][fam] = fr
+            continue
+        claims = {
+            "P4-D2-1": _bca_diff_claim(F["role"].get(("cfd", "al"), []),
+                                       F["role"].get(("can", "al"), []), two_sided=False),
+            "P4-D2-2": _bca_diff_claim(F["role"].get(("cfd", "sw"), []),
+                                       F["role"].get(("can", "sw"), []), two_sided=False),
+            "P4-D2-4": _bca_diff_claim(F["word"].get(("cfd", "al"), []),
+                                       F["word"].get(("cfd", "sw"), []), two_sided=True),
+        }
+        m_reg = 4                    # registered family size (conservative over 3 CI claims)
+        running = 0.0
+        for i, (k, _) in enumerate(sorted(claims.items(), key=lambda kv: kv[1]["p"])):
+            running = max(running, claims[k]["p"] * (m_reg - i))
+            claims[k]["holmP"] = min(1.0, running)
+        for k in claims:
+            claims[k]["interimVerdict"] = ("supported" if claims[k]["holmP"] < 0.05
+                                           else "not supported")
+        nb = len(F["B"])
+        kb = int(round(sum(F["B"])))
+        cp_lo, cp_hi = _cp_bounds(kb, nb) if nb else (float("nan"), float("nan"))
+        d23 = {"bothCoopWordEpisodes": kb, "n": nb, "pointEstimate": (kb / nb) if nb else None,
+               "cp95": [cp_lo, cp_hi],
+               "classification": ("label-dominant" if cp_lo >= 0.80 else
+                                  "payoff-dominant" if cp_hi <= 0.20 else "mixed")}
+        fr["status"] = "adjudicated"
+        fr["claims"] = claims
+        fr["P4-D2-3"] = d23
+        fr["cellMeans"] = {"role": {f"{g}-{s_}": round(sum(v) / len(v), 4)
+                                    for (g, s_), v in sorted(F["role"].items())},
+                           "word": {f"{g}-{s_}": round(sum(v) / len(v), 4)
+                                    for (g, s_), v in sorted(F["word"].items())}}
+        report["families"][fam] = fr
+        md += [f"## {fam} ({role_name}) — {n_eps} episodes, "
+               f"{len(F['invalid'])} invalid/incomplete excluded",
+               f"Cell means (role): {fr['cellMeans']['role']}",
+               f"Cell means (word): {fr['cellMeans']['word']}", "",
+               "| claim | estimate | 95% CI | p | Holm-p (m=4) | interim verdict |",
+               "|---|---|---|---|---|---|"]
+        for k, c in claims.items():
+            md += [f"| {k} | {c['estimate']:+.4f} | [{c['ci95'][0]:+.4f}, {c['ci95'][1]:+.4f}] "
+                   f"| {c['p']:.2e} | {c['holmP']:.2e} | {c['interimVerdict']} |"]
+        md += [f"| P4-D2-3 | {d23['pointEstimate']} | CP [{cp_lo:.4f}, {cp_hi:.4f}] | — | — | "
+               f"{d23['classification']} |", ""]
+    with open(os.path.join(DOCS, "d2-report.json"), "w") as f:
+        json.dump(report, f, indent=1)
+    with open(os.path.join(DOCS, "d2-report.md"), "w") as f:
+        f.write("\n".join(md) + "\n")
+    print(json.dumps({f_: {k: v for k, v in fr.items() if k in ("status", "episodes")}
+                      for f_, fr in report["families"].items()}, indent=1))
+    return 0
+
+
+# ── D3 confirmatory analysis (frozen: predicates.md §Family D3) ──────────────
+
+def d3() -> int:
+    arms = {a["armId"]: a for a in json.load(open(os.path.join(DOCS, "arms.json")))["arms"]}
+    runs = load_phase4_runs()
+    db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+    fams: dict[str, dict] = {f: {"D": [], "cats": [0, 0, 0, 0], "invalid": []}
+                             for f in ("gpt", "cvx")}   # cats: first-only, rock-only, both, neither
+    for rid, r in runs.items():
+        if r.get("block") != "D3":
+            continue
+        parts = r.get("armId", "").split("-")          # p4-d3-map{i}-ord{j}-{fam}
+        if len(parts) != 5 or parts[:2] != ["p4", "d3"]:
+            raise SystemExit(f"UNPARSEABLE D3 armId {r.get('armId')!r} — refusing")
+        fam = parts[4]
+        F = fams[fam]
+        if r["invalid"] or not r["completed"] or 1 not in r["rounds"]:
+            F["invalid"].append(f"{r['armId']} seed {r.get('seed')}")
+            continue
+        binding = arms[r["armId"]]["bindings"]
+        rows = list(db.execute(
+            """SELECT json_extract(payload,'$.object.data.gameDef.actionLabels')
+               FROM events WHERE run_id=? AND type='object.created'
+                 AND json_extract(payload,'$.object.type')='game'""", (rid,)))
+        if len(rows) != 1:
+            raise SystemExit(f"D3 run {rid}: {len(rows)} game objects — refusing")
+        labels = json.loads(rows[0][0])
+        if labels != binding["displayOrder"]:
+            raise SystemExit(f"D3 run {rid}: actionLabels {labels} != sealed displayOrder "
+                             f"{binding['displayOrder']} — refusing")
+        rock_sym = next(k for k, v in binding["roleMapping"].items() if v == "rock")
+        rock_idx = labels.index(rock_sym)
+        a1, a2 = r["rounds"][1]
+        first_share = ((a1 == 0) + (a2 == 0)) / 2
+        rock_share = ((a1 == rock_idx) + (a2 == rock_idx)) / 2
+        F["D"].append(first_share - rock_share)
+        for a in (a1, a2):
+            fi, ro = a == 0, a == rock_idx
+            F["cats"][2 if (fi and ro) else 0 if fi else 1 if ro else 3] += 1
+    db.close()
+
+    report = {"generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+              "frozenSpec": "predicates.md §Family D3; BCa(20260801) one-sided 95% lower "
+                            "bound (α=.05 endpoint); exact sign-test fallback if constant; "
+                            "support-only Dirichlet(1) posterior (never confirmatory); "
+                            "penalized multinomial logit deferred to step 8 (disclosed)",
+              "families": {}}
+    md = ["# D3 interim adjudication (final verdicts in step 8)", "",
+          f"Generated {report['generatedAt']}.", ""]
+    for fam, role_name in (("gpt", "primary"), ("cvx", "secondary (cross-vendor mirror)")):
+        F = fams[fam]
+        D = F["D"]
+        fr: dict = {"role": role_name, "episodes": len(D),
+                    "invalidOrIncomplete": F["invalid"]}
+        if not D:
+            fr["status"] = "no data"
+            report["families"][fam] = fr
+            continue
+        mean_d = sum(D) / len(D)
+        if len(set(D)) == 1:
+            from scipy.stats import binomtest
+            npos, nneg = sum(1 for d in D if d > 0), sum(1 for d in D if d < 0)
+            if npos + nneg == 0:
+                fr["P4-D3-1"] = {"method": "sign-test fallback", "estimate": mean_d,
+                                 "verdict": "non-diagnostic (all D_ep = 0)"}
+            else:
+                bt = binomtest(npos, npos + nneg, 0.5, alternative="greater")
+                fr["P4-D3-1"] = {"method": "exact sign-test fallback (constant sample)",
+                                 "estimate": mean_d, "p": float(bt.pvalue),
+                                 "verdict": ("supported" if bt.pvalue < 0.05 and mean_d > 0
+                                             else "not supported")}
+        else:
+            theta, sb, z0, a, degen = _bca_fit([D], lambda gs: sum(gs[0]) / len(gs[0]))
+            if degen:
+                raise SystemExit(f"D3 BCa degenerate ({degen}) with non-constant sample — refusing")
+            lb = _bca_endpoint(sb, z0, a, 0.05)
+            fr["P4-D3-1"] = {"method": "BCa(20260801) one-sided 95% lower bound",
+                             "estimate": theta, "lowerBound95": lb,
+                             "verdict": "supported" if lb > 0 else "not supported"}
+        import numpy as np
+        rng = np.random.default_rng(BCA_SEED)          # support-only; pinned + disclosed
+        post = rng.dirichlet([1 + c for c in F["cats"]], size=100000)
+        p_pos = float((post[:, 0] > post[:, 1]).mean())
+        fr["supportOnly"] = {"seatCategoryCounts": {"firstOnly": F["cats"][0],
+                                                    "rockOnly": F["cats"][1],
+                                                    "both": F["cats"][2],
+                                                    "neither": F["cats"][3]},
+                             "dirichletPosteriorP_firstOnly_gt_rockOnly": p_pos,
+                             "penalizedLogit": "deferred to step 8 (support-only, disclosed)"}
+        fr["status"] = "adjudicated"
+        report["families"][fam] = fr
+        v = fr["P4-D3-1"]
+        md += [f"## {fam} ({role_name}) — {len(D)} episodes, "
+               f"{len(F['invalid'])} invalid/incomplete excluded",
+               f"mean D_ep = {mean_d:+.4f}; P4-D3-1: {v['verdict']} "
+               f"({v['method']}; " +
+               (f"lower bound {v['lowerBound95']:+.4f}" if "lowerBound95" in v
+                else f"p={v.get('p')}") + ")",
+               f"Support-only Dirichlet: P(first-only > rock-only) = {p_pos:.4f} "
+               f"(counts {fr['supportOnly']['seatCategoryCounts']})", ""]
+    with open(os.path.join(DOCS, "d3-report.json"), "w") as f:
+        json.dump(report, f, indent=1)
+    with open(os.path.join(DOCS, "d3-report.md"), "w") as f:
+        f.write("\n".join(md) + "\n")
+    print(json.dumps({f_: {k: v for k, v in fr.items() if k in ("status", "episodes", "P4-D3-1")}
+                      for f_, fr in report["families"].items()}, indent=1, default=str))
+    return 0
+
+
 def main() -> None:
     if "--scan" in sys.argv:
         raise SystemExit(scan(sys.argv[sys.argv.index("--scan") + 1]))
@@ -688,6 +1035,10 @@ def main() -> None:
         raise SystemExit(x2_screening())
     if "--d1" in sys.argv:
         raise SystemExit(d1())
+    if "--d2" in sys.argv:
+        raise SystemExit(d2())
+    if "--d3" in sys.argv:
+        raise SystemExit(d3())
     print(__doc__)
 
 
