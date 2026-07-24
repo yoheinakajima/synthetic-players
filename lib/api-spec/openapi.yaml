@@ -223,6 +223,87 @@ paths:
         "404":
           description: Not found
 
+  /experiments/{id}/fork:
+    post:
+      operationId: forkExperiment
+      tags: [experiments]
+      summary: Fork a completed experiment at a round, optionally swapping strategies
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForkExperimentInput"
+      responses:
+        "201":
+          description: Fork created and executed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExperimentDetail"
+        "400":
+          description: Invalid fork request (parent not completed, bad round)
+        "404":
+          description: Not found
+        "502":
+          description: Engine service unreachable
+
+  /experiments/{id}/diff:
+    get:
+      operationId: getExperimentDiff
+      tags: [experiments]
+      summary: Structurally diff a forked experiment against its parent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Diff between the fork and its parent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExperimentDiff"
+        "400":
+          description: Experiment is not a fork or has no engine run
+        "404":
+          description: Not found
+        "502":
+          description: Engine service unreachable
+
+  /experiments/{id}/trace:
+    get:
+      operationId: getExperimentTrace
+      tags: [experiments]
+      summary: Per-round event trace from the engine's event log
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Engine event trace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExperimentTrace"
+        "400":
+          description: Experiment has no engine run
+        "404":
+          description: Not found
+        "502":
+          description: Engine service unreachable
+
   /experiments/batch:
     post:
       operationId: runExperimentBatch
@@ -718,6 +799,15 @@ components:
           description: RNG seed; null for legacy unseeded runs
         batchLabel:
           type: ["string", "null"]
+        engineRunId:
+          type: ["string", "null"]
+          description: ActiveGraph engine run id; null until first run
+        parentExperimentId:
+          type: ["integer", "null"]
+          description: Parent experiment id when this experiment is a fork
+        forkRound:
+          type: ["integer", "null"]
+          description: Round at which this fork branched from its parent
         status:
           type: string
           enum: [pending, running, completed, failed]
@@ -785,6 +875,15 @@ components:
           type: ["integer", "null"]
         batchLabel:
           type: ["string", "null"]
+        engineRunId:
+          type: ["string", "null"]
+          description: ActiveGraph engine run id; null until first run
+        parentExperimentId:
+          type: ["integer", "null"]
+          description: Parent experiment id when this experiment is a fork
+        forkRound:
+          type: ["integer", "null"]
+          description: Round at which this fork branched from its parent
         player1AvgPayoffPerRound:
           type: ["number", "null"]
           description: player1TotalPayoff / numRounds (computed)
@@ -916,6 +1015,9 @@ components:
           type: string
         statement:
           type: string
+        status:
+          type: string
+          enum: [hypothesis, supported, refuted, inconclusive, untested]
         evidenceSummary:
           type: string
         linkedAnalysisId:
@@ -964,6 +1066,135 @@ components:
         updatedAt:
           type: string
           format: date-time
+
+    # ── Fork / Diff / Trace ───────────────────────────────────────────────
+    ForkExperimentInput:
+      type: object
+      required: [forkRound]
+      properties:
+        forkRound:
+          type: integer
+          minimum: 1
+          description: Round N to branch at; rounds 1..N are shared with the parent
+        player1StrategyId:
+          type: ["integer", "null"]
+          description: Optional strategy swap for player 1 in the fork
+        player2StrategyId:
+          type: ["integer", "null"]
+          description: Optional strategy swap for player 2 in the fork
+        notes:
+          type: string
+
+    DiffRoundPoint:
+      type: object
+      required: [roundNumber, player1Action, player2Action, player1Payoff, player2Payoff, isNashOutcome]
+      properties:
+        roundNumber:
+          type: integer
+        player1Action:
+          type: integer
+        player2Action:
+          type: integer
+        player1Payoff:
+          type: number
+        player2Payoff:
+          type: number
+        isNashOutcome:
+          type: boolean
+
+    DiffSummary:
+      type: object
+      required: [player1TotalPayoff, player2TotalPayoff, cooperationRate, nashDeviationScore]
+      properties:
+        player1TotalPayoff:
+          type: number
+        player2TotalPayoff:
+          type: number
+        cooperationRate:
+          type: number
+        nashDeviationScore:
+          type: number
+
+    ExperimentDiff:
+      type: object
+      required: [forkExperimentId, parentExperimentId, forkRound, sharedEvents, parentOnlyEvents, forkOnlyEvents, divergentObjects, divergentRelations, isIdentical, parentRounds, forkRounds, parentSummary, forkSummary]
+      properties:
+        forkExperimentId:
+          type: integer
+        parentExperimentId:
+          type: integer
+        forkRound:
+          type: integer
+          description: Round at which the fork branched (shared prefix ends here)
+        divergenceRound:
+          type: ["integer", "null"]
+          description: First round where actions differ; null if none
+        sharedEvents:
+          type: integer
+        parentOnlyEvents:
+          type: integer
+        forkOnlyEvents:
+          type: integer
+        divergentObjects:
+          type: integer
+        divergentRelations:
+          type: integer
+        isIdentical:
+          type: boolean
+        parentRounds:
+          type: array
+          items:
+            $ref: "#/components/schemas/DiffRoundPoint"
+        forkRounds:
+          type: array
+          items:
+            $ref: "#/components/schemas/DiffRoundPoint"
+        parentSummary:
+          $ref: "#/components/schemas/DiffSummary"
+        forkSummary:
+          $ref: "#/components/schemas/DiffSummary"
+
+    TraceEvent:
+      type: object
+      required: [eventId, type]
+      properties:
+        eventId:
+          type: string
+        type:
+          type: string
+        actor:
+          type: ["string", "null"]
+        causedBy:
+          type: ["string", "null"]
+        timestamp:
+          type: ["string", "null"]
+        roundNumber:
+          type: ["integer", "null"]
+        player1Action:
+          type: ["integer", "null"]
+        player2Action:
+          type: ["integer", "null"]
+        player1Reasoning:
+          type: ["string", "null"]
+        player2Reasoning:
+          type: ["string", "null"]
+        strategy1Slug:
+          type: ["string", "null"]
+        strategy2Slug:
+          type: ["string", "null"]
+
+    ExperimentTrace:
+      type: object
+      required: [experimentId, engineRunId, events]
+      properties:
+        experimentId:
+          type: integer
+        engineRunId:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/TraceEvent"
 
     # ── Batch & Aggregation ───────────────────────────────────────────────
     BatchExperimentInput:

@@ -112,6 +112,9 @@ export const ListExperimentsResponseItem = zod.object({
   "numRounds": zod.number(),
   "seed": zod.number().nullish().describe('RNG seed; null for legacy unseeded runs'),
   "batchLabel": zod.string().nullish(),
+  "engineRunId": zod.string().nullish().describe('ActiveGraph engine run id; null until first run'),
+  "parentExperimentId": zod.number().nullish().describe('Parent experiment id when this experiment is a fork'),
+  "forkRound": zod.number().nullish().describe('Round at which this fork branched from its parent'),
   "status": zod.enum(['pending', 'running', 'completed', 'failed']),
   "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
   "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
@@ -155,6 +158,9 @@ export const CreateExperimentResponse = zod.object({
   "numRounds": zod.number(),
   "seed": zod.number().nullish().describe('RNG seed; null for legacy unseeded runs'),
   "batchLabel": zod.string().nullish(),
+  "engineRunId": zod.string().nullish().describe('ActiveGraph engine run id; null until first run'),
+  "parentExperimentId": zod.number().nullish().describe('Parent experiment id when this experiment is a fork'),
+  "forkRound": zod.number().nullish().describe('Round at which this fork branched from its parent'),
   "status": zod.enum(['pending', 'running', 'completed', 'failed']),
   "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
   "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
@@ -193,6 +199,9 @@ export const GetExperimentResponse = zod.object({
   "createdAt": zod.coerce.date(),
   "seed": zod.number().nullish(),
   "batchLabel": zod.string().nullish(),
+  "engineRunId": zod.string().nullish().describe('ActiveGraph engine run id; null until first run'),
+  "parentExperimentId": zod.number().nullish().describe('Parent experiment id when this experiment is a fork'),
+  "forkRound": zod.number().nullish().describe('Round at which this fork branched from its parent'),
   "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
   "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
   "game": zod.object({
@@ -277,6 +286,9 @@ export const RunExperimentResponse = zod.object({
   "createdAt": zod.coerce.date(),
   "seed": zod.number().nullish(),
   "batchLabel": zod.string().nullish(),
+  "engineRunId": zod.string().nullish().describe('ActiveGraph engine run id; null until first run'),
+  "parentExperimentId": zod.number().nullish().describe('Parent experiment id when this experiment is a fork'),
+  "forkRound": zod.number().nullish().describe('Round at which this fork branched from its parent'),
   "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
   "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
   "game": zod.object({
@@ -323,6 +335,169 @@ export const RunExperimentResponse = zod.object({
   "player2Reasoning": zod.string().nullish(),
   "isNashOutcome": zod.boolean(),
   "createdAt": zod.coerce.date()
+}))
+})
+
+
+/**
+ * @summary Fork a completed experiment at a round, optionally swapping strategies
+ */
+export const ForkExperimentParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+
+
+
+export const ForkExperimentBody = zod.object({
+  "forkRound": zod.number().min(1).describe('Round N to branch at; rounds 1..N are shared with the parent'),
+  "player1StrategyId": zod.number().nullish().describe('Optional strategy swap for player 1 in the fork'),
+  "player2StrategyId": zod.number().nullish().describe('Optional strategy swap for player 2 in the fork'),
+  "notes": zod.string().optional()
+})
+
+export const ForkExperimentResponse = zod.object({
+  "id": zod.number(),
+  "gameId": zod.number(),
+  "player1StrategyId": zod.number(),
+  "player2StrategyId": zod.number(),
+  "numRounds": zod.number(),
+  "status": zod.enum(['pending', 'running', 'completed', 'failed']),
+  "player1TotalPayoff": zod.number().nullish(),
+  "player2TotalPayoff": zod.number().nullish(),
+  "cooperationRate": zod.number().nullish(),
+  "nashDeviationScore": zod.number().nullish(),
+  "notes": zod.string().nullish(),
+  "errorMessage": zod.string().nullish(),
+  "completedAt": zod.coerce.date().nullish(),
+  "createdAt": zod.coerce.date(),
+  "seed": zod.number().nullish(),
+  "batchLabel": zod.string().nullish(),
+  "engineRunId": zod.string().nullish().describe('ActiveGraph engine run id; null until first run'),
+  "parentExperimentId": zod.number().nullish().describe('Parent experiment id when this experiment is a fork'),
+  "forkRound": zod.number().nullish().describe('Round at which this fork branched from its parent'),
+  "player1AvgPayoffPerRound": zod.number().nullish().describe('player1TotalPayoff \/ numRounds (computed)'),
+  "player2AvgPayoffPerRound": zod.number().nullish().describe('player2TotalPayoff \/ numRounds (computed)'),
+  "game": zod.object({
+  "id": zod.number(),
+  "slug": zod.string(),
+  "name": zod.string(),
+  "description": zod.string(),
+  "numActions": zod.number(),
+  "actionLabels": zod.array(zod.string()),
+  "payoffMatrix": zod.string().describe('JSON-encoded 2D array of [player1payoff, player2payoff] pairs'),
+  "nashEquilibria": zod.string().describe('JSON-encoded list of Nash equilibrium action pairs'),
+  "nashDescription": zod.string().nullish(),
+  "theoreticalCooperationRate": zod.number().nullish(),
+  "category": zod.enum(['coordination', 'social_dilemma', 'zero_sum', 'bargaining']),
+  "createdAt": zod.coerce.date()
+}),
+  "player1Strategy": zod.object({
+  "id": zod.number(),
+  "slug": zod.string(),
+  "name": zod.string(),
+  "description": zod.string(),
+  "type": zod.enum(['deterministic', 'probabilistic', 'ai_model', 'human_optimal']),
+  "modelId": zod.string().nullish().describe('For AI strategies, the model identifier'),
+  "createdAt": zod.coerce.date()
+}),
+  "player2Strategy": zod.object({
+  "id": zod.number(),
+  "slug": zod.string(),
+  "name": zod.string(),
+  "description": zod.string(),
+  "type": zod.enum(['deterministic', 'probabilistic', 'ai_model', 'human_optimal']),
+  "modelId": zod.string().nullish().describe('For AI strategies, the model identifier'),
+  "createdAt": zod.coerce.date()
+}),
+  "rounds": zod.array(zod.object({
+  "id": zod.number(),
+  "experimentId": zod.number(),
+  "roundNumber": zod.number(),
+  "player1Action": zod.number().describe('Index into the game\'s actionLabels array'),
+  "player2Action": zod.number(),
+  "player1Payoff": zod.number(),
+  "player2Payoff": zod.number(),
+  "player1Reasoning": zod.string().nullish(),
+  "player2Reasoning": zod.string().nullish(),
+  "isNashOutcome": zod.boolean(),
+  "createdAt": zod.coerce.date()
+}))
+})
+
+
+/**
+ * @summary Structurally diff a forked experiment against its parent
+ */
+export const GetExperimentDiffParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const GetExperimentDiffResponse = zod.object({
+  "forkExperimentId": zod.number(),
+  "parentExperimentId": zod.number(),
+  "forkRound": zod.number().describe('Round at which the fork branched (shared prefix ends here)'),
+  "divergenceRound": zod.number().nullish().describe('First round where actions differ; null if none'),
+  "sharedEvents": zod.number(),
+  "parentOnlyEvents": zod.number(),
+  "forkOnlyEvents": zod.number(),
+  "divergentObjects": zod.number(),
+  "divergentRelations": zod.number(),
+  "isIdentical": zod.boolean(),
+  "parentRounds": zod.array(zod.object({
+  "roundNumber": zod.number(),
+  "player1Action": zod.number(),
+  "player2Action": zod.number(),
+  "player1Payoff": zod.number(),
+  "player2Payoff": zod.number(),
+  "isNashOutcome": zod.boolean()
+})),
+  "forkRounds": zod.array(zod.object({
+  "roundNumber": zod.number(),
+  "player1Action": zod.number(),
+  "player2Action": zod.number(),
+  "player1Payoff": zod.number(),
+  "player2Payoff": zod.number(),
+  "isNashOutcome": zod.boolean()
+})),
+  "parentSummary": zod.object({
+  "player1TotalPayoff": zod.number(),
+  "player2TotalPayoff": zod.number(),
+  "cooperationRate": zod.number(),
+  "nashDeviationScore": zod.number()
+}),
+  "forkSummary": zod.object({
+  "player1TotalPayoff": zod.number(),
+  "player2TotalPayoff": zod.number(),
+  "cooperationRate": zod.number(),
+  "nashDeviationScore": zod.number()
+})
+})
+
+
+/**
+ * @summary Per-round event trace from the engine's event log
+ */
+export const GetExperimentTraceParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const GetExperimentTraceResponse = zod.object({
+  "experimentId": zod.number(),
+  "engineRunId": zod.string(),
+  "events": zod.array(zod.object({
+  "eventId": zod.string(),
+  "type": zod.string(),
+  "actor": zod.string().nullish(),
+  "causedBy": zod.string().nullish(),
+  "timestamp": zod.string().nullish(),
+  "roundNumber": zod.number().nullish(),
+  "player1Action": zod.number().nullish(),
+  "player2Action": zod.number().nullish(),
+  "player1Reasoning": zod.string().nullish(),
+  "player2Reasoning": zod.string().nullish(),
+  "strategy1Slug": zod.string().nullish(),
+  "strategy2Slug": zod.string().nullish()
 }))
 })
 
@@ -559,6 +734,7 @@ export const UpdateClaimParams = zod.object({
 export const UpdateClaimBody = zod.object({
   "title": zod.string().optional(),
   "statement": zod.string().optional(),
+  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive', 'untested']).optional(),
   "evidenceSummary": zod.string().optional(),
   "linkedAnalysisId": zod.number().nullish(),
   "predicateJson": zod.string().optional().describe('JSON-encoded structured predicate for mechanical adjudication')

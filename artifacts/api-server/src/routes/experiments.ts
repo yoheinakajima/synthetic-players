@@ -26,8 +26,19 @@ import {
   analyzeExperiment,
   generateSeed,
   withPerRoundAverages,
+  engineErrorStatus,
 } from "../lib/experiment-service";
 import { logger } from "../lib/logger";
+import { forkOnEngine, diffOnEngine, traceOnEngine } from "../lib/engine-client";
+import {
+  ForkExperimentParams,
+  ForkExperimentBody,
+  ForkExperimentResponse,
+  GetExperimentDiffParams,
+  GetExperimentDiffResponse,
+  GetExperimentTraceParams,
+  GetExperimentTraceResponse,
+} from "@workspace/api-zod";
 
 const router: IRouter = Router();
 
@@ -258,8 +269,204 @@ router.post("/experiments/:id/run", async (req, res): Promise<void> => {
     const detail = await buildExperimentDetail(updated);
     res.json(RunExperimentResponse.parse(detail));
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
-    res.status(500).json({ error: `Experiment execution failed: ${message}` });
+    const { status, message } = engineErrorStatus(err);
+    res.status(status).json({ error: `Experiment execution failed: ${message}` });
+  }
+});
+
+router.post("/experiments/:id/fork", async (req, res): Promise<void> => {
+  const params = ForkExperimentParams.safeParse(req.params);
+  const body = ForkExperimentBody.safeParse(req.body);
+  if (!params.success || !body.success) {
+    res.status(400).json({ error: (params.success ? body : params).error!.message });
+    return;
+  }
+
+  const [parent] = await db
+    .select()
+    .from(experimentsTable)
+    .where(eq(experimentsTable.id, params.data.id));
+
+  if (!parent) {
+    res.status(404).json({ error: "Experiment not found" });
+    return;
+  }
+  if (parent.status !== "completed" || !parent.engineRunId) {
+    res.status(400).json({ error: "Only completed experiments with an engine run can be forked" });
+    return;
+  }
+  if (body.data.forkRound < 1 || body.data.forkRound > parent.numRounds) {
+    res.status(400).json({ error: `forkRound must be between 1 and ${parent.numRounds}` });
+    return;
+  }
+
+  const p1StrategyId = body.data.player1StrategyId ?? parent.player1StrategyId;
+  const p2StrategyId = body.data.player2StrategyId ?? parent.player2StrategyId;
+  const [p1Strat] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, p1StrategyId));
+  const [p2Strat] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, p2StrategyId));
+  if (!p1Strat || !p2Strat) {
+    res.status(400).json({ error: "Strategy not found" });
+    return;
+  }
+
+  try {
+    const result = await forkOnEngine(parent.engineRunId, {
+      forkRound: body.data.forkRound,
+      strategy1Slug: p1Strat.slug,
+      strategy2Slug: p2Strat.slug,
+    });
+
+    const [forkExp] = await db
+      .insert(experimentsTable)
+      .values({
+        gameId: parent.gameId,
+        player1StrategyId: p1StrategyId,
+        player2StrategyId: p2StrategyId,
+        numRounds: parent.numRounds,
+        seed: parent.seed,
+        engineRunId: result.engineRunId,
+        parentExperimentId: parent.id,
+        forkRound: body.data.forkRound,
+        status: "completed",
+        player1TotalPayoff: result.player1TotalPayoff,
+        player2TotalPayoff: result.player2TotalPayoff,
+        cooperationRate: result.cooperationRate,
+        nashDeviationScore: result.nashDeviationScore,
+        completedAt: new Date(),
+        notes:
+          body.data.notes ??
+          `Fork of EXP-${parent.id} at round ${body.data.forkRound}`,
+      })
+      .returning();
+
+    await db.insert(roundsTable).values(
+      result.rounds.map((r) => ({
+        experimentId: forkExp.id,
+        roundNumber: r.roundNumber,
+        player1Action: r.player1Action,
+        player2Action: r.player2Action,
+        player1Payoff: r.player1Payoff,
+        player2Payoff: r.player2Payoff,
+        player1Reasoning: r.player1Reasoning,
+        player2Reasoning: r.player2Reasoning,
+        isNashOutcome: r.isNashOutcome,
+      }))
+    );
+
+    const detail = await buildExperimentDetail(forkExp);
+    res.status(201).json(ForkExperimentResponse.parse(detail));
+  } catch (err) {
+    const { status, message } = engineErrorStatus(err);
+    res.status(status).json({ error: `Fork failed: ${message}` });
+  }
+});
+
+router.get("/experiments/:id/diff", async (req, res): Promise<void> => {
+  const params = GetExperimentDiffParams.safeParse(req.params);
+  if (!params.success) {
+    res.status(400).json({ error: params.error.message });
+    return;
+  }
+
+  const [fork] = await db
+    .select()
+    .from(experimentsTable)
+    .where(eq(experimentsTable.id, params.data.id));
+
+  if (!fork) {
+    res.status(404).json({ error: "Experiment not found" });
+    return;
+  }
+  if (fork.parentExperimentId == null || fork.forkRound == null || !fork.engineRunId) {
+    res.status(400).json({ error: "Experiment is not a fork with an engine run" });
+    return;
+  }
+
+  const [parent] = await db
+    .select()
+    .from(experimentsTable)
+    .where(eq(experimentsTable.id, fork.parentExperimentId));
+
+  if (!parent?.engineRunId) {
+    res.status(400).json({ error: "Parent experiment has no engine run" });
+    return;
+  }
+
+  try {
+    const d = await diffOnEngine(parent.engineRunId, fork.engineRunId);
+    res.json(
+      GetExperimentDiffResponse.parse({
+        forkExperimentId: fork.id,
+        parentExperimentId: parent.id,
+        forkRound: fork.forkRound,
+        divergenceRound: d.divergenceRound,
+        sharedEvents: d.sharedEvents,
+        parentOnlyEvents: d.parentOnlyEvents,
+        forkOnlyEvents: d.forkOnlyEvents,
+        divergentObjects: d.divergentObjects,
+        divergentRelations: d.divergentRelations,
+        isIdentical: d.isIdentical,
+        parentRounds: d.parentRounds,
+        forkRounds: d.forkRounds,
+        parentSummary: d.parentSummary,
+        forkSummary: d.forkSummary,
+      })
+    );
+  } catch (err) {
+    const { status, message } = engineErrorStatus(err);
+    res.status(status).json({ error: `Diff failed: ${message}` });
+  }
+});
+
+router.get("/experiments/:id/trace", async (req, res): Promise<void> => {
+  const params = GetExperimentTraceParams.safeParse(req.params);
+  if (!params.success) {
+    res.status(400).json({ error: params.error.message });
+    return;
+  }
+
+  const [exp] = await db
+    .select()
+    .from(experimentsTable)
+    .where(eq(experimentsTable.id, params.data.id));
+
+  if (!exp) {
+    res.status(404).json({ error: "Experiment not found" });
+    return;
+  }
+  if (!exp.engineRunId) {
+    res.status(400).json({ error: "Experiment has no engine run yet" });
+    return;
+  }
+
+  try {
+    const t = await traceOnEngine(exp.engineRunId);
+    res.json(
+      GetExperimentTraceResponse.parse({
+        experimentId: exp.id,
+        engineRunId: t.engineRunId,
+        events: t.events.map((e) => {
+          const p = e.payload ?? {};
+          return {
+            eventId: e.eventId,
+            type: e.type,
+            actor: e.actor,
+            causedBy: e.causedBy,
+            timestamp: e.timestamp,
+            roundNumber: e.roundNumber,
+            player1Action: (p.player1Action as number | undefined) ?? null,
+            player2Action: (p.player2Action as number | undefined) ?? null,
+            player1Reasoning: (p.player1Reasoning as string | undefined) ?? null,
+            player2Reasoning: (p.player2Reasoning as string | undefined) ?? null,
+            strategy1Slug: (p.strategy1Slug as string | undefined) ?? null,
+            strategy2Slug: (p.strategy2Slug as string | undefined) ?? null,
+          };
+        }),
+      })
+    );
+  } catch (err) {
+    const { status, message } = engineErrorStatus(err);
+    res.status(status).json({ error: `Trace failed: ${message}` });
   }
 });
 

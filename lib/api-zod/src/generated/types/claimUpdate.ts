@@ -5,6 +5,7 @@
  * Game Theory Research Lab API
  * OpenAPI spec version: 0.1.0
  */
+import type { ClaimUpdateStatus } from './claimUpdateStatus';
 
 /**
  * Claim status is intentionally NOT updatable here — verdicts are machine-assigned via the adjudication endpoints only.
@@ -12,6 +13,7 @@
 export interface ClaimUpdate {
   title?: string;
   statement?: string;
+  status?: ClaimUpdateStatus;
   evidenceSummary?: string;
   /** @nullable */
   linkedAnalysisId?: number | null;

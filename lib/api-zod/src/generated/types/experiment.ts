@@ -26,6 +26,21 @@ export interface Experiment {
   seed?: number | null;
   /** @nullable */
   batchLabel?: string | null;
+  /**
+     * ActiveGraph engine run id; null until first run
+     * @nullable
+     */
+  engineRunId?: string | null;
+  /**
+     * Parent experiment id when this experiment is a fork
+     * @nullable
+     */
+  parentExperimentId?: number | null;
+  /**
+     * Round at which this fork branched from its parent
+     * @nullable
+     */
+  forkRound?: number | null;
   status: ExperimentStatus;
   /**
      * player1TotalPayoff / numRounds (computed)

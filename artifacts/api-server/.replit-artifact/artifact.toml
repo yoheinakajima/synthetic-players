@@ -12,6 +12,9 @@ paths = ["/api"]
 [services.development]
 run = "pnpm --filter @workspace/api-server run dev"
 
+[services.development.env]
+ENGINE_URL = "http://127.0.0.1:8090"
+
 [services.production]
 
 [services.production.build]
@@ -27,6 +30,29 @@ args = ["node", "--enable-source-maps", "artifacts/api-server/dist/index.mjs"]
 [services.production.run.env]
 PORT = "8080"
 NODE_ENV = "production"
+ENGINE_URL = "http://127.0.0.1:8090"
 
 [services.production.health.startup]
 path = "/api/healthz"
+
+# ActiveGraph simulation engine sidecar. Internal-only: no `paths`, so it is
+# never proxied publicly; it binds 127.0.0.1 and is reached only by the
+# Express API server via ENGINE_URL.
+[[services]]
+localPort = 8090
+name = "Engine"
+paths = []
+
+[services.development]
+run = "uv run python engine/server.py"
+
+[services.development.env]
+ENGINE_PORT = "8090"
+
+[services.production]
+
+[services.production.run]
+args = ["uv", "run", "python", "artifacts/api-server/engine/server.py"]
+
+[services.production.run.env]
+ENGINE_PORT = "8090"

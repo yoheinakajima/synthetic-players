@@ -10,6 +10,9 @@ export const experimentsTable = pgTable("experiments", {
   numRounds: integer("num_rounds").notNull(),
   seed: integer("seed"), // RNG seed for reproducibility; null for legacy unseeded runs
   batchLabel: text("batch_label"), // groups multi-seed replicate runs of the same matchup
+  engineRunId: text("engine_run_id"), // ActiveGraph engine run id; null until first run
+  parentExperimentId: integer("parent_experiment_id"), // fork lineage: parent experiment
+  forkRound: integer("fork_round"), // fork lineage: round N at which this fork branched
   status: text("status").notNull().default("pending"), // pending | running | completed | failed
   player1TotalPayoff: real("player1_total_payoff"),
   player2TotalPayoff: real("player2_total_payoff"),

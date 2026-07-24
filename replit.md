@@ -25,7 +25,9 @@ A public academic research platform that runs classic game theory experiments, r
 
 - `lib/api-spec/openapi.yaml` — single source of truth for all API contracts
 - `lib/db/src/schema/` — Drizzle table definitions (games, strategies, experiments, rounds, analyses, claims, papers)
-- `artifacts/api-server/src/lib/game-engine.ts` — strategy logic + seeded runGame (mulberry32; seed required)
+- `artifacts/api-server/engine/` — Python ActiveGraph simulation engine sidecar (strategies.py, engine.py, server.py; localhost-only FastAPI on port 8090, SQLite event store in engine/data/)
+- `artifacts/api-server/src/lib/game-engine.ts` — TS round analysis (computeAnalysis) only; simulation now runs on the engine sidecar
+- `artifacts/api-server/src/lib/engine-client.ts` — HTTP client for the engine sidecar (ENGINE_URL env)
 - `artifacts/api-server/src/lib/metrics.ts` — v2 per-game-class metric suite (see docs/METRICS.md)
 - `artifacts/api-server/src/lib/adjudicator.ts` — mechanical claim adjudication (predicates → verdicts with CIs/effect sizes)
 - `artifacts/api-server/src/lib/claim-predicates.ts` — structured predicates for the 11 v1 claims (startup backfill)
@@ -39,7 +41,7 @@ A public academic research platform that runs classic game theory experiments, r
 ## Architecture decisions
 
 - Contract-first: OpenAPI spec gates all codegen; never write types by hand
-- Game engine is pure TypeScript functions in `game-engine.ts` — strategies are keyed by slug, runGame() executes all rounds, computeAnalysis() produces statistical output
+- Simulation runs on the Python ActiveGraph engine sidecar (`artifacts/api-server/engine/`, activegraph==1.10.0 pinned, run via `uv run python engine/server.py`); Express proxies run/fork/diff/trace to it and remains the only Postgres writer. computeAnalysis() stays in TS in `game-engine.ts`. Every run is seeded (mulberry32, bit-identical TS/Python port); same seed → identical rounds
 - Papers are generated server-side from experiment/claim data without requiring an LLM
 - Seed is idempotent (checks for existing rows) so restarting the server is safe
 - Dashboard aggregate queries use Drizzle's `sql<>` template with explicit `Number()` coercion (Postgres returns bigint aggregates as strings)
@@ -79,4 +81,4 @@ _Populate as you build — explicit user instructions worth remembering across s
 ## Pointers
 
 - See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
-- Game engine strategies are registered by slug — new strategies are added to `STRATEGIES` map in `game-engine.ts` and seeded in `seed.ts`
+- Game engine strategies are registered by slug — new strategies are added to `STRATEGY_FNS` in `artifacts/api-server/engine/strategies.py` and seeded in `seed.ts`

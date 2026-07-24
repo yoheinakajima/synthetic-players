@@ -106,6 +106,21 @@ export interface Experiment {
   seed?: number | null;
   /** @nullable */
   batchLabel?: string | null;
+  /**
+     * ActiveGraph engine run id; null until first run
+     * @nullable
+     */
+  engineRunId?: string | null;
+  /**
+     * Parent experiment id when this experiment is a fork
+     * @nullable
+     */
+  parentExperimentId?: number | null;
+  /**
+     * Round at which this fork branched from its parent
+     * @nullable
+     */
+  forkRound?: number | null;
   status: ExperimentStatus;
   /**
      * player1TotalPayoff / numRounds (computed)
@@ -188,6 +203,21 @@ export interface ExperimentDetail {
   /** @nullable */
   batchLabel?: string | null;
   /**
+     * ActiveGraph engine run id; null until first run
+     * @nullable
+     */
+  engineRunId?: string | null;
+  /**
+     * Parent experiment id when this experiment is a fork
+     * @nullable
+     */
+  parentExperimentId?: number | null;
+  /**
+     * Round at which this fork branched from its parent
+     * @nullable
+     */
+  forkRound?: number | null;
+  /**
      * player1TotalPayoff / numRounds (computed)
      * @nullable
      */
@@ -252,12 +282,24 @@ export interface ClaimInput {
   predicateJson?: string;
 }
 
+export type ClaimUpdateStatus = typeof ClaimUpdateStatus[keyof typeof ClaimUpdateStatus];
+
+
+export const ClaimUpdateStatus = {
+  hypothesis: 'hypothesis',
+  supported: 'supported',
+  refuted: 'refuted',
+  inconclusive: 'inconclusive',
+  untested: 'untested',
+} as const;
+
 /**
  * Claim status is intentionally NOT updatable here — verdicts are machine-assigned via the adjudication endpoints only.
  */
 export interface ClaimUpdate {
   title?: string;
   statement?: string;
+  status?: ClaimUpdateStatus;
   evidenceSummary?: string;
   /** @nullable */
   linkedAnalysisId?: number | null;
@@ -306,6 +348,94 @@ export interface Claim {
   adjudicatedAt?: string | null;
   createdAt: string;
   updatedAt?: string;
+}
+
+export interface ForkExperimentInput {
+  /**
+     * Round N to branch at; rounds 1..N are shared with the parent
+     * @minimum 1
+     */
+  forkRound: number;
+  /**
+     * Optional strategy swap for player 1 in the fork
+     * @nullable
+     */
+  player1StrategyId?: number | null;
+  /**
+     * Optional strategy swap for player 2 in the fork
+     * @nullable
+     */
+  player2StrategyId?: number | null;
+  notes?: string;
+}
+
+export interface DiffRoundPoint {
+  roundNumber: number;
+  player1Action: number;
+  player2Action: number;
+  player1Payoff: number;
+  player2Payoff: number;
+  isNashOutcome: boolean;
+}
+
+export interface DiffSummary {
+  player1TotalPayoff: number;
+  player2TotalPayoff: number;
+  cooperationRate: number;
+  nashDeviationScore: number;
+}
+
+export interface ExperimentDiff {
+  forkExperimentId: number;
+  parentExperimentId: number;
+  /** Round at which the fork branched (shared prefix ends here) */
+  forkRound: number;
+  /**
+     * First round where actions differ; null if none
+     * @nullable
+     */
+  divergenceRound?: number | null;
+  sharedEvents: number;
+  parentOnlyEvents: number;
+  forkOnlyEvents: number;
+  divergentObjects: number;
+  divergentRelations: number;
+  isIdentical: boolean;
+  parentRounds: DiffRoundPoint[];
+  forkRounds: DiffRoundPoint[];
+  parentSummary: DiffSummary;
+  forkSummary: DiffSummary;
+}
+
+export interface TraceEvent {
+  eventId: string;
+  type: string;
+  /** @nullable */
+  actor?: string | null;
+  /** @nullable */
+  causedBy?: string | null;
+  /** @nullable */
+  timestamp?: string | null;
+  /** @nullable */
+  roundNumber?: number | null;
+  /** @nullable */
+  player1Action?: number | null;
+  /** @nullable */
+  player2Action?: number | null;
+  /** @nullable */
+  player1Reasoning?: string | null;
+  /** @nullable */
+  player2Reasoning?: string | null;
+  /** @nullable */
+  strategy1Slug?: string | null;
+  /** @nullable */
+  strategy2Slug?: string | null;
+}
+
+export interface ExperimentTrace {
+  experimentId: number;
+  engineRunId: string;
+  events: TraceEvent[];
 }
 
 export interface BatchExperimentInput {

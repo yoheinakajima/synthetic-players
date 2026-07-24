@@ -97,6 +97,11 @@ export default function Experiments() {
                         <Link href={`/experiments/${exp.id}`} className="text-primary hover:underline font-bold">
                           EXP-{exp.id.toString().padStart(4, '0')}
                         </Link>
+                        {exp.parentExperimentId != null && (
+                          <Badge variant="secondary" className="ml-2 font-mono text-[9px]" data-testid={`badge-fork-${exp.id}`}>
+                            ⑂ EXP-{exp.parentExperimentId.toString().padStart(4, '0')}
+                          </Badge>
+                        )}
                       </td>
                       <td className="p-3">{exp.gameName}</td>
                       <td className="p-3 text-xs">{exp.player1StrategyName} vs {exp.player2StrategyName}</td>

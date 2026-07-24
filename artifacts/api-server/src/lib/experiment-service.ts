@@ -13,9 +13,18 @@ import {
   roundsTable,
   analysesTable,
 } from "@workspace/db";
-import { runGame, computeAnalysis, type GameDef } from "./game-engine";
+import { computeAnalysis, type GameDef } from "./game-engine";
+import { runOnEngine, EngineUnreachableError, EngineRequestError } from "./engine-client";
 import { computeMetricsV2 } from "./metrics";
 import { invalidateEvidenceCache } from "./adjudicator";
+
+/** Map engine failures to an HTTP status + message (502 when the sidecar is down). */
+export function engineErrorStatus(err: unknown): { status: number; message: string } {
+  if (err instanceof EngineUnreachableError) return { status: 502, message: err.message };
+  if (err instanceof EngineRequestError)
+    return { status: err.status >= 500 ? 502 : err.status, message: err.message };
+  return { status: 500, message: err instanceof Error ? err.message : "Unknown error" };
+}
 
 export type ExperimentRow = typeof experimentsTable.$inferSelect;
 export type GameRow = typeof gamesTable.$inferSelect;
@@ -84,8 +93,15 @@ export async function executeExperiment(expId: number): Promise<ExperimentRow> {
   await db.update(experimentsTable).set({ status: "running" }).where(eq(experimentsTable.id, exp.id));
 
   try {
-    const gameDef = toGameDef(game);
-    const result = runGame(gameDef, p1Strat.slug, p2Strat.slug, exp.numRounds, seed);
+    // Simulation runs on the ActiveGraph engine sidecar. If the engine is
+    // unreachable this throws before any rounds are persisted.
+    const result = await runOnEngine({
+      game: toGameDef(game),
+      strategy1Slug: p1Strat.slug,
+      strategy2Slug: p2Strat.slug,
+      numRounds: exp.numRounds,
+      seed,
+    });
 
     // Delete any existing rounds (re-run scenario)
     await db.delete(roundsTable).where(eq(roundsTable.experimentId, exp.id));
@@ -110,6 +126,7 @@ export async function executeExperiment(expId: number): Promise<ExperimentRow> {
       .update(experimentsTable)
       .set({
         status: "completed",
+        engineRunId: result.engineRunId,
         player1TotalPayoff: result.player1TotalPayoff,
         player2TotalPayoff: result.player2TotalPayoff,
         cooperationRate: result.cooperationRate,

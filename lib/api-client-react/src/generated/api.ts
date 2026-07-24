@@ -32,7 +32,10 @@ import type {
   DashboardStats,
   Experiment,
   ExperimentDetail,
+  ExperimentDiff,
   ExperimentInput,
+  ExperimentTrace,
+  ForkExperimentInput,
   Game,
   GameSummary,
   GetAggregateAnalysisParams,
@@ -832,6 +835,232 @@ export const useRunExperiment = <TError = ErrorType<void>,
       > => {
       return useMutation(getRunExperimentMutationOptions(options));
     }
+
+export const getForkExperimentUrl = (id: number,) => {
+
+
+
+
+  return `/api/experiments/${id}/fork`
+}
+
+/**
+ * @summary Fork a completed experiment at a round, optionally swapping strategies
+ */
+export const forkExperiment = async (id: number,
+    forkExperimentInput: ForkExperimentInput, options?: RequestInit): Promise<ExperimentDetail> => {
+
+  return customFetch<ExperimentDetail>(getForkExperimentUrl(id),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(forkExperimentInput)
+  }
+);}
+
+
+
+
+
+export const getForkExperimentMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof forkExperiment>>, TError,{id: number;data: BodyType<ForkExperimentInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof forkExperiment>>, TError,{id: number;data: BodyType<ForkExperimentInput>}, TContext> => {
+
+const mutationKey = ['forkExperiment'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof forkExperiment>>, {id: number;data: BodyType<ForkExperimentInput>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  forkExperiment(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ForkExperimentMutationResult = NonNullable<Awaited<ReturnType<typeof forkExperiment>>>
+    export type ForkExperimentMutationBody = BodyType<ForkExperimentInput>
+    export type ForkExperimentMutationError = ErrorType<void>
+
+    /**
+ * @summary Fork a completed experiment at a round, optionally swapping strategies
+ */
+export const useForkExperiment = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof forkExperiment>>, TError,{id: number;data: BodyType<ForkExperimentInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof forkExperiment>>,
+        TError,
+        {id: number;data: BodyType<ForkExperimentInput>},
+        TContext
+      > => {
+      return useMutation(getForkExperimentMutationOptions(options));
+    }
+
+export const getGetExperimentDiffUrl = (id: number,) => {
+
+
+
+
+  return `/api/experiments/${id}/diff`
+}
+
+/**
+ * @summary Structurally diff a forked experiment against its parent
+ */
+export const getExperimentDiff = async (id: number, options?: RequestInit): Promise<ExperimentDiff> => {
+
+  return customFetch<ExperimentDiff>(getGetExperimentDiffUrl(id),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetExperimentDiffQueryKey = (id: number,) => {
+    return [
+    `/api/experiments/${id}/diff`
+    ] as const;
+    }
+
+
+export const getGetExperimentDiffQueryOptions = <TData = Awaited<ReturnType<typeof getExperimentDiff>>, TError = ErrorType<void>>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getExperimentDiff>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetExperimentDiffQueryKey(id);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getExperimentDiff>>> = ({ signal }) => getExperimentDiff(id, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getExperimentDiff>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetExperimentDiffQueryResult = NonNullable<Awaited<ReturnType<typeof getExperimentDiff>>>
+export type GetExperimentDiffQueryError = ErrorType<void>
+
+
+/**
+ * @summary Structurally diff a forked experiment against its parent
+ */
+
+export function useGetExperimentDiff<TData = Awaited<ReturnType<typeof getExperimentDiff>>, TError = ErrorType<void>>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getExperimentDiff>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetExperimentDiffQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getGetExperimentTraceUrl = (id: number,) => {
+
+
+
+
+  return `/api/experiments/${id}/trace`
+}
+
+/**
+ * @summary Per-round event trace from the engine's event log
+ */
+export const getExperimentTrace = async (id: number, options?: RequestInit): Promise<ExperimentTrace> => {
+
+  return customFetch<ExperimentTrace>(getGetExperimentTraceUrl(id),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetExperimentTraceQueryKey = (id: number,) => {
+    return [
+    `/api/experiments/${id}/trace`
+    ] as const;
+    }
+
+
+export const getGetExperimentTraceQueryOptions = <TData = Awaited<ReturnType<typeof getExperimentTrace>>, TError = ErrorType<void>>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getExperimentTrace>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetExperimentTraceQueryKey(id);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getExperimentTrace>>> = ({ signal }) => getExperimentTrace(id, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getExperimentTrace>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetExperimentTraceQueryResult = NonNullable<Awaited<ReturnType<typeof getExperimentTrace>>>
+export type GetExperimentTraceQueryError = ErrorType<void>
+
+
+/**
+ * @summary Per-round event trace from the engine's event log
+ */
+
+export function useGetExperimentTrace<TData = Awaited<ReturnType<typeof getExperimentTrace>>, TError = ErrorType<void>>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getExperimentTrace>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetExperimentTraceQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
 export const getRunExperimentBatchUrl = () => {
 

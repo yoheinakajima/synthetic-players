@@ -1,4 +1,5 @@
-import { useParams } from 'wouter';
+import { useParams, Link } from 'wouter';
+import { ForkDialog, DiffView, TracePanel } from '@/components/experiment-fork';
 import { 
   useGetExperiment, 
   useListRounds, 
@@ -156,6 +157,13 @@ export default function ExperimentDetail() {
             } className="uppercase text-[10px]">
               {exp.status}
             </Badge>
+            {exp.parentExperimentId != null && (
+              <Link href={`/experiments/${exp.parentExperimentId}`}>
+                <Badge variant="secondary" className="font-mono gap-1 cursor-pointer hover:bg-secondary/70" data-testid="badge-fork-lineage">
+                  ⑂ fork of EXP-{exp.parentExperimentId.toString().padStart(4, '0')} @ r{exp.forkRound}
+                </Badge>
+              </Link>
+            )}
           </div>
           <h1 className="text-3xl font-serif font-bold tracking-tight">
             {exp.game?.name}
@@ -180,6 +188,7 @@ export default function ExperimentDetail() {
               {runMutation.isPending ? "Running..." : "Execute Run"}
             </Button>
           )}
+          {exp.status === 'completed' && <ForkDialog exp={exp} />}
           {exp.status === 'completed' && !analysis && (
             <Button onClick={handleAnalyze} disabled={analyzeMutation.isPending} className="gap-2 bg-primary">
               <BrainCircuit className="w-4 h-4" />
@@ -291,6 +300,14 @@ export default function ExperimentDetail() {
           </Card>
         </div>
       )}
+
+      {/* Fork vs parent diff */}
+      {exp.status === 'completed' && exp.parentExperimentId != null && (
+        <DiffView experimentId={exp.id} />
+      )}
+
+      {/* Engine event trace */}
+      {exp.engineRunId != null && <TracePanel experimentId={exp.id} />}
 
       {/* Rounds Table */}
       <Card>
