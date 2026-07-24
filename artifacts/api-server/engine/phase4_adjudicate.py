@@ -397,6 +397,251 @@ def x2_screening() -> int:
     return 0
 
 
+# ── D1 confirmatory analysis (frozen: predicates.md §Family D1) ──────────────
+#
+# Episode-level OLS of Y on all five factor main effects plus the registered
+# interactions (M×W, W×L, M×L), HC3 robust covariance. Estimands are
+# EQUAL-WEIGHT CELL-MEAN contrasts built mechanically from design rows —
+# never hand-derived coefficient readings — so factor coding cannot bias them.
+# Requires numpy+scipy at adjudication time only:
+#   uv run --with numpy --with scipy python engine/phase4_adjudicate.py --d1
+
+D1_M = ("can", "aff", "nva", "nvb")
+D1_W = ("w1", "w2a")
+D1_L = ("neu", "sem")
+D1_O = ("cf", "df")
+D1_P = ("ad", "pm")
+# planned M contrasts (frozen): c1 = can vs aff; c2 = can vs ½(nva+nvb); c3 = nva vs nvb
+D1_CONTRASTS = {
+    "c1": {"can": 1.0, "aff": -1.0, "nva": 0.0, "nvb": 0.0},
+    "c2": {"can": 1.0, "aff": 0.0, "nva": -0.5, "nvb": -0.5},
+    "c3": {"can": 0.0, "aff": 0.0, "nva": 1.0, "nvb": -1.0},
+}
+_HALF = {"w1": -0.5, "w2a": 0.5, "neu": -0.5, "sem": 0.5,
+         "cf": -0.5, "df": 0.5, "ad": -0.5, "pm": 0.5}
+
+
+def d1_row(m: str, w: str, l: str, o: str, p: str) -> list[float]:
+    """Design row: [1, c1, c2, c3, W, L, O, P, c1W, c2W, c3W, WL, c1L, c2L, c3L]."""
+    c = [D1_CONTRASTS[k][m] for k in ("c1", "c2", "c3")]
+    W, L, O, P = _HALF[w], _HALF[l], _HALF[o], _HALF[p]
+    return [1.0, c[0], c[1], c[2], W, L, O, P,
+            c[0] * W, c[1] * W, c[2] * W, W * L, c[0] * L, c[1] * L, c[2] * L]
+
+
+def d1_parse_arm(arm_id: str) -> tuple[str, str, str, str, str, str] | None:
+    """p4-d1-{M}-{W}-{L}-{O}-{P}-{gpt|cvx} → factors + family."""
+    parts = arm_id.split("-")
+    if len(parts) != 8 or parts[:2] != ["p4", "d1"]:
+        return None
+    _, _, m, w, l, o, p, fam = parts
+    if (m in D1_M and w in D1_W and l in D1_L and o in D1_O and p in D1_P
+            and fam in ("gpt", "cvx")):
+        return m, w, l, o, p, fam
+    return None
+
+
+def _d1_estimand_rows():
+    """Mechanical equal-weight cell-mean contrast vectors (frozen estimands)."""
+    import itertools
+    import numpy as np
+
+    def mean_rows(cells):
+        return np.mean([d1_row(*c) for c in cells], axis=0)
+
+    rest = list(itertools.product(D1_L, D1_O, D1_P))
+    # P4-D1-W: E[Y|w2a] − E[Y|w1], marginal over M,L,O,P
+    l_w = (mean_rows([(m, "w2a", l, o, p) for m in D1_M for (l, o, p) in rest])
+           - mean_rows([(m, "w1", l, o, p) for m in D1_M for (l, o, p) in rest]))
+    # per-M W-effects (equal weight over L,O,P)
+    w_eff = {m: (mean_rows([(m, "w2a", l, o, p) for (l, o, p) in rest])
+                 - mean_rows([(m, "w1", l, o, p) for (l, o, p) in rest])) for m in D1_M}
+    L_wm = np.array([sum(D1_CONTRASTS[c][m] * w_eff[m] for m in D1_M)
+                     for c in ("c1", "c2", "c3")])
+    # W-effect at L=sem minus at L=neu (equal weight over M,O,P)
+    def w_eff_at(l):
+        return (mean_rows([(m, "w2a", l, o, p) for m in D1_M for o in D1_O for p in D1_P])
+                - mean_rows([(m, "w1", l, o, p) for m in D1_M for o in D1_O for p in D1_P]))
+    l_wl = w_eff_at("sem") - w_eff_at("neu")
+    # per-M L-effects (equal weight over W,O,P)
+    def l_eff(m):
+        return (mean_rows([(m, w, "sem", o, p) for w in D1_W for o in D1_O for p in D1_P])
+                - mean_rows([(m, w, "neu", o, p) for w in D1_W for o in D1_O for p in D1_P]))
+    L_ml = np.array([sum(D1_CONTRASTS[c][m] * l_eff(m) for m in D1_M)
+                     for c in ("c1", "c2", "c3")])
+    return {"P4-D1-W": l_w, "P4-D1-WM": L_wm, "P4-D1-WL": l_wl, "P4-D1-ML": L_ml}
+
+
+def holm(pvals: dict[str, float]) -> dict[str, float]:
+    """Holm step-down over the family; monotone, capped at 1."""
+    m = len(pvals)
+    order = sorted(pvals, key=lambda k: pvals[k])
+    out, running = {}, 0.0
+    for i, k in enumerate(order):
+        running = max(running, (m - i) * pvals[k])
+        out[k] = min(1.0, running)
+    return out
+
+
+def _cp_bounds(k: int, n: int) -> tuple[float, float]:
+    from scipy.stats import beta
+    lo = 0.0 if k == 0 else float(beta.ppf(0.025, k, n - k + 1))
+    hi = 1.0 if k == n else float(beta.ppf(0.975, k + 1, n - k))
+    return lo, hi
+
+
+def d1() -> int:
+    import numpy as np
+    from scipy import stats as sps
+    import scipy
+
+    runs = load_phase4_runs()
+    fams: dict[str, dict] = {"gpt": {"rows": [], "y": [], "cells": {}, "invalid": [],
+                                     "cellCoop": {}},
+                             "cvx": {"rows": [], "y": [], "cells": {}, "invalid": [],
+                                     "cellCoop": {}}}
+    for rid, r in runs.items():
+        if r.get("block") != "D1":
+            continue
+        parsed = d1_parse_arm(r.get("armId", ""))
+        if parsed is None:
+            print(f"UNPARSEABLE D1 armId {r.get('armId')!r} ({rid}) — refusing to adjudicate")
+            return 1
+        m, w, l, o, p, fam = parsed
+        F = fams[fam]
+        cell = f"{m}-{w}-{l}-{o}-{p}"
+        if r["invalid"]:
+            F["invalid"].append(f"{cell} seed {r.get('seed')}")
+            continue
+        if not r["completed"] or 1 not in r["rounds"]:
+            F["invalid"].append(f"{cell} seed {r.get('seed')} (incomplete run)")
+            continue
+        a1, a2 = r["rounds"][1]
+        y = ((a1 == 0) + (a2 == 0)) / 2.0  # action index 0 = cooperate ROLE (aligned maps in D1)
+        F["rows"].append(d1_row(m, w, l, o, p))
+        F["y"].append(y)
+        F["cells"].setdefault(cell, []).append(y)
+        cc = F["cellCoop"].setdefault(cell, [0, 0])
+        cc[0] += int(a1 == 0) + int(a2 == 0)
+        cc[1] += 2
+
+    est_rows = _d1_estimand_rows()
+    report: dict = {
+        "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "frozenSpec": "predicates.md §Family D1 — episode-level OLS, five main effects + M×W, W×L, M×L; HC3; equal-weight cell-mean estimands; Holm m=4 per family",
+        "versions": {"numpy": np.__version__, "scipy": scipy.__version__},
+        "families": {},
+    }
+    md = ["# D1 interim adjudication (final verdicts in step 8)", "",
+          f"Generated {report['generatedAt']}. numpy {np.__version__}, scipy {scipy.__version__}.", ""]
+
+    for fam, role in (("gpt", "primary"), ("cvx", "secondary (cross-vendor mirror)")):
+        F = fams[fam]
+        n = len(F["y"])
+        fr: dict = {"role": role, "episodes": n, "cells": len(F["cells"]),
+                    "invalidOrIncomplete": F["invalid"]}
+        if n == 0:
+            fr["status"] = "no data"
+            report["families"][fam] = fr
+            continue
+        X = np.array(F["rows"]); y = np.array(F["y"])
+        if float(np.var(y)) == 0.0:
+            # registered degenerate branch: corner design
+            fr["status"] = "non-diagnostic at floor/ceiling (registered outcome)"
+            fr["constantY"] = float(y[0])
+            fr["perCellCP"] = {c: {"coop": k, "n": ntr, "cp95": _cp_bounds(k, ntr)}
+                               for c, (k, ntr) in sorted(F["cellCoop"].items())}
+            report["families"][fam] = fr
+            md += [f"## {fam} ({role}) — non-diagnostic at floor/ceiling",
+                   f"All {n} episodes identical (Y = {y[0]}); per-cell Clopper–Pearson bounds in the JSON report.", ""]
+            continue
+        p_ = X.shape[1]
+        XtX_inv = np.linalg.inv(X.T @ X)
+        beta_hat = XtX_inv @ X.T @ y
+        resid = y - X @ beta_hat
+        h = np.einsum("ij,jk,ik->i", X, XtX_inv, X)
+        w_hc3 = (resid / (1.0 - h)) ** 2
+        V = XtX_inv @ (X.T * w_hc3) @ X @ XtX_inv
+        df = n - p_
+
+        claims: dict[str, dict] = {}
+        pvals: dict[str, float] = {}
+        for cid, ell in est_rows.items():
+            ell = np.atleast_2d(ell)
+            est = ell @ beta_hat
+            cov = ell @ V @ ell.T
+            if ell.shape[0] == 1:
+                se = float(np.sqrt(cov[0, 0]))
+                t = float(est[0] / se) if se > 0 else float("nan")
+                pv = float(2 * sps.t.sf(abs(t), df)) if se > 0 else float("nan")
+                tcrit = float(sps.t.ppf(0.975, df))
+                claims[cid] = {"estimate": float(est[0]), "se": se, "t": t, "df": df,
+                               "p": pv, "ci95": [float(est[0] - tcrit * se), float(est[0] + tcrit * se)]}
+            else:
+                try:
+                    wald = float(est @ np.linalg.solve(cov, est))
+                    pv = float(sps.chi2.sf(wald, ell.shape[0]))
+                except np.linalg.LinAlgError:
+                    wald, pv = float("nan"), float("nan")
+                percontrast = []
+                tcrit = float(sps.t.ppf(0.975, df))
+                for i, cname in enumerate(("c1", "c2", "c3")):
+                    se_i = float(np.sqrt(cov[i, i]))
+                    percontrast.append({"contrast": cname, "estimate": float(est[i]), "se": se_i,
+                                        "ci95": [float(est[i] - tcrit * se_i), float(est[i] + tcrit * se_i)]})
+                claims[cid] = {"wald": wald, "dfNum": int(ell.shape[0]), "p": pv,
+                               "perContrast": percontrast}
+            pvals[cid] = claims[cid]["p"]
+        hp = holm(pvals)
+        for cid in claims:
+            claims[cid]["holmP"] = hp[cid]
+            claims[cid]["interimVerdict"] = ("supported" if hp[cid] < 0.05 else "not supported")
+        # O and P main effects — diagnostics only, never confirmatory (frozen)
+        diag = {}
+        import itertools as _it
+        for fac, lo_v, hi_v in (("O", "cf", "df"), ("P", "ad", "pm")):
+            cells_hi = [(m, w, l, hi_v, p2) if fac == "O" else (m, w, l, o2, hi_v)
+                        for m in D1_M for w in D1_W for l in D1_L
+                        for (o2, p2) in _it.product(D1_O, D1_P) if True]
+            # equal-weight diagnostic via design rows (marginal over the other four factors)
+            if fac == "O":
+                ell = (np.mean([d1_row(m, w, l, hi_v, p2) for m in D1_M for w in D1_W
+                                for l in D1_L for p2 in D1_P], axis=0)
+                       - np.mean([d1_row(m, w, l, lo_v, p2) for m in D1_M for w in D1_W
+                                  for l in D1_L for p2 in D1_P], axis=0))
+            else:
+                ell = (np.mean([d1_row(m, w, l, o2, hi_v) for m in D1_M for w in D1_W
+                                for l in D1_L for o2 in D1_O], axis=0)
+                       - np.mean([d1_row(m, w, l, o2, lo_v) for m in D1_M for w in D1_W
+                                  for l in D1_L for o2 in D1_O], axis=0))
+            e = float(ell @ beta_hat); se = float(np.sqrt(ell @ V @ ell))
+            diag[fac] = {"estimate": e, "se": se}
+        fr["status"] = "adjudicated"
+        fr["grandMeanY"] = float(np.mean(y))
+        fr["claims"] = claims
+        fr["diagnosticsOP"] = diag
+        report["families"][fam] = fr
+
+        md += [f"## {fam} ({role}) — {n} episodes, {len(F['cells'])} cells, "
+               f"{len(F['invalid'])} invalid/incomplete excluded",
+               f"Grand mean Y = {np.mean(y):.4f}", "",
+               "| claim | estimate / Wald | p | Holm-p | interim verdict |", "|---|---|---|---|---|"]
+        for cid, c in claims.items():
+            stat = (f"{c['estimate']:+.4f} (se {c['se']:.4f})" if "estimate" in c
+                    else f"Wald {c['wald']:.3f} ({c['dfNum']} df)")
+            md += [f"| {cid} | {stat} | {c['p']:.2e} | {c['holmP']:.2e} | {c['interimVerdict']} |"]
+        md += [""]
+
+    with open(os.path.join(DOCS, "d1-report.json"), "w") as f:
+        json.dump(report, f, indent=1)
+    with open(os.path.join(DOCS, "d1-report.md"), "w") as f:
+        f.write("\n".join(md) + "\n")
+    print(json.dumps({fam: {k: v for k, v in fr.items() if k in ("status", "episodes", "grandMeanY")}
+                      for fam, fr in report["families"].items()}, indent=1))
+    print(f"reports written: docs/phase4/d1-report.json, .md")
+    return 0
+
+
 def main() -> None:
     if "--scan" in sys.argv:
         raise SystemExit(scan(sys.argv[sys.argv.index("--scan") + 1]))
@@ -404,6 +649,8 @@ def main() -> None:
         raise SystemExit(sentinel(int(sys.argv[sys.argv.index("--sentinel") + 1])))
     if "--x2-screening" in sys.argv:
         raise SystemExit(x2_screening())
+    if "--d1" in sys.argv:
+        raise SystemExit(d1())
     print(__doc__)
 
 
