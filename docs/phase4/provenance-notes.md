@@ -211,3 +211,19 @@ is disclosed either way. Sentinel third-cell note: per the sealed sentinel
 spec, checks continue on the fallback `pd-os-w1-neu-cf-ad` until the
 resolution is written; the switch (and its fresh third-cell baseline, first
 check after resolution) will be disclosed when it happens.
+
+## D1 block + D1/D2 boundary (2026-07-24)
+
+Block D1 completed 1280/1280 episodes (640 primary, 640 cross-vendor), zero
+retried calls, zero invalid trials, zero scan anomalies; every llm.requested
+stamp is the preflight HEAD, dirty:false. Adjudication (--d1): primary family
+(gpt-4.1) all four claims not supported at interim — the design is far from
+degenerate (grand mean Y 0.2547), so this is a measured near-zero wording
+effect in one-shot (P4-D1-W +0.0063, se 0.0210), not a floor/ceiling artifact.
+Cross-vendor family (gemini-2.5-flash): P4-D1-W supported, negative direction
+(−0.0500, Holm-p 2.49e-03), P4-D1-WL (+0.0875, Holm-p 8.18e-03) and P4-D1-ML
+(Wald 13.16, 3 df, Holm-p 8.60e-03) supported; P4-D1-WM not supported.
+Interpretation deferred to step 8 per the frozen order. Sentinel check 2
+(post-D1/pre-D2): zero alerts; all six cell modal fingerprints within the
+sealed ±2 drift tolerance of baseline (rule (c) threshold is ≥3). Block D2
+staged and dispatched on the same verified-clean HEAD.
