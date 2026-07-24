@@ -270,6 +270,16 @@ This mirrors the packet's existing additive pattern (sealed placeholders +
 post-seal write-once additions), keeping every sealed artifact byte-exact
 against its external anchor.
 
+Follow-up (same boundary, before any X2-confirmation dispatch): the driver's
+request builder was also step-4-scoped — it froze on any RESOLVED-BY-*
+template ("outside current scope"; zero calls dispatched). Tooling edit #2,
+disclosed: for RESOLVED-BY arms the driver now substitutes the concrete
+template from the engine's sealed write-once resolutions (same key rule as
+the engine's own resolve_template_id), and freezes if the resolution is not
+yet written. Enforcement is unchanged — the engine independently re-resolves
+and sha-rechecks the template on every request, so the driver substitution
+cannot introduce anything the ledger has not sealed.
+
 ## D3 adjudicator amendment — pre-outcome, schema-grounded (2026-07-24)
 
 `--d3` as pinned at commit 1424fd5 REFUSED block D3 at its fail-closed

@@ -81,12 +81,36 @@ def draw_horizon(seed: int, delta_pct: int) -> tuple[int, bool]:
 
 # ── request construction (engine-derivation reuse) ──────────────────────────
 
+_RESOLUTIONS_CACHE: dict | None = None
+
+
+def sealed_resolution_tid(arm: dict) -> str:
+    """Concrete template for a RESOLVED-BY-* arm via the engine's sealed
+    write-once resolutions. The driver only SUBSTITUTES; the engine remains
+    the enforcement point (resolve_template_id + template-sha recheck on
+    every request). Fails closed if the resolution is not yet written."""
+    global _RESOLUTIONS_CACHE
+    if _RESOLUTIONS_CACHE is None:
+        _RESOLUTIONS_CACHE = http_json("GET", "/phase4/status").get("resolutions") or {}
+    if arm["block"] == "E":
+        key = "E-dselected"
+    elif arm["block"] == "X2-confirmation":
+        key = "X2-conf-lo" if arm["armId"].endswith("-lo") else "X2-conf-hi"
+    else:
+        raise DriverFreeze(
+            f"arm {arm['armId']} has RESOLVED-BY template but no resolution-key rule — refusing")
+    res = _RESOLUTIONS_CACHE.get(key)
+    tid = res.get("templateId") if isinstance(res, dict) else res
+    if not tid:
+        raise DriverFreeze(
+            f"arm {arm['armId']} requires resolution {key!r} — not yet written to the event store (refusing)")
+    return tid
+
+
 def build_game_def(arm: dict, registry: dict) -> dict:
     tid = arm["templateId"]
     if tid.startswith("RESOLVED-BY"):
-        raise DriverFreeze(
-            f"arm {arm['armId']} has unresolved template {tid!r} — outside current scope"
-        )
+        tid = sealed_resolution_tid(arm)
     spec = registry["prompts"].get(tid)
     if spec is None:
         raise DriverFreeze(f"template {tid} not in registry")
