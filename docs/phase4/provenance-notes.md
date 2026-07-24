@@ -240,6 +240,36 @@ It runs at step 6 (after X2 confirmation), per the frozen order. Sentinel
 third cell switches to the resolved template after the write; fresh
 third-cell baseline at the first post-resolution check, as pre-committed.
 
+## Execution-schedule packaging gap #2 — X2-confirmation block (2026-07-24)
+
+Staging step 5, the driver crashed at `act_block("X2-confirmation")` with
+StopIteration: the sealed execution-schedule.json contains no block of that
+name. The crash preceded any dispatch — zero X2-confirmation calls were made,
+no freeze, X2 group spend still 1800/2700. Root cause: the schedule generator
+materialized only unconditional blocks; X2 confirmation was registered as
+conditional ("runs only if a candidate exists"), and when screening produced
+a candidate the generated schedule was never revisited. The design itself is
+fully sealed: arms.json carries `p4-x2-conf-lo/hi` (block X2-confirmation,
+gpt-4.1, authoritative seeds 2953–2972, matched pairs), predicates.md §X2
+fixes 20 episodes/side and the confirm predicate, and the engine resolves the
+RESOLVED-BY-SCREENING templates via the sealed write-once X2-conf-lo/hi
+resolutions (pd-x2-f1/f2, span S2, orientation fixed at selection).
+
+Remedy — sealed bytes untouched: seal-record.md pins execution-schedule.json
+sha256 `139c1b6d…` "(unchanged)", so the block is materialized into a
+SEPARATE amendments file (`execution-schedule-amendments.json`) by
+`engine/phase4_amend_schedule_x2conf.py`, mechanically, from arms.json alone:
+arms in manifest order (lo, hi), seeds ascending as sealed, ep = 1..20 per
+arm, model from the arm record, dispatch order arm-major — no constructed
+randomness; every registered X2-confirmation analysis is episode-level and
+dispatch-order-invariant. The generator refuses unless the sealed schedule
+matches its pinned sha and the arms/seeds match the sealed design exactly.
+The driver's block lookup is extended (tooling edit, disclosed): sealed
+schedule first, then the amendments file, refusing if a block is in neither.
+This mirrors the packet's existing additive pattern (sealed placeholders +
+post-seal write-once additions), keeping every sealed artifact byte-exact
+against its external anchor.
+
 ## D3 adjudicator amendment — pre-outcome, schema-grounded (2026-07-24)
 
 `--d3` as pinned at commit 1424fd5 REFUSED block D3 at its fail-closed

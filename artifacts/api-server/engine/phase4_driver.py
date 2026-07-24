@@ -341,7 +341,19 @@ def act_sentinel(state: dict, store: ArmStore, registry: dict, k: int) -> None:
 
 def act_block(state: dict, store: ArmStore, registry: dict, schedule: dict, name: str) -> None:
     assert_clean_tree(state)
-    block = next(b for b in schedule["blocks"] if b["block"] == name)
+    try:
+        block = next(b for b in schedule["blocks"] if b["block"] == name)
+    except StopIteration:
+        # Packaging gap #2 (provenance-notes.md): conditional blocks live in the
+        # amendments file; the sealed schedule stays byte-identical to its anchor.
+        amend_path = os.path.join(REPO_ROOT, "docs", "phase4", "execution-schedule-amendments.json")
+        if not os.path.exists(amend_path):
+            raise SystemExit(f"block {name!r} not in sealed schedule and no amendments file — refusing")
+        block = next((b for b in json.load(open(amend_path))["blocks"] if b["block"] == name), None)
+        if block is None:
+            raise SystemExit(f"block {name!r} not in sealed schedule or amendments — refusing")
+        print(f"— block {name} sourced from execution-schedule-amendments.json "
+              f"(sealed schedule untouched) —", flush=True)
     eps = block["episodes"]
     done0 = sum(1 for e in eps if f"{name}|{e['armId']}|ep{e['ep']}" in state["runs"])
     print(f"— block {name}: {len(eps)} episodes (resuming past {done0}) —", flush=True)
