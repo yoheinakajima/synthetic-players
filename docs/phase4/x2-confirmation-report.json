@@ -1,0 +1,54 @@
+{
+ "generatedAt": "2026-07-24T22:59:44Z",
+ "status": "adjudicated (interim; finals at step 8 after full replay)",
+ "claim": "P4-X2-1",
+ "threshold": 0.5,
+ "screenedSign": "+",
+ "resolutions": {
+  "X2-conf-lo": {
+   "templateId": "pd-x2-f1",
+   "templateSha256": "1ffd8365eee2c5d6fdf43beafe922f9ddb1c58c3068e94f53b8226ae13fe9c15"
+  },
+  "X2-conf-hi": {
+   "templateId": "pd-x2-f2",
+   "templateSha256": "e6f14799225dd2847417c558f86d3e54ec1d122ab76c6c3c7b87805bdb83d9f8"
+  }
+ },
+ "screeningAnchor": {
+  "means": {
+   "p4-x2-conf-lo": 0.0,
+   "p4-x2-conf-hi": 0.85
+  },
+  "gap": 0.85
+ },
+ "n": {
+  "hi": 20,
+  "lo": 20
+ },
+ "means": {
+  "hi": 0.925,
+  "lo": 0.0
+ },
+ "excluded": [],
+ "result": {
+  "method": "exact fallback (constant/degenerate cell): CP seat-level, Bonferroni one-sided \u22640.05 (conservative)",
+  "estimate": 0.925,
+  "lowerBound95": 0.7080379483882987,
+  "cellCP95": {
+   "hi": [
+    0.796135251267101,
+    0.9842578201489585
+   ],
+   "lo": [
+    0.0,
+    0.08809730287880237
+   ]
+  },
+  "constantCells": {
+   "hi": false,
+   "lo": true
+  }
+ },
+ "signMatchesScreening": true,
+ "verdict": "supported"
+}
