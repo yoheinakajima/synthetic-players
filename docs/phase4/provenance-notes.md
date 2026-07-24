@@ -212,6 +212,34 @@ spec, checks continue on the fallback `pd-os-w1-neu-cf-ad` until the
 resolution is written; the switch (and its fresh third-cell baseline, first
 check after resolution) will be disclosed when it happens.
 
+## E-dselected: operator rule choice (2026-07-24, recorded at the D2 boundary)
+
+At the D1/D2 boundary the operator selected **Rule INTERIOR by name**, from
+family-level aggregates only (interim report #3 disclosed grand means and
+claim-level marginal effects; the 64-cell table, the 16 candidate cell means,
+and the implied winner were not shown). Operator-imposed embargo, honored in
+all interim reports: per-cell means and the implied template identity remain
+undisclosed to the operator until after the step-6 resolution write.
+
+Operator direction, quoted from the choice response: INTERIOR "matches the
+selection rule specified verbatim in the Phase 4 sign-off response ('the D
+cell whose round-1 cooperation is nearest 0.5, most interior')" — so the
+registration gap documented above was a transcription failure of documented
+pre-data intent, and the resolution note must quote and cite that sign-off
+language. The operator further directed that the resolution disclosure state
+the choice was made from family-level aggregates only.
+
+Mechanical selection is pre-committed as `engine/phase4_select_e.py` at this
+boundary, UNRUN against real data: it recomputes the 16 M=can primary-family
+cell means from the event store, applies INTERIOR (|mean − 0.5| minimized,
+ties by manifest line order in arms.json), refuses on any count/parse
+anomaly, POSTs the write-once resolution, and writes
+e-selection-report.{json,md}. Its --dry replay mode refuses to run until the
+resolution exists, so the script cannot leak the winner ahead of the write.
+It runs at step 6 (after X2 confirmation), per the frozen order. Sentinel
+third cell switches to the resolved template after the write; fresh
+third-cell baseline at the first post-resolution check, as pre-committed.
+
 ## D1 block + D1/D2 boundary (2026-07-24)
 
 Block D1 completed 1280/1280 episodes (640 primary, 640 cross-vendor), zero
