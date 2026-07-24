@@ -429,6 +429,25 @@ def resolve_template_id(arm: dict, ledger: BudgetLedger) -> tuple[str, Optional[
     return res["templateId"], key
 
 
+def _sentinel_switch_delta(store: "ArmStore") -> int:
+    """The sealed third-cell switch text pins no deltaPct, and no sealed
+    dispatch of the selected pd-rep sibling exists to mirror (D1 arms carry
+    pd-os-* templates; block E manipulates δ as its treatment variable).
+    Registered rule: the switched cell adopts the sentinel battery's own
+    repeated-cell continuation probability — the unique deltaPct shared by
+    every other sentinel arm that carries one (v1/v2a: 90). Sentinel-internal,
+    no cross-block inference; fail-closed if the battery's repeated cells ever
+    disagree. Registered under sentinel-alert-5-memo.md §Decision (provenance
+    instance 5 follow-up)."""
+    deltas = {a.get("deltaPct") for a in store.arms.values()
+              if a.get("block") == "sentinel" and a.get("deltaPct") is not None}
+    if len(deltas) != 1:
+        raise EnforcementError(
+            f"sentinel third-cell switch: expected one shared repeated-cell deltaPct "
+            f"across sentinel arms, found {sorted(deltas)} — fail-closed")
+    return deltas.pop()
+
+
 def validate_run_request(
     *,
     arm: dict,
@@ -491,11 +510,18 @@ def validate_run_request(
     else:
         raise EnforcementError(f"arm {arm['armId']} has non-list seeds and is not sentinel")
 
-    # deltaPct pin
-    delta = arm.get("deltaPct")
-
     # template resolution + sha recheck
     template_id, resolution_key = resolve_template_id(arm, ledger)
+    if resolution_key == "E-dselected" and block == "sentinel":
+        # Sealed third-cell switch (see _sentinel_switch_delta): the effective
+        # arm renders the D-selected pd-rep representation at the sentinel
+        # battery's own repeated-cell δ (v1/v2a: 90) — the same
+        # representation×δ the E δ=.90 D-selected cells use; horizon stays
+        # forced to 1 by the sentinel numRounds pin below.
+        arm = {**arm, "deltaPct": _sentinel_switch_delta(store)}
+
+    # deltaPct pin (after any sentinel-switch donor substitution)
+    delta = arm.get("deltaPct")
     spec = registry["prompts"].get(template_id)
     if spec is None:
         raise EnforcementError(f"template {template_id} not in registry")

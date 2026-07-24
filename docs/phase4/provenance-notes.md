@@ -370,7 +370,18 @@ Resumption tooling, registered before any post-freeze dispatch:
   via the engine's write-once resolutions.
 - engine: resolve_template_id now implements the sealed third-cell switch
   ("D-selected once written; sealed fallback before") for p4-sent-fallback,
-  ledger-state-driven, never request-driven. This switch was pre-committed in
+  ledger-state-driven, never request-driven. Follow-up surfaced by the
+  zero-spend dry run before staging: the switched cell's pd-rep rendering
+  requires deltaPct, which the sealed switch text does not pin — and no
+  sealed dispatch of the selected pd-rep sibling exists to mirror (D1 arms
+  carry pd-os-* templates; block E manipulates δ as its treatment variable,
+  so E has no single δ). Registered rule: the switched cell adopts the
+  sentinel battery's own repeated-cell continuation probability — the unique
+  deltaPct shared by v1/v2a (δ=90) — fail-closed if the battery's repeated
+  cells ever disagree. Sentinel-internal, no cross-block inference; the third
+  cell thereby fingerprints the same representation×δ that the E δ=.90
+  D-selected cells dispatch (horizon still forced to 1 by the sentinel pin).
+  Disclosed here before any live dispatch. This switch was pre-committed in
   sealed text (arms.json bindings notes; predicates.md sentinel section) but
   implemented in neither enforcement nor dispatch — the FIFTH
   sealed-text-vs-implementation instance (operator's running count: the
