@@ -1,9 +1,9 @@
 {
- "generatedAt": "2026-07-24T14:55:13.781Z",
+ "generatedAt": "2026-07-24T16:00:56.159Z",
  "scheduleSeed": 20260724,
  "models": {
   "primary": "gpt-4.1",
-  "cross": "claude-haiku-4-5"
+  "cross": "gemini-2.5-flash"
  },
  "sealedPhase3Shas": {
   "pd-oneshot-v1": "d408f3642d3bf4920dce50a8d38372e63f035bd9bb463bb355466ce3bc021292",
@@ -115,7 +115,7 @@
     2009,
     2010
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -173,7 +173,7 @@
     2019,
     2020
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -231,7 +231,7 @@
     2029,
     2030
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -289,7 +289,7 @@
     2039,
     2040
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -347,7 +347,7 @@
     2049,
     2050
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -405,7 +405,7 @@
     2059,
     2060
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -463,7 +463,7 @@
     2069,
     2070
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -521,7 +521,7 @@
     2079,
     2080
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -579,7 +579,7 @@
     2089,
     2090
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -637,7 +637,7 @@
     2099,
     2100
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -695,7 +695,7 @@
     2109,
     2110
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -753,7 +753,7 @@
     2119,
     2120
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -811,7 +811,7 @@
     2129,
     2130
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -869,7 +869,7 @@
     2139,
     2140
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -927,7 +927,7 @@
     2149,
     2150
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -985,7 +985,7 @@
     2159,
     2160
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1043,7 +1043,7 @@
     2169,
     2170
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1101,7 +1101,7 @@
     2179,
     2180
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1159,7 +1159,7 @@
     2189,
     2190
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1217,7 +1217,7 @@
     2199,
     2200
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1275,7 +1275,7 @@
     2209,
     2210
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1333,7 +1333,7 @@
     2219,
     2220
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1391,7 +1391,7 @@
     2229,
     2230
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1449,7 +1449,7 @@
     2239,
     2240
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1507,7 +1507,7 @@
     2249,
     2250
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1565,7 +1565,7 @@
     2259,
     2260
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1623,7 +1623,7 @@
     2269,
     2270
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1681,7 +1681,7 @@
     2279,
     2280
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1739,7 +1739,7 @@
     2289,
     2290
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1797,7 +1797,7 @@
     2299,
     2300
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1855,7 +1855,7 @@
     2309,
     2310
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1913,7 +1913,7 @@
     2319,
     2320
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -1971,7 +1971,7 @@
     2329,
     2330
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2029,7 +2029,7 @@
     2339,
     2340
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2087,7 +2087,7 @@
     2349,
     2350
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2145,7 +2145,7 @@
     2359,
     2360
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2203,7 +2203,7 @@
     2369,
     2370
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2261,7 +2261,7 @@
     2379,
     2380
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2319,7 +2319,7 @@
     2389,
     2390
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2377,7 +2377,7 @@
     2399,
     2400
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2435,7 +2435,7 @@
     2409,
     2410
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2493,7 +2493,7 @@
     2419,
     2420
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2551,7 +2551,7 @@
     2429,
     2430
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2609,7 +2609,7 @@
     2439,
     2440
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2667,7 +2667,7 @@
     2449,
     2450
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2725,7 +2725,7 @@
     2459,
     2460
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2783,7 +2783,7 @@
     2469,
     2470
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2841,7 +2841,7 @@
     2479,
     2480
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2899,7 +2899,7 @@
     2489,
     2490
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -2957,7 +2957,7 @@
     2499,
     2500
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3015,7 +3015,7 @@
     2509,
     2510
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3073,7 +3073,7 @@
     2519,
     2520
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3131,7 +3131,7 @@
     2529,
     2530
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3189,7 +3189,7 @@
     2539,
     2540
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3247,7 +3247,7 @@
     2549,
     2550
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3305,7 +3305,7 @@
     2559,
     2560
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3363,7 +3363,7 @@
     2569,
     2570
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3421,7 +3421,7 @@
     2579,
     2580
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3479,7 +3479,7 @@
     2589,
     2590
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3537,7 +3537,7 @@
     2599,
     2600
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3595,7 +3595,7 @@
     2609,
     2610
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3653,7 +3653,7 @@
     2619,
     2620
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3711,7 +3711,7 @@
     2629,
     2630
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3769,7 +3769,7 @@
     2639,
     2640
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3849,7 +3849,7 @@
     2659,
     2660
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -3929,7 +3929,7 @@
     2679,
     2680
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4009,7 +4009,7 @@
     2699,
     2700
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4089,7 +4089,7 @@
     2719,
     2720
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4169,7 +4169,7 @@
     2739,
     2740
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4249,7 +4249,7 @@
     2759,
     2760
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4329,7 +4329,7 @@
     2779,
     2780
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4409,7 +4409,7 @@
     2799,
     2800
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4461,7 +4461,7 @@
     2801,
     2802
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4513,7 +4513,7 @@
     2803,
     2804
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4565,7 +4565,7 @@
     2805,
     2806
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4617,7 +4617,7 @@
     2807,
     2808
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4669,7 +4669,7 @@
     2809,
     2810
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4721,7 +4721,7 @@
     2811,
     2812
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4773,7 +4773,7 @@
     2813,
     2814
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4825,7 +4825,7 @@
     2815,
     2816
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4877,7 +4877,7 @@
     2817,
     2818
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4929,7 +4929,7 @@
     2819,
     2820
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -4981,7 +4981,7 @@
     2821,
     2822
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5033,7 +5033,7 @@
     2823,
     2824
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5085,7 +5085,7 @@
     2825,
     2826
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5137,7 +5137,7 @@
     2827,
     2828
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5189,7 +5189,7 @@
     2829,
     2830
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5241,7 +5241,7 @@
     2831,
     2832
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5293,7 +5293,7 @@
     2833,
     2834
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5345,7 +5345,7 @@
     2835,
     2836
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5397,7 +5397,7 @@
     2837,
     2838
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5449,7 +5449,7 @@
     2839,
     2840
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5501,7 +5501,7 @@
     2841,
     2842
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5553,7 +5553,7 @@
     2843,
     2844
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5605,7 +5605,7 @@
     2845,
     2846
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5657,7 +5657,7 @@
     2847,
     2848
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5709,7 +5709,7 @@
     2849,
     2850
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5761,7 +5761,7 @@
     2851,
     2852
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5813,7 +5813,7 @@
     2853,
     2854
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5865,7 +5865,7 @@
     2855,
     2856
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5917,7 +5917,7 @@
     2857,
     2858
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -5969,7 +5969,7 @@
     2859,
     2860
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -6021,7 +6021,7 @@
     2861,
     2862
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -6073,7 +6073,7 @@
     2863,
     2864
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -6125,7 +6125,7 @@
     2865,
     2866
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -6177,7 +6177,7 @@
     2867,
     2868
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -6229,7 +6229,7 @@
     2869,
     2870
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -6281,7 +6281,7 @@
     2871,
     2872
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -6357,7 +6357,7 @@
     2891,
     2892
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": 10
   },
   {
@@ -6433,7 +6433,7 @@
     2911,
     2912
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": 90
   },
   {
@@ -6511,7 +6511,7 @@
     2931,
     2932
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": 10
   },
   {
@@ -6589,7 +6589,7 @@
     2951,
     2952
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": 90
   },
   {
@@ -7029,7 +7029,7 @@
     2991,
     2992
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -7101,7 +7101,7 @@
     3011,
     3012
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -7209,7 +7209,7 @@
     3051,
     3052
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -7283,7 +7283,7 @@
     3071,
     3072
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {
@@ -7355,7 +7355,7 @@
     3091,
     3092
    ],
-   "model": "claude-haiku-4-5",
+   "model": "gemini-2.5-flash",
    "deltaPct": null
   },
   {

@@ -4,7 +4,7 @@ Token/cost basis: measured Phase 3 means from the event store (5,830 calls):
 one-shot PD ≈ 172 in / 1 out tok, $0.0052/call · repeated PD ≈ 306–358 in / 1 out,
 $0.0093–0.0108/call · RPS 50-round ≈ 597 in (max 1,103) / 2.35 out, $0.0181/call —
 all at gpt-4.1 rates via Replit AI Integrations. Cross-vendor calls are token-matched;
-`claude-haiku-4-5` per-token rates are at or below gpt-4.1's, so gpt-4.1-rate figures
+`gemini-2.5-flash` per-token rates ($0.30/M input, $2.50/M output; amendment A1 — same bound held for the original haiku candidate) are at or below gpt-4.1's, so gpt-4.1-rate figures
 are used as an **upper bound** for both models (billed to workspace credits).
 Repeated-PD δ=.90 episodes: measured 15.9 calls/episode (X1, matched horizons);
 δ=.10: ≈ 2.2 calls/episode (Phase 3 d10).

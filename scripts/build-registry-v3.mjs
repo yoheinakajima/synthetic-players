@@ -266,7 +266,7 @@ for (const k of ["can", "aff", "nva", "nvb"]) {
 }
 
 const arms = [];
-const MODELS = { primary: "gpt-4.1", cross: "claude-haiku-4-5" };
+const MODELS = { primary: "gpt-4.1", cross: "gemini-2.5-flash" }; // amendment A1 (2026-07-24): was claude-haiku-4-5, failed Gate 0 round 1
 let seedCursor = 2001; // Phase 3 used 1–20 (+1000 replacement pool); Phase 4 starts at 2001
 const takeSeeds = (n) => Array.from({ length: n }, () => seedCursor++);
 

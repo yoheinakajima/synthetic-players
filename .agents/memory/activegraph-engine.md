@@ -39,3 +39,37 @@ description: Quirks of the activegraph package (v1.10.x) and the Python game eng
 ## Event-store extraction traps
 - Don't guess payload field names — print one event's keys first (an assumed-name extraction returned `<NOFIELD>` for a whole corpus). Numeric-looking fields may be strings: cast before arithmetic.
 - The store archives more than you'd expect (full rendered messages, raw completions): check what's already captured before declaring a provenance gap or re-running anything.
+
+# Custom LLM providers (Gemini adapter pattern)
+- activegraph 1.10 ships only OpenAI + Anthropic reference providers. Custom ones
+  implement the `activegraph.llm.provider.LLMProvider` Protocol (keyword-only
+  `complete`/`estimate_cost`/`count_tokens`; additive `default_model` /
+  `recognizes_model` / `supports_native_structured_output`) and drop in anywhere a
+  reference provider goes. Map SDK errors via `activegraph.llm.wire.classify_provider_exception`
+  → `LLMBehaviorError` so the runner's transient-retry logic applies.
+- **Replit AI-Integrations Gemini proxy serves UNVERSIONED paths**: google-genai must
+  be constructed with `HttpOptions(base_url=…, api_version="")` (JS: `apiVersion: ""`),
+  else every call 400s with INVALID_ENDPOINT on `/v1beta/...`. The skill's TS template
+  is the authoritative wiring reference when the SDK misbehaves against the proxy.
+- **Per-request `http_options` REPLACES client-level options** in google-genai — a
+  per-request timeout must re-carry `base_url` + `api_version` or calls silently
+  redirect to the vendor endpoint.
+- Gemini 2.5 hybrid reasoning: disable with `thinking_config={"thinking_budget": 0}`
+  for tiny-maxTokens protocols, and ASSERT `usage_metadata.thoughts_token_count == 0`
+  per call. Gemini's server default top_p is not 1.0 — forward top_p explicitly
+  (opposite of the Anthropic only-when-narrowing convention). Clean stop is `STOP`
+  (enum name), truncation `MAX_TOKENS`; finer revision: `model_version` may return
+  only the family ID (disclose, don't over-claim pinning).
+
+## Phase 4 capture layer additions (2026-07-24)
+- **Pydantic coerces JSON ints to floats** (`list[list[list[float]]]`: `3` → `3.0`). Any
+  canonical-JSON equality check between HTTP-received structures and int-derived
+  expectations must numeric-normalize BOTH sides first (integral float → int), or it
+  fails on formatting, not values. Bit the Phase 4 gameDef enforcement over HTTP while
+  in-process tests (no pydantic) passed.
+- **`LLMCache.from_events` requires `cost_usd` to parse as Decimal** — `None` breaks
+  replay with `decimal.InvalidOperation`. Real providers always set a Decimal; any fake
+  provider in tests must too (`Decimal("0")`), or replay of its runs explodes.
+- **Why:** both were found by the selftest/HTTP smoke pair — in-process tests alone
+  miss serialization-boundary bugs. **How to apply:** always smoke-test enforcement
+  endpoints over real HTTP in addition to direct function calls.

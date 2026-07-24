@@ -137,7 +137,32 @@ def render_prompt(
         if framing not in framings:
             raise ValueError(f"pd-oneshot-v1 requires framing in {sorted(framings)}")
         kwargs["framingLine"] = framings[framing]
+    elif prompt_id.startswith("pd-os-"):
+        # Phase 4 one-shot factorial family: payoff placeholders only (no
+        # history, no horizon). Values come from the gameDef matrix, which the
+        # enforcement layer has already verified against the arm's bindings.
+        pass
+    elif prompt_id.startswith("pd-rep-") or prompt_id.startswith("pd-x2-"):
+        # Phase 4 repeated families (E candidates, community, X2 rungs):
+        # same dynamic surface as the sealed pd-repeated-* templates.
+        delta_pct = protocol.get("deltaPct")
+        if delta_pct is None:
+            raise ValueError(f"{prompt_id} requires protocol.deltaPct")
+        kwargs["deltaPct"] = _pts(delta_pct)
+        kwargs["history"] = _render_history(spec, seat, history, game_def)
     elif prompt_id == "rps-v1":
+        kwargs["numRounds"] = num_rounds
+        kwargs["history"] = _render_history(spec, seat, history, game_def)
+    elif prompt_id == "rps-sym-v1":
+        # D3 neutral-symbol RPS: optList/beatsLine are pinned per-arm
+        # substitutions derived by the enforcement layer from roleMapping /
+        # displayOrder (never client-supplied text).
+        opt_list = protocol.get("optList")
+        beats_line = protocol.get("beatsLine")
+        if not opt_list or not beats_line:
+            raise ValueError("rps-sym-v1 requires pinned optList and beatsLine substitutions")
+        kwargs["optList"] = opt_list
+        kwargs["beatsLine"] = beats_line
         kwargs["numRounds"] = num_rounds
         kwargs["history"] = _render_history(spec, seat, history, game_def)
     else:
@@ -149,8 +174,19 @@ def render_prompt(
         raise ValueError(f"template/param mismatch for {prompt_id}: {e}")
 
     if retry_raw is not None:
-        user = user + spec["retrySuffix"]
+        # Suffixes may carry placeholders (e.g. rps-sym-v1's {optList});
+        # formatting is identity for the sealed Phase 3 suffixes (no braces),
+        # so recorded Phase 3 runs replay byte-identically.
+        try:
+            user = user + spec["retrySuffix"].format(**kwargs)
+        except (KeyError, IndexError) as e:
+            raise ValueError(f"retrySuffix/param mismatch for {prompt_id}: {e}")
     return system, user
+
+
+# Parser identity, stamped on every Phase 4 call record (§F.3 field 9) and
+# re-checked in replay. Bump on ANY change to parse_action semantics.
+PARSER_VERSION = "strip-upper-exact-v1.p4.2026-07-24"
 
 
 def parse_action(registry: dict, prompt_id: str, raw_text: str) -> Optional[int]:

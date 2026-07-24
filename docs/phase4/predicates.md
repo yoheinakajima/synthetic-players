@@ -25,7 +25,7 @@ subject configuration, sealed arm IDs, and verdict rule with all branches. Globa
 - **No pooling with Phase 3.** No Phase 3 row enters any Phase 4 confirmatory test.
 - **Configuration pin.** Primary subject `gpt-4.1` (expected returned revision
   `gpt-4.1-2025-04-14`; a revision change triggers the sentinel alert rule, §Provider
-  packet). Cross-vendor subject `claude-haiku-4-5`. Temperature 0.7, maxTokens 16,
+  packet). Cross-vendor subject `gemini-2.5-flash` (amendment A1, 2026-07-24). Temperature 0.7, maxTokens 16,
   single attempt + one registered retry; replacement policy per arms.json.
 - **Arm IDs** refer to `docs/phase4/arms.json` (sealed); seeds and schedules there.
 

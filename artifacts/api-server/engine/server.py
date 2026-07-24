@@ -18,6 +18,16 @@ from pydantic import BaseModel, Field
 from engine import Engine
 from llm_runner import replay_llm, run_llm
 from llm_subject import load_registry
+from phase4 import (
+    ArmStore,
+    BudgetLedger,
+    PHASE4_PROTOCOL,
+    RESOLUTION_KEYS,
+    self_check,
+    validate_run_request,
+)
+from phase4_runner import dry_run_p4, replay_llm_p4, run_llm_p4, write_resolution
+from strategies import STRATEGIES
 
 DB_PATH = os.environ.get(
     "ENGINE_DB_PATH",
@@ -29,6 +39,44 @@ app = FastAPI(title="ActiveGraph Game Engine", version="1.0.0")
 engine = Engine(DB_PATH)
 # Runs mutate a shared SQLite store; serialize engine operations.
 _lock = threading.Lock()
+
+
+# ── Phase 4 bootstrap (freeze packet §F.3) ──────────────────────────────────
+# The startup self-check recomputes every template sha named by the sealed
+# arms manifest with the Python canonical serializer and compares against the
+# Node-computed values. Any mismatch DISABLES Phase 4 endpoints (503) while
+# leaving sealed Phase 3 endpoints untouched.
+
+def _p4_bootstrap() -> dict[str, Any]:
+    try:
+        registry, _sha = load_registry()
+        store = ArmStore()
+        ledger = BudgetLedger()
+        check = self_check(registry, store)
+        return {"store": store, "ledger": ledger, "check": check}
+    except Exception as e:  # disclosed via /phase4/status, never silent
+        return {
+            "store": None, "ledger": None,
+            "check": {"ok": False, "templatesChecked": 0,
+                      "mismatches": [f"bootstrap failure: {type(e).__name__}: {e}"]},
+        }
+
+
+P4 = _p4_bootstrap()
+print(
+    f"[phase4] startup self-check ok={P4['check']['ok']} "
+    f"templatesChecked={P4['check'].get('templatesChecked', 0)} "
+    f"mismatches={len(P4['check'].get('mismatches', []))}",
+    flush=True,
+)
+
+
+def _p4_ready() -> None:
+    if P4["store"] is None or not P4["check"]["ok"]:
+        raise HTTPException(status_code=503, detail={
+            "error": "Phase 4 endpoints disabled: startup self-check failed",
+            "selfCheck": P4["check"],
+        })
 
 
 class GameDefModel(BaseModel):
@@ -176,6 +224,121 @@ def create_llm_run(body: LlmRunRequest) -> dict[str, Any]:
 def replay_llm_run(run_id: str) -> dict[str, Any]:
     """Pure replay verification: zero live calls, structural."""
     return _guard(replay_llm, engine, run_id)
+
+
+# ── Phase 4 endpoints (§F.3: enforcement, capture, replay) ──────────────────
+
+
+class P4RunRequest(BaseModel):
+    armId: str
+    game: GameDefModel
+    strategy1Slug: str
+    strategy2Slug: str
+    numRounds: int = Field(ge=1, le=200)
+    seed: int = Field(ge=0, le=0xFFFFFFFF)
+    model: str
+    # Protocol constants: clients state them explicitly, the server verifies
+    # against the frozen pins (defaults are the pins for convenience).
+    temperature: float = PHASE4_PROTOCOL["temperature"]
+    maxTokens: int = PHASE4_PROTOCOL["maxTokens"]
+    episodeIndex: Optional[int] = Field(default=None, ge=1)
+    sentinelCheckIndex: Optional[int] = Field(default=None, ge=0)
+    dryRun: bool = False
+
+
+class P4ResolutionRequest(BaseModel):
+    key: str
+    templateId: str
+    note: str = ""
+
+
+@app.get("/phase4/status")
+def phase4_status() -> dict[str, Any]:
+    reg, sha = load_registry()
+    out: dict[str, Any] = {
+        "selfCheck": P4["check"],
+        "registryVersion": reg.get("registryVersion"),
+        "registrySha256": sha,
+        "sealed": not str(reg.get("registryVersion", "")).endswith("-proposed"),
+        "protocol": PHASE4_PROTOCOL,
+    }
+    if P4["ledger"] is not None:
+        out["budget"] = P4["ledger"].totals()
+        out["resolutions"] = {k: P4["ledger"].get_resolution(k) for k in RESOLUTION_KEYS}
+    if P4["store"] is not None:
+        out["armsManifestSha256"] = P4["store"].manifest_sha
+        out["arms"] = len(P4["store"].arms)
+    return out
+
+
+@app.post("/phase4/llm-runs")
+def create_phase4_run(body: P4RunRequest) -> dict[str, Any]:
+    """Phase 4 run against a sealed arm. Everything is enforcement-first:
+    the arm pins template, seeds, model, protocol, and game definition; the
+    request must match or is refused. Live runs additionally require the
+    registry to be sealed (step 3); dryRun renders + hashes with zero events,
+    zero spend, zero provider calls."""
+    _p4_ready()
+    reg, _sha = load_registry()
+    version = str(reg.get("registryVersion", ""))
+    if version.endswith("-proposed") and not body.dryRun:
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                f"registry {version} is not sealed; live Phase 4 runs are refused "
+                "until the step-3 sealing record exists (dryRun is allowed)"
+            ),
+        )
+
+    def _do() -> dict[str, Any]:
+        arm = P4["store"].get(body.armId)
+        pinned = validate_run_request(
+            arm=arm, registry=reg, store=P4["store"], ledger=P4["ledger"],
+            game_def=body.game.model_dump(),
+            strategy1_slug=body.strategy1Slug, strategy2_slug=body.strategy2Slug,
+            num_rounds=body.numRounds, seed=body.seed, model=body.model,
+            temperature=body.temperature, max_tokens=body.maxTokens,
+            episode_index=body.episodeIndex,
+            sentinel_check_index=body.sentinelCheckIndex,
+            known_strategies=set(STRATEGIES),
+        )
+        if body.dryRun:
+            return dry_run_p4(
+                arm=arm, pinned=pinned, game_def=body.game.model_dump(),
+                num_rounds=body.numRounds, seed=body.seed, model=body.model,
+                store=P4["store"],
+            )
+        return run_llm_p4(
+            engine, arm=arm, pinned=pinned, game_def=body.game.model_dump(),
+            strategy1_slug=body.strategy1Slug, strategy2_slug=body.strategy2Slug,
+            num_rounds=body.numRounds, seed=body.seed, model=body.model,
+            episode_index=body.episodeIndex,
+            sentinel_check_index=body.sentinelCheckIndex,
+            store=P4["store"], ledger=P4["ledger"],
+        )
+
+    return _guard(_do)
+
+
+@app.post("/phase4/llm-runs/{run_id}/replay")
+def replay_phase4_run(run_id: str) -> dict[str, Any]:
+    """Extended §F.3 replay: bundle-sha byte-compare, request-body-sha
+    recompute, parsed-action re-derivation. Zero live calls, structurally."""
+    _p4_ready()
+    return _guard(replay_llm_p4, engine, run_id, store=P4["store"])
+
+
+@app.post("/phase4/resolutions")
+def create_phase4_resolution(body: P4ResolutionRequest) -> dict[str, Any]:
+    """Write-once resolution of a RESOLVED-BY-* placeholder (event-sourced
+    first, then the enforcement record). Re-resolution is refused — changing
+    a written resolution is an amendment, not an update."""
+    _p4_ready()
+    return _guard(
+        write_resolution, engine,
+        key=body.key, template_id=body.templateId, note=body.note,
+        ledger=P4["ledger"], store=P4["store"],
+    )
 
 
 if __name__ == "__main__":

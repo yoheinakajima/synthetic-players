@@ -147,3 +147,33 @@ When a pre-set design gate fails by a hair (F stabilization: |Δstay|=0.0512 vs 
 
 ## Freeze-packet pattern
 One generator materializes ALL templates/arms/seeds/schedules with **byte-exact endpoint assertions** (derived artifacts must reproduce sealed originals); manifests are machine-written and prose docs quote manifest values — never hand-copied SHAs, seeds, or counts (a hand-quoted seed range contradicted the sealed manifest and was caught only in review). Append-only guard: hash sealed entries pre/post write with a RECURSIVE canonical serializer (key-whitelist JSON.stringify silently drops nested objects from hashed material) and abort on drift.
+
+## Cross-vendor subject gates (behavioral fit, not just connectivity)
+A cross-vendor candidate must pass a Gate-0-style *behavioral* check under the exact
+frozen protocol before any experimental row: bare-format compliance at the protocol
+token cap on attempt 0, clean stop per a registered cross-vendor stop mapping,
+response IDs + token accounting, and (for hybrid-reasoning models) zero hidden
+reasoning tokens asserted per call.
+
+**Why:** claude-haiku-4-5 accepted the request parameters but could not complete a
+turn at maxTokens=16 (chain-of-thought prose, truncation even at 64 tokens). Its
+rescue-by-retry would have injected the retry suffix into nearly every effective
+stimulus while the primary subject never saw it — a model×stimulus confound that
+silently breaks matched-stimulus designs.
+
+**How to apply:** when a candidate fails behaviorally, escalate with a small logged
+diagnostic (natural reply at a larger cap) and switch candidates via a registered
+amendment rather than forking the elicitation protocol per vendor. Archive the failed
+round's machine report under a new name before rerunning (living report files get
+overwritten), run a fresh gate round for the new candidate, and have the amendment
+state what changed AND what verifiably did not (prompt registry byte-identical, seeds/
+schedule/budgets unchanged), with the verification run before the claim is written.
+
+## Capture honesty: mirror-vs-actual sha seam (2026-07-24)
+Provenance shas of provider requests must be computed TWICE from independent code
+paths: a runner-side mirror (from protocol fields) recorded in the request event, and
+a provider-side actual (from the kwargs really sent) in provider_meta; assert equality
+on every call and hard-abort on divergence. **Why:** a single computation can drift
+from the wire silently — the seam makes capture self-verifying. **How to apply:** any
+new provider adapter must populate `provider_meta.request_body_sha256` from its actual
+sent fields (transport/timeout excluded); replay recomputes the mirror side only.
