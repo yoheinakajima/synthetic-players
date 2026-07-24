@@ -77,3 +77,17 @@ verdicts issue only from the step-8 full replay + adjudication pass.**
 - Stamped: `SHA256SUMS.txt` asset of release `phase4-v3-seal`, fetched from GitHub and verified sha256 `082942c06faf6df88dc5cc74960f0d9eaeb53a8485731ffdae924d02a0706fb9`.
 - Calendars accepting the digest: a.pool.opentimestamps.org, b.pool.opentimestamps.org, a.pool.eternitywall.com, ots.btc.catallaxy.com.
 - Proof committed at `docs/phase4/SHA256SUMS.txt.ots` and attached to the release as an additional asset (addition only; no sealed asset modified). Status: **pending** Bitcoin attestation — run `ots upgrade docs/phase4/SHA256SUMS.txt.ots` after ~24h, then `ots verify` against the release asset. Tooling note: client run with an OpenSSL-3 `LD_PRELOAD` workaround (does not affect proof bytes).
+
+## Pre-dispatch code review (2026-07-24, before any live call)
+An independent reviewer audited the dispatch driver and adjudicator against the
+frozen predicates before first live dispatch. Findings fixed (no live data
+existed yet, so no result is affected): (1) anomaly freezes now always persist
+the frozen flag; (2) at-most-once dispatch guard — an inflight marker is
+persisted before every live POST and must be resolved via event-store
+reconciliation after any ambiguous interruption; (3) finish_reason comparison
+made case-insensitive (Gemini reports the enum name `STOP`; OpenAI `stop`);
+(4) reverse-ladder span indexing corrected to the sealed definition (R_i =
+spans 1..i reverted ⇒ the gap at position i isolates span i in both ladders —
+the earlier draft inverted reverse indices; screening had not yet run);
+(5) sentinel check-0 baseline made write-once on disk. Dry-all re-validated
+after these fixes.

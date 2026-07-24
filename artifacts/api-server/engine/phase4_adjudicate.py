@@ -7,8 +7,10 @@ full replay pass; these are the registered interim per-block reports.
 
 Modes:
   --scan BLOCK       integrity scan: returned model identifiers vs sealed
-                     expectation, finish_reason == stop, retries, invalid
-                     trials, episode coverage vs schedule, X2 horizon parity.
+                     expectation, finish_reason == stop (case-insensitive;
+                     Gemini reports the enum name 'STOP'), retries, invalid
+                     trials (both escalated to ALERT b inside sentinel cells),
+                     episode coverage vs schedule, X2 horizon parity.
   --sentinel K       per-cell fingerprints for check K. K=0 writes the sealed
                      baseline (docs/phase4/sentinel-baseline.json + .md);
                      K>0 evaluates frozen alert rule (c) against the baseline.
@@ -114,15 +116,22 @@ def scan(block: str) -> int:
     retried = invalid = 0
     for rid, r in sel.items():
         exp = EXPECTED_MODEL.get(r["model"])
+        in_sentinel = r.get("sentinelCheckIndex") is not None
         for resp in r["responded"]:
             if resp["model"] != exp:
                 anomalies.append(f"{rid}: returned model {resp['model']!r} != sealed {exp!r} (ALERT a)")
-            if resp["finish"] != "stop":
-                anomalies.append(f"{rid}: finish_reason {resp['finish']!r} != stop")
-            if resp["attempt"]:
+            # case-insensitive: OpenAI reports 'stop', Gemini the enum name 'STOP'
+            if (resp["finish"] or "").lower() != "stop":
+                anomalies.append(f"{rid}: finish_reason {resp['finish']!r} != stop"
+                                 + (" (ALERT b: sentinel cell)" if in_sentinel else ""))
+            if resp["attempt"]:  # attempt is 0-based; >0 means a retry fired
                 retried += 1
+                if in_sentinel:
+                    anomalies.append(f"{rid}: retry (attempt {resp['attempt']}) in sentinel cell (ALERT b)")
         if r["invalid"]:
             invalid += 1
+            if in_sentinel:
+                anomalies.append(f"{rid}: invalidated trial in sentinel cell (ALERT b)")
         ec = r.get("engineCommit") or {}
         if ec.get("dirty") is not False:
             anomalies.append(f"{rid}: engineCommit dirty flag {ec}")
@@ -200,6 +209,11 @@ def sentinel(k: int) -> int:
             }
 
     if k == 0:
+        if os.path.exists(BASELINE_JSON):
+            print(f"REFUSING to overwrite sealed baseline {BASELINE_JSON} — "
+                  "the check-0 baseline is write-once; changing it requires a "
+                  "registered amendment (delete the file only under one)")
+            return 1
         doc = {
             "definition": FINGERPRINT_DEF, "checkIndex": 0,
             "sealedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -307,7 +321,10 @@ def x2_screening() -> int:
             if lo_r not in means or hi_r not in means:
                 raise SystemExit(f"missing rung mean for {lo_r} or {hi_r}")
             delta = means[hi_r] - means[lo_r]
-            span = pos if ladder == "forward" else 7 - pos
+            # Sealed rung definitions (x2-diff-packet.md): Forward F_i = spans
+            # 1..i applied; Reverse R_i = spans 1..i reverted. In BOTH ladders
+            # the adjacent gap at position i therefore isolates span i.
+            span = pos
             gaps.append({"ladder": ladder, "position": pos, "spanIndex": span,
                          "pair": [lo_r, hi_r], "delta": round(delta, 4), "absDelta": round(abs(delta), 4)})
 

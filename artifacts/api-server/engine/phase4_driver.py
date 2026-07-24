@@ -288,6 +288,12 @@ def act_dry_all(state: dict, store: ArmStore, registry: dict, schedule: dict) ->
 
 
 def _live(state: dict, body: dict, key: str) -> dict:
+    # At-most-once guard: persist an inflight marker BEFORE the POST. If the
+    # process dies between response receipt and state save, startup sees the
+    # marker and demands --reconcile instead of silently re-dispatching.
+    state["inflight"] = {"key": key,
+                         "at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    save_state(state)
     resp = http_json("POST", "/phase4/llm-runs", body)
     meta = resp.get("meta", {})
     if not state.get("_commit_checked"):
@@ -303,6 +309,7 @@ def _live(state: dict, body: dict, key: str) -> dict:
         "inputTokens": meta.get("inputTokens"),
         "outputTokens": meta.get("outputTokens"),
     }
+    state.pop("inflight", None)
     save_state(state)
     return resp
 
@@ -407,6 +414,40 @@ def reconcile(state: dict) -> None:
             state["runs"][key] = {"engineRunId": run_id, "seed": r.get("seed"),
                                   "invalidTrial": r["invalid"], "reconciled": True}
             recovered += 1
+
+    # Resolve an unresolved inflight marker (at-most-once recovery).
+    inflight = state.get("inflight")
+    if inflight:
+        key = inflight["key"]
+        if key in state["runs"]:
+            print(f"reconcile: inflight {key!r} FOUND completed/invalidated in the "
+                  "event store — recorded; marker cleared", flush=True)
+            state.pop("inflight", None)
+        else:
+            # A partial run (llm.requested without run.completed/trial.invalidated)
+            # matching the inflight identity means spend may exist server-side.
+            # Sentinel keys lack the seed until llm.responded, so match on cell.
+            def _matches(r: dict) -> bool:
+                if "armId" not in r or r["completed"] or r["invalid"]:
+                    return False
+                if key.startswith("sent"):
+                    k, arm_id, model, _seed = key.split("|")
+                    return (r.get("sentinelCheckIndex") == int(k[4:])
+                            and r.get("armId") == arm_id and r.get("model") == model)
+                blk, arm_id, ep = key.split("|")
+                return (r.get("block") == blk and r.get("armId") == arm_id
+                        and f"ep{r.get('episodeIndex')}" == ep)
+            partials = [rid for rid, r in by_run.items() if _matches(r)]
+            if partials:
+                print(f"reconcile: inflight {key!r} matches PARTIAL run(s) {partials} "
+                      "(requested but never completed/invalidated) — spend may exist; "
+                      "marker KEPT: investigate the engine event store and budget "
+                      "ledger manually before clearing", flush=True)
+            else:
+                print(f"reconcile: inflight {key!r} has no trace in the event store — "
+                      "request never reached the engine; marker cleared, safe to resume",
+                      flush=True)
+                state.pop("inflight", None)
     save_state(state)
     print(f"reconcile: {recovered} runs recovered from the event store "
           f"({len(state['runs'])} total known)", flush=True)
@@ -431,6 +472,13 @@ def main() -> None:
               flush=True)
         raise SystemExit(1)
 
+    if state.get("inflight"):
+        print(f"UNRESOLVED INFLIGHT DISPATCH: {json.dumps(state['inflight'])}\n"
+              "a live request may have completed server-side without being recorded; "
+              "run with --reconcile (event-store recovery) before resuming — never redispatch blindly",
+              flush=True)
+        raise SystemExit(1)
+
     plan = load_json(PLAN_PATH, None)
     if not plan or "actions" not in plan:
         print(f"no plan at {PLAN_PATH} — nothing to do; holding", flush=True)
@@ -441,24 +489,29 @@ def main() -> None:
     registry, _sha = load_registry()
     schedule = json.load(open(SCHEDULE_PATH))
 
-    for action in plan["actions"]:
-        if state["done"].get(action):
-            continue
-        print(f"=== action: {action} ===", flush=True)
-        if action == "preflight":
-            act_preflight(state, store, registry, schedule)
-        elif action == "dry-all":
-            act_dry_all(state, store, registry, schedule)
-        elif action.startswith("sentinel:"):
-            act_sentinel(state, store, registry, int(action.split(":")[1]))
-        elif action.startswith("block:"):
-            act_block(state, store, registry, schedule, action.split(":", 1)[1])
-        elif action == "hold":
-            act_hold()
-        else:
-            freeze(state, f"unknown plan action {action!r}")
-        state["done"][action] = True
-        save_state(state)
+    try:
+        for action in plan["actions"]:
+            if state["done"].get(action):
+                continue
+            print(f"=== action: {action} ===", flush=True)
+            if action == "preflight":
+                act_preflight(state, store, registry, schedule)
+            elif action == "dry-all":
+                act_dry_all(state, store, registry, schedule)
+            elif action.startswith("sentinel:"):
+                act_sentinel(state, store, registry, int(action.split(":")[1]))
+            elif action.startswith("block:"):
+                act_block(state, store, registry, schedule, action.split(":", 1)[1])
+            elif action == "hold":
+                act_hold()
+            else:
+                freeze(state, f"unknown plan action {action!r}")
+            state["done"][action] = True
+            save_state(state)
+    except DriverFreeze as e:
+        # Every anomaly path must PERSIST the frozen flag (freeze() raises
+        # SystemExit, which this except does not swallow).
+        freeze(state, str(e))
     act_hold()
 
 
