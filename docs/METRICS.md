@@ -91,3 +91,13 @@ Claim verdict: `refuted` if any item is refuted; else `untested` if any item
 lacks evidence; else `inconclusive` if any item is inconclusive; else
 `supported`. Claims without a structured predicate are `untested` by
 definition — an uncheckable claim never gets called supported.
+
+## Fork exclusion rule
+
+Fork-lineage experiments (`parentExperimentId` set) are **exploratory, never
+evidence**. A fork's history is a hybrid — parent prefix plus post-fork suffix,
+possibly with a swapped strategy — so its whole-run metrics are not a clean
+sample of the labeled matchup. Enforced in four places: forks cannot receive
+analysis rows, the adjudicator's evidence loader skips them, the aggregate
+endpoint excludes them, and the strategy leaderboard ignores them. Forks are
+studied through the engine's parent-vs-fork diff view instead.

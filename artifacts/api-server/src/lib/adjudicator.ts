@@ -155,6 +155,11 @@ async function loadEvidence(): Promise<EvidenceRow[]> {
 
   const rows: EvidenceRow[] = [];
   for (const exp of experiments) {
+    // Fork-lineage experiments are exploratory, never evidence: a fork's
+    // history is a hybrid (parent prefix + post-fork suffix, possibly with a
+    // swapped strategy), so its whole-run metrics are not a clean sample of
+    // the labeled matchup.
+    if (exp.parentExperimentId != null) continue;
     const analysis = analysisByExp.get(exp.id);
     if (!analysis || analysis.analysisVersion < 2 || !analysis.metricsJson) continue;
     let flat: Record<string, number>;

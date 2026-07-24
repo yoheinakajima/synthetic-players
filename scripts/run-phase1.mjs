@@ -29,8 +29,10 @@ const log = (...args) => console.log(new Date().toISOString().slice(11, 19), ...
 
 // ── Step 1: recompute v2 analyses for all completed experiments ────────────
 async function recomputeAnalyses() {
-  const experiments = await api("/experiments?status=completed");
-  log(`Step 1: recomputing v2 analyses for ${experiments.length} completed experiments`);
+  const all = await api("/experiments?status=completed");
+  // Fork-lineage experiments are exploratory — they never get analyses.
+  const experiments = all.filter((e) => e.parentExperimentId == null);
+  log(`Step 1: recomputing v2 analyses for ${experiments.length} completed experiments (${all.length - experiments.length} forks skipped)`);
   let ok = 0, failed = 0;
   for (const exp of experiments) {
     try {
@@ -54,9 +56,12 @@ async function runBatches() {
   const stratById = new Map(strategies.map((s) => [s.id, s]));
   const gameById = new Map(games.map((g) => [g.id, g]));
 
-  // Distinct matchups involving ≥1 probabilistic strategy (unordered pair)
+  // Distinct matchups involving ≥1 probabilistic strategy (unordered pair).
+  // Forks are skipped: a fork's strategy pairing is a what-if, not a
+  // deliberately chosen matchup, and must not silently expand batch scope.
   const seen = new Map();
   for (const exp of experiments) {
+    if (exp.parentExperimentId != null) continue;
     const s1 = stratById.get(exp.player1StrategyId);
     const s2 = stratById.get(exp.player2StrategyId);
     if (!s1 || !s2) continue;

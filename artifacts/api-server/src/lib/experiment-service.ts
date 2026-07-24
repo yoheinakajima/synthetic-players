@@ -158,6 +158,13 @@ export async function analyzeExperiment(expId: number): Promise<typeof analysesT
   const [exp] = await db.select().from(experimentsTable).where(eq(experimentsTable.id, expId));
   if (!exp) throw new Error(`Experiment ${expId} not found`);
   if (exp.status !== "completed") throw new Error(`Experiment ${expId} is not completed`);
+  // Service-level guard (route also rejects): fork-lineage experiments are
+  // exploratory hybrids and must never receive analysis rows — analyses are
+  // the evidence pool for claim adjudication.
+  if (exp.parentExperimentId != null)
+    throw new Error(
+      `Experiment ${expId} is a fork — forks are exploratory and excluded from evidence`
+    );
 
   const [game] = await db.select().from(gamesTable).where(eq(gamesTable.id, exp.gameId));
   const [p1Strat] = await db

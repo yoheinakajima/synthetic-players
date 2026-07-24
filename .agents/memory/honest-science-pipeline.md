@@ -27,3 +27,14 @@ creation time, a mechanical adjudication endpoint, seeds stored on every run,
 replicate batches for anything random, and an errata/postmortem section that
 ships with the output. Deterministic evidence (sd=0) gets exact comparison;
 sampled evidence gets CI-vs-threshold.
+
+**Fork/counterfactual runs are not evidence.** What-if runs (forked histories,
+mid-run strategy swaps) have hybrid histories — exclude them from every
+evidence surface (analyses, aggregates, leaderboards, adjudication) and study
+them via paired parent-vs-fork comparison over the shared post-fork window.
+
+**Merges can silently undo honesty constraints.** A parallel branch's codegen
+regenerated from an older spec re-added a removed "author can set verdict"
+field; the runtime guard held, but spec and generated types contradicted it.
+After any merge, re-verify honesty-critical schema constraints and re-run
+codegen from the merged spec.

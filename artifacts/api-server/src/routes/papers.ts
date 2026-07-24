@@ -61,6 +61,11 @@ router.post("/papers", async (req, res): Promise<void> => {
     .from(experimentsTable)
     .where(eq(experimentsTable.status, "completed"));
 
+  // Papers are evidence documents: fork-lineage runs (hybrid what-if
+  // histories) are excluded from counts, matchup aggregates, and
+  // experimentsJson alike.
+  experiments = experiments.filter((e) => e.parentExperimentId == null);
+
   const gameIds = parsed.data.gameIds ?? [];
   if (gameIds.length > 0) {
     experiments = experiments.filter((e) => gameIds.includes(e.gameId));

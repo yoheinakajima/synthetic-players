@@ -1683,7 +1683,7 @@ export const getUpdateClaimUrl = (id: number,) => {
 }
 
 /**
- * @summary Update a claim's status or evidence
+ * @summary Update a claim's text, predicate, or evidence links (verdicts are machine-assigned)
  */
 export const updateClaim = async (id: number,
     claimUpdate: ClaimUpdate, options?: RequestInit): Promise<Claim> => {
@@ -1733,7 +1733,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type UpdateClaimMutationError = ErrorType<void>
 
     /**
- * @summary Update a claim's status or evidence
+ * @summary Update a claim's text, predicate, or evidence links (verdicts are machine-assigned)
  */
 export const useUpdateClaim = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateClaim>>, TError,{id: number;data: BodyType<ClaimUpdate>}, TContext>, request?: SecondParameter<typeof customFetch>}

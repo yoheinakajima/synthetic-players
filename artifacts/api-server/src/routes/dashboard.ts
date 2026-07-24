@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { eq, count, avg, sql } from "drizzle-orm";
+import { eq, and, isNull, count, avg, sql } from "drizzle-orm";
 import {
   db,
   experimentsTable,
@@ -45,13 +45,19 @@ router.get("/dashboard/stats", async (_req, res): Promise<void> => {
 
   const [paperStats] = await db.select({ total: count() }).from(papersTable);
 
+  // Averages are evidence-like: exclude exploratory fork runs.
   const [avgStats] = await db
     .select({
       avgNashDev: avg(experimentsTable.nashDeviationScore),
       avgCoop: avg(experimentsTable.cooperationRate),
     })
     .from(experimentsTable)
-    .where(eq(experimentsTable.status, "completed"));
+    .where(
+      and(
+        eq(experimentsTable.status, "completed"),
+        isNull(experimentsTable.parentExperimentId)
+      )
+    );
 
   res.json(
     GetDashboardStatsResponse.parse({
@@ -76,6 +82,9 @@ router.get("/dashboard/strategy-leaderboard", async (_req, res): Promise<void> =
 
   const rows = await Promise.all(
     strategies.map(async (strat) => {
+      // Leaderboard is an evidence surface: fork-lineage runs are excluded —
+      // a fork's totals span a hybrid history that would be misattributed
+      // to the post-swap strategy.
       const p1Exps = await db
         .select({
           payoff: experimentsTable.player1TotalPayoff,
@@ -84,7 +93,12 @@ router.get("/dashboard/strategy-leaderboard", async (_req, res): Promise<void> =
           rounds: experimentsTable.numRounds,
         })
         .from(experimentsTable)
-        .where(eq(experimentsTable.player1StrategyId, strat.id));
+        .where(
+          and(
+            eq(experimentsTable.player1StrategyId, strat.id),
+            isNull(experimentsTable.parentExperimentId)
+          )
+        );
 
       const p2Exps = await db
         .select({
@@ -94,7 +108,12 @@ router.get("/dashboard/strategy-leaderboard", async (_req, res): Promise<void> =
           rounds: experimentsTable.numRounds,
         })
         .from(experimentsTable)
-        .where(eq(experimentsTable.player2StrategyId, strat.id));
+        .where(
+          and(
+            eq(experimentsTable.player2StrategyId, strat.id),
+            isNull(experimentsTable.parentExperimentId)
+          )
+        );
 
       const allExps = [...p1Exps, ...p2Exps].filter(
         (e) => e.payoff != null && e.nashDev != null
@@ -156,7 +175,10 @@ router.get("/dashboard/game-summaries", async (_req, res): Promise<void> => {
         .from(experimentsTable)
         .where(eq(experimentsTable.gameId, game.id));
 
-      const completed = exps.filter((e) => e.status === "completed");
+      // Evidence surface: exclude exploratory fork-lineage runs.
+      const completed = exps.filter(
+        (e) => e.status === "completed" && e.parentExperimentId == null
+      );
       const coopExps = completed.filter((e) => e.cooperationRate != null);
       const nashExps = completed.filter((e) => e.nashDeviationScore != null);
 

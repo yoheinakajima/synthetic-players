@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { eq, and } from "drizzle-orm";
+import { eq, and, isNull } from "drizzle-orm";
 import { db, analysesTable, experimentsTable } from "@workspace/db";
 import {
   GetAnalysisParams,
@@ -27,7 +27,11 @@ router.get("/analyses/aggregate", async (req, res): Promise<void> => {
     return;
   }
 
-  const conditions = [eq(experimentsTable.status, "completed")];
+  // Aggregates are evidence: exclude fork-lineage experiments (hybrid histories).
+  const conditions = [
+    eq(experimentsTable.status, "completed"),
+    isNull(experimentsTable.parentExperimentId),
+  ];
   if (query.data.gameId != null) conditions.push(eq(experimentsTable.gameId, query.data.gameId));
   if (query.data.player1StrategyId != null)
     conditions.push(eq(experimentsTable.player1StrategyId, query.data.player1StrategyId));
@@ -119,6 +123,17 @@ router.post("/experiments/:experimentId/analysis", async (req, res): Promise<voi
 
   if (exp.status !== "completed") {
     res.status(400).json({ error: "Experiment must be completed before analysis" });
+    return;
+  }
+
+  // Forks are exploratory what-if runs with hybrid histories. They get the
+  // engine's diff view, but never an analysis row — analyses are evidence,
+  // and fork metrics would contaminate claim adjudication and aggregates.
+  if (exp.parentExperimentId != null) {
+    res.status(400).json({
+      error:
+        "Fork experiments are exploratory and excluded from evidence. Use the parent-vs-fork diff view instead.",
+    });
     return;
   }
 

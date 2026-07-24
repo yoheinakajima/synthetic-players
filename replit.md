@@ -49,6 +49,7 @@ A public academic research platform that runs classic game theory experiments, r
 - **Honesty pipeline (v2):** claims carry `predicateJson`; `POST /claims/adjudicate-all` assigns supported/refuted/inconclusive/untested mechanically (95% t-CI vs threshold for sampled evidence, exact comparison for deterministic). Claims without predicates are `untested`. Verdicts are never hand-set; refuted claims stay on the record
 - **Per-class metrics (v2):** analysisVersion 2 + metricsJson; cooperation metrics null for zero-sum games (exploitability + G-test instead); per-round "Nash rate" null for mixed-equilibrium games. UI panels are class-aware
 - **Presentation rule:** UI and paper lead with per-round averages; totals always labeled as totals
+- **Fork exclusion rule:** fork-lineage experiments (parentExperimentId set) are exploratory, never evidence — no analysis rows, skipped by the adjudicator, aggregate endpoint, and leaderboard. Study forks via the parent-vs-fork diff view. Only engine-era experiments (with engineRunId) are forkable; pre-engine runs would need a seeded re-run to backfill engineRunId
 
 ## Product
 

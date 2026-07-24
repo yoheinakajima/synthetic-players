@@ -18,7 +18,6 @@ export * from './claim';
 export * from './claimInput';
 export * from './claimStatus';
 export * from './claimUpdate';
-export * from './claimUpdateStatus';
 export * from './dashboardStats';
 export * from './diffRoundPoint';
 export * from './diffSummary';

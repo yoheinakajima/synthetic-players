@@ -725,7 +725,7 @@ export const GetClaimResponse = zod.object({
 
 
 /**
- * @summary Update a claim's status or evidence
+ * @summary Update a claim's text, predicate, or evidence links (verdicts are machine-assigned)
  */
 export const UpdateClaimParams = zod.object({
   "id": zod.coerce.number()
@@ -734,7 +734,6 @@ export const UpdateClaimParams = zod.object({
 export const UpdateClaimBody = zod.object({
   "title": zod.string().optional(),
   "statement": zod.string().optional(),
-  "status": zod.enum(['hypothesis', 'supported', 'refuted', 'inconclusive', 'untested']).optional(),
   "evidenceSummary": zod.string().optional(),
   "linkedAnalysisId": zod.number().nullish(),
   "predicateJson": zod.string().optional().describe('JSON-encoded structured predicate for mechanical adjudication')

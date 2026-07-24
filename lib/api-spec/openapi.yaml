@@ -486,7 +486,7 @@ paths:
     patch:
       operationId: updateClaim
       tags: [claims]
-      summary: Update a claim's status or evidence
+      summary: Update a claim's text, predicate, or evidence links (verdicts are machine-assigned)
       parameters:
         - name: id
           in: path
@@ -1015,9 +1015,6 @@ components:
           type: string
         statement:
           type: string
-        status:
-          type: string
-          enum: [hypothesis, supported, refuted, inconclusive, untested]
         evidenceSummary:
           type: string
         linkedAnalysisId:

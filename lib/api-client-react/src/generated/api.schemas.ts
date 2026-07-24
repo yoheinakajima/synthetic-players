@@ -282,24 +282,12 @@ export interface ClaimInput {
   predicateJson?: string;
 }
 
-export type ClaimUpdateStatus = typeof ClaimUpdateStatus[keyof typeof ClaimUpdateStatus];
-
-
-export const ClaimUpdateStatus = {
-  hypothesis: 'hypothesis',
-  supported: 'supported',
-  refuted: 'refuted',
-  inconclusive: 'inconclusive',
-  untested: 'untested',
-} as const;
-
 /**
  * Claim status is intentionally NOT updatable here — verdicts are machine-assigned via the adjudication endpoints only.
  */
 export interface ClaimUpdate {
   title?: string;
   statement?: string;
-  status?: ClaimUpdateStatus;
   evidenceSummary?: string;
   /** @nullable */
   linkedAnalysisId?: number | null;
