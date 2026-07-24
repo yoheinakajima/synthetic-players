@@ -37,8 +37,13 @@ PHASE4_PROTOCOL = {"temperature": 0.7, "maxTokens": 16, "topP": 1.0}
 SUBJECT_MODELS = ("gpt-4.1", "gemini-2.5-flash")  # primary, cross (amendment A1)
 
 # Frozen kill-switch caps (budget.md — engine-enforced, sign-off §10).
+# Overhead cap amended 900 → 1_000 on 2026-07-24 (docs/phase4/
+# budget-amendments.md A-OVH-1): operator-approved doubled sentinel cadence
+# after alert 5 ("the extra sentinel spend is approved" — sentinel-alert-5-
+# memo.md §Decision). budget.md itself is sealed and byte-untouched; the
+# global cap is unchanged.
 GLOBAL_CAP = 21_000
-CAP_GROUPS = {"D": 4_300, "E": 1_800, "X2": 2_700, "F": 11_600, "overhead": 900}
+CAP_GROUPS = {"D": 4_300, "E": 1_800, "X2": 2_700, "F": 11_600, "overhead": 1_000}
 BLOCK_TO_GROUP = {
     "D1": "D", "D2": "D", "D3": "D",
     "E": "E",
@@ -398,6 +403,17 @@ def resolve_template_id(arm: dict, ledger: BudgetLedger) -> tuple[str, Optional[
     write-once resolution record (written to the event store first)."""
     tid = arm["templateId"]
     if not tid.startswith("RESOLVED-BY"):
+        if arm["block"] == "sentinel" and arm["armId"] == "p4-sent-fallback":
+            # Sealed sentinel spec (arms.json bindings note; predicates.md
+            # §sentinel): the third cell "switches to the D-selected
+            # representation once written to the event store; sealed fallback
+            # before". Ledger-state-driven — never request-driven. Implemented
+            # 2026-07-24 under sentinel-alert-5-memo.md §Decision (the switch
+            # was pre-committed in sealed text but present in neither
+            # enforcement nor dispatch — provenance-notes.md, instance 5).
+            res = ledger.get_resolution("E-dselected")
+            if res is not None:
+                return res["templateId"], "E-dselected"
         return tid, None
     if arm["block"] == "E":
         key = "E-dselected"

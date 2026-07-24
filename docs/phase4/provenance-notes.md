@@ -340,3 +340,55 @@ Interpretation deferred to step 8 per the frozen order. Sentinel check 2
 (post-D1/pre-D2): zero alerts; all six cell modal fingerprints within the
 sealed ±2 drift tolerance of baseline (rule (c) threshold is ≥3). Block D2
 staged and dispatched on the same verified-clean HEAD.
+
+## Sentinel alert check 5 → operator decision + resumption tooling (2026-07-24)
+
+First sentinel alert of the phase: check 5 (post-X2-confirmation,
+pre-resolution), frozen rule (c), cell p4-sent-v2a × gemini-2.5-flash count
+7/10 vs sealed baseline 10/10 (Δ=3, at threshold). Retrospective trajectory
+10→9→9→8→8→7 across checks 0–5, each prior check individually within
+tolerance; deviants are clean valid defect choices; rules (a)/(b) never fired.
+Boundary frozen per the sealed rule (driver stopped; no E-resolution write, no
+E dispatch); decision memo committed pre-decision (sentinel-alert-5-memo.md);
+operator selected Option 1 with four riders, transcribed verbatim in the memo
+§Decision. First-class writeup: sentinel-drift-result.md (rider 4).
+
+Resumption tooling, registered before any post-freeze dispatch:
+- adjudicator: gemini-only checks {7, 9} (doubled gemini cadence, rider 2);
+  write-once re-baseline record sentinel-rebaseline.json written by
+  --sentinel 6 only on a zero-alert check (rider 1: fresh pre-E read, not the
+  check-5 snapshot; no timestamp, so byte-identical regeneration at replay is
+  well-defined); rule (c) for the three re-baselined cells compares to the
+  check-6 record from check 7 on, fail-closed if the record is missing;
+  drifted-cell original-baseline trajectory reported descriptively at every
+  subsequent check (rider 3); per-cell templateId verification against
+  llm.requested stamps (fail-closed); --selftest-sentinel6 covers the
+  evaluation logic.
+- driver: sentinelg:K plan action (gemini-only checks); block:NAME:h1/h2
+  dispatch partition for mid-block checks (sealed episode order and run keys
+  unchanged — a pure dispatch split); third-cell template switch at dispatch
+  via the engine's write-once resolutions.
+- engine: resolve_template_id now implements the sealed third-cell switch
+  ("D-selected once written; sealed fallback before") for p4-sent-fallback,
+  ledger-state-driven, never request-driven. This switch was pre-committed in
+  sealed text (arms.json bindings notes; predicates.md sentinel section) but
+  implemented in neither enforcement nor dispatch — the FIFTH
+  sealed-text-vs-implementation instance (operator's running count: the
+  schedule-block and driver gaps were third and fourth). The freeze-time
+  completeness linter remains on the backlog.
+- regime indexing (rider 3), pre-committed before any E/F outcome exists:
+  R1 = gemini data through the check-5 era (D battery, X2); R2 =
+  post-re-baseline (E, F). Step-8 gemini reporting is per-regime;
+  within-regime contrasts stand alone; cross-regime comparisons carry the
+  drift qualification.
+
+Sentinel cadence map for the remainder: 6 full (pre-E; baseline-setting read
+for the three re-baselined cells), 7 gemini-only (mid-E), 8 full
+(post-E/pre-F), 9 gemini-only (mid-F), 10 full (post-F). Overhead arithmetic
+at registration: live spend 735/900 (engine ledger); the base cadence
+remainder (checks 6/8/10 = 180 calls) already projects 915 > 900 — the sealed
+overhead figure under-provisioned the realized boundary-check count
+independent of the riders (disclosed here rather than absorbed silently) —
+and the rider-2 checks add 60 → 975. Registered amendment A-OVH-1
+(budget-amendments.md): overhead cap 900 → 1,000, engine-enforced in the same
+commit; budget.md sealed and byte-untouched; global cap unchanged.

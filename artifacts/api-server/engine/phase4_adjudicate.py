@@ -49,6 +49,19 @@ EXPECTED_MODEL = {
     "gemini-2.5-flash": "gemini-2.5-flash",
 }
 SENTINEL_ARMS = ["p4-sent-v1", "p4-sent-v2a", "p4-sent-fallback"]
+
+# Post-alert-5 monitoring regime (sentinel-alert-5-memo.md §Decision,
+# operator sign-off 2026-07-24 — registered before any post-freeze dispatch).
+REBASELINE_JSON = os.path.join(DOCS, "sentinel-rebaseline.json")
+REBASELINE_CHECK = 6            # pre-E full check = baseline-setting read
+GEMINI_ONLY_CHECKS = {7, 9}     # doubled gemini cadence: mid-E, mid-F (rider 2)
+DRIFTED_CELL = "p4-sent-v2a|gemini-2.5-flash"
+REBASELINE_CELLS = {            # cells taking fresh baselines at check 6
+    DRIFTED_CELL,                         # rider 1
+    "p4-sent-fallback|gpt-4.1",           # third-cell template switch at the
+    "p4-sent-fallback|gemini-2.5-flash",  # E-resolution write (pre-committed)
+}
+FALLBACK_SEALED_TID = "pd-os-w1-neu-cf-ad"
 SUBJECT_MODELS = ["gpt-4.1", "gemini-2.5-flash"]
 
 # X1 ladder endpoints (sealed Phase 3 batches; d90, seeds 1–10 subset)
@@ -192,7 +205,74 @@ FINGERPRINT_DEF = (
 )
 
 
+def _sentinel_templates(fp: dict, k: int) -> str | None:
+    """Fail-closed per-cell template verification from llm.requested stamps.
+    v1/v2a are fixed for all k. The third cell must carry the sealed fallback
+    before the E-resolution and the resolved (D-selected) template from check
+    6 on — the sealed switch rule, enforced engine-side; this is the offline
+    recheck. Returns an error string or None."""
+    import sqlite3
+    expected = {"p4-sent-v1": "pd-repeated-v1", "p4-sent-v2a": "pd-repeated-v2a"}
+    if k >= REBASELINE_CHECK:
+        p = os.path.join(DOCS, "e-selection-report.json")
+        if not os.path.exists(p):
+            return ("sentinel k>=6 requires docs/phase4/e-selection-report.json "
+                    "(the E resolution record) — fail-closed")
+        expected["p4-sent-fallback"] = json.load(open(p))["selected"]["templateId"]
+    else:
+        expected["p4-sent-fallback"] = FALLBACK_SEALED_TID
+    db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+    try:
+        for key, v in fp.items():
+            arm_id = key.split("|")[0]
+            ids = v["runIds"]
+            q = ("SELECT DISTINCT json_extract(payload,'$.templateId') FROM events "
+                 f"WHERE type='llm.requested' AND run_id IN ({','.join('?' * len(ids))})")
+            tids = {t for (t,) in db.execute(q, ids)}
+            if tids != {expected[arm_id]}:
+                return (f"cell {key}: templateId stamps {sorted(map(str, tids))} != expected "
+                        f"['{expected[arm_id]}'] for check {k} — fail-closed")
+    finally:
+        db.close()
+    return None
+
+
+def _sentinel_eval(fp: dict, base_cells: dict, rebase: dict | None, k: int) -> tuple[list, list]:
+    """Pure frozen-rule evaluation (covered by --selftest-sentinel6). Rule (c)
+    reference: sealed check-0 baseline for every cell, EXCEPT the three
+    REBASELINE_CELLS (memo §Decision): at k==6 they are baseline-setting reads
+    (no (c) comparison; rules (a)/(b) unaffected), and from k>=7 they compare
+    against the write-once check-6 record — fail-closed if it is missing. The
+    drifted cell's original-baseline delta is additionally reported
+    descriptively at every k>=7 (rider 3 disclosure)."""
+    alerts, notes = [], []
+    for key, v in fp.items():
+        ref, tag = base_cells.get(key), "baseline"
+        if key in REBASELINE_CELLS and k == REBASELINE_CHECK:
+            notes.append(f"{key}: baseline-setting read at check {k} — no rule-(c) comparison "
+                         f"(fingerprint modal={v['modalAction']} count={v['count']}; memo §Decision)")
+            ref = None
+        elif key in REBASELINE_CELLS and k > REBASELINE_CHECK:
+            cells6 = (rebase or {}).get("cells", {})
+            if key not in cells6:
+                alerts.append(f"{key}: no check-6 re-baseline on record at check {k} — fail-closed")
+                continue
+            ref, tag = cells6[key], "re-baseline@6"
+        if ref is not None:
+            if abs(v["count"] - ref["count"]) >= 3:
+                alerts.append(f"{key}: count {v['count']} vs {tag} {ref['count']} (Δ≥3 — ALERT c)")
+            if v["modalAction"] != ref["modalAction"]:
+                notes.append(f"{key}: modal action flipped {ref['modalAction']} → {v['modalAction']} "
+                             f"(counts {ref['count']} → {v['count']}; disclosed, not an alert under the frozen rule)")
+        if key == DRIFTED_CELL and k > REBASELINE_CHECK and key in base_cells:
+            notes.append(f"{key}: descriptive trajectory vs ORIGINAL sealed baseline: "
+                         f"count {v['count']} vs {base_cells[key]['count']} (disclosure per "
+                         "memo §Decision rider 3; not an alert basis after re-baseline)")
+    return alerts, notes
+
+
 def sentinel(k: int) -> int:
+    models = ["gemini-2.5-flash"] if k in GEMINI_ONLY_CHECKS else SUBJECT_MODELS
     runs = load_phase4_runs()
     cells: dict[str, dict] = {}
     for rid, r in runs.items():
@@ -207,7 +287,7 @@ def sentinel(k: int) -> int:
 
     fp: dict[str, dict] = {}
     for arm_id in SENTINEL_ARMS:
-        for model in SUBJECT_MODELS:
+        for model in models:
             key = f"{arm_id}|{model}"
             c = cells.get(key)
             if c is None or len(c["seat1"]) != 10 or any(a is None for a in c["seat1"]):
@@ -223,6 +303,11 @@ def sentinel(k: int) -> int:
                 "seat2Counts": {str(a): c["seat2"].count(a) for a in set(c["seat2"])},
                 "runIds": c["runIds"],
             }
+
+    err = _sentinel_templates(fp, k)
+    if err:
+        print(err)
+        return 1
 
     if k == 0:
         if os.path.exists(BASELINE_JSON):
@@ -248,17 +333,86 @@ def sentinel(k: int) -> int:
         return 0
 
     base = json.load(open(BASELINE_JSON))["cells"]
-    alerts, notes = [], []
-    for key, v in fp.items():
-        b = base[key]
-        if abs(v["count"] - b["count"]) >= 3:
-            alerts.append(f"{key}: count {v['count']} vs baseline {b['count']} (Δ≥3 — ALERT c)")
-        if v["modalAction"] != b["modalAction"]:
-            notes.append(f"{key}: modal action flipped {b['modalAction']} → {v['modalAction']} "
-                         f"(counts {b['count']} → {v['count']}; disclosed, not an alert under the frozen rule)")
-    print(json.dumps({"checkIndex": k, "alerts": alerts, "notes": notes,
+    rebase = json.load(open(REBASELINE_JSON)) if os.path.exists(REBASELINE_JSON) else None
+    alerts, notes = _sentinel_eval(fp, base, rebase, k)
+
+    if k == REBASELINE_CHECK and not alerts:
+        # Write-once re-baseline record (memo §Decision riders 1–2). No
+        # timestamp: the record is a pure function of the event store, so
+        # byte-identical regeneration at step-8 replay is permitted.
+        doc = {"definition": FINGERPRINT_DEF,
+               "decision": "sentinel-alert-5-memo.md §Decision (operator sign-off, Option 1 + riders)",
+               "baselineCheck": REBASELINE_CHECK, "effectiveFrom": REBASELINE_CHECK + 1,
+               "cells": {key: fp[key] for key in sorted(REBASELINE_CELLS)}}
+        blob = json.dumps(doc, indent=1)
+        if os.path.exists(REBASELINE_JSON):
+            if open(REBASELINE_JSON).read() != blob:
+                print(f"REFUSING to overwrite {REBASELINE_JSON} with different content — "
+                      "write-once (byte-identical regeneration is permitted for replay)")
+                return 1
+            notes.append("re-baseline record already on disk (byte-identical — replay-consistent)")
+        else:
+            with open(REBASELINE_JSON, "w") as f:
+                f.write(blob)
+            notes.append(f"re-baseline record written: sentinel-rebaseline.json "
+                         f"(cells: {sorted(REBASELINE_CELLS)})")
+
+    print(json.dumps({"checkIndex": k,
+                      "scope": "gemini-only" if k in GEMINI_ONLY_CHECKS else "full",
+                      "alerts": alerts, "notes": notes,
                       "cells": {k2: {"modal": v["modalAction"], "count": v["count"]} for k2, v in fp.items()}}, indent=1))
     return 2 if alerts else 0
+
+
+def selftest_sentinel6() -> int:
+    """Pure-logic checks of _sentinel_eval under the post-alert-5 regime."""
+    base = {
+        "p4-sent-v1|gpt-4.1": {"modalAction": 1, "count": 10},
+        "p4-sent-v1|gemini-2.5-flash": {"modalAction": 1, "count": 10},
+        "p4-sent-v2a|gpt-4.1": {"modalAction": 0, "count": 10},
+        "p4-sent-v2a|gemini-2.5-flash": {"modalAction": 0, "count": 10},
+        "p4-sent-fallback|gpt-4.1": {"modalAction": 1, "count": 10},
+        "p4-sent-fallback|gemini-2.5-flash": {"modalAction": 1, "count": 10},
+    }
+    reb = {"cells": {"p4-sent-v2a|gemini-2.5-flash": {"modalAction": 0, "count": 7},
+                     "p4-sent-fallback|gpt-4.1": {"modalAction": 1, "count": 9},
+                     "p4-sent-fallback|gemini-2.5-flash": {"modalAction": 0, "count": 8}}}
+    results = []
+
+    def chk(name: str, cond: bool) -> None:
+        results.append((name, cond))
+        print(f"  [{'PASS' if cond else 'FAIL'}] {name}")
+
+    # 1) k=6: re-baseline cells are baseline-setting reads even at extreme
+    #    counts; sealed-compared cells still fire.
+    a, n = _sentinel_eval({"p4-sent-v2a|gemini-2.5-flash": {"modalAction": 0, "count": 5},
+                           "p4-sent-fallback|gpt-4.1": {"modalAction": 1, "count": 2},
+                           "p4-sent-v1|gpt-4.1": {"modalAction": 1, "count": 6}}, base, None, 6)
+    chk("k6: no (c) on re-baseline cells", not any("v2a|gemini" in x or "fallback" in x for x in a))
+    chk("k6: sealed-compared cell fires", any("p4-sent-v1|gpt-4.1" in x for x in a))
+    chk("k6: baseline-setting notes present", sum("baseline-setting" in x for x in n) == 2)
+    # 2) k=7: drifted cell compares to the NEW baseline (7), not the old (10)
+    a, _ = _sentinel_eval({"p4-sent-v2a|gemini-2.5-flash": {"modalAction": 0, "count": 5}}, base, reb, 7)
+    chk("k7: Δ2 from re-baseline (Δ5 from old) → no alert", not a)
+    a, _ = _sentinel_eval({"p4-sent-v2a|gemini-2.5-flash": {"modalAction": 0, "count": 4}}, base, reb, 7)
+    chk("k7: Δ3 from re-baseline → alert", len(a) == 1 and "re-baseline@6" in a[0])
+    # 3) k=7 without a re-baseline record fails closed
+    a, _ = _sentinel_eval({"p4-sent-v2a|gemini-2.5-flash": {"modalAction": 0, "count": 7}}, base, None, 7)
+    chk("k7: missing re-baseline record fails closed", len(a) == 1 and "fail-closed" in a[0])
+    # 4) k=8: fallback×gpt vs re-baseline; v1 still vs sealed baseline
+    a, _ = _sentinel_eval({"p4-sent-fallback|gpt-4.1": {"modalAction": 1, "count": 6},
+                           "p4-sent-v1|gpt-4.1": {"modalAction": 1, "count": 8}}, base, reb, 8)
+    chk("k8: fallback fires vs re-baseline (6 vs 9), v1 quiet (8 vs 10)",
+        any("fallback|gpt-4.1" in x for x in a) and not any("v1" in x for x in a))
+    # 5) modal flip stays note-only (frozen rule is count-based)
+    a, n = _sentinel_eval({"p4-sent-v1|gemini-2.5-flash": {"modalAction": 0, "count": 9}}, base, None, 3)
+    chk("modal flip is a note, not an alert", not a and any("flipped" in x for x in n))
+    # 6) descriptive original-trajectory disclosure at k>=7
+    _, n = _sentinel_eval({"p4-sent-v2a|gemini-2.5-flash": {"modalAction": 0, "count": 7}}, base, reb, 7)
+    chk("k7: descriptive ORIGINAL-baseline note present", any("ORIGINAL" in x for x in n))
+    ok = all(c for _, c in results)
+    print("selftest-sentinel6:", "ALL PASS" if ok else "FAIL")
+    return 0 if ok else 1
 
 
 # ── X2 screening (frozen candidate rule) ─────────────────────────────────────
@@ -1338,6 +1492,8 @@ def main() -> None:
         raise SystemExit(x2_screening())
     if "--x2-confirm" in sys.argv:
         raise SystemExit(x2_confirm())
+    if "--selftest-sentinel6" in sys.argv:
+        raise SystemExit(selftest_sentinel6())
     if "--selftest-x2c" in sys.argv:
         raise SystemExit(selftest_x2c())
     if "--d1" in sys.argv:

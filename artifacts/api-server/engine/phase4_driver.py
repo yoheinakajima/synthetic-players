@@ -107,10 +107,26 @@ def sealed_resolution_tid(arm: dict) -> str:
     return tid
 
 
+def sentinel_fallback_tid(arm: dict) -> str:
+    """Sealed sentinel spec: the third cell 'switches to the D-selected
+    representation once written to the event store; sealed fallback before'.
+    Ledger-state-driven via the engine's write-once resolutions; the engine
+    enforces the identical rule in resolve_template_id (memo §Decision,
+    provenance instance 5)."""
+    global _RESOLUTIONS_CACHE
+    if _RESOLUTIONS_CACHE is None:
+        _RESOLUTIONS_CACHE = http_json("GET", "/phase4/status").get("resolutions") or {}
+    res = _RESOLUTIONS_CACHE.get("E-dselected")
+    tid = res.get("templateId") if isinstance(res, dict) else res
+    return tid if tid else arm["templateId"]
+
+
 def build_game_def(arm: dict, registry: dict) -> dict:
     tid = arm["templateId"]
     if tid.startswith("RESOLVED-BY"):
         tid = sealed_resolution_tid(arm)
+    elif arm["armId"] == "p4-sent-fallback":
+        tid = sentinel_fallback_tid(arm)
     spec = registry["prompts"].get(tid)
     if spec is None:
         raise DriverFreeze(f"template {tid} not in registry")
@@ -338,13 +354,18 @@ def _live(state: dict, body: dict, key: str) -> dict:
     return resp
 
 
-def act_sentinel(state: dict, store: ArmStore, registry: dict, k: int) -> None:
+def act_sentinel(state: dict, store: ArmStore, registry: dict, k: int,
+                 models: list[str] | None = None) -> None:
     assert_clean_tree(state)
+    models = models or SUBJECT_MODELS
     lo = 9001 + k * 10
-    print(f"— sentinel check {k} (seeds {lo}–{lo + 9}; 3 arms × 2 models × 10) —", flush=True)
+    scope = (f"3 arms × {models[0]} only × 10 — doubled gemini cadence, "
+             "sentinel-alert-5-memo.md §Decision rider 2"
+             if len(models) == 1 else "3 arms × 2 models × 10")
+    print(f"— sentinel check {k} (seeds {lo}–{lo + 9}; {scope}) —", flush=True)
     for arm_id in SENTINEL_ARMS:
         arm = store.get(arm_id)
-        for model in SUBJECT_MODELS:
+        for model in models:
             for seed in range(lo, lo + 10):
                 key = f"sent{k}|{arm_id}|{model}|{seed}"
                 if key in state["runs"]:
@@ -365,6 +386,11 @@ def act_sentinel(state: dict, store: ArmStore, registry: dict, k: int) -> None:
 
 def act_block(state: dict, store: ArmStore, registry: dict, schedule: dict, name: str) -> None:
     assert_clean_tree(state)
+    half = None
+    if name.endswith((":h1", ":h2")):
+        name, half = name.rsplit(":", 1)  # dispatch partition only: sealed
+        # episode order and keys are unchanged; h1 = first half, h2 = rest
+        # (mid-block gemini sentinel cadence, sentinel-alert-5-memo.md rider 2)
     try:
         block = next(b for b in schedule["blocks"] if b["block"] == name)
     except StopIteration:
@@ -379,8 +405,12 @@ def act_block(state: dict, store: ArmStore, registry: dict, schedule: dict, name
         print(f"— block {name} sourced from execution-schedule-amendments.json "
               f"(sealed schedule untouched) —", flush=True)
     eps = block["episodes"]
+    if half:
+        mid = len(eps) // 2
+        eps = eps[:mid] if half == "h1" else eps[mid:]
     done0 = sum(1 for e in eps if f"{name}|{e['armId']}|ep{e['ep']}" in state["runs"])
-    print(f"— block {name}: {len(eps)} episodes (resuming past {done0}) —", flush=True)
+    print(f"— block {name}{' [' + half + ']' if half else ''}: {len(eps)} episodes "
+          f"(resuming past {done0}) —", flush=True)
     t0 = time.time()
     invalids = 0
     for i, e in enumerate(eps, 1):
@@ -541,6 +571,9 @@ def main() -> None:
                 act_preflight(state, store, registry, schedule)
             elif action == "dry-all":
                 act_dry_all(state, store, registry, schedule)
+            elif action.startswith("sentinelg:"):
+                act_sentinel(state, store, registry, int(action.split(":")[1]),
+                             models=["gemini-2.5-flash"])
             elif action.startswith("sentinel:"):
                 act_sentinel(state, store, registry, int(action.split(":")[1]))
             elif action.startswith("block:"):

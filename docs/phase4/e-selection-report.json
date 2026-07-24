@@ -1,0 +1,104 @@
+{
+ "generatedAt": "2026-07-24T23:24:41Z",
+ "rule": "INTERIOR",
+ "key": "E-dselected",
+ "family": "gpt",
+ "mLevel": "can",
+ "operatorQuote": "the D cell whose round-1 cooperation is nearest 0.5, most interior",
+ "cellMeans": [
+  {
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "meanY": 0.0,
+   "manifestIndex": 0
+  },
+  {
+   "templateId": "pd-rep-w1-neu-cf-pm",
+   "meanY": 1.0,
+   "manifestIndex": 1
+  },
+  {
+   "templateId": "pd-rep-w1-neu-df-ad",
+   "meanY": 0.0,
+   "manifestIndex": 2
+  },
+  {
+   "templateId": "pd-rep-w1-neu-df-pm",
+   "meanY": 1.0,
+   "manifestIndex": 3
+  },
+  {
+   "templateId": "pd-rep-w1-sem-cf-ad",
+   "meanY": 0.0,
+   "manifestIndex": 4
+  },
+  {
+   "templateId": "pd-rep-w1-sem-cf-pm",
+   "meanY": 0.0,
+   "manifestIndex": 5
+  },
+  {
+   "templateId": "pd-rep-w1-sem-df-ad",
+   "meanY": 0.0,
+   "manifestIndex": 6
+  },
+  {
+   "templateId": "pd-rep-w1-sem-df-pm",
+   "meanY": 0.0,
+   "manifestIndex": 7
+  },
+  {
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "meanY": 0.0,
+   "manifestIndex": 8
+  },
+  {
+   "templateId": "pd-rep-w2a-neu-cf-pm",
+   "meanY": 1.0,
+   "manifestIndex": 9
+  },
+  {
+   "templateId": "pd-rep-w2a-neu-df-ad",
+   "meanY": 0.0,
+   "manifestIndex": 10
+  },
+  {
+   "templateId": "pd-rep-w2a-neu-df-pm",
+   "meanY": 1.0,
+   "manifestIndex": 11
+  },
+  {
+   "templateId": "pd-rep-w2a-sem-cf-ad",
+   "meanY": 0.1,
+   "manifestIndex": 12
+  },
+  {
+   "templateId": "pd-rep-w2a-sem-cf-pm",
+   "meanY": 0.0,
+   "manifestIndex": 13
+  },
+  {
+   "templateId": "pd-rep-w2a-sem-df-ad",
+   "meanY": 0.0,
+   "manifestIndex": 14
+  },
+  {
+   "templateId": "pd-rep-w2a-sem-df-pm",
+   "meanY": 0.0,
+   "manifestIndex": 15
+  }
+ ],
+ "selected": {
+  "templateId": "pd-rep-w2a-sem-cf-ad",
+  "meanY": 0.1,
+  "distance": 0.4,
+  "tieBroken": false
+ },
+ "note": "Rule INTERIOR (pre-committed: provenance-notes.md registration-gap entry, commit 1424fd5; operator chose it by name at the D1/D2 boundary from family-level aggregates only, with per-cell means and template identity undisclosed until this write). Rule: among the 16 sealed pd-rep-* candidates, the D1 primary-family M=can cell mean Y closest to 0.5, ties by manifest line order. Matches the operator's Phase 4 sign-off response verbatim: 'the D cell whose round-1 cooperation is nearest 0.5, most interior' \u2014 the registration gap was a transcription failure of documented pre-data intent. Selected: pd-rep-w2a-sem-cf-ad (mean Y 0.1000, distance 0.4000, tieBroken=False). Full 16-cell table: docs/phase4/e-selection-report.json.",
+ "posted": true,
+ "engineResponse": {
+  "key": "E-dselected",
+  "templateId": "pd-rep-w2a-sem-cf-ad",
+  "templateSha256": "c17c0087880dd85163c47d1bca926e746e7ddf780cdcdc0cd5cc85e084fbe7f7",
+  "eventRunId": "run_1784935481_9584d67d"
+ }
+}

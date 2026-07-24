@@ -74,4 +74,60 @@ and it behaved exactly as designed.
 
 ## Decision
 
-*(recorded verbatim on operator sign-off; the freeze stands until then)*
+**Recorded 2026-07-24 (operator sign-off, verbatim):**
+
+> Option 1, with four riders. (1) Take a fresh fingerprint of the drifted cell
+> immediately before E dispatch and re-baseline on that reading rather than the
+> check-5 snapshot; the extra sentinel spend is approved. (2) Double sentinel
+> cadence on all gemini cells through E and F, with rule (c) armed against the
+> new baseline; a second fire means the same freeze. (3) At step 8, report
+> gemini results regime-indexed (pre-drift vs post-rebaseline) instead of under
+> one blanket caveat; within-regime contrasts stand on their own, cross-regime
+> comparisons carry the qualification. (4) Write the sentinel catch up as a
+> first-class result: monotone erosion of an unversioned endpoint across six
+> checks, invisible to version pinning, caught by the behavioral fingerprint
+> with the study frozen before any contaminated spend. This is the mechanism
+> the protocol exists to demonstrate. Also noting for the record: the
+> schedule-block and driver gaps are the third and fourth instances of sealed
+> text promising what the implementation lacked; the freeze-time completeness
+> linter stays on the list.
+
+**Adopted implementation (registered before any post-freeze dispatch):**
+
+- Rider 1 → the pre-E full check (sentinel:6, the standing boundary check) is
+  the baseline-setting read: `p4-sent-v2a × gemini-2.5-flash` re-baselines on
+  its check-6 fingerprint, not the check-5 snapshot. The third cell
+  (`p4-sent-fallback`, both models) also takes its fresh baseline at check 6 —
+  its template switches to the D-selected representation at the E-resolution
+  write, as pre-committed in the sealed sentinel spec. Baseline-setting reads
+  take no rule-(c) comparison (rules (a)/(b) apply unchanged); all other cells
+  compare to the sealed check-0 baseline as always. The re-baseline record is
+  write-once: `docs/phase4/sentinel-rebaseline.json`, written by `--sentinel 6`
+  only on a zero-alert check.
+- Rider 2 → doubled gemini cadence = gemini-only mid-block checks (3 cells ×
+  10 episodes) at the midpoint of E and of F. Full checks: 6 (pre-E),
+  8 (post-E/pre-F), 10 (post-F). Gemini-only checks: 7 (mid-E), 9 (mid-F).
+  Gemini cells are observed at 6,7,8,9,10 vs gpt-4.1 at 6,8,10. Rule (c) arms
+  against the check-6 re-baseline from check 7 onward; a fire anywhere means
+  the same boundary freeze. The driver holds after every check until it is
+  adjudicated; no block dispatch proceeds past an unadjudicated check.
+- Rider 3 → regime indexing pre-committed BEFORE any E/F outcome exists:
+  regime R1 = all gemini data through the check-5 era (D battery, X2);
+  regime R2 = post-re-baseline (E, F). Step-8 reporting presents gemini
+  results per regime; within-regime contrasts stand alone; cross-regime
+  comparisons carry the qualification. The drifted cell's original-baseline
+  trajectory continues to be reported descriptively at every check.
+- Rider 4 → `docs/phase4/sentinel-drift-result.md`, registered at resumption
+  as a first-class descriptive result.
+- Record note: the operator's instance count is transcribed verbatim above. A
+  **fifth instance** surfaced while implementing this decision: the sealed
+  sentinel spec's third-cell switch ("D-selected once written; sealed fallback
+  before") existed in neither the engine's enforcement nor the driver's
+  dispatch — either side would have refused or mis-dispatched check 6. Fixed
+  on both sides (engine remains the enforcement point), ledgered in
+  provenance-notes.md. The freeze-time completeness linter stays on the
+  backlog.
+
+The freeze lifts at the first post-decision dispatch (sentinel:6), and only
+after this memo section, the tooling changes, and the E-resolution write are
+committed and disclosed.
