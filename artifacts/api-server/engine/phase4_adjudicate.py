@@ -51,8 +51,11 @@ SENTINEL_ARMS = ["p4-sent-v1", "p4-sent-v2a", "p4-sent-fallback"]
 SUBJECT_MODELS = ["gpt-4.1", "gemini-2.5-flash"]
 
 # X1 ladder endpoints (sealed Phase 3 batches; d90, seeds 1–10 subset)
-X1_V1_LABEL = "prisoners-dilemma:llm41-selfplay:d90:t3"
-X1_V2A_LABEL = "prisoners-dilemma:llm41-para-v2a:d90:t3x"
+# Sealed Phase 3 X1 endpoint arms (x2-diff-packet.md: F0 ≡ v1, F6 ≡ v2a;
+# δ=.90, gpt-4.1 self-play, X1 environment seeds 1–10). Identified in the
+# event store by game-object attributes — the store carries no batch labels.
+X1_V1_TEMPLATE = "pd-repeated-v1"
+X1_V2A_TEMPLATE = "pd-repeated-v2a"
 
 
 def draw_horizon(seed: int, delta_pct: int) -> tuple[int, bool]:
@@ -250,39 +253,61 @@ def sentinel(k: int) -> int:
 
 # ── X2 screening (frozen candidate rule) ─────────────────────────────────────
 
-def _x1_endpoint_eps(label: str) -> dict[int, float]:
-    """Y_ep per seed (1–10) for a sealed Phase 3 X1 batch: share of the two
-    seat decisions at round 1 that are action 0 (J = cooperate)."""
-    with urllib.request.urlopen(API + "/experiments", timeout=30) as r:
-        exps = json.load(r)
-    ids = []
-    for e in exps:
-        if e.get("batchLabel") != label or e.get("status") != "completed":
-            continue
-        meta = e.get("llmMetaJson") or {}
-        if isinstance(meta, str):
-            meta = json.loads(meta)
-        rid = meta.get("engineRunId") or meta.get("runId")
-        if rid:
-            ids.append(rid)
+def _x1_endpoint_eps(template_id: str) -> tuple[dict[int, float], dict[int, int], dict[int, list[str]]]:
+    """Per-seed (1–10) round-1 cooperation share for a sealed Phase 3 X1
+    endpoint, re-derived from the event store ALONE: runs identified by
+    game-object attributes (promptId, deltaPct=90, gpt-4.1, llm-subject
+    self-play, seed 1–10) — the store carries no batch labels. Phase 3
+    contains duplicate batches for some endpoint seeds; a duplicate is
+    accepted ONLY if every copy agrees exactly on horizon and round-1
+    actions (agreement is checked, never assumed, and disclosed); any
+    disagreement refuses adjudication — no discretionary pick.
+    Returns (eps, horizons, duplicates)."""
     db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
-    out: dict[int, float] = {}
-    for rid in ids:
-        seed = None
-        for (payload,) in db.execute(
-                "SELECT payload FROM events WHERE run_id=? AND type='llm.responded' LIMIT 1", (rid,)):
-            seed = json.loads(payload).get("seed")
-        if seed is None or not (1 <= seed <= 10):
-            continue
-        for (payload,) in db.execute(
-                "SELECT payload FROM events WHERE run_id=? AND type='round.played'", (rid,)):
-            p = json.loads(payload)
-            if p["roundNumber"] == 1:
-                out[seed] = ((p["player1Action"] == 0) + (p["player2Action"] == 0)) / 2
+    games = list(db.execute(
+        """SELECT run_id, CAST(json_extract(payload,'$.object.data.seed') AS INTEGER),
+                  CAST(json_extract(payload,'$.object.data.numRounds') AS INTEGER)
+           FROM events WHERE type='object.created'
+             AND json_extract(payload,'$.object.type')='game'
+             AND json_extract(payload,'$.object.data.llm.promptId')=?
+             AND json_extract(payload,'$.object.data.llm.deltaPct')=90.0
+             AND json_extract(payload,'$.object.data.llm.model')='gpt-4.1'
+             AND json_extract(payload,'$.object.data.strategy1Slug')='llm-subject'
+             AND json_extract(payload,'$.object.data.strategy2Slug')='llm-subject'
+             AND json_extract(payload,'$.object.data.seed') BETWEEN 1 AND 10""",
+        (template_id,)))
+    per_seed: dict[int, list[tuple[str, int, int, int]]] = {}
+    for rid, seed, nr in games:
+        if not list(db.execute(
+                "SELECT 1 FROM events WHERE run_id=? AND type='run.completed' LIMIT 1", (rid,))):
+            raise SystemExit(f"X1 endpoint {template_id} seed {seed}: run {rid} "
+                             f"has no run.completed — refusing")
+        r1 = list(db.execute(
+            """SELECT CAST(json_extract(payload,'$.player1Action') AS INTEGER),
+                      CAST(json_extract(payload,'$.player2Action') AS INTEGER)
+               FROM events WHERE run_id=? AND type='round.played'
+                 AND json_extract(payload,'$.roundNumber')=1""", (rid,)))
+        if len(r1) != 1:
+            raise SystemExit(f"X1 endpoint {template_id} seed {seed}: run {rid} "
+                             f"has {len(r1)} round-1 records — refusing")
+        per_seed.setdefault(int(seed), []).append((rid, int(nr), r1[0][0], r1[0][1]))
     db.close()
-    if len(out) != 10:
-        raise SystemExit(f"X1 endpoint {label}: found {len(out)}/10 seeds {sorted(out)} — refusing")
-    return out
+    eps: dict[int, float] = {}
+    horizons: dict[int, int] = {}
+    dupes: dict[int, list[str]] = {}
+    for seed, copies in sorted(per_seed.items()):
+        if len({(nr, a1, a2) for _, nr, a1, a2 in copies}) != 1:
+            raise SystemExit(f"X1 endpoint {template_id} seed {seed}: duplicate "
+                             f"phase-3 runs DISAGREE ({copies}) — refusing")
+        if len(copies) > 1:
+            dupes[seed] = sorted(c[0] for c in copies)
+        _, nr, a1, a2 = copies[0]
+        eps[seed] = ((a1 == 0) + (a2 == 0)) / 2
+        horizons[seed] = nr
+    if sorted(eps) != list(range(1, 11)):
+        raise SystemExit(f"X1 endpoint {template_id}: found {len(eps)}/10 seeds "
+                         f"{sorted(eps)} — refusing")
+    return eps, horizons, dupes
 
 
 def x2_screening() -> int:
@@ -301,8 +326,11 @@ def x2_screening() -> int:
             continue
         rung_eps.setdefault(r["armId"], {})[r["seed"]] = ((a1 == 0) + (a2 == 0)) / 2
 
-    v1 = _x1_endpoint_eps(X1_V1_LABEL)
-    v2a = _x1_endpoint_eps(X1_V2A_LABEL)
+    v1, v1_h, v1_dup = _x1_endpoint_eps(X1_V1_TEMPLATE)
+    v2a, v2a_h, v2a_dup = _x1_endpoint_eps(X1_V2A_TEMPLATE)
+    if v1_h != v2a_h:
+        raise SystemExit(f"endpoint horizon mismatch v1={v1_h} v2a={v2a_h} — "
+                         f"matched-draw premise broken, refusing")
 
     def mean(d: dict[int, float]) -> float:
         return sum(d.values()) / len(d)
@@ -338,7 +366,7 @@ def x2_screening() -> int:
         best = sorted(candidates,
                       key=lambda g: (-g["absDelta"], g["spanIndex"], 0 if g["ladder"] == "forward" else 1))[0]
         pair = best["pair"]
-        tmpl = {"v1": "pd-repeated-v1", "v2a": "pd-repeated-v2a"}
+        tmpl = {"v1": X1_V1_TEMPLATE, "v2a": X1_V2A_TEMPLATE}
         lo_t = tmpl.get(pair[0], pair[0].replace("p4-x2-", "pd-x2-"))
         hi_t = tmpl.get(pair[1], pair[1].replace("p4-x2-", "pd-x2-"))
         amendment = not (lo_t.startswith("pd-x2-") and hi_t.startswith("pd-x2-"))
@@ -352,8 +380,17 @@ def x2_screening() -> int:
     report = {
         "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "rule": "candidate iff some adjacent |Δ| ≥ 0.50; largest |Δ|; ties → lowest span index; forward before reverse (frozen, predicates.md)",
-        "endpointSource": {"v1": X1_V1_LABEL, "v2a": X1_V2A_LABEL,
-                           "note": "sealed Phase 3 X1 runs, seeds 1–10, per-seed episode values re-derived from the event store"},
+        "endpointSource": {
+            "v1": X1_V1_TEMPLATE, "v2a": X1_V2A_TEMPLATE,
+            "method": "re-derived from the event store alone via game-object attributes "
+                      "(promptId, deltaPct=90, gpt-4.1, llm-subject self-play, seeds 1–10); "
+                      "the store carries no batch labels",
+            "matchedHorizons": {str(k): v for k, v in sorted(v1_h.items())},
+            "duplicateEndpointRuns": {
+                "v1": {str(k): v for k, v in sorted(v1_dup.items())},
+                "v2a": {str(k): v for k, v in sorted(v2a_dup.items())},
+                "rule": "duplicates accepted only on exact agreement of horizon + "
+                        "round-1 actions; any disagreement refuses adjudication"}},
         "perSeed": {"v1": v1, "v2a": v2a,
                     **{r: dict(sorted(e.items())) for r, e in sorted(rung_eps.items())}},
         "rungMeans": {k: round(v, 4) for k, v in means.items()},

@@ -103,3 +103,27 @@ scheduled environment seed is now recorded on every `llm.requested` payload
 template byte-parity is unaffected). Driver reconciliation and the
 adjudicator read the requested-side seed as authoritative, with the phase-3
 event shape as fallback. No live phase-4 events existed before this change.
+
+## X1-endpoint identification fix + X2 screening adjudication (2026-07-24)
+The adjudicator's X1 endpoint loader originally resolved phase-3 runs through
+the API server's experiments table by batch label; no such labels exist in
+either store, so it refused (correctly, loudly). Rewritten to re-derive the
+sealed endpoints from the event store alone, identifying runs by game-object
+attributes (promptId, δ=90, gpt-4.1, llm-subject self-play, environment seeds
+1–10). No sealed rule changed; only the lookup mechanism. Two findings, both
+disclosed in x2-screening-report.json: (1) phase 3 contains two complete v1
+endpoint batches (every seed duplicated); the mechanical rule accepts
+duplicates only when all copies agree exactly on horizon and round-1 actions —
+they do — and refuses on any disagreement. v2a has exactly 10 runs, no
+duplicates. (2) The matched-horizon premise was verified directly: v1 and v2a
+per-seed horizons are identical (90 rounds per rung).
+
+Screening outcome (100/100 episodes; zero retries, invalid trials, and scan
+anomalies): forward-ladder span S2 (continuation sentence) carries ΔY = +0.85
+(f1 mean 0.00 → f2 mean 0.85), the only gap ≥ 0.50 besides reverse S1 (0.55);
+frozen rule selects S2. Minimal pair pd-x2-f1 / pd-x2-f2 — interior rungs, no
+amendment required. Resolutions X2-conf-lo / X2-conf-hi written write-once to
+the event store (run_1784926714_684aa1fd / run_1784926714_21adc5ac) before any
+confirmation dispatch, per the sealed packet. Sentinel check 1 at the X2/D1
+boundary: zero alerts against the sealed baseline. Confirmation itself remains
+step 5 of the frozen order (after D1→D2→D3).
