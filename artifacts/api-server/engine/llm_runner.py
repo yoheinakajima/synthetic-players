@@ -386,11 +386,19 @@ def replay_llm(engine: Engine, run_id: str) -> dict[str, Any]:
         raise ValueError("not an LLM run (no llm config on game object)")
 
     mismatches: list[str] = []
+    # Registry file drift is informational, NOT a mismatch: the registry is
+    # append-only, so the whole-file sha legitimately changes when prompts are
+    # added for later study arms. The authoritative integrity check is below —
+    # every prompt is re-rendered from the CURRENT registry and must hash-hit
+    # the recorded response cache, which fails if one byte of any template
+    # THIS run used has changed.
+    registry_file_drift = None
     if llm_cfg.get("registrySha256") != registry_sha:
-        mismatches.append(
-            f"prompt registry drift: run recorded {llm_cfg.get('registrySha256')}, "
-            f"current file is {registry_sha}"
-        )
+        registry_file_drift = {
+            "recorded": llm_cfg.get("registrySha256"),
+            "current": registry_sha,
+            "note": "append-only registry grew since this run; per-prompt byte verification is authoritative",
+        }
 
     invalidated = [e for e in events if e.type == "trial.invalidated"]
     requested = [e for e in events if e.type == "llm.requested"]
@@ -408,6 +416,7 @@ def replay_llm(engine: Engine, run_id: str) -> dict[str, Any]:
             "roundsCompared": 0,
             "liveCalls": 0,
             "promptRegistrySha256": registry_sha,
+            "registryFileDrift": registry_file_drift,
             "mismatches": mismatches,
         }
 
@@ -525,5 +534,6 @@ def replay_llm(engine: Engine, run_id: str) -> dict[str, Any]:
         "roundsCompared": len(stored_rounds),
         "liveCalls": 0,
         "promptRegistrySha256": registry_sha,
+        "registryFileDrift": registry_file_drift,
         "mismatches": mismatches[:20],
     }

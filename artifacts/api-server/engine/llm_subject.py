@@ -125,10 +125,10 @@ def render_prompt(
 
     if prompt_id.startswith("pd-"):
         kwargs.update(_pd_payoff_params(game_def))
-    if prompt_id == "pd-repeated-v1":
+    if prompt_id.startswith("pd-repeated-"):
         delta_pct = protocol.get("deltaPct")
         if delta_pct is None:
-            raise ValueError("pd-repeated-v1 requires protocol.deltaPct")
+            raise ValueError(f"{prompt_id} requires protocol.deltaPct")
         kwargs["deltaPct"] = _pts(delta_pct)
         kwargs["history"] = _render_history(spec, seat, history, game_def)
     elif prompt_id == "pd-oneshot-v1":

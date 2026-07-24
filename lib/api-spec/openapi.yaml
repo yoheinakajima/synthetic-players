@@ -914,6 +914,16 @@ components:
               description: Always 0 — replay never contacts the provider
             promptRegistrySha256:
               type: string
+            registryFileDrift:
+              type: ["object", "null"]
+              description: Informational — the append-only prompt registry file grew since this run was recorded; per-prompt hash verification (folded into ok) remains the authoritative byte-exact check
+              properties:
+                recorded:
+                  type: ["string", "null"]
+                current:
+                  type: string
+                note:
+                  type: string
             mismatches:
               type: array
               items:

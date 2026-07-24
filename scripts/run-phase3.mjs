@@ -28,6 +28,7 @@
  *               pre-existing claims (disclosure requirement).
  *
  * Steps: claims | runs | verify | adjudicate | status | all
+ *        xclaims | xruns — Extension X1 (paraphrase robustness, registry phase3-v2)
  * Usage: node scripts/run-phase3.mjs [step]
  * Long runs: setsid nohup node scripts/run-phase3.mjs all > /tmp/phase3.log 2>&1 &
  */
@@ -35,6 +36,10 @@
 const BASE = process.env.API_BASE ?? "http://localhost:80/api";
 const ENGINE = process.env.ENGINE_BASE ?? "http://127.0.0.1:8090";
 const REGISTRY_SHA = "73e7a6cac07c83b49985ab3e36edd9d83a4916a41eade624c807ae0307bdc262";
+// Extension X1: registry phase3-v2 = phase3-v1 + appended pd-repeated-v2a/v2b.
+// Original prompt specs byte-identical; replay of the sealed t3 corpus verifies
+// per-prompt hashes (whole-file sha is informational under append-only policy).
+const REGISTRY_SHA_X = "808f205a192909e8c2ac1c1ec6210c650017c297978afeb0b899873ea9ae1fc2";
 
 const LLM = "llm-gpt-4.1";
 const TRACKER = "pattern-tracker";
@@ -44,7 +49,7 @@ const REPLACEMENT_OFFSET = 1000; // reserved pool for invalid trials (once per s
 const TEMPERATURE = 0.7;
 const MAX_TOKENS = 16;
 const HORIZON_RULE = "geometric-mulberry32-cap120"; // draw: mulberry32(seed ^ 0x54524D)
-const CAPS = { A: 1800, B: 160, C: 4400, global: 6360 };
+const CAPS = { A: 1800, B: 160, C: 4400, X: 1600, global: 7960 }; // X + amended global per prereg Extension X1
 const BASELINE_LABEL = "rock-paper-scissors:pattern-tracker-vs-nash-mixed:t3-baseline";
 
 const log = (...a) => console.log(new Date().toISOString().slice(11, 19), ...a);
@@ -146,10 +151,40 @@ function llmBatches() {
   return batches;
 }
 
+// ── Extension X1: paraphrase robustness (registered post-main-study, pre-data) ─
+
+const X_VARIANTS = ["v2a", "v2b"];
+const xLabel = (v) => `prisoners-dilemma:llm41-para-${v}:d90:t3x`;
+const X_LABELS = X_VARIANTS.map(xLabel);
+
+function xBatches() {
+  // Horizon-matched to the canonical δ=0.90 arm: same seeds 1–20, same
+  // mulberry32(seed ^ 0x54524D) draw → identical realized horizons per seed,
+  // so any behavioral difference is attributable to prompt surface alone.
+  return X_VARIANTS.map((v) => ({
+    family: "X",
+    label: xLabel(v),
+    gameSlug: "prisoners-dilemma",
+    p1: LLM,
+    p2: LLM,
+    protocol: {
+      promptId: `pd-repeated-${v}`,
+      temperature: TEMPERATURE,
+      maxTokens: MAX_TOKENS,
+      deltaPct: 90,
+      horizonRule: HORIZON_RULE,
+    },
+    horizonFor: (seed) => drawHorizon(seed, 90),
+    callsFor: (rounds) => 2 * rounds,
+  }));
+}
+
 const ALL_T3_LABELS = [...llmBatches().map((b) => b.label), BASELINE_LABEL];
 
 function familyOfLabel(label) {
-  if (!label || !label.endsWith(":t3")) return null;
+  if (!label) return null;
+  if (label.endsWith(":t3x")) return label.includes(":llm41-para-") ? "X" : null;
+  if (!label.endsWith(":t3")) return null;
   if (label.includes(":llm41-selfplay:d")) return "A";
   if (label.includes(":llm41-oneshot:")) return "B";
   if (label.startsWith("rock-paper-scissors:llm41")) return "C";
@@ -165,7 +200,7 @@ function llmCallsOf(row) {
 }
 
 function computeSpend(experiments) {
-  const spend = { A: 0, B: 0, C: 0, global: 0 };
+  const spend = { A: 0, B: 0, C: 0, X: 0, global: 0 };
   for (const e of experiments) {
     const fam = familyOfLabel(e.batchLabel);
     if (!fam) continue;
@@ -189,13 +224,17 @@ async function loadContext() {
   return { game, strat };
 }
 
-async function assertRegistry() {
+async function assertRegistry(expectedSha) {
+  // No default on purpose: every caller pins the sha registered for ITS arm.
+  // Sealed original-study steps pin phase3-v1 and refuse loudly now that the
+  // registry has grown — no new original-arm data without a further amendment.
+  if (!expectedSha) throw new Error("assertRegistry requires the arm's pre-registered sha");
   const res = await fetch(`${ENGINE}/llm-registry`);
   if (!res.ok) throw new Error(`Engine /llm-registry → ${res.status}`);
   const reg = await res.json();
-  if (reg.sha256 !== REGISTRY_SHA)
+  if (reg.sha256 !== expectedSha)
     throw new Error(
-      `PROMPT REGISTRY DRIFT: engine sha ${reg.sha256} ≠ pre-registered ${REGISTRY_SHA}. ` +
+      `PROMPT REGISTRY DRIFT: engine sha ${reg.sha256} ≠ pre-registered ${expectedSha}. ` +
         `Refusing to run — amend the pre-registration first.`
     );
   log(`Prompt registry verified: ${reg.registryVersion} sha256=${reg.sha256.slice(0, 12)}…`);
@@ -518,16 +557,68 @@ function p3Claims(ctx) {
   ];
 }
 
-async function preRegisterClaims(ctx) {
-  await assertRegistry();
-  const claims = p3Claims(ctx);
+// ── Extension X1 claims (paraphrase robustness) ─────────────────────────────
+
+function xClaims(ctx) {
+  const pdId = ctx.game["prisoners-dilemma"].id;
+  const provenance =
+    `Extension X1, registered 2026-07-24 AFTER the main Phase 3 results (disclosed post-result extension; ` +
+    `direction and thresholds committed before any extension data existed) and BEFORE any :t3x row. ` +
+    `Subject gpt-4.1 (temperature 0.7, maxTokens 16), engine-live event-sourced path; prompt registry ` +
+    `phase3-v2 sha256 ${REGISTRY_SHA_X.slice(0, 12)}… (append-only: pd-repeated-v2a/v2b added, phase3-v1 ` +
+    `prompts byte-identical); horizons matched to the canonical δ=0.90 arm (same seeds 1–20, same ` +
+    `mulberry32 draw). Registered in docs/phase3-preregistration.md, Extension X1.`;
+  return [
+    {
+      title:
+        "P3-X1: Paraphrase robustness — round-1 defection at δ=0.90 persists under two prompt rewordings",
+      gameId: pdId,
+      statement:
+        `${provenance} Main study observed round-1 cooperation of exactly 0 in all 160 repeated-PD ` +
+        `supergames (pd-repeated-v1). Prediction: the corner solution is a property of the incentive ` +
+        `presentation, not of one specific wording — under each of two semantically equivalent paraphrases ` +
+        `(v2a: reordered/reworded; v2b: compact outcome notation), mean round-1 cooperation at δ=0.90 stays ` +
+        `≤ 0.05. Refutation under any paraphrase is itself a finding (prompt-surface brittleness) and would ` +
+        `overturn the report's incentive-insensitivity reading of A1–A3; it will be disclosed as such.`,
+      predicate: {
+        scope: { gameSlug: "prisoners-dilemma", focusStrategySlug: LLM },
+        minExperiments: 20,
+        all: [
+          {
+            label: "round1Coop(paraphrase v2a, δ=0.90) ≤ 0.05",
+            metric: "round1CoopFocus",
+            op: "<=",
+            threshold: 0.05,
+            scope: { batchLabels: [xLabel("v2a")] },
+          },
+          {
+            label: "round1Coop(paraphrase v2b, δ=0.90) ≤ 0.05",
+            metric: "round1CoopFocus",
+            op: "<=",
+            threshold: 0.05,
+            scope: { batchLabels: [xLabel("v2b")] },
+          },
+        ],
+      },
+    },
+  ];
+}
+
+async function preRegisterClaims(
+  ctx,
+  { claimsFn = p3Claims, sha = REGISTRY_SHA, guardLabels = ALL_T3_LABELS } = {}
+) {
+  const claims = claimsFn(ctx);
   const [existingClaims, experiments] = await Promise.all([api("/claims"), api("/experiments")]);
   const byTitle = new Map(existingClaims.map((c) => [c.title, c]));
   const unregistered = claims.filter((c) => !byTitle.has(c.title));
+  // Only gate on the registry when actually about to write claims — re-running
+  // a sealed arm's claims step stays an idempotent no-op after the registry grows.
+  if (unregistered.length > 0) await assertRegistry(sha);
 
-  // Pre-registration guard: ANY Phase 3 row existing before all claims are
-  // registered would be post-hoc claiming — refuse loudly.
-  const t3Rows = experiments.filter((e) => ALL_T3_LABELS.includes(e.batchLabel));
+  // Pre-registration guard: ANY row of the guarded arm existing before all its
+  // claims are registered would be post-hoc claiming — refuse loudly.
+  const t3Rows = experiments.filter((e) => guardLabels.includes(e.batchLabel));
   if (t3Rows.length > 0 && unregistered.length > 0) {
     throw new Error(
       `PRE-REGISTRATION VIOLATION: ${t3Rows.length} Phase 3 row(s) already exist but ` +
@@ -624,22 +715,31 @@ async function runBaseline(ctx) {
   log(`${BASELINE_LABEL}: ran ${res.experimentIds.length}, skipped ${res.skippedSeeds.length} existing`);
 }
 
-async function runStudy(ctx) {
-  await assertRegistry();
+async function runStudy(
+  ctx,
+  {
+    batches = llmBatches(),
+    sha = REGISTRY_SHA,
+    claimsFn = p3Claims,
+    baseline = true,
+    claimsStep = "claims",
+  } = {}
+) {
+  await assertRegistry(sha);
 
   // Reverse-order guard: never generate data before all claims exist.
   const registered = new Set((await api("/claims")).map((c) => c.title));
-  const missing = p3Claims(ctx).filter((c) => !registered.has(c.title));
+  const missing = claimsFn(ctx).filter((c) => !registered.has(c.title));
   if (missing.length > 0)
-    throw new Error(`Claims not pre-registered (${missing.length} missing) — run the "claims" step first.`);
+    throw new Error(`Claims not pre-registered (${missing.length} missing) — run the "${claimsStep}" step first.`);
 
-  await runBaseline(ctx);
+  if (baseline) await runBaseline(ctx);
 
   const spend = computeSpend(await api("/experiments"));
-  log(`Budget at start: A ${spend.A}/${CAPS.A}, B ${spend.B}/${CAPS.B}, C ${spend.C}/${CAPS.C}, global ${spend.global}/${CAPS.global}`);
+  log(`Budget at start: A ${spend.A}/${CAPS.A}, B ${spend.B}/${CAPS.B}, C ${spend.C}/${CAPS.C}, X ${spend.X}/${CAPS.X}, global ${spend.global}/${CAPS.global}`);
 
   const cappedFamilies = new Set();
-  for (const batch of llmBatches()) {
+  for (const batch of batches) {
     if (cappedFamilies.has(batch.family)) continue;
     let consecutiveFailures = 0;
     // Up to 3 passes per batch: primaries, then replacements for any invalid
@@ -716,7 +816,7 @@ async function runStudy(ctx) {
   }
 
   const finalSpend = computeSpend(await api("/experiments"));
-  log(`Step runs done. Budget: A ${finalSpend.A}/${CAPS.A}, B ${finalSpend.B}/${CAPS.B}, C ${finalSpend.C}/${CAPS.C}, global ${finalSpend.global}/${CAPS.global}`);
+  log(`Step runs done. Budget: A ${finalSpend.A}/${CAPS.A}, B ${finalSpend.B}/${CAPS.B}, C ${finalSpend.C}/${CAPS.C}, X ${finalSpend.X}/${CAPS.X}, global ${finalSpend.global}/${CAPS.global}`);
 }
 
 // ── Step: verify (zero-live-call replay audit) ──────────────────────────────
@@ -732,9 +832,12 @@ async function verifyAll() {
   for (const e of targets) {
     const report = await api(`/experiments/${e.id}/replay`, { method: "POST" });
     const meta = JSON.parse(e.llmMetaJson ?? "{}");
-    const shaOk =
-      report.llm.promptRegistrySha256 === REGISTRY_SHA &&
-      meta?.runMeta?.promptRegistrySha256 === REGISTRY_SHA;
+    // Stored runMeta sha must equal the sha pre-registered for the run's arm.
+    // report.llm.promptRegistrySha256 is the CURRENT (append-only) file sha —
+    // informational only; the authoritative byte-exact check is the per-prompt
+    // hash verification folded into report.ok.
+    const expectedSha = familyOfLabel(e.batchLabel) === "X" ? REGISTRY_SHA_X : REGISTRY_SHA;
+    const shaOk = meta?.runMeta?.promptRegistrySha256 === expectedSha;
     if (report.ok && report.llm.liveCalls === 0 && shaOk) ok++;
     else
       failures.push(
@@ -760,7 +863,7 @@ async function adjudicate(ctx) {
   log(`Step adjudicate: ${JSON.stringify(counts)}`);
 
   const claims = await api("/claims");
-  const p3Titles = new Set(p3Claims(ctx).map((c) => c.title));
+  const p3Titles = new Set([...p3Claims(ctx), ...xClaims(ctx)].map((c) => c.title));
 
   for (const claim of claims.filter((c) => p3Titles.has(c.title))) {
     log(`  [${claim.status.toUpperCase()}] ${claim.title}`);
@@ -793,8 +896,8 @@ async function adjudicate(ctx) {
 async function status() {
   const experiments = await api("/experiments");
   const spend = computeSpend(experiments);
-  log(`Budget: A ${spend.A}/${CAPS.A}, B ${spend.B}/${CAPS.B}, C ${spend.C}/${CAPS.C}, global ${spend.global}/${CAPS.global}`);
-  for (const label of ALL_T3_LABELS) {
+  log(`Budget: A ${spend.A}/${CAPS.A}, B ${spend.B}/${CAPS.B}, C ${spend.C}/${CAPS.C}, X ${spend.X}/${CAPS.X}, global ${spend.global}/${CAPS.global}`);
+  for (const label of [...ALL_T3_LABELS, ...X_LABELS]) {
     const rows = experiments.filter((e) => e.batchLabel === label);
     const c = (s) => rows.filter((r) => r.status === s).length;
     log(
@@ -812,6 +915,16 @@ const step = process.argv[2] ?? "all";
 const ctx = await loadContext();
 if (step === "claims" || step === "all") await preRegisterClaims(ctx);
 if (step === "runs" || step === "all") await runStudy(ctx);
+if (step === "xclaims")
+  await preRegisterClaims(ctx, { claimsFn: xClaims, sha: REGISTRY_SHA_X, guardLabels: X_LABELS });
+if (step === "xruns")
+  await runStudy(ctx, {
+    batches: xBatches(),
+    sha: REGISTRY_SHA_X,
+    claimsFn: xClaims,
+    baseline: false,
+    claimsStep: "xclaims",
+  });
 if (step === "verify" || step === "all") await verifyAll();
 if (step === "adjudicate" || step === "all") await adjudicate(ctx);
 if (step === "status") await status();

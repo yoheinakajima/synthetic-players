@@ -5,6 +5,7 @@
  * Game Theory Research Lab API
  * OpenAPI spec version: 0.1.0
  */
+import type { ExperimentReplayReportLlmRegistryFileDrift } from './experimentReplayReportLlmRegistryFileDrift';
 
 export type ExperimentReplayReportLlm = {
   ok: boolean;
@@ -15,5 +16,10 @@ export type ExperimentReplayReportLlm = {
   /** Always 0 — replay never contacts the provider */
   liveCalls: number;
   promptRegistrySha256: string;
+  /**
+     * Informational — the append-only prompt registry file grew since this run was recorded; per-prompt hash verification (folded into ok) remains the authoritative byte-exact check
+     * @nullable
+     */
+  registryFileDrift?: ExperimentReplayReportLlmRegistryFileDrift;
   mismatches: string[];
 };

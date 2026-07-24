@@ -110,3 +110,34 @@ in-memory tally: invalid trials burn real calls, and any run that fails
 client timeouts far above worst-case run duration so "failed but still
 spending" cannot happen, and make the kill-switch a DB-derived check before
 every run, not a counter.
+
+## Paraphrase arms are mandatory for LLM-subject claims
+
+A corner solution observed under one prompt wording is not a behavioral disposition
+of the model. Phase 3's universal-defection result (0%, sd=0, 160 supergames) flipped
+to universal cooperation (100%, sd=0) under two meaning-preserving paraphrases of the
+same game — economics held fixed, only surface text changed.
+
+**Why:** the measured rate of any LLM "behavior" can swing the full [0,1] range under
+rewording, so a single-operationalization claim is unidentified. Zero variance at a
+corner is a warning sign, not extra certainty.
+
+**How to apply:** any study measuring LLM behavior must include ≥2 registered paraphrase
+arms before interpreting a level or a null; write the disclosure commitment for a
+refuted robustness prediction into the claim statement itself (pre-authorizes the
+interpretive overturn, no scramble later).
+
+## Append-only prompt registries for study extensions
+
+Extending a sealed study's prompt registry: append new templates without touching old
+bytes, pin per-arm registry shas (old arms keep old sha), have replay re-render and
+hash-compare each prompt actually used (authoritative), and report whole-file registry
+growth as an informational drift field rather than a verification failure.
+
+**Why:** a whole-file sha check would falsely fail every sealed run after any append,
+forcing a choice between skipping verification and forking the registry; per-prompt
+byte checks keep the original evidence bit-exact-verifiable forever.
+
+**How to apply:** when a study needs new prompts post-seal, bump the registry version
+string, append templates, record both shas in the prereg amendment, and re-verify the
+full old corpus replays green before running new arms.

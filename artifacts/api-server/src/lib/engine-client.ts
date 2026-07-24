@@ -227,6 +227,12 @@ export interface EngineLlmReplayResult {
   roundsCompared: number;
   liveCalls: number;
   promptRegistrySha256: string;
+  /**
+   * Informational: present when the append-only prompt registry file has
+   * grown since this run was recorded. Per-prompt hash verification (folded
+   * into `ok`) remains the authoritative byte-exact check.
+   */
+  registryFileDrift: { recorded: string | null; current: string; note: string } | null;
   mismatches: string[];
 }
 

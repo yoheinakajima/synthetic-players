@@ -30,6 +30,7 @@ export * from './experimentInput';
 export * from './experimentInputLlmProtocol';
 export * from './experimentReplayReport';
 export * from './experimentReplayReportLlm';
+export * from './experimentReplayReportLlmRegistryFileDrift';
 export * from './experimentReplayReportMetrics';
 export * from './experimentStatus';
 export * from './experimentTrace';

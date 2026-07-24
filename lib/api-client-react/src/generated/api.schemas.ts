@@ -104,6 +104,17 @@ export interface ExperimentInput {
   llmProtocol?: ExperimentInputLlmProtocol;
 }
 
+/**
+ * Informational — the append-only prompt registry file grew since this run was recorded; per-prompt hash verification (folded into ok) remains the authoritative byte-exact check
+ * @nullable
+ */
+export type ExperimentReplayReportLlmRegistryFileDrift = {
+  /** @nullable */
+  recorded?: string | null;
+  current?: string;
+  note?: string;
+} | null;
+
 export type ExperimentReplayReportLlm = {
   ok: boolean;
   invalidTrial: boolean;
@@ -113,6 +124,11 @@ export type ExperimentReplayReportLlm = {
   /** Always 0 — replay never contacts the provider */
   liveCalls: number;
   promptRegistrySha256: string;
+  /**
+     * Informational — the append-only prompt registry file grew since this run was recorded; per-prompt hash verification (folded into ok) remains the authoritative byte-exact check
+     * @nullable
+     */
+  registryFileDrift?: ExperimentReplayReportLlmRegistryFileDrift;
   mismatches: string[];
 };
 

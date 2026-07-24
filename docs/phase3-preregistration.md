@@ -103,3 +103,65 @@ All options run through the existing Replit AI Integrations proxy (no new keys; 
    first adjudication (HTTP 409).
 2. **Failed-run spend accounting hardened.** Mid-run engine failures now persist partial
    provider-call counts on the failed row. Not exercised: 0/280 failures in this study.
+
+---
+
+## Extension X1 — paraphrase robustness (registered July 24, 2026: AFTER main-study results, BEFORE any extension data)
+
+**Status disclosure.** This extension is registered with full knowledge of the main-study
+results (round-1 cooperation exactly 0 in all 160 repeated-PD supergames). It is therefore
+*not* blind to the main effect; what is pre-committed here, before any extension row
+exists, is the **direction, thresholds, design, and budget** of the robustness test.
+Motivation: external review of `docs/phase3-report.md` — a corner solution measured under
+a single prompt wording invites the "one paraphrase away" objection; robustness (or
+brittleness) under semantically equivalent rewordings is decision-relevant either way.
+
+### Design
+
+- **Templates.** Two paraphrases of `pd-repeated-v1`, appended to the prompt registry as
+  `pd-repeated-v2a` (reordered structure: continuation rule first; "pick"/"another person"
+  register; conditional-sentence payoff lines) and `pd-repeated-v2b` (compact outcome
+  notation `J+J / J+F / F+F`; "co-player"; probability phrased "{δ} in 100"). Invariants
+  preserved in both: neutral labels J and F, no game-theory vocabulary, full payoff
+  disclosure for both players, continuation probability disclosed, realized horizon
+  hidden, exact-letter reply contract, identical parser and retry rule.
+- **Registry policy (append-only).** phase3-v1 prompt specs are byte-identical in
+  phase3-v2; only the two new templates and the version/notes fields differ.
+  - phase3-v1 sha256: `73e7a6cac07c83b49985ab3e36edd9d83a4916a41eade624c807ae0307bdc262`
+  - phase3-v2 sha256: `808f205a192909e8c2ac1c1ec6210c650017c297978afeb0b899873ea9ae1fc2`
+- **Cells.** δ = 0.90 only (canonical payoffs), self-play, 2 variants × seeds 1–20,
+  batch labels `prisoners-dilemma:llm41-para-{v2a|v2b}:d90:t3x`. Subject, temperature,
+  maxTokens, invalid-trial and replacement rules identical to Experiment A.
+- **Horizon matching.** Same seeds and same `mulberry32(seed ^ 0x54524D)` horizon draw as
+  the canonical δ=0.90 arm → identical realized horizons per seed; differences are
+  attributable to prompt surface alone.
+- **Budget.** Expected ≈ 800 calls (2 × the canonical d90 arm's 404). Family-X cap
+  **1,600**; global kill-switch amended 6,360 → **7,960** (the sealed main-study families
+  keep their original caps; the runner refuses new original-arm rows outright now that
+  the registry sha has moved).
+
+### Registered claim (inserted via the `xclaims` step before any `:t3x` row)
+
+- **P3-X1 (paraphrase robustness).** Mean round-1 cooperation at δ=0.90 is **≤ 0.05 under
+  each paraphrase separately** (`round1CoopFocus`, n=20 supergames per variant; standard
+  CI semantics, sd=0 → exact comparison, as in the main study). Both items must hold.
+  Refutation under any paraphrase is reported as prompt-surface brittleness — itself a
+  finding that would overturn the report's "incentive-insensitive" reading of A1–A3 and
+  be disclosed as such.
+
+### Pipeline amendments bundled with this extension (disclosed)
+
+3. **Replay registry check made append-tolerant.** Replay previously failed any run whose
+   stored whole-file registry sha ≠ current file sha, which would have rendered all 280
+   sealed runs "unverifiable" the moment any later arm added a template. The whole-file
+   comparison is now reported as an informational `registryFileDrift` field; the
+   **authoritative check is unchanged and per-prompt**: every prompt is re-rendered from
+   the current registry and must hash-match the recorded call cache byte-exactly, so any
+   edit to a template a run actually used still fails its replay. Existing prompt specs
+   remain immutable by policy.
+4. **Renderer generalization.** The δ-interpolation branch now matches the
+   `pd-repeated-*` prefix instead of the literal id `pd-repeated-v1` (no behavior change
+   for v1; required for v2a/v2b).
+5. **Per-arm sha pinning in the runner.** Each pipeline step asserts the registry sha
+   registered for *its* arm; verification requires each stored run's recorded sha to
+   equal its arm's pinned sha.

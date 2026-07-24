@@ -370,6 +370,11 @@ export const ReplayExperimentResponse = zod.object({
   "roundsCompared": zod.number(),
   "liveCalls": zod.number().describe('Always 0 — replay never contacts the provider'),
   "promptRegistrySha256": zod.string(),
+  "registryFileDrift": zod.object({
+  "recorded": zod.string().nullish(),
+  "current": zod.string().optional(),
+  "note": zod.string().optional()
+}).nullish().describe('Informational — the append-only prompt registry file grew since this run was recorded; per-prompt hash verification (folded into ok) remains the authoritative byte-exact check'),
   "mismatches": zod.array(zod.string())
 }),
   "metrics": zod.object({
