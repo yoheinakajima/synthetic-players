@@ -240,6 +240,51 @@ It runs at step 6 (after X2 confirmation), per the frozen order. Sentinel
 third cell switches to the resolved template after the write; fresh
 third-cell baseline at the first post-resolution check, as pre-committed.
 
+## D3 adjudicator amendment — pre-outcome, schema-grounded (2026-07-24)
+
+`--d3` as pinned at commit 1424fd5 REFUSED block D3 at its fail-closed
+presentation check (`actionLabels ≡ sealed displayOrder`): the game object
+carries canonical template order ['X','Y','Z'], not the permuted display
+order. The refusal fired before any D_ep was computed; no outcome statistic
+was seen before or during the investigation and amendment below.
+
+Investigation, decided ONLY on representation ground truth: (a) the sealed
+renderRule in arms.json places the presentation permutation in the RENDERED
+PROMPT (optList + beats-line from displayOrder); (b) the engine enforces the
+game object against the template's canonical `spec["options"]` — dispatch
+worked exactly as sealed (spot check: all 6 display orders match their
+prompts byte-wise); (c) the parser (`strip-upper-exact-v1`) indexes into the
+canonical label list — certified over the whole block via
+`decision.parsed.displayedOption`: 197 informative trials canonical-indexed,
+0 display-indexed, 0 contradicting both, 0 unreadable (288 trials total).
+
+The pinned check encoded a wrong schema assumption, and the same assumption
+made the pinned first-listed mapping (`action == 0`) measure share-of-X
+instead of share-of-first-listed. Both are amended to the schema-true form;
+the amendment REPLACES one equality check with four STRICTLY STRONGER ones:
+(i) block-uniform canonical actionLabels, label-set-equal to displayOrder
+and roleMapping domain; (ii) rendered option order ≡ sealed displayOrder at
+both prompt sites, both seats, every episode; (iii) per-trial canonical-index
+certification (`actionLabels[action] ≡ displayedOption`) plus run-loader
+consistency; (iv) first-listed index = labels.index(displayOrder[0]), rock
+index = labels.index(rock-role symbol). The D_ep ESTIMAND (first-listed share
+− rock-mapped share) is unchanged; only its index realization is corrected.
+Had the original mapping silently run, D_ep would have been wrong for 4 of 6
+display orders — the fail-closed design did its job.
+
+## Step-8 exploratory rider (operator-directed, recorded 2026-07-24 during D3 dispatch)
+
+For the step-8 exploratory layer ONLY (no confirmatory status, no design
+change): the D2 swap-cell role-share swing in the primary family (0.0625
+aligned → 1.0 swapped, canonical M) admits at least three readings —
+(i) defect-token attachment (the model tracks the defect-flavored word
+wherever it sits), (ii) incongruence-inversion (label/role mismatch flips
+the decision policy), (iii) residual presentation effects. Step 8 must
+include a decomposition across the sealed O/P counterbalance and the D2
+cell structure that distinguishes these, clearly labeled exploratory.
+Recorded before block D3 completed dispatch; D2 language in all drafts
+stays strictly at the estimand level until step 8.
+
 ## D1 block + D1/D2 boundary (2026-07-24)
 
 Block D1 completed 1280/1280 episodes (640 primary, 640 cross-vendor), zero

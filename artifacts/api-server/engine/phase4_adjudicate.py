@@ -920,11 +920,31 @@ def d2() -> int:
 # ── D3 confirmatory analysis (frozen: predicates.md §Family D3) ──────────────
 
 def d3() -> int:
+    import re as _re
     arms = {a["armId"]: a for a in json.load(open(os.path.join(DOCS, "arms.json")))["arms"]}
     runs = load_phase4_runs()
     db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
     fams: dict[str, dict] = {f: {"D": [], "cats": [0, 0, 0, 0], "invalid": []}
                              for f in ("gpt", "cvx")}   # cats: first-only, rock-only, both, neither
+
+    # Amended schema-true integrity maps (see provenance-notes.md, "D3 adjudicator
+    # amendment"): presentation order lives in the RENDERED PROMPT per the sealed
+    # renderRule; the game object stays in canonical template order; the parser
+    # indexes canonically (certified per-trial below via decision.parsed).
+    prompts: dict[str, dict[int, str]] = {}
+    for rid2, seat, user in db.execute(
+            "SELECT run_id, json_extract(payload,'$.seat'), json_extract(payload,'$.user') "
+            "FROM events WHERE type='llm.requested' AND json_extract(payload,'$.block')='D3' "
+            "ORDER BY seq"):
+        prompts.setdefault(rid2, {})[int(seat)] = user or ""
+    parsed_map: dict[str, dict[int, tuple[int, str]]] = {}
+    for rid2 in list(prompts):
+        for seat, action, dopt in db.execute(
+                "SELECT json_extract(payload,'$.seat'), json_extract(payload,'$.action'), "
+                "json_extract(payload,'$.displayedOption') FROM events "
+                "WHERE run_id=? AND type='decision.parsed' ORDER BY seq", (rid2,)):
+            parsed_map.setdefault(rid2, {})[int(seat)] = (action, dopt)
+    canon: list[str] | None = None
     for rid, r in runs.items():
         if r.get("block") != "D3":
             continue
@@ -937,6 +957,7 @@ def d3() -> int:
             F["invalid"].append(f"{r['armId']} seed {r.get('seed')}")
             continue
         binding = arms[r["armId"]]["bindings"]
+        disp_order = binding["displayOrder"]
         rows = list(db.execute(
             """SELECT json_extract(payload,'$.object.data.gameDef.actionLabels')
                FROM events WHERE run_id=? AND type='object.created'
@@ -944,17 +965,48 @@ def d3() -> int:
         if len(rows) != 1:
             raise SystemExit(f"D3 run {rid}: {len(rows)} game objects — refusing")
         labels = json.loads(rows[0][0])
-        if labels != binding["displayOrder"]:
-            raise SystemExit(f"D3 run {rid}: actionLabels {labels} != sealed displayOrder "
-                             f"{binding['displayOrder']} — refusing")
+        # (i) game object is block-uniform canonical, label-set-equal to the arm's
+        # sealed displayOrder and roleMapping domain
+        if canon is None:
+            canon = labels
+        if labels != canon:
+            raise SystemExit(f"D3 run {rid}: actionLabels {labels} != block-uniform "
+                             f"canonical {canon} — refusing")
+        if sorted(labels) != sorted(disp_order) or sorted(labels) != sorted(binding["roleMapping"]):
+            raise SystemExit(f"D3 run {rid}: label sets disagree (labels {labels}, "
+                             f"displayOrder {disp_order}, roleMapping {sorted(binding['roleMapping'])}) — refusing")
+        # (ii) rendered presentation ≡ sealed displayOrder, both seats, both prompt sites
+        for seat in (1, 2):
+            ptxt = prompts.get(rid, {}).get(seat) or ""
+            m1 = _re.search(r"choose ([A-Z]), ([A-Z]) or ([A-Z]) at the same time", ptxt)
+            m2 = _re.search(r"Your choice \(([A-Z]), ([A-Z]) or ([A-Z])\)", ptxt)
+            if not m1 or not m2 or list(m1.groups()) != disp_order or list(m2.groups()) != disp_order:
+                raise SystemExit(f"D3 run {rid} seat {seat}: rendered option order "
+                                 f"{m1.groups() if m1 else None}/{m2.groups() if m2 else None} "
+                                 f"!= sealed displayOrder {disp_order} — refusing")
+        # (iii) per-trial canonical-index certification via decision.parsed
+        pa = parsed_map.get(rid, {})
+        for seat in (1, 2):
+            if seat not in pa:
+                raise SystemExit(f"D3 run {rid} seat {seat}: no decision.parsed — refusing")
+            act, dopt = pa[seat]
+            if not isinstance(act, int) or not (0 <= act < len(labels)) or labels[act] != dopt:
+                raise SystemExit(f"D3 run {rid} seat {seat}: canonical-index certification "
+                                 f"failed (action {act!r}, displayedOption {dopt!r}, "
+                                 f"labels {labels}) — refusing")
+        a1, a2 = r["rounds"][1]
+        if (a1, a2) != (pa[1][0], pa[2][0]):
+            raise SystemExit(f"D3 run {rid}: run-loader actions {(a1, a2)} != "
+                             f"decision.parsed {(pa[1][0], pa[2][0])} — refusing")
+        # (iv) schema-true index mapping: first-listed via displayOrder[0], rock via roleMapping
+        first_idx = labels.index(disp_order[0])
         rock_sym = next(k for k, v in binding["roleMapping"].items() if v == "rock")
         rock_idx = labels.index(rock_sym)
-        a1, a2 = r["rounds"][1]
-        first_share = ((a1 == 0) + (a2 == 0)) / 2
+        first_share = ((a1 == first_idx) + (a2 == first_idx)) / 2
         rock_share = ((a1 == rock_idx) + (a2 == rock_idx)) / 2
         F["D"].append(first_share - rock_share)
         for a in (a1, a2):
-            fi, ro = a == 0, a == rock_idx
+            fi, ro = a == first_idx, a == rock_idx
             F["cats"][2 if (fi and ro) else 0 if fi else 1 if ro else 3] += 1
     db.close()
 
