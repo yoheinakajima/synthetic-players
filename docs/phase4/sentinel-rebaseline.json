@@ -1,0 +1,77 @@
+{
+ "definition": "cell = sentinel arm \u00d7 subject model; episode value = seat-1 round-1 action index; modal action = most frequent episode value across the cell's 10 episodes (tie \u2192 lower action index); fingerprint = (modalAction, count of episodes whose value equals it). Rule (c) compares counts: alert iff |count_K \u2212 count_baseline| \u2265 3. Modal-action flips at similar counts are disclosed as observations (the frozen rule is count-based). Seat-2 distributions are archived alongside for context.",
+ "decision": "sentinel-alert-5-memo.md \u00a7Decision (operator sign-off, Option 1 + riders)",
+ "baselineCheck": 6,
+ "effectiveFrom": 7,
+ "cells": {
+  "p4-sent-fallback|gemini-2.5-flash": {
+   "modalAction": 0,
+   "count": 8,
+   "seat1Counts": {
+    "0": 8,
+    "1": 2
+   },
+   "seat2Counts": {
+    "0": 2,
+    "1": 8
+   },
+   "runIds": [
+    "run_1784935879_025a2459",
+    "run_1784935881_cb6f4734",
+    "run_1784935882_8de80838",
+    "run_1784935883_3af86dcc",
+    "run_1784935884_2d2d1239",
+    "run_1784935885_848459d4",
+    "run_1784935886_e6ad9837",
+    "run_1784935887_c1d48774",
+    "run_1784935888_4d2bdb59",
+    "run_1784935889_d81312f8"
+   ]
+  },
+  "p4-sent-fallback|gpt-4.1": {
+   "modalAction": 0,
+   "count": 10,
+   "seat1Counts": {
+    "0": 10
+   },
+   "seat2Counts": {
+    "0": 10
+   },
+   "runIds": [
+    "run_1784935870_5f52bdbf",
+    "run_1784935871_274c534c",
+    "run_1784935871_2f9c604c",
+    "run_1784935872_e22cc42f",
+    "run_1784935873_a257c43c",
+    "run_1784935874_171164ac",
+    "run_1784935875_d45e0aa1",
+    "run_1784935876_c62505a4",
+    "run_1784935877_51dee65a",
+    "run_1784935879_90107159"
+   ]
+  },
+  "p4-sent-v2a|gemini-2.5-flash": {
+   "modalAction": 0,
+   "count": 10,
+   "seat1Counts": {
+    "0": 10
+   },
+   "seat2Counts": {
+    "0": 4,
+    "1": 6
+   },
+   "runIds": [
+    "run_1784935859_020b828d",
+    "run_1784935860_820366fe",
+    "run_1784935861_24e27fc6",
+    "run_1784935862_f0428c0c",
+    "run_1784935863_5695fe96",
+    "run_1784935864_9e51e7c5",
+    "run_1784935865_946c6a62",
+    "run_1784935866_56104913",
+    "run_1784935867_b61261a0",
+    "run_1784935869_cb60f591"
+   ]
+  }
+ }
+}
