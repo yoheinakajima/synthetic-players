@@ -415,3 +415,12 @@ independent of the riders (disclosed here rather than absorbed silently) —
 and the rider-2 checks add 60 → 975. Registered amendment A-OVH-1
 (budget-amendments.md): overhead cap 900 → 1,000, engine-enforced in the same
 commit; budget.md sealed and byte-untouched; global cap unchanged.
+CORRECTION, same day, before check 7 / block E dispatched: A-OVH-1's
+projections (and this entry's figures above, left unedited as registered)
+priced checks at 60 calls; the true price is 120 per full check — sentinel
+episodes are self-play, two subject seats, two calls per episode, as the
+ledger always showed (checks 0–6 = 840 sentinel calls; driver tallies count
+episodes, not calls). A-OVH-2 re-amends the cap 1,000 → 1,250 against the
+corrected remaining-cadence cost of 360; no cap was violated at any dispatch
+(check 6 ran at 855 ≤ 1,000). Lesson recorded: projections must be derived
+from ledger prices, never from design-unit counts.

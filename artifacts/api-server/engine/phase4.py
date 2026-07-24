@@ -37,13 +37,13 @@ PHASE4_PROTOCOL = {"temperature": 0.7, "maxTokens": 16, "topP": 1.0}
 SUBJECT_MODELS = ("gpt-4.1", "gemini-2.5-flash")  # primary, cross (amendment A1)
 
 # Frozen kill-switch caps (budget.md — engine-enforced, sign-off §10).
-# Overhead cap amended 900 → 1_000 on 2026-07-24 (docs/phase4/
-# budget-amendments.md A-OVH-1): operator-approved doubled sentinel cadence
-# after alert 5 ("the extra sentinel spend is approved" — sentinel-alert-5-
-# memo.md §Decision). budget.md itself is sealed and byte-untouched; the
-# global cap is unchanged.
+# Overhead cap amended 900 → 1_000 (A-OVH-1) → 1_250 (A-OVH-2, same day,
+# docs/phase4/budget-amendments.md): operator-approved doubled sentinel
+# cadence after alert 5; A-OVH-2 corrects A-OVH-1's projection arithmetic
+# (self-play sentinel episodes cost 2 calls each — 120 per full check, not
+# 60). budget.md itself is sealed and byte-untouched; global cap unchanged.
 GLOBAL_CAP = 21_000
-CAP_GROUPS = {"D": 4_300, "E": 1_800, "X2": 2_700, "F": 11_600, "overhead": 1_000}
+CAP_GROUPS = {"D": 4_300, "E": 1_800, "X2": 2_700, "F": 11_600, "overhead": 1_250}
 BLOCK_TO_GROUP = {
     "D1": "D", "D2": "D", "D3": "D",
     "E": "E",
