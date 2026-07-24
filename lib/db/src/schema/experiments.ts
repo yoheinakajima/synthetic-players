@@ -1,4 +1,5 @@
-import { pgTable, text, serial, timestamp, integer, real } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, timestamp, integer, real, uniqueIndex } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
@@ -22,7 +23,15 @@ export const experimentsTable = pgTable("experiments", {
   errorMessage: text("error_message"),
   completedAt: timestamp("completed_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-});
+}, (t) => [
+  // Concurrency-safe fork idempotency: at most one fork per
+  // (parent, round, strategy pair, batch label). NULL batch labels stay
+  // distinct on purpose — manual exploratory re-forks remain allowed;
+  // only labeled (evidence-grade) fork batches get the hard guarantee.
+  uniqueIndex("experiments_fork_identity_idx")
+    .on(t.parentExperimentId, t.forkRound, t.player1StrategyId, t.player2StrategyId, t.batchLabel)
+    .where(sql`${t.parentExperimentId} is not null and ${t.batchLabel} is not null`),
+]);
 
 export const insertExperimentSchema = createInsertSchema(experimentsTable).omit({ id: true, createdAt: true, status: true, player1TotalPayoff: true, player2TotalPayoff: true, cooperationRate: true, nashDeviationScore: true, completedAt: true, errorMessage: true });
 export type InsertExperiment = z.infer<typeof insertExperimentSchema>;

@@ -172,6 +172,31 @@ export function DiffView({ experimentId }: { experimentId: number }) {
     </div>
   );
 
+  const w = diff.postForkWindow;
+  const windowRow = (
+    label: string,
+    parent: number | null | undefined,
+    fork: number | null | undefined,
+    delta: number | null | undefined,
+    fmt: (v: number) => string
+  ) => {
+    if (parent == null || fork == null) return null;
+    return (
+      <div className="grid grid-cols-4 gap-2 text-sm py-1.5 border-b last:border-0">
+        <span className="text-muted-foreground">{label}</span>
+        <span className="font-mono text-right">{fmt(parent)}</span>
+        <span className="font-mono text-right">{fmt(fork)}</span>
+        <span
+          className={`font-mono text-right ${
+            delta != null && delta > 1e-9 ? 'text-primary' : delta != null && delta < -1e-9 ? 'text-destructive' : 'text-muted-foreground'
+          }`}
+        >
+          {delta != null && delta > 0 ? '+' : ''}{delta != null ? fmt(delta) : '—'}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <Card data-testid="card-diff">
       <CardHeader>
@@ -225,7 +250,41 @@ export function DiffView({ experimentId }: { experimentId: number }) {
           {statRow('P2 Total', formatNumber(diff.parentSummary.player2TotalPayoff), formatNumber(diff.forkSummary.player2TotalPayoff))}
           {statRow('Cooperation', formatPercent(diff.parentSummary.cooperationRate), formatPercent(diff.forkSummary.cooperationRate))}
           {statRow('Nash Deviation', formatPercent(diff.parentSummary.nashDeviationScore), formatPercent(diff.forkSummary.nashDeviationScore))}
+          <p className="text-[10px] text-muted-foreground/70 pt-2 leading-snug">
+            Whole-run totals mix inherited and new history — see the post-fork window below for the honest comparison.
+          </p>
         </div>
+
+        {w && (
+          <div className="lg:col-span-3 border-t pt-4" data-testid="section-post-fork-window">
+            <div className="flex items-center justify-between flex-wrap gap-2 mb-1">
+              <h4 className="text-sm font-bold">
+                Post-Fork Window · rounds {w.forkRound + 1}–{w.forkRound + w.windowRounds}
+              </h4>
+              {w.welfareRecoveryFrac != null && (
+                <Badge variant="outline" className="font-mono text-xs" data-testid="badge-welfare-recovery">
+                  welfare recovery {formatPercent(w.welfareRecoveryFrac)}
+                </Badge>
+              )}
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">
+              Paired parent-vs-fork metrics over the shared {w.windowRounds} rounds after the branch
+              point — the comparison used as claim evidence.
+            </p>
+            <div className="grid grid-cols-4 gap-2 text-[10px] uppercase font-bold tracking-wider text-muted-foreground pb-2 border-b">
+              <span>Metric</span>
+              <span className="text-right">Parent</span>
+              <span className="text-right">Fork</span>
+              <span className="text-right">Δ</span>
+            </div>
+            {windowRow('Welfare / round', w.parent.welfarePerRound, w.fork.welfarePerRound, w.delta.welfarePerRound, formatNumber)}
+            {windowRow('P1 payoff / round', w.parent.p1PayoffPerRound, w.fork.p1PayoffPerRound, w.delta.p1PayoffPerRound, formatNumber)}
+            {windowRow('P2 payoff / round', w.parent.p2PayoffPerRound, w.fork.p2PayoffPerRound, w.delta.p2PayoffPerRound, formatNumber)}
+            {windowRow('Cooperation', w.parent.coopRate, w.fork.coopRate, w.delta.coopRate, formatPercent)}
+            {windowRow('Mutual cooperation', w.parent.mutualCoopRate, w.fork.mutualCoopRate, w.delta.mutualCoopRate, formatPercent)}
+            {windowRow('Equilibrium rate', w.parent.eqRate, w.fork.eqRate, w.delta.eqRate, formatPercent)}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

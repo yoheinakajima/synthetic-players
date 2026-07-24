@@ -189,7 +189,8 @@ export default function ExperimentDetail() {
             </Button>
           )}
           {exp.status === 'completed' && <ForkDialog exp={exp} />}
-          {exp.status === 'completed' && !analysis && (
+          {/* Forks are counterfactual probes, not evidence — analyses are rejected server-side. */}
+          {exp.status === 'completed' && !analysis && exp.parentExperimentId == null && (
             <Button onClick={handleAnalyze} disabled={analyzeMutation.isPending} className="gap-2 bg-primary">
               <BrainCircuit className="w-4 h-4" />
               {analyzeMutation.isPending ? "Analyzing..." : "Generate Analysis"}

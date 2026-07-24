@@ -427,6 +427,48 @@ export const ForkExperimentResponse = zod.object({
 
 
 /**
+ * Replays the experiment on the engine with its stored seed and persists engineRunId ONLY if the replay reproduces the stored rounds exactly. A mismatch returns 409 (determinism drift) and writes nothing. Idempotent: returns the existing engine run if one is present.
+ * @summary Materialize an engine run for a completed pre-engine experiment (verified seeded replay)
+ */
+export const EnsureEngineRunParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const EnsureEngineRunResponse = zod.object({
+  "experimentId": zod.number(),
+  "engineRunId": zod.string(),
+  "alreadyHad": zod.boolean().describe('True if the experiment already had an engine run (no replay performed)')
+})
+
+
+/**
+ * For each non-fork completed parent in batchLabel, ensures a verified engine run and creates a fork at forkRound with the optional strategy swaps, labeled forkBatchLabel. Parents that already have a matching completed fork are skipped, so re-running is safe. Always returns 200 once the batch is accepted: per-parent errors (engine unreachable, determinism drift, unseeded parents) are reported in `failed[]`, never as a transport-level status.
+ * @summary Fork every completed experiment in a batch at the same round (idempotent)
+ */
+
+
+
+export const ForkExperimentBatchBody = zod.object({
+  "batchLabel": zod.string().describe('Parent batch to fork (non-fork completed experiments only)'),
+  "forkRound": zod.number().min(1),
+  "player1StrategyId": zod.number().nullish().describe('Swap P1 to this strategy in the forks; omit or null to keep the parent\'s'),
+  "player2StrategyId": zod.number().nullish().describe('Swap P2 to this strategy in the forks; omit or null to keep the parent\'s'),
+  "forkBatchLabel": zod.string().describe('Batch label assigned to the created forks (referenced by fork-comparison claim scopes)'),
+  "notes": zod.string().optional()
+})
+
+export const ForkExperimentBatchResponse = zod.object({
+  "forkBatchLabel": zod.string(),
+  "created": zod.array(zod.number()).describe('Fork experiment ids created in this call'),
+  "skippedParents": zod.array(zod.number()).describe('Parent ids that already had a matching completed fork'),
+  "failed": zod.array(zod.object({
+  "parentExperimentId": zod.number(),
+  "error": zod.string()
+}))
+})
+
+
+/**
  * @summary Structurally diff a forked experiment against its parent
  */
 export const GetExperimentDiffParams = zod.object({
@@ -471,7 +513,36 @@ export const GetExperimentDiffResponse = zod.object({
   "player2TotalPayoff": zod.number(),
   "cooperationRate": zod.number(),
   "nashDeviationScore": zod.number()
-})
+}),
+  "postForkWindow": zod.object({
+  "forkRound": zod.number(),
+  "windowRounds": zod.number(),
+  "parent": zod.object({
+  "p1PayoffPerRound": zod.number(),
+  "p2PayoffPerRound": zod.number(),
+  "welfarePerRound": zod.number(),
+  "coopRate": zod.number().nullable().describe('Action-level cooperation rate over the window; null for zero-sum games'),
+  "mutualCoopRate": zod.number().nullable().describe('Fraction of window rounds with mutual cooperation; null for zero-sum games'),
+  "eqRate": zod.number().nullable().describe('Fraction of window rounds in a pure-NE cell; null when flags are unavailable')
+}),
+  "fork": zod.object({
+  "p1PayoffPerRound": zod.number(),
+  "p2PayoffPerRound": zod.number(),
+  "welfarePerRound": zod.number(),
+  "coopRate": zod.number().nullable().describe('Action-level cooperation rate over the window; null for zero-sum games'),
+  "mutualCoopRate": zod.number().nullable().describe('Fraction of window rounds with mutual cooperation; null for zero-sum games'),
+  "eqRate": zod.number().nullable().describe('Fraction of window rounds in a pure-NE cell; null when flags are unavailable')
+}),
+  "delta": zod.object({
+  "p1PayoffPerRound": zod.number(),
+  "p2PayoffPerRound": zod.number(),
+  "welfarePerRound": zod.number(),
+  "coopRate": zod.number().nullable().describe('Action-level cooperation rate over the window; null for zero-sum games'),
+  "mutualCoopRate": zod.number().nullable().describe('Fraction of window rounds with mutual cooperation; null for zero-sum games'),
+  "eqRate": zod.number().nullable().describe('Fraction of window rounds in a pure-NE cell; null when flags are unavailable')
+}),
+  "welfareRecoveryFrac": zod.number().nullable().describe('Fraction of the parent\'s post-fork welfare gap (to the matrix max joint payoff) closed by the fork. Null for zero-sum games or when the parent is already at max welfare.')
+}).optional().describe('Paired parent-vs-fork metrics over the shared post-fork window. Absent only if window metrics could not be computed.')
 })
 
 

@@ -254,6 +254,69 @@ paths:
         "502":
           description: Engine service unreachable
 
+  /experiments/{id}/engine-run:
+    post:
+      operationId: ensureEngineRun
+      tags: [experiments]
+      summary: Materialize an engine run for a completed pre-engine experiment (verified seeded replay)
+      description: >-
+        Replays the experiment on the engine with its stored seed and persists
+        engineRunId ONLY if the replay reproduces the stored rounds exactly.
+        A mismatch returns 409 (determinism drift) and writes nothing.
+        Idempotent: returns the existing engine run if one is present.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Engine run present (existing or newly materialized)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnsureEngineRunResult"
+        "400":
+          description: Experiment not completed, or unseeded legacy run
+        "404":
+          description: Not found
+        "409":
+          description: Replay did not reproduce stored rounds — determinism drift; nothing written
+        "502":
+          description: Engine service unreachable
+
+  /experiments/fork-batch:
+    post:
+      operationId: forkExperimentBatch
+      tags: [experiments]
+      summary: Fork every completed experiment in a batch at the same round (idempotent)
+      description: >-
+        For each non-fork completed parent in batchLabel, ensures a verified
+        engine run and creates a fork at forkRound with the optional strategy
+        swaps, labeled forkBatchLabel. Parents that already have a matching
+        completed fork are skipped, so re-running is safe. Always returns 200
+        once the batch is accepted: per-parent errors (engine unreachable,
+        determinism drift, unseeded parents) are reported in `failed[]`, never
+        as a transport-level status.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForkExperimentBatchInput"
+      responses:
+        "200":
+          description: >-
+            Batch outcome per parent — inspect `created`, `skippedParents`,
+            and `failed[]`; a 200 does NOT imply every parent succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForkExperimentBatchResult"
+        "400":
+          description: Invalid input, unknown strategy, or no completed parents in batch
+
   /experiments/{id}/diff:
     get:
       operationId: getExperimentDiff
@@ -1150,6 +1213,117 @@ components:
           $ref: "#/components/schemas/DiffSummary"
         forkSummary:
           $ref: "#/components/schemas/DiffSummary"
+        postForkWindow:
+          $ref: "#/components/schemas/ForkWindowComparison"
+          description: >-
+            Paired parent-vs-fork metrics over the shared post-fork window.
+            Absent only if window metrics could not be computed.
+
+    ForkWindowMetrics:
+      type: object
+      required: [p1PayoffPerRound, p2PayoffPerRound, welfarePerRound, coopRate, mutualCoopRate, eqRate]
+      properties:
+        p1PayoffPerRound:
+          type: number
+        p2PayoffPerRound:
+          type: number
+        welfarePerRound:
+          type: number
+        coopRate:
+          type: ["number", "null"]
+          description: Action-level cooperation rate over the window; null for zero-sum games
+        mutualCoopRate:
+          type: ["number", "null"]
+          description: Fraction of window rounds with mutual cooperation; null for zero-sum games
+        eqRate:
+          type: ["number", "null"]
+          description: Fraction of window rounds in a pure-NE cell; null when flags are unavailable
+
+    ForkWindowComparison:
+      type: object
+      description: >-
+        Paired parent-vs-fork metrics over the shared post-fork window
+        (rounds forkRound+1..N). The only honest fork comparison — whole-run
+        fork metrics are hybrid histories and are excluded from evidence.
+      required: [forkRound, windowRounds, parent, fork, delta, welfareRecoveryFrac]
+      properties:
+        forkRound:
+          type: integer
+        windowRounds:
+          type: integer
+        parent:
+          $ref: "#/components/schemas/ForkWindowMetrics"
+        fork:
+          $ref: "#/components/schemas/ForkWindowMetrics"
+        delta:
+          $ref: "#/components/schemas/ForkWindowMetrics"
+        welfareRecoveryFrac:
+          type: ["number", "null"]
+          description: >-
+            Fraction of the parent's post-fork welfare gap (to the matrix max
+            joint payoff) closed by the fork. Null for zero-sum games or when
+            the parent is already at max welfare.
+
+    EnsureEngineRunResult:
+      type: object
+      required: [experimentId, engineRunId, alreadyHad]
+      properties:
+        experimentId:
+          type: integer
+        engineRunId:
+          type: string
+        alreadyHad:
+          type: boolean
+          description: True if the experiment already had an engine run (no replay performed)
+
+    ForkExperimentBatchInput:
+      type: object
+      required: [batchLabel, forkRound, forkBatchLabel]
+      properties:
+        batchLabel:
+          type: string
+          description: Parent batch to fork (non-fork completed experiments only)
+        forkRound:
+          type: integer
+          minimum: 1
+        player1StrategyId:
+          type: ["integer", "null"]
+          description: Swap P1 to this strategy in the forks; omit or null to keep the parent's
+        player2StrategyId:
+          type: ["integer", "null"]
+          description: Swap P2 to this strategy in the forks; omit or null to keep the parent's
+        forkBatchLabel:
+          type: string
+          description: Batch label assigned to the created forks (referenced by fork-comparison claim scopes)
+        notes:
+          type: string
+
+    ForkExperimentBatchResult:
+      type: object
+      required: [forkBatchLabel, created, skippedParents, failed]
+      properties:
+        forkBatchLabel:
+          type: string
+        created:
+          type: array
+          items:
+            type: integer
+          description: Fork experiment ids created in this call
+        skippedParents:
+          type: array
+          items:
+            type: integer
+          description: Parent ids that already had a matching completed fork
+        failed:
+          type: array
+          items:
+            type: object
+            required: [parentExperimentId, error]
+            properties:
+              parentExperimentId:
+                type: integer
+              error:
+                type: string
 
     TraceEvent:
       type: object

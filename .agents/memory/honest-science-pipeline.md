@@ -38,3 +38,20 @@ regenerated from an older spec re-added a removed "author can set verdict"
 field; the runtime guard held, but spec and generated types contradicted it.
 After any merge, re-verify honesty-critical schema constraints and re-run
 codegen from the merged spec.
+
+**Growing evidence after a verdict is legitimate; touching thresholds is not.**
+Adding replicates to tighten a straddling CI (inconclusive → supported/refuted)
+is the pre-registered predicate doing its job. New experiments that match an
+old claim's declared scope also legitimately enter its evidence pool and can
+flip its verdict — audit every flip (check evidence id ranges) and disclose it;
+a silent flip looks like tampering even when it isn't.
+
+**Refuting your own prediction is the system working.** A "generosity rescues
+cooperation ≥80%" claim came back refuted at 62.8% CI [49.3, 76.3] (n=20):
+stochastic forgiveness sometimes re-triggers defection spirals. Keep such
+refutations prominent — they are the credibility proof of the pipeline.
+
+**Near-identical replicates need an sd epsilon.** Byte-identical runs can leave
+sd ≈ 1e-18 from float accumulation; a t-CI over that degenerates and Cohen's d
+explodes to ~1e17. Route sd below ~1e-12 to the exact-comparison path and
+suppress effect size there.

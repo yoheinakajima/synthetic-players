@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { eq, and } from "drizzle-orm";
+import { eq, and, isNull, isNotNull } from "drizzle-orm";
 import {
   db,
   experimentsTable,
@@ -27,13 +27,22 @@ import {
   generateSeed,
   withPerRoundAverages,
   engineErrorStatus,
+  ensureEngineRun,
+  forkExperimentFromParent,
+  toGameDef,
+  EngineDriftError,
 } from "../lib/experiment-service";
+import { computeForkComparison } from "../lib/fork-metrics";
 import { logger } from "../lib/logger";
-import { forkOnEngine, diffOnEngine, traceOnEngine } from "../lib/engine-client";
+import { diffOnEngine, traceOnEngine } from "../lib/engine-client";
 import {
   ForkExperimentParams,
   ForkExperimentBody,
   ForkExperimentResponse,
+  EnsureEngineRunParams,
+  EnsureEngineRunResponse,
+  ForkExperimentBatchBody,
+  ForkExperimentBatchResponse,
   GetExperimentDiffParams,
   GetExperimentDiffResponse,
   GetExperimentTraceParams,
@@ -310,55 +319,147 @@ router.post("/experiments/:id/fork", async (req, res): Promise<void> => {
   }
 
   try {
-    const result = await forkOnEngine(parent.engineRunId, {
+    const forkExp = await forkExperimentFromParent(parent, {
       forkRound: body.data.forkRound,
-      strategy1Slug: p1Strat.slug,
-      strategy2Slug: p2Strat.slug,
+      player1StrategyId: body.data.player1StrategyId,
+      player2StrategyId: body.data.player2StrategyId,
+      notes: body.data.notes,
     });
-
-    const [forkExp] = await db
-      .insert(experimentsTable)
-      .values({
-        gameId: parent.gameId,
-        player1StrategyId: p1StrategyId,
-        player2StrategyId: p2StrategyId,
-        numRounds: parent.numRounds,
-        seed: parent.seed,
-        engineRunId: result.engineRunId,
-        parentExperimentId: parent.id,
-        forkRound: body.data.forkRound,
-        status: "completed",
-        player1TotalPayoff: result.player1TotalPayoff,
-        player2TotalPayoff: result.player2TotalPayoff,
-        cooperationRate: result.cooperationRate,
-        nashDeviationScore: result.nashDeviationScore,
-        completedAt: new Date(),
-        notes:
-          body.data.notes ??
-          `Fork of EXP-${parent.id} at round ${body.data.forkRound}`,
-      })
-      .returning();
-
-    await db.insert(roundsTable).values(
-      result.rounds.map((r) => ({
-        experimentId: forkExp.id,
-        roundNumber: r.roundNumber,
-        player1Action: r.player1Action,
-        player2Action: r.player2Action,
-        player1Payoff: r.player1Payoff,
-        player2Payoff: r.player2Payoff,
-        player1Reasoning: r.player1Reasoning,
-        player2Reasoning: r.player2Reasoning,
-        isNashOutcome: r.isNashOutcome,
-      }))
-    );
-
     const detail = await buildExperimentDetail(forkExp);
     res.status(201).json(ForkExperimentResponse.parse(detail));
   } catch (err) {
     const { status, message } = engineErrorStatus(err);
     res.status(status).json({ error: `Fork failed: ${message}` });
   }
+});
+
+router.post("/experiments/:id/engine-run", async (req, res): Promise<void> => {
+  const params = EnsureEngineRunParams.safeParse(req.params);
+  if (!params.success) {
+    res.status(400).json({ error: params.error.message });
+    return;
+  }
+
+  const [exp] = await db
+    .select()
+    .from(experimentsTable)
+    .where(eq(experimentsTable.id, params.data.id));
+  if (!exp) {
+    res.status(404).json({ error: "Experiment not found" });
+    return;
+  }
+
+  try {
+    const r = await ensureEngineRun(exp.id);
+    res.json(
+      EnsureEngineRunResponse.parse({
+        experimentId: exp.id,
+        engineRunId: r.engineRunId,
+        alreadyHad: r.alreadyHad,
+      })
+    );
+  } catch (err) {
+    if (err instanceof EngineDriftError) {
+      logger.error({ experimentId: exp.id, message: err.message }, "engine determinism drift");
+      res.status(409).json({ error: err.message });
+      return;
+    }
+    const { status, message } = engineErrorStatus(err);
+    res
+      .status(status === 500 ? 400 : status)
+      .json({ error: `Engine run materialization failed: ${message}` });
+  }
+});
+
+router.post("/experiments/fork-batch", async (req, res): Promise<void> => {
+  const body = ForkExperimentBatchBody.safeParse(req.body);
+  if (!body.success) {
+    res.status(400).json({ error: body.error.message });
+    return;
+  }
+  const { batchLabel, forkRound, forkBatchLabel, notes } = body.data;
+
+  const parents = await db
+    .select()
+    .from(experimentsTable)
+    .where(
+      and(
+        eq(experimentsTable.batchLabel, batchLabel),
+        eq(experimentsTable.status, "completed"),
+        isNull(experimentsTable.parentExperimentId)
+      )
+    );
+  if (parents.length === 0) {
+    res.status(400).json({ error: `No completed experiments in batch "${batchLabel}"` });
+    return;
+  }
+
+  for (const stratId of [body.data.player1StrategyId, body.data.player2StrategyId]) {
+    if (stratId != null) {
+      const [s] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, stratId));
+      if (!s) {
+        res.status(400).json({ error: `Strategy ${stratId} not found` });
+        return;
+      }
+    }
+  }
+
+  // Idempotency: a parent is skipped when a completed fork with the same
+  // round, strategies, and fork batch label already exists.
+  const existingForks = await db
+    .select()
+    .from(experimentsTable)
+    .where(
+      and(
+        eq(experimentsTable.batchLabel, forkBatchLabel),
+        isNotNull(experimentsTable.parentExperimentId)
+      )
+    );
+
+  const created: number[] = [];
+  const skippedParents: number[] = [];
+  const failed: Array<{ parentExperimentId: number; error: string }> = [];
+
+  for (const parent of parents) {
+    const p1Id = body.data.player1StrategyId ?? parent.player1StrategyId;
+    const p2Id = body.data.player2StrategyId ?? parent.player2StrategyId;
+    const dup = existingForks.find(
+      (f) =>
+        f.parentExperimentId === parent.id &&
+        f.forkRound === forkRound &&
+        f.player1StrategyId === p1Id &&
+        f.player2StrategyId === p2Id &&
+        f.status === "completed"
+    );
+    if (dup) {
+      skippedParents.push(parent.id);
+      continue;
+    }
+    try {
+      const ensured = await ensureEngineRun(parent.id);
+      const forkExp = await forkExperimentFromParent(ensured.exp, {
+        forkRound,
+        player1StrategyId: body.data.player1StrategyId,
+        player2StrategyId: body.data.player2StrategyId,
+        batchLabel: forkBatchLabel,
+        notes: notes ?? `Fork of EXP-${parent.id} at round ${forkRound} [${forkBatchLabel}]`,
+      });
+      created.push(forkExp.id);
+    } catch (err) {
+      failed.push({
+        parentExperimentId: parent.id,
+        error: err instanceof Error ? err.message : "Unknown error",
+      });
+    }
+  }
+
+  logger.info(
+    { forkBatchLabel, created: created.length, skipped: skippedParents.length, failed: failed.length },
+    "fork batch finished"
+  );
+  res.json(
+    ForkExperimentBatchResponse.parse({ forkBatchLabel, created, skippedParents, failed })
+  );
 });
 
 router.get("/experiments/:id/diff", async (req, res): Promise<void> => {
@@ -394,6 +495,26 @@ router.get("/experiments/:id/diff", async (req, res): Promise<void> => {
 
   try {
     const d = await diffOnEngine(parent.engineRunId, fork.engineRunId);
+
+    // Paired post-fork-window metrics — the evidence-grade fork comparison.
+    let postForkWindow: ReturnType<typeof computeForkComparison> | undefined;
+    try {
+      const [gameRow] = await db.select().from(gamesTable).where(eq(gamesTable.id, fork.gameId));
+      if (gameRow) {
+        postForkWindow = computeForkComparison(
+          toGameDef(gameRow),
+          d.parentRounds,
+          d.forkRounds,
+          fork.forkRound
+        );
+      }
+    } catch (err) {
+      logger.warn(
+        { forkId: fork.id, error: err instanceof Error ? err.message : String(err) },
+        "post-fork window metrics unavailable"
+      );
+    }
+
     res.json(
       GetExperimentDiffResponse.parse({
         forkExperimentId: fork.id,
@@ -410,6 +531,7 @@ router.get("/experiments/:id/diff", async (req, res): Promise<void> => {
         forkRounds: d.forkRounds,
         parentSummary: d.parentSummary,
         forkSummary: d.forkSummary,
+        ...(postForkWindow ? { postForkWindow } : {}),
       })
     );
   } catch (err) {

@@ -50,6 +50,7 @@ A public academic research platform that runs classic game theory experiments, r
 - **Per-class metrics (v2):** analysisVersion 2 + metricsJson; cooperation metrics null for zero-sum games (exploitability + G-test instead); per-round "Nash rate" null for mixed-equilibrium games. UI panels are class-aware
 - **Presentation rule:** UI and paper lead with per-round averages; totals always labeled as totals
 - **Fork exclusion rule:** fork-lineage experiments (parentExperimentId set) are exploratory, never evidence — no analysis rows, skipped by the adjudicator, aggregate endpoint, and leaderboard. Study forks via the parent-vs-fork diff view. Only engine-era experiments (with engineRunId) are forkable; pre-engine runs would need a seeded re-run to backfill engineRunId
+- **Fork-comparison evidence (Phase 2 · Track 1):** the one principled exception to fork exclusion — paired parent-vs-fork metrics over the shared post-fork window (`postFork.*` metrics, `scope.fork` predicate blocks; see docs/METRICS.md). `POST /experiments/fork-batch` forks a whole batch idempotently, auto-materializing engine runs via verified seeded replay (`POST /experiments/:id/engine-run`, 409 on determinism drift, writes nothing on mismatch). Entire seeded corpus (396 runs) backfilled with 0 drift. Adjudicator treats sd < 1e-12 as deterministic evidence (float residue ≠ variance)
 
 ## Product
 

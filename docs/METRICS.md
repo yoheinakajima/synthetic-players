@@ -78,7 +78,8 @@ Metric names ending in `Focus`/`Opponent` resolve to the seat occupied by
 
 Per item:
 - **n = 0** → `untested`.
-- **Deterministic evidence** (n = 1, or sd = 0 across replicates) → exact point
+- **Deterministic evidence** (n = 1, or sd < 1e-12 across replicates — float
+  accumulation residue from identical runs counts as zero) → exact point
   comparison: `supported` or `refuted`, never inconclusive.
 - **Sampled evidence** (n ≥ 2, sd > 0) → 95% t-interval vs threshold:
   `supported` iff the whole CI satisfies the comparison, `refuted` iff the whole
@@ -101,3 +102,34 @@ sample of the labeled matchup. Enforced in four places: forks cannot receive
 analysis rows, the adjudicator's evidence loader skips them, the aggregate
 endpoint excludes them, and the strategy leaderboard ignores them. Forks are
 studied through the engine's parent-vs-fork diff view instead.
+
+## Fork-comparison metrics (`postFork.*`)
+
+The one principled exception to the fork exclusion rule: a fork IS evidence
+when a claim explicitly compares it against its **own parent** over the shared
+**post-fork window** — rounds `forkRound+1 … N` on both branches (equal length
+enforced). Same seed, same history up to the branch point, one controlled
+change: a paired counterfactual, clean where whole-run fork metrics are not.
+
+Computed from stored rounds and flattened under the `postFork.` namespace:
+
+- `postFork.{p1Payoff,p2Payoff,welfare}PerRound{Parent,Fork,Delta}` — per-round
+  payoffs over the window; `Delta` = fork − parent.
+- `postFork.coopRate{Parent,Fork,Delta}`, `postFork.mutualCoopRate…` — omitted
+  entirely (not 0) for zero-sum games, per the "undefined ≠ zero" rule.
+- `postFork.eqRate{Parent,Fork,Delta}` — fraction of window rounds in a
+  pure-equilibrium cell.
+- `postFork.welfareRecoveryFrac` — fraction of the parent's per-round welfare
+  gap (to the matrix max joint payoff) closed by the fork:
+  `(forkWelfare − parentWelfare) / (maxWelfare − parentWelfare)`. Null when the
+  parent is already within 1e-9 of max or the game is zero-sum; clamped at 1.
+- `postFork.windowRounds` — window length.
+
+Predicate scoping: a fork item sets
+`scope.fork = { forkRound, player1StrategySlug?, player2StrategySlug?, batchLabel? }`.
+The **outer** scope matches the **parent** (matchup slugs, batch label);
+`eitherOrder` is forced off because seats matter when one seat is swapped.
+An omitted fork slug means "seat unchanged". Only completed first-order forks
+qualify (a fork of a fork is never evidence), and when several forks of the
+same parent match a scope, the newest wins — re-running a fork batch cannot
+double-count.

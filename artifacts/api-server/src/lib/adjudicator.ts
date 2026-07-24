@@ -22,17 +22,42 @@
  * for deterministic evidence the raw margin (mean − threshold) is reported instead.
  */
 
-import { eq } from "drizzle-orm";
-import { db, experimentsTable, analysesTable, strategiesTable } from "@workspace/db";
+import { eq, isNotNull, inArray } from "drizzle-orm";
+import {
+  db,
+  experimentsTable,
+  analysesTable,
+  strategiesTable,
+  gamesTable,
+  roundsTable,
+} from "@workspace/db";
 import { flattenMetrics, type MetricsV2 } from "./metrics";
+import { computeForkComparison, flattenForkComparison } from "./fork-metrics";
+import type { GameDef } from "./game-engine";
 
 // ── Predicate types ────────────────────────────────────────────────────────
+
+/**
+ * Selects FORKS of the parents matched by the outer scope. When present, the
+ * item is adjudicated on paired parent-vs-fork post-fork-window metrics (the
+ * `postFork.*` namespace) — one value per (parent, fork) pair. Omitted
+ * strategy slugs mean "same as the parent" (unswapped seat).
+ */
+export interface ForkScope {
+  forkRound: number;
+  /** Fork's P1 strategy slug; omitted = unswapped (same as parent P1). */
+  player1StrategySlug?: string;
+  /** Fork's P2 strategy slug; omitted = unswapped (same as parent P2). */
+  player2StrategySlug?: string;
+  /** Fork batch label (as assigned by fork-batch). */
+  batchLabel?: string;
+}
 
 export interface PredicateScope {
   gameId?: number;
   player1StrategySlug?: string;
   player2StrategySlug?: string;
-  /** Match player1/player2 slugs in either seat order. */
+  /** Match player1/player2 slugs in either seat order. Not honored for fork items (seat identity matters for swaps). */
   eitherOrder?: boolean;
   /** At least one seat's strategy is in this list. */
   anyStrategySlugs?: string[];
@@ -41,6 +66,8 @@ export interface PredicateScope {
   batchLabel?: string;
   /** Resolves metric names ending in "Focus"/"Opponent" to the seat this strategy occupies. */
   focusStrategySlug?: string;
+  /** When set, this item runs on paired parent-vs-fork evidence instead of whole-run analyses. */
+  fork?: ForkScope;
 }
 
 export interface PredicateItem {
@@ -76,6 +103,7 @@ export interface ItemAdjudication {
   ciHigh: number | null;
   /** One-sample Cohen's d vs threshold (n ≥ 2, sd > 0 only). */
   effectSize: number | null;
+
   /** mean − threshold; the deterministic-evidence effect measure. */
   margin: number | null;
   verdict: Verdict;
@@ -93,6 +121,13 @@ export interface AdjudicationRecord {
 // ── Statistics ─────────────────────────────────────────────────────────────
 
 /** Two-sided 95% t critical values by degrees of freedom. */
+/**
+ * Below this sample standard deviation, replicates are treated as identical
+ * (deterministic evidence): float accumulation across byte-identical runs can
+ * leave sd ~1e-18, which would degenerate the t-CI and explode effect sizes.
+ */
+const SD_EPSILON = 1e-12;
+
 const T_TABLE: Array<[number, number]> = [
   [1, 12.706], [2, 4.303], [3, 3.182], [4, 2.776], [5, 2.571], [6, 2.447],
   [7, 2.365], [8, 2.306], [9, 2.262], [10, 2.228], [11, 2.201], [12, 2.179],
@@ -181,12 +216,168 @@ async function loadEvidence(): Promise<EvidenceRow[]> {
   return rows;
 }
 
-/** Invalidate the evidence cache (call after new experiments/analyses are written). */
-export function invalidateEvidenceCache(): void {
-  evidenceCache = null;
+// ── Fork-pair evidence ─────────────────────────────────────────────────────
+
+interface ForkEvidenceRow {
+  forkExperimentId: number;
+  parentExperimentId: number;
+  gameId: number;
+  parentP1Slug: string;
+  parentP2Slug: string;
+  forkP1Slug: string;
+  forkP2Slug: string;
+  parentBatchLabel: string | null;
+  forkBatchLabel: string | null;
+  forkRound: number;
+  flat: Record<string, number>;
 }
 
-function matchesScope(row: EvidenceRow, scope: PredicateScope): boolean {
+let forkEvidenceCache: ForkEvidenceRow[] | null = null;
+
+/**
+ * Load all completed fork experiments paired with their parents, with
+ * post-fork-window metrics computed from stored rounds. Forks stay excluded
+ * from the whole-run pool; this paired pool is the ONLY way they enter
+ * adjudication.
+ */
+async function loadForkEvidence(): Promise<ForkEvidenceRow[]> {
+  if (forkEvidenceCache) return forkEvidenceCache;
+
+  const forks = await db
+    .select()
+    .from(experimentsTable)
+    .where(isNotNull(experimentsTable.parentExperimentId));
+
+  const usable = forks.filter(
+    (f) => f.status === "completed" && f.forkRound != null && f.parentExperimentId != null
+  );
+  if (usable.length === 0) {
+    forkEvidenceCache = [];
+    return forkEvidenceCache;
+  }
+
+  const parentIds = [...new Set(usable.map((f) => f.parentExperimentId!))];
+  const parents = await db
+    .select()
+    .from(experimentsTable)
+    .where(inArray(experimentsTable.id, parentIds));
+  const parentById = new Map(parents.map((p) => [p.id, p]));
+
+  const games = await db.select().from(gamesTable);
+  const gameById = new Map(
+    games.map((g) => [
+      g.id,
+      {
+        id: g.id,
+        slug: g.slug,
+        numActions: g.numActions,
+        actionLabels: JSON.parse(g.actionLabels) as string[],
+        payoffMatrix: JSON.parse(g.payoffMatrix) as number[][][],
+        nashEquilibria: JSON.parse(g.nashEquilibria) as number[][],
+        category: g.category,
+      } as GameDef & { category: string },
+    ])
+  );
+
+  const strategies = await db.select().from(strategiesTable);
+  const stratSlug = new Map(strategies.map((s) => [s.id, s.slug]));
+
+  const allExpIds = [...new Set([...usable.map((f) => f.id), ...parentIds])];
+  const allRounds = await db
+    .select()
+    .from(roundsTable)
+    .where(inArray(roundsTable.experimentId, allExpIds));
+  const roundsByExp = new Map<number, typeof allRounds>();
+  for (const r of allRounds) {
+    const list = roundsByExp.get(r.experimentId) ?? [];
+    list.push(r);
+    roundsByExp.set(r.experimentId, list);
+  }
+
+  const rows: ForkEvidenceRow[] = [];
+  for (const fork of usable) {
+    const parent = parentById.get(fork.parentExperimentId!);
+    if (!parent || parent.status !== "completed") continue;
+    // A fork of a fork would pair against a hybrid baseline; only first-order
+    // forks (parent is a non-fork) are evidence-grade.
+    if (parent.parentExperimentId != null) continue;
+    const gameDef = gameById.get(fork.gameId);
+    const parentRounds = roundsByExp.get(parent.id);
+    const forkRounds = roundsByExp.get(fork.id);
+    if (!gameDef || !parentRounds?.length || !forkRounds?.length) continue;
+    try {
+      const cmp = computeForkComparison(gameDef, parentRounds, forkRounds, fork.forkRound!);
+      rows.push({
+        forkExperimentId: fork.id,
+        parentExperimentId: parent.id,
+        gameId: fork.gameId,
+        parentP1Slug: stratSlug.get(parent.player1StrategyId) ?? "unknown",
+        parentP2Slug: stratSlug.get(parent.player2StrategyId) ?? "unknown",
+        forkP1Slug: stratSlug.get(fork.player1StrategyId) ?? "unknown",
+        forkP2Slug: stratSlug.get(fork.player2StrategyId) ?? "unknown",
+        parentBatchLabel: parent.batchLabel,
+        forkBatchLabel: fork.batchLabel,
+        forkRound: fork.forkRound!,
+        flat: flattenForkComparison(cmp),
+      });
+    } catch {
+      continue; // malformed pair (e.g. missing window) is never silently scored
+    }
+  }
+  forkEvidenceCache = rows;
+  return rows;
+}
+
+function matchesForkScope(row: ForkEvidenceRow, scope: PredicateScope): boolean {
+  const fork = scope.fork!;
+  // Outer scope selects the PARENT (matchup, game, parent batch).
+  if (
+    !matchesScope(
+      {
+        gameId: row.gameId,
+        p1Slug: row.parentP1Slug,
+        p2Slug: row.parentP2Slug,
+        batchLabel: row.parentBatchLabel,
+      },
+      { ...scope, fork: undefined, eitherOrder: false }
+    )
+  ) {
+    return false;
+  }
+  if (row.forkRound !== fork.forkRound) return false;
+  const wantP1 = fork.player1StrategySlug ?? row.parentP1Slug;
+  const wantP2 = fork.player2StrategySlug ?? row.parentP2Slug;
+  if (row.forkP1Slug !== wantP1 || row.forkP2Slug !== wantP2) return false;
+  if (fork.batchLabel != null && row.forkBatchLabel !== fork.batchLabel) return false;
+  return true;
+}
+
+/** Among matching forks, keep the newest per parent so a re-forked pair is not double-counted. */
+function dedupeForksPerParent(rows: ForkEvidenceRow[]): ForkEvidenceRow[] {
+  const byParent = new Map<number, ForkEvidenceRow>();
+  for (const row of rows) {
+    const prev = byParent.get(row.parentExperimentId);
+    if (!prev || row.forkExperimentId > prev.forkExperimentId) {
+      byParent.set(row.parentExperimentId, row);
+    }
+  }
+  return [...byParent.values()];
+}
+
+/** Invalidate the evidence caches (call after new experiments/analyses/forks are written). */
+export function invalidateEvidenceCache(): void {
+  evidenceCache = null;
+  forkEvidenceCache = null;
+}
+
+interface MatchableRow {
+  gameId: number;
+  p1Slug: string;
+  p2Slug: string;
+  batchLabel: string | null;
+}
+
+function matchesScope(row: MatchableRow, scope: PredicateScope): boolean {
   if (scope.gameId != null && row.gameId !== scope.gameId) return false;
   if (scope.batchLabel != null && row.batchLabel !== scope.batchLabel) return false;
 
@@ -300,17 +491,32 @@ export async function adjudicatePredicate(predicate: ClaimPredicate): Promise<Ad
 
   for (const item of predicate.all) {
     const scope = { ...predicate.scope, ...(item.scope ?? {}) };
-    const matching = evidence.filter((row) => matchesScope(row, scope));
 
     const values: number[] = [];
     const usedIds: number[] = [];
-    for (const row of matching) {
-      const key = resolveMetricKey(item.metric, row, scope);
-      if (key == null) continue;
-      const v = row.flat[key];
-      if (typeof v === "number" && Number.isFinite(v)) {
-        values.push(v);
-        usedIds.push(row.experimentId);
+    if (scope.fork != null) {
+      // Paired parent-vs-fork evidence over the shared post-fork window.
+      const forkEvidence = await loadForkEvidence();
+      const matching = dedupeForksPerParent(
+        forkEvidence.filter((row) => matchesForkScope(row, scope))
+      );
+      for (const row of matching) {
+        const v = row.flat[item.metric];
+        if (typeof v === "number" && Number.isFinite(v)) {
+          values.push(v);
+          usedIds.push(row.forkExperimentId);
+        }
+      }
+    } else {
+      const matching = evidence.filter((row) => matchesScope(row, scope));
+      for (const row of matching) {
+        const key = resolveMetricKey(item.metric, row, scope);
+        if (key == null) continue;
+        const v = row.flat[key];
+        if (typeof v === "number" && Number.isFinite(v)) {
+          values.push(v);
+          usedIds.push(row.experimentId);
+        }
       }
     }
 
@@ -320,8 +526,11 @@ export async function adjudicatePredicate(predicate: ClaimPredicate): Promise<Ad
 
     if (stats.n < minExperiments || stats.mean == null) {
       verdict = "untested";
-      note = `No matching evidence (need ≥ ${minExperiments} experiments with metric "${item.metric}", found ${stats.n}).`;
-    } else if (stats.n === 1 || stats.sd === 0 || stats.sd == null) {
+      note = `No matching evidence (need ≥ ${minExperiments} ${scope.fork != null ? "parent-fork pairs" : "experiments"} with metric "${item.metric}", found ${stats.n}).`;
+    } else if (stats.n === 1 || stats.sd == null || stats.sd < SD_EPSILON) {
+      // Near-zero sd (float accumulation residue across identical replicates)
+      // must take the exact path too, or the t-CI degenerates and the effect
+      // size explodes to astronomical nonsense.
       verdict = pointVerdict(item, stats.mean);
       note =
         stats.n === 1
@@ -344,7 +553,7 @@ export async function adjudicatePredicate(predicate: ClaimPredicate): Promise<Ad
       ciLow: stats.ciLow,
       ciHigh: stats.ciHigh,
       effectSize:
-        stats.sd != null && stats.sd > 0 && stats.mean != null
+        stats.sd != null && stats.sd >= SD_EPSILON && stats.mean != null
           ? (stats.mean - item.threshold) / stats.sd
           : null,
       margin: stats.mean != null ? stats.mean - item.threshold : null,

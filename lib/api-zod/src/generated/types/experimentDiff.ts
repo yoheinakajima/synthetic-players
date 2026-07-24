@@ -7,6 +7,7 @@
  */
 import type { DiffRoundPoint } from './diffRoundPoint';
 import type { DiffSummary } from './diffSummary';
+import type { ForkWindowComparison } from './forkWindowComparison';
 
 export interface ExperimentDiff {
   forkExperimentId: number;
@@ -28,4 +29,6 @@ export interface ExperimentDiff {
   forkRounds: DiffRoundPoint[];
   parentSummary: DiffSummary;
   forkSummary: DiffSummary;
+  /** Paired parent-vs-fork metrics over the shared post-fork window. Absent only if window metrics could not be computed. */
+  postForkWindow?: ForkWindowComparison;
 }

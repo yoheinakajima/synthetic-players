@@ -30,11 +30,14 @@ import type {
   ClaimInput,
   ClaimUpdate,
   DashboardStats,
+  EnsureEngineRunResult,
   Experiment,
   ExperimentDetail,
   ExperimentDiff,
   ExperimentInput,
   ExperimentTrace,
+  ForkExperimentBatchInput,
+  ForkExperimentBatchResult,
   ForkExperimentInput,
   Game,
   GameSummary,
@@ -906,6 +909,150 @@ export const useForkExperiment = <TError = ErrorType<void>,
         TContext
       > => {
       return useMutation(getForkExperimentMutationOptions(options));
+    }
+
+export const getEnsureEngineRunUrl = (id: number,) => {
+
+
+
+
+  return `/api/experiments/${id}/engine-run`
+}
+
+/**
+ * Replays the experiment on the engine with its stored seed and persists engineRunId ONLY if the replay reproduces the stored rounds exactly. A mismatch returns 409 (determinism drift) and writes nothing. Idempotent: returns the existing engine run if one is present.
+ * @summary Materialize an engine run for a completed pre-engine experiment (verified seeded replay)
+ */
+export const ensureEngineRun = async (id: number, options?: RequestInit): Promise<EnsureEngineRunResult> => {
+
+  return customFetch<EnsureEngineRunResult>(getEnsureEngineRunUrl(id),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+
+export const getEnsureEngineRunMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof ensureEngineRun>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof ensureEngineRun>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['ensureEngineRun'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof ensureEngineRun>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  ensureEngineRun(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type EnsureEngineRunMutationResult = NonNullable<Awaited<ReturnType<typeof ensureEngineRun>>>
+
+    export type EnsureEngineRunMutationError = ErrorType<void>
+
+    /**
+ * @summary Materialize an engine run for a completed pre-engine experiment (verified seeded replay)
+ */
+export const useEnsureEngineRun = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof ensureEngineRun>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof ensureEngineRun>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getEnsureEngineRunMutationOptions(options));
+    }
+
+export const getForkExperimentBatchUrl = () => {
+
+
+
+
+  return `/api/experiments/fork-batch`
+}
+
+/**
+ * For each non-fork completed parent in batchLabel, ensures a verified engine run and creates a fork at forkRound with the optional strategy swaps, labeled forkBatchLabel. Parents that already have a matching completed fork are skipped, so re-running is safe. Always returns 200 once the batch is accepted: per-parent errors (engine unreachable, determinism drift, unseeded parents) are reported in `failed[]`, never as a transport-level status.
+ * @summary Fork every completed experiment in a batch at the same round (idempotent)
+ */
+export const forkExperimentBatch = async (forkExperimentBatchInput: ForkExperimentBatchInput, options?: RequestInit): Promise<ForkExperimentBatchResult> => {
+
+  return customFetch<ForkExperimentBatchResult>(getForkExperimentBatchUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(forkExperimentBatchInput)
+  }
+);}
+
+
+
+
+
+export const getForkExperimentBatchMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof forkExperimentBatch>>, TError,{data: BodyType<ForkExperimentBatchInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof forkExperimentBatch>>, TError,{data: BodyType<ForkExperimentBatchInput>}, TContext> => {
+
+const mutationKey = ['forkExperimentBatch'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof forkExperimentBatch>>, {data: BodyType<ForkExperimentBatchInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  forkExperimentBatch(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ForkExperimentBatchMutationResult = NonNullable<Awaited<ReturnType<typeof forkExperimentBatch>>>
+    export type ForkExperimentBatchMutationBody = BodyType<ForkExperimentBatchInput>
+    export type ForkExperimentBatchMutationError = ErrorType<void>
+
+    /**
+ * @summary Fork every completed experiment in a batch at the same round (idempotent)
+ */
+export const useForkExperimentBatch = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof forkExperimentBatch>>, TError,{data: BodyType<ForkExperimentBatchInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof forkExperimentBatch>>,
+        TError,
+        {data: BodyType<ForkExperimentBatchInput>},
+        TContext
+      > => {
+      return useMutation(getForkExperimentBatchMutationOptions(options));
     }
 
 export const getGetExperimentDiffUrl = (id: number,) => {

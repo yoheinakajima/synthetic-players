@@ -373,6 +373,43 @@ export interface DiffSummary {
   nashDeviationScore: number;
 }
 
+export interface ForkWindowMetrics {
+  p1PayoffPerRound: number;
+  p2PayoffPerRound: number;
+  welfarePerRound: number;
+  /**
+     * Action-level cooperation rate over the window; null for zero-sum games
+     * @nullable
+     */
+  coopRate: number | null;
+  /**
+     * Fraction of window rounds with mutual cooperation; null for zero-sum games
+     * @nullable
+     */
+  mutualCoopRate: number | null;
+  /**
+     * Fraction of window rounds in a pure-NE cell; null when flags are unavailable
+     * @nullable
+     */
+  eqRate: number | null;
+}
+
+/**
+ * Paired parent-vs-fork metrics over the shared post-fork window (rounds forkRound+1..N). The only honest fork comparison — whole-run fork metrics are hybrid histories and are excluded from evidence.
+ */
+export interface ForkWindowComparison {
+  forkRound: number;
+  windowRounds: number;
+  parent: ForkWindowMetrics;
+  fork: ForkWindowMetrics;
+  delta: ForkWindowMetrics;
+  /**
+     * Fraction of the parent's post-fork welfare gap (to the matrix max joint payoff) closed by the fork. Null for zero-sum games or when the parent is already at max welfare.
+     * @nullable
+     */
+  welfareRecoveryFrac: number | null;
+}
+
 export interface ExperimentDiff {
   forkExperimentId: number;
   parentExperimentId: number;
@@ -393,6 +430,49 @@ export interface ExperimentDiff {
   forkRounds: DiffRoundPoint[];
   parentSummary: DiffSummary;
   forkSummary: DiffSummary;
+  /** Paired parent-vs-fork metrics over the shared post-fork window. Absent only if window metrics could not be computed. */
+  postForkWindow?: ForkWindowComparison;
+}
+
+export interface EnsureEngineRunResult {
+  experimentId: number;
+  engineRunId: string;
+  /** True if the experiment already had an engine run (no replay performed) */
+  alreadyHad: boolean;
+}
+
+export interface ForkExperimentBatchInput {
+  /** Parent batch to fork (non-fork completed experiments only) */
+  batchLabel: string;
+  /** @minimum 1 */
+  forkRound: number;
+  /**
+     * Swap P1 to this strategy in the forks; omit or null to keep the parent's
+     * @nullable
+     */
+  player1StrategyId?: number | null;
+  /**
+     * Swap P2 to this strategy in the forks; omit or null to keep the parent's
+     * @nullable
+     */
+  player2StrategyId?: number | null;
+  /** Batch label assigned to the created forks (referenced by fork-comparison claim scopes) */
+  forkBatchLabel: string;
+  notes?: string;
+}
+
+export type ForkExperimentBatchResultFailedItem = {
+  parentExperimentId: number;
+  error: string;
+};
+
+export interface ForkExperimentBatchResult {
+  forkBatchLabel: string;
+  /** Fork experiment ids created in this call */
+  created: number[];
+  /** Parent ids that already had a matching completed fork */
+  skippedParents: number[];
+  failed: ForkExperimentBatchResultFailedItem[];
 }
 
 export interface TraceEvent {
