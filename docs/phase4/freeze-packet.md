@@ -49,7 +49,7 @@ step-3 sealing.
 |---|---|---|---|
 | A | Full predicate table (estimand/unit/contrast/direction/threshold/CI method/α/multiplicity/conditionals/degenerate rules/config/arms/verdict branches per claim) | [`predicates.md`](predicates.md) | ✅ frozen |
 | B | X1 amendments: prompt disclosure + invariance table; parser audit (all raw completions, zero retries, transcripts); semantic-equivalence instrument; report language (headline softened to the approved sentence, episode-level corners with CP bounds, result-informed-but-prospectively-registered provenance with exact timestamps, no policy-determinism claim, positioning §8, provenance appendix §7) | [`x1-prompt-disclosure.md`](x1-prompt-disclosure.md) · [`x1-parser-audit.md`](x1-parser-audit.md) · [`x1-semantic-equivalence.md`](x1-semantic-equivalence.md) · [`../phase3-report.md`](../phase3-report.md) | ✅ done (human audit + 18 rating calls pending, §H) |
-| C | Registry v3: 44 new templates with real sha256s, 250 sealed arms (D1 64×2 models, D2 8×2, D3 36×2, E 4×2, X2 10+2, F 11, sentinels 3), pinned dynamic bindings, disjoint seed plan (2001–3092; X2 screening reuses X1 seeds 1–10 by rule; sentinel pool 9001+), sealed interleaved execution schedule (mulberry32 seed 20260724) | [`registry-v3-manifest.md`](registry-v3-manifest.md) · [`arms.json`](arms.json) · [`execution-schedule.json`](execution-schedule.json) | ✅ built, append-only verified; external anchor pending GitHub (§H) |
+| C | Registry v3: 44 new templates with real sha256s, 250 sealed arms (D1 64×2 models, D2 8×2, D3 36×2, E 4×2, X2 10+2, F 11, sentinels 3), pinned dynamic bindings, disjoint seed plan (2001–3092; X2 screening reuses X1 seeds 1–10 by rule; sentinel pool 9001+), sealed interleaved execution schedule (mulberry32 seed 20260724) | [`registry-v3-manifest.md`](registry-v3-manifest.md) · [`arms.json`](arms.json) · [`execution-schedule.json`](execution-schedule.json) | ✅ sealed `phase4-v3` + externally anchored ([`seal-record.md`](seal-record.md)) |
 | D | X2 diff packet: k=6 span decomposition with byte-verified endpoints, ladders, frozen selection + confirmation rules, ≤2,226 calls | [`x2-diff-packet.md`](x2-diff-packet.md) | ✅ frozen |
 | E | F stabilization packet: 30-round gate **FAILED** (\|Δstay\| = 0.0512 > 0.05) → registered reversion to 50 rounds, switcher r26; full trajectory-window evidence | [`f-stabilization.md`](f-stabilization.md) | ✅ sealed (honest fail) |
 | F | Provider & provenance: named models (gpt-4.1 / **gemini-2.5-flash** per amendment A1), proxy-condition table, Gate-0 live verification plan, 15-field capture + server-side enforcement design, anchoring plan | [`provider-packet.md`](provider-packet.md) | ✅ frozen (Gate 0 runs first post-approval) |
@@ -71,12 +71,20 @@ registration ([`../substitution-estimand-preregistration.md`](../substitution-es
 request-body-sha definition with per-call mirror-vs-actual assertion, D3 render-rule
 pinning, budget ledger with exact Gate-0 backfill, 48-check selftest, Phase 3 replay
 re-verified byte-exact; live Phase 4 runs mechanically 403-refused until step 3)
-· 3–8 pending.
+· 3 ✅ registry v3 **sealed** (`phase4-v3`, 2026-07-24T18:58:15Z; post-seal registry sha `0c084b73…`) and
+**externally anchored**: annotated tag `phase4-v3-seal` + GitHub release published
+2026-07-24T19:04:16Z with assets registry.json / arms.json / SHA256SUMS.txt —
+https://github.com/yoheinakajima/synthetic-players/releases/tag/phase4-v3-seal
+(seal commit `d24ee94e`, full provenance in [`seal-record.md`](seal-record.md); tag
+annotated, not GPG-signed — disclosed) · 4–8 pending.
 
 ## §H Open items — status at approval (2026-07-24)
 
-1. **GitHub connection** for external anchoring: user opted **connect now** — pending
-   the user action; until attached, local sealing only, honestly labeled.
+1. **GitHub connection** for external anchoring: ✅ **resolved 2026-07-24** — user
+   connected and attached the GitHub integration; seal commit `d24ee94e` pushed to
+   `main` on `yoheinakajima/synthetic-players`; annotated tag `phase4-v3-seal` +
+   release published 2026-07-24T19:04:16Z with checksum-manifest assets
+   ([`seal-record.md`](seal-record.md)).
 2. **Cross-vendor model:** ✅ resolved by **amendment A1 (2026-07-24)**: claude-haiku-4-5
    failed Gate 0 round 1 (cannot complete a turn at maxTokens=16); user-approved switch to
    **gemini-2.5-flash**, Gate 0 round 2 **PASS** (Replit AI Integrations Gemini route — no

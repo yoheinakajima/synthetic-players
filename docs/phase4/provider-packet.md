@@ -152,3 +152,11 @@ manifest; the release URL + tag are then cited in the freeze packet as the publi
 timestamp. Until the user connects the GitHub integration this remains **PENDING
 (user action)** — the packet does not claim external anchoring, only local sealing.
 Language rule (standing): "externally anchored", never "cryptographically immutable".
+
+**Execution status: EXECUTED 2026-07-24** (registered plan above kept verbatim for
+provenance). Seal commit `d24ee94e` pushed to `main`; annotated tag `phase4-v3-seal`
++ release published 2026-07-24T19:04:16Z with assets registry.json / arms.json /
+SHA256SUMS.txt. **One deviation, disclosed:** the plan said "signed tag" — no GPG
+signing key exists in the execution environment, so the tag is annotated, not
+GPG-signed; the release timestamp is the anchor. Full record:
+[`seal-record.md`](seal-record.md).

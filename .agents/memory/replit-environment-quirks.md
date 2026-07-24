@@ -47,3 +47,23 @@ outcome-blind exclusion rule after the fact.
 **How to apply:** resumable scripts must treat any non-failed row (pending/
 running/completed) as claiming its slot; only a failed row frees it. Log
 in-flight items instead of retrying them.
+
+**`gitPush` requires a remote named `origin`.** Repls whose GitHub repo was
+connected via the git pane get a `subrepl-<id>` remote; the push callback fails
+with NO_REMOTE / UNKNOWN_REMOTE even though a valid GitHub remote exists.
+
+**How to apply:** `git remote add origin <same URL>` — the callback then pushes
+with platform-injected credentials (no PAT, no token handling in scripts).
+
+**Connector credentials from agent contexts.** For a freshly-attached
+connection, sandbox `listConnections('<slug>')` can return `[]`. The shell-side
+credential proxy (`$REPLIT_CONNECTORS_HOSTNAME/api/v2/connection`,
+`X_REPLIT_TOKEN: "repl $REPL_IDENTITY"`) works instead — but its
+`connector_names=` filter can return 0 items while the unfiltered list returns
+the connection.
+
+**How to apply:** fetch unfiltered with `include_secrets=true`, filter
+client-side on `connector_name`. Keep the token inside the script process;
+print only ids/urls/shas. The GitHub API can then create annotated tag objects,
+releases, and upload assets directly — a release is the clean external
+timestamp anchor for research artifacts.

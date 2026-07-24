@@ -26,6 +26,23 @@
 
 ## External anchor
 
-Appended immediately after the seal commit is pushed (see below): commit sha, tag,
-release URL. Language rule: this registry is **externally anchored** (GitHub release
-timestamp as public anchor) — not "cryptographically immutable".
+Executed 2026-07-24, immediately after the seal:
+
+- **Seal commit:** `d24ee94ea722d817f0382519445c5e9d11a7bb1f` — pushed to `main` on
+  https://github.com/yoheinakajima/synthetic-players (user's connected GitHub account).
+- **Tag:** `phase4-v3-seal` — annotated tag object `93af9ef1b484440d9a869054b2d80132063d89b0`
+  pointing at the seal commit, created via the GitHub API. **Not GPG-signed** — the
+  registered plan (provider-packet §4) said "signed tag"; no signing key exists in the
+  execution environment, so the tag is annotated-only. Disclosed here as a plan
+  deviation; the release timestamp below, not a signature, is the anchor.
+- **Release:** https://github.com/yoheinakajima/synthetic-players/releases/tag/phase4-v3-seal
+  (id 359492307), **published 2026-07-24T19:04:16Z — GitHub server timestamp, the
+  public anchor**.
+- **Assets uploaded:** post-seal `registry.json`, `arms.json`, `SHA256SUMS.txt`
+  (checksum manifest covering pre/post-seal registry, arms, schedule, and the seal
+  commit sha).
+- **Verification path for third parties:** download the release assets, hash them
+  (sha256), compare against this record, `SHA256SUMS.txt`, and `gate0-report.md`;
+  confirm the tag points at the seal commit and the release timestamp.
+- **Language rule:** this registry is **externally anchored** (GitHub release
+  timestamp as public anchor) — not "cryptographically immutable".
