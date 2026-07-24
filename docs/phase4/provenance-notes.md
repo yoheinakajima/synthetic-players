@@ -393,6 +393,18 @@ Resumption tooling, registered before any post-freeze dispatch:
   within-regime contrasts stand alone; cross-regime comparisons carry the
   drift qualification.
 
+2026-07-24 — Family E adjudication pins registered PRE-DISPATCH (X2C
+precedent): `--e` mode + `--selftest-e` committed to phase4_adjudicate.py
+before block:E:h1 was staged. Pins (full text in the module's §Family E
+header): Y_ep = round-1 cooperation-role share; gate per assay = CP 95% on
+M_ep=1{Y_ep≥.5} wholly inside open (0.05,0.95) for ≥1 δ cell, at realized n;
+slope = BCa one-sided 95% LB (registered seat-level-CP exact fallback);
+P4-E-1 branches (corner-confounded / supported / inconclusive) verbatim from
+predicates.md; secondaries Holm m=3 with gate-failed members entering as
+p=1.0 placeholders (verdict stays corner-confounded); disclosed BCa
+sensitivity intervals never verdict-bearing. E-dselected resolution and
+e-selection-report cross-checked fail-closed at adjudication.
+
 Sentinel cadence map for the remainder: 6 full (pre-E; baseline-setting read
 for the three re-baselined cells), 7 gemini-only (mid-E), 8 full
 (post-E/pre-F), 9 gemini-only (mid-F), 10 full (post-F). Overhead arithmetic

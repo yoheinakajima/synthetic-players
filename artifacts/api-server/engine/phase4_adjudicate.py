@@ -1483,6 +1483,345 @@ def selftest_x2c() -> int:
     return 0 if all(ok for _, ok in checks) else 1
 
 
+# ── Family E adjudication (frozen: predicates.md §Family E — gate + slope) ───
+#
+# PINS (registered before block:E dispatch, X2C precedent — committed with the
+# selftest below; provenance-notes.md carries the registration entry):
+# - Y_ep = episode round-1 cooperation-role share (same extraction as X2:
+#   mean over both seats of 1{round-1 action == 0}); episode unit throughout.
+# - Assay = presentation × model; four assays. Gate (adjudicated before any
+#   slope): valid iff ≥1 of the two δ cells has Clopper–Pearson 95% (two-sided,
+#   _cp_bounds) on the episode-majority binary M_ep = 1{Y_ep ≥ .5} wholly
+#   inside the OPEN interval (0.05, 0.95): lo > 0.05 AND hi < 0.95, at
+#   realized n. Disclosed sensitivity (never verdict-bearing): BCa(20260801)
+#   two-sided 95% on mean Y_ep per cell.
+# - Slope per assay: Δ = E[Y_ep|δ=.90] − E[Y_ep|δ=.10]; BCa(BCA_SEED, BCA_B)
+#   one-sided 95% lower bound (endpoint at α=.05); one-sided p by CI inversion
+#   (smallest α with endpoint(α) > 0, floor 1/(B+1)). Exact fallback when a
+#   cell is constant: seat-level CP, Bonferroni one-sided (the registered
+#   degenerate-design handling, as in X2 confirmation).
+# - P4-E-1 (primary, single): gpt-4.1 × D-selected. Branches verbatim:
+#   (i) gate fails → corner-confounded, assay invalid for slope inference —
+#   NOT evidence of δ-insensitivity; (ii) gate passes and LB95 > 0 →
+#   supported (positive slope); (iii) gate passes otherwise → inconclusive
+#   (no equivalence margin is registered, so flatness is never asserted).
+# - Secondary family, Holm m=3 over {gpt×community, cvx×D-selected,
+#   cvx×community}: same gate-first branching; a gate-failed member enters
+#   Holm as p = 1.0 (conservative placeholder; its verdict stays
+#   corner-confounded); supported iff Holm-adjusted one-sided p < 0.05.
+# - Fail-closed run validation identical in kind to X2 confirmation:
+#   scheduled-episode key match, no duplicates, seed/model/template stamps,
+#   clean engine commit, horizon-draw agreement, absent episodes only via the
+#   cap-120 truncation rule (zero calls), invalid trials excluded by the
+#   registered handling.
+
+E_PRESENTATIONS = ("dselected", "community")
+E_MODELS = ("gpt-4.1", "gemini-2.5-flash")
+E_PRIMARY = ("dselected", "gpt-4.1")
+E_SECONDARY_ORDER = (("community", "gpt-4.1"), ("dselected", "gemini-2.5-flash"),
+                     ("community", "gemini-2.5-flash"))
+E_COMMUNITY_TID = "pd-rep-community-w1"
+
+
+def _e_arm_id(pres: str, delta: int, model: str) -> str:
+    return f"p4-e-{pres}-d{delta}-{'gpt' if model == 'gpt-4.1' else 'cvx'}"
+
+
+def _e_gate_cell(g: list[float]) -> dict:
+    k = sum(1 for v in g if v >= 0.5)
+    n = len(g)
+    lo, hi = _cp_bounds(k, n)
+    return {"kMajority": k, "n": n, "cp95": [lo, hi],
+            "insideOpen05_95": (lo > 0.05) and (hi < 0.95)}
+
+
+def _e_sens_cell(g: list[float]) -> dict:
+    """Disclosed sensitivity only — never verdict-bearing."""
+    mean = sum(g) / len(g)
+    if len(set(g)) == 1:
+        return {"mean": mean, "note": "constant cell — BCa undefined"}
+    stat = lambda gs: sum(gs[0]) / len(gs[0])
+    theta, sb, z0, a, degen = _bca_fit([g], stat)
+    if degen:
+        return {"mean": mean, "note": f"BCa degenerate ({degen})"}
+    return {"mean": theta, "bca95": [_bca_endpoint(sb, z0, a, 0.025),
+                                     _bca_endpoint(sb, z0, a, 0.975)]}
+
+
+def _e_slope(g90: list[float], g10: list[float]) -> dict:
+    """One-sided slope claim per the pins above (mirrors _x2c_lb + inversion p)."""
+    stat = lambda gs: sum(gs[0]) / len(gs[0]) - sum(gs[1]) / len(gs[1])
+    est = stat([g90, g10])
+    const = len(set(g90)) == 1 or len(set(g10)) == 1
+    if not const:
+        theta, sb, z0, a, degen = _bca_fit([g90, g10], stat)
+        if not degen:
+            return {"method": "BCa(20260801) one-sided 95% lower bound",
+                    "estimate": theta,
+                    "lowerBound95": _bca_endpoint(sb, z0, a, 0.05),
+                    "pOneSided": _invert_p(lambda al: _bca_endpoint(sb, z0, a, al) > 0,
+                                           floor=1.0 / (BCA_B + 1))}
+    from scipy.stats import beta
+
+    def cp(g, cell_alpha):                       # seat-level trials, 2/episode
+        k = int(round(sum(g) * 2)); n = 2 * len(g)
+        lo = 0.0 if k == 0 else float(beta.ppf(cell_alpha / 2, k, n - k + 1))
+        hi = 1.0 if k == n else float(beta.ppf(1 - cell_alpha / 2, k + 1, n - k))
+        return lo, hi
+
+    return {"method": "exact fallback (constant/degenerate cell): CP seat-level, "
+                      "Bonferroni one-sided ≤0.05 (conservative)",
+            "estimate": est,
+            "lowerBound95": cp(g90, 0.05)[0] - cp(g10, 0.05)[1],
+            "pOneSided": _invert_p(lambda al: cp(g90, al)[0] - cp(g10, al)[1] > 0),
+            "constantCells": {"d90": len(set(g90)) == 1, "d10": len(set(g10)) == 1}}
+
+
+def _e_eval(y: dict[str, list[float]]) -> dict:
+    """Pure adjudication core over per-arm Y_ep lists (selftest-covered)."""
+    assays: dict[str, dict] = {}
+    for pres in E_PRESENTATIONS:
+        for model in E_MODELS:
+            g10, g90 = y[_e_arm_id(pres, 10, model)], y[_e_arm_id(pres, 90, model)]
+            if not g10 or not g90:
+                raise SystemExit(f"assay {pres}|{model}: empty δ cell — refusing")
+            cells = {"d10": _e_gate_cell(g10), "d90": _e_gate_cell(g90)}
+            valid = cells["d10"]["insideOpen05_95"] or cells["d90"]["insideOpen05_95"]
+            a = {"gate": {"cells": cells, "valid": valid,
+                          "sensitivityBCaMeanY": {"d10": _e_sens_cell(g10),
+                                                  "d90": _e_sens_cell(g90)}},
+                 "n": {"d10": len(g10), "d90": len(g90)},
+                 "means": {"d10": sum(g10) / len(g10), "d90": sum(g90) / len(g90)}}
+            if valid:
+                a["slope"] = _e_slope(g90, g10)
+            assays[f"{pres}|{model}"] = a
+
+    pa = assays[f"{E_PRIMARY[0]}|{E_PRIMARY[1]}"]
+    pa["claim"] = "P4-E-1 (primary, single)"
+    if not pa["gate"]["valid"]:
+        pa["interimVerdict"] = ("corner-confounded: assay invalid for slope inference "
+                                "(registered branch i — explicitly NOT evidence of "
+                                "δ-insensitivity)")
+    elif pa["slope"]["lowerBound95"] > 0:
+        pa["interimVerdict"] = "supported (positive slope; one-sided 95% LB > 0)"
+    else:
+        pa["interimVerdict"] = ("inconclusive (gate passed; interval includes 0 — no "
+                                "equivalence margin is registered, flatness never asserted)")
+
+    pvals: dict[str, float] = {}
+    for pres, model in E_SECONDARY_ORDER:
+        k = f"{pres}|{model}"
+        pvals[k] = assays[k]["slope"]["pOneSided"] if assays[k]["gate"]["valid"] else 1.0
+    hp = holm(pvals)
+    for pres, model in E_SECONDARY_ORDER:
+        k = f"{pres}|{model}"
+        a = assays[k]
+        a["claim"] = "P4-E secondary (Holm m=3)"
+        a["pEnteringHolm"] = pvals[k]
+        a["holmP"] = hp[k]
+        if not a["gate"]["valid"]:
+            a["interimVerdict"] = ("corner-confounded: assay invalid for slope inference "
+                                   "(registered branch i; enters Holm as p=1 placeholder)")
+        elif hp[k] < 0.05:
+            a["interimVerdict"] = "supported (positive slope; Holm-adjusted p < 0.05)"
+        else:
+            a["interimVerdict"] = "inconclusive (gate passed; not significant under Holm)"
+    return assays
+
+
+def e() -> int:
+    store = arms()
+    e_arms = {a["armId"]: a for a in store.values() if a.get("block") == "E"}
+    want_ids = sorted(_e_arm_id(p, d, m) for p in E_PRESENTATIONS
+                      for d in (10, 90) for m in E_MODELS)
+    if sorted(e_arms) != want_ids:
+        raise SystemExit(f"unexpected E arms {sorted(e_arms)} — refusing")
+
+    sched = json.load(open(os.path.join(DOCS, "execution-schedule.json")))
+    eps_sched = next(b for b in sched["blocks"] if b["block"] == "E")["episodes"]
+    expected: dict[tuple[str, int], int] = {}
+    for ent in eps_sched:
+        expected[(ent["armId"], ent["ep"])] = ent["seed"]
+    if len(eps_sched) != 160 or len(expected) != 160:
+        raise SystemExit(f"schedule E block has {len(eps_sched)} episodes, "
+                         f"{len(expected)} unique — refusing")
+    for (aid, ep), s in expected.items():
+        if e_arms[aid]["seeds"][ep] != s:
+            raise SystemExit(f"schedule ({aid}, ep{ep}) seed {s} != sealed arms.json "
+                             f"seeds[{ep}] — refusing")
+
+    res = _resolutions()
+    if "E-dselected" not in res:
+        raise SystemExit("E-dselected resolution absent from event store — refusing")
+    dsel_tid = res["E-dselected"]["templateId"]
+    sel_report = json.load(open(os.path.join(DOCS, "e-selection-report.json")))
+    if sel_report["selected"]["templateId"] != dsel_tid:
+        raise SystemExit(f"e-selection-report selected {sel_report['selected']['templateId']} "
+                         f"!= resolution {dsel_tid} — refusing")
+    tmpl = {aid: (dsel_tid if "-dselected-" in aid else E_COMMUNITY_TID) for aid in e_arms}
+
+    runs = load_phase4_runs()
+    db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+    tmpl_by_run: dict[str, set] = {}
+    for rid, t in db.execute(
+            """SELECT run_id, json_extract(payload,'$.templateId') FROM events
+               WHERE type='llm.requested' AND json_extract(payload,'$.block')='E'"""):
+        tmpl_by_run.setdefault(rid, set()).add(t)
+    db.close()
+
+    seen: dict[tuple[str, int], str] = {}
+    y: dict[str, list[float]] = {aid: [] for aid in e_arms}
+    excluded: list[str] = []
+    for rid, r in runs.items():
+        if r.get("block") != "E":
+            continue
+        key = (r["armId"], r.get("episodeIndex"))
+        if key not in expected:
+            raise SystemExit(f"{rid}: unscheduled episode {key} — refusing")
+        if key in seen:
+            raise SystemExit(f"{rid}: duplicate of {key} (also {seen[key]}) — refusing")
+        seen[key] = rid
+        if r["seed"] != expected[key]:
+            raise SystemExit(f"{rid}: seed {r['seed']} != scheduled {expected[key]} — refusing")
+        if r["model"] != e_arms[r["armId"]]["model"]:
+            raise SystemExit(f"{rid}: model {r['model']} != arm pin — refusing")
+        ec = r.get("engineCommit") or {}
+        if ec.get("dirty") is not False:
+            raise SystemExit(f"{rid}: engine stamp not clean ({ec}) — refusing")
+        ts = tmpl_by_run.get(rid, set())
+        if ts != {tmpl[r["armId"]]}:
+            raise SystemExit(f"{rid}: requested templates {ts} != pinned "
+                             f"{tmpl[r['armId']]} — refusing")
+        if r["invalid"]:
+            excluded.append(f"{key}: invalid trial (registered handling)")
+            continue
+        if not r["completed"]:
+            raise SystemExit(f"{rid}: no run.completed — block incomplete, refusing")
+        want, trunc = draw_horizon(r["seed"], int(e_arms[r["armId"]]["deltaPct"]))
+        if trunc:
+            raise SystemExit(f"{rid}: episode {key} dispatched despite cap-120 "
+                             f"truncation rule — refusing")
+        if sorted(r["rounds"]) != list(range(1, want + 1)):
+            raise SystemExit(f"{rid}: rounds {sorted(r['rounds'])} != scheduled horizon "
+                             f"1..{want} — refusing")
+        y[r["armId"]].append(((r["rounds"][1][0] == 0) + (r["rounds"][1][1] == 0)) / 2)
+
+    for (aid, ep), s in expected.items():
+        if (aid, ep) in seen:
+            continue
+        if not draw_horizon(s, int(e_arms[aid]["deltaPct"]))[1]:
+            raise SystemExit(f"episode ({aid}, ep{ep}, seed {s}) absent without the "
+                             f"truncation rule — refusing")
+        excluded.append(f"({aid}, ep{ep}): cap-120 truncation, zero calls (X1 rule)")
+
+    assays = _e_eval(y)
+    report = {
+        "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "status": "adjudicated (interim; finals at step 8 after full replay)",
+        "frozenSpec": "predicates.md §Family E — gate (CP on M_ep, open (0.05,0.95)) "
+                      "then slope (BCa one-sided LB; exact fallback); Holm m=3 "
+                      "secondaries; pins in phase4_adjudicate.py (committed pre-dispatch)",
+        "resolution": {"E-dselected": {k: res["E-dselected"][k]
+                                       for k in ("templateId", "templateSha256")}},
+        "nUsable": {aid: len(v) for aid, v in y.items()},
+        "excluded": excluded,
+        "assays": assays,
+    }
+    with open(os.path.join(DOCS, "e-report.json"), "w") as f:
+        json.dump(report, f, indent=1)
+    md = ["# Family E report (interim, per registered rider: final verdicts in step 8)", "",
+          f"D-selected presentation: `{dsel_tid}` (write-once resolution; "
+          f"selection derivation in e-selection-report.md).",
+          f"{sum(len(v) for v in y.values())} usable episodes; "
+          f"{len(excluded)} excluded ({'; '.join(excluded) if excluded else 'none'}).", "",
+          "| assay | gate | mean Y δ=.10 | mean Y δ=.90 | slope Δ̂ | LB95 | verdict |",
+          "|---|---|---|---|---|---|---|"]
+    for k, a in assays.items():
+        sl = a.get("slope") or {}
+        md.append(f"| {k} | {'valid' if a['gate']['valid'] else 'INVALID'} "
+                  f"| {a['means']['d10']:.3f} | {a['means']['d90']:.3f} "
+                  f"| {sl.get('estimate', float('nan')):+.3f} "
+                  f"| {sl.get('lowerBound95', float('nan')):+.3f} "
+                  f"| {a['interimVerdict']} |")
+    with open(os.path.join(DOCS, "e-report.md"), "w") as f:
+        f.write("\n".join(md) + "\n")
+    print(json.dumps({k: {"gate": a["gate"]["valid"],
+                          "estimate": (a.get("slope") or {}).get("estimate"),
+                          "LB95": (a.get("slope") or {}).get("lowerBound95"),
+                          "holmP": a.get("holmP"),
+                          "verdict": a["interimVerdict"]}
+                      for k, a in assays.items()}, indent=1))
+    return 0
+
+
+def selftest_e() -> int:
+    """Synthetic checks of the pure Family-E core (no event store)."""
+    ok = True
+
+    def check(label, cond):
+        nonlocal ok
+        print(f"  [{'PASS' if cond else 'FAIL'}] {label}")
+        ok = ok and cond
+
+    def mk(**cells):
+        base = {}
+        for pres in E_PRESENTATIONS:
+            for model in E_MODELS:
+                for d in (10, 90):
+                    base[_e_arm_id(pres, d, model)] = cells.get(
+                        f"{pres[0]}{'g' if model == 'gpt-4.1' else 'c'}{d}",
+                        [1.0] * 10 + [0.0] * 10)   # interior default (k=10/20)
+        return base
+
+    g = _e_gate_cell([1.0] * 4 + [0.0] * 16)
+    check("gate cell k=4/20 is inside (0.05,0.95)", g["insideOpen05_95"])
+    g = _e_gate_cell([0.0] * 20)
+    check("gate cell k=0/20 is NOT inside (corner)", not g["insideOpen05_95"])
+    g = _e_gate_cell([0.5] * 20)
+    check("M_ep threshold: Y=.5 counts as majority (k=20 → corner)",
+          g["kMajority"] == 20 and not g["insideOpen05_95"])
+
+    # primary: supported via exact fallback (constant d10 cell)
+    y = mk(dg10=[0.0] * 20, dg90=[1.0] * 12 + [0.0] * 8)
+    a = _e_eval(y)["dselected|gpt-4.1"]
+    check("primary supported (fallback path, LB>0)",
+          a["interimVerdict"].startswith("supported")
+          and a["slope"]["method"].startswith("exact fallback")
+          and a["slope"]["lowerBound95"] > 0)
+
+    # primary: corner-confounded (both cells at corners)
+    y = mk(dg10=[0.0] * 20, dg90=[1.0] * 20)
+    a = _e_eval(y)["dselected|gpt-4.1"]
+    check("primary corner-confounded when both cells corner",
+          a["interimVerdict"].startswith("corner-confounded") and "slope" not in a)
+
+    # primary: inconclusive (gate valid, zero slope)
+    y = mk(dg10=[1.0] * 10 + [0.0] * 10, dg90=[1.0] * 10 + [0.0] * 10)
+    a = _e_eval(y)["dselected|gpt-4.1"]
+    check("primary inconclusive at zero slope",
+          a["interimVerdict"].startswith("inconclusive"))
+
+    # secondaries: Holm with a corner-confounded member entering as p=1
+    # (strong-slope cells kept INTERIOR — k=4/20 and 16/20 — so the gate holds)
+    y = mk(cg10=[0.0] * 16 + [1.0] * 4, cg90=[1.0] * 16 + [0.0] * 4,
+           dc10=[0.0] * 20, dc90=[1.0] * 20,
+           cc10=[1.0] * 10 + [0.0] * 10, cc90=[1.0] * 10 + [0.0] * 10)
+    r = _e_eval(y)
+    check("secondary strong slope supported under Holm",
+          r["community|gpt-4.1"]["interimVerdict"].startswith("supported")
+          and r["community|gpt-4.1"]["holmP"] < 0.05)
+    check("secondary corner member: verdict corner-confounded, p=1 into Holm",
+          r["dselected|gemini-2.5-flash"]["interimVerdict"].startswith("corner-confounded")
+          and r["dselected|gemini-2.5-flash"]["pEnteringHolm"] == 1.0)
+    check("secondary null slope inconclusive under Holm",
+          r["community|gemini-2.5-flash"]["interimVerdict"].startswith("inconclusive"))
+    check("Holm monotone: null member's holmP ≥ strong member's holmP",
+          r["community|gemini-2.5-flash"]["holmP"] >= r["community|gpt-4.1"]["holmP"])
+
+    print("selftest-e:", "ALL PASS" if ok else "FAILURES")
+    return 0 if ok else 1
+
+
 def main() -> None:
     if "--scan" in sys.argv:
         raise SystemExit(scan(sys.argv[sys.argv.index("--scan") + 1]))
@@ -1496,6 +1835,10 @@ def main() -> None:
         raise SystemExit(selftest_sentinel6())
     if "--selftest-x2c" in sys.argv:
         raise SystemExit(selftest_x2c())
+    if "--e" in sys.argv:
+        raise SystemExit(e())
+    if "--selftest-e" in sys.argv:
+        raise SystemExit(selftest_e())
     if "--d1" in sys.argv:
         raise SystemExit(d1())
     if "--d2" in sys.argv:
