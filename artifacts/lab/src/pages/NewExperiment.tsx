@@ -43,6 +43,11 @@ export default function NewExperiment() {
     },
   });
 
+  const p1Id = Number(form.watch('player1StrategyId'));
+  const p2Id = Number(form.watch('player2StrategyId'));
+  const hasLlmSeat =
+    strategies?.some(s => (s.id === p1Id || s.id === p2Id) && s.type === 'ai_model') ?? false;
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     createMutation.mutate({ data: values }, {
       onSuccess: (res) => {
@@ -151,6 +156,15 @@ export default function NewExperiment() {
                   )}
                 />
               </div>
+
+              {hasLlmSeat && (
+                <div className="p-3 border rounded-md bg-primary/5 text-sm text-muted-foreground" data-testid="hint-llm">
+                  This matchup includes an <strong className="text-foreground">LLM strategy</strong>: the model decides
+                  each round live, so runs are slower (one model call per round) and usage is billed to your Replit
+                  credits. Decisions are event-sourced for exact replay. Supported opponents: deterministic strategies
+                  (Always Cooperate/Defect, Tit-for-Tat, Grim Trigger, Win-Stay-Lose-Shift) or another LLM.
+                </div>
+              )}
 
               <FormField
                 control={form.control}

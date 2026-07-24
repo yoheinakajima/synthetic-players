@@ -133,3 +133,46 @@ An omitted fork slug means "seat unchanged". Only completed first-order forks
 qualify (a fork of a fork is never evidence), and when several forks of the
 same parent match a scope, the newest wins — re-running a fork batch cannot
 double-count.
+
+## LLM runs: event-sourced reproducibility
+
+Strategies of type `ai_model` (e.g. `llm-gpt-5-mini`) decide each round via a
+live model call (Replit AI Integrations; prompt version pinned in
+`llmMetaJson`, finite horizon disclosed, full history in context). These runs
+are **not seed-reproducible** — the provider fixes sampling for the gpt-5
+family, so behavior is a sample, not a function of the stored seed.
+
+Reproducibility instead comes from **event sourcing**:
+
+- The live loop records every LLM decision (action + stated reasoning).
+- The run is then materialized on the ActiveGraph engine with the LLM seat
+  played by the special `scripted` pseudo-strategy, which replays the recorded
+  decisions as ordinary engine events. Scripted seats consume zero RNG draws;
+  classic seats keep their usual seed-derived stream.
+- The engine result must match the live loop **exactly** (every action and
+  payoff, both seats). Any divergence fails the experiment rather than
+  persisting a near-match — the same drift discipline as seeded runs.
+- Re-materialization (`POST /experiments/:id/engine-run`) rebuilds scripted
+  seats from stored rounds, so the engine run is recoverable from the
+  database alone.
+
+Consequences for claims and experiment design:
+
+- Single LLM runs are anecdotes. Claims about LLM behavior aggregate replicate
+  batches (n ≥ 6 here) and are adjudicated on means with 95% CIs. Observed
+  behavior is legitimately **bimodal** — in the Track 2 corpus some replicates
+  sustain ~95% mutual cooperation with Tit-for-Tat while others defect from
+  round 1 — so wide CIs and inconclusive verdicts are expected, honest
+  outcomes, not failures.
+- Live-loop opponents are restricted to zero-RNG deterministic strategies
+  (always-cooperate, always-defect, tit-for-tat, grim-trigger,
+  win-stay-lose-shift) or another LLM. RNG-consuming opponents would require
+  duplicating the engine's seed-stream bookkeeping outside the engine.
+- Forks may not leave an LLM seat in place: replaying recorded decisions
+  against a changed history would fabricate choices the model never made for
+  that context. Every LLM seat must be swapped to a classic strategy when
+  forking (live mid-fork LLM decisions are Track 3 scope).
+- LLM matchups are excluded from `POST /experiments/batch` (one request would
+  stay open for many minutes); replicates run individually via
+  `POST /experiments` + `POST /experiments/:id/run`, which also computes the
+  v2 analysis.

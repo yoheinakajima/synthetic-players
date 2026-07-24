@@ -42,6 +42,35 @@ def _rounds_from_graph(graph: Graph) -> list[dict[str, Any]]:
     return rounds
 
 
+def _seat_action(g: dict, player_num: int, n: int, history, game_def: dict, rng):
+    """Resolve one seat's action for round n.
+
+    The special slug "scripted" reads the move from an externally supplied
+    list stored on the game object (`scripted1`/`scripted2`) — used for
+    event-sourcing LLM decisions. Everything else goes through the normal
+    deterministic strategy table. Scripted seats consume no RNG draws.
+    """
+    slug = g["strategy1Slug"] if player_num == 1 else g["strategy2Slug"]
+    if slug == "scripted":
+        script = g.get("scripted1" if player_num == 1 else "scripted2") or []
+        # These are client-supplied (via the Express layer); a bad script is a
+        # 400-class error, so raise ValueError (mapped to 400) not RuntimeError.
+        if len(script) < n:
+            raise ValueError(
+                f"scripted seat p{player_num} has no move for round {n} "
+                f"(script covers {len(script)} rounds)"
+            )
+        entry = script[n - 1]
+        action = int(entry["action"])
+        if not 0 <= action < game_def["numActions"]:
+            raise ValueError(
+                f"scripted seat p{player_num} action {action} out of range at round {n}"
+            )
+        reasoning = entry.get("reasoning") or f"External scripted decision: action {action}."
+        return action, reasoning
+    return get_action(slug, history, player_num, game_def, rng)
+
+
 def _make_round_player():
     @behavior(name="round_player", on=["round.requested"])
     def round_player(event, graph, ctx):
@@ -67,8 +96,8 @@ def _make_round_player():
         consumed = sum(r.get("rngCalls", 0) for r in prior)
         rng = CountingRng(g["seed"], advance=consumed)
 
-        p1_action, p1_reasoning = get_action(g["strategy1Slug"], history, 1, game_def, rng)
-        p2_action, p2_reasoning = get_action(g["strategy2Slug"], history, 2, game_def, rng)
+        p1_action, p1_reasoning = _seat_action(g, 1, n, history, game_def, rng)
+        p2_action, p2_reasoning = _seat_action(g, 2, n, history, game_def, rng)
 
         p1_payoff, p2_payoff = game_def["payoffMatrix"][p1_action][p2_action]
         nash_set = {tuple(ne) for ne in game_def["nashEquilibria"]}
@@ -154,21 +183,35 @@ class Engine:
         strategy2_slug: str,
         num_rounds: int,
         seed: int,
+        scripted1: Optional[list[dict]] = None,
+        scripted2: Optional[list[dict]] = None,
     ) -> dict[str, Any]:
+        for slug, script, name in (
+            (strategy1_slug, scripted1, "scripted1"),
+            (strategy2_slug, scripted2, "scripted2"),
+        ):
+            if slug == "scripted" and (not script or len(script) != num_rounds):
+                raise ValueError(
+                    f"{name} must supply exactly {num_rounds} moves for a scripted seat"
+                )
+            if slug != "scripted" and script:
+                raise ValueError(f"{name} provided but that seat plays '{slug}', not 'scripted'")
+
         run_id = new_run_id()
         graph = Graph(run_id=run_id)
         rt = Runtime(graph, behaviors=[_make_round_player()], persist_to=self.url)
-        graph.add_object(
-            "game",
-            {
-                "gameDef": game_def,
-                "strategy1Slug": strategy1_slug,
-                "strategy2Slug": strategy2_slug,
-                "numRounds": num_rounds,
-                "seed": seed,
-            },
-            actor="engine",
-        )
+        game_data: dict[str, Any] = {
+            "gameDef": game_def,
+            "strategy1Slug": strategy1_slug,
+            "strategy2Slug": strategy2_slug,
+            "numRounds": num_rounds,
+            "seed": seed,
+        }
+        if scripted1 is not None:
+            game_data["scripted1"] = scripted1
+        if scripted2 is not None:
+            game_data["scripted2"] = scripted2
+        graph.add_object("game", game_data, actor="engine")
         graph.emit(
             Event(
                 id=graph.ids.event(),
@@ -200,6 +243,8 @@ class Engine:
         fork_round: int,
         strategy1_slug: Optional[str] = None,
         strategy2_slug: Optional[str] = None,
+        scripted1: Optional[list[dict]] = None,
+        scripted2: Optional[list[dict]] = None,
     ) -> dict[str, Any]:
         self._check_run_id(parent_run_id)
         parent_store = open_store(self.url, run_id=parent_run_id)
@@ -235,11 +280,29 @@ class Engine:
             patch["strategy1Slug"] = strategy1_slug
         if strategy2_slug and strategy2_slug != game_obj.data["strategy2Slug"]:
             patch["strategy2Slug"] = strategy2_slug
+        if scripted1 is not None:
+            patch["scripted1"] = scripted1
+        if scripted2 is not None:
+            patch["scripted2"] = scripted2
         if patch:
             graph.patch_object(game_obj.id, patch, actor="engine")
 
         game_def = game_obj.data["gameDef"]
         num_rounds = game_obj.data["numRounds"]
+        merged = {**game_obj.data, **patch}
+        for player_num, key in ((1, "scripted1"), (2, "scripted2")):
+            slug = merged["strategy1Slug"] if player_num == 1 else merged["strategy2Slug"]
+            # Mirror run()'s validation: a scripted payload only belongs on a
+            # scripted seat, and a scripted seat must be fully covered.
+            if slug != "scripted" and patch.get(key):
+                raise ValueError(
+                    f"{key} provided but fork seat p{player_num} plays '{slug}', not 'scripted'"
+                )
+            if slug == "scripted" and len(merged.get(key) or []) < num_rounds:
+                raise ValueError(
+                    f"fork leaves seat p{player_num} scripted but {key} covers fewer than "
+                    f"{num_rounds} rounds"
+                )
         if fork_round < num_rounds:
             graph.emit(
                 Event(

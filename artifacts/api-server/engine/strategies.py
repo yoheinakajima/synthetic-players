@@ -150,5 +150,9 @@ class CountingRng:
 
 
 def get_action(strategy_slug: str, history: list[RoundHistory], player_num: int, game: dict, rng):
-    fn = STRATEGIES.get(strategy_slug, STRATEGIES["random"])
+    fn = STRATEGIES.get(strategy_slug)
+    if fn is None:
+        # Never fall back silently (e.g. to random): an unknown slug playing
+        # fabricated moves would corrupt the scientific record.
+        raise ValueError(f"unknown strategy slug: {strategy_slug}")
     return fn(history, player_num, game, rng)

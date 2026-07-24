@@ -20,6 +20,7 @@ export const experimentsTable = pgTable("experiments", {
   cooperationRate: real("cooperation_rate"),
   nashDeviationScore: real("nash_deviation_score"),
   notes: text("notes"),
+  llmMetaJson: text("llm_meta_json"), // LLM-run provenance: model, prompt version, token usage (null for non-LLM runs)
   errorMessage: text("error_message"),
   completedAt: timestamp("completed_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
@@ -31,6 +32,15 @@ export const experimentsTable = pgTable("experiments", {
   uniqueIndex("experiments_fork_identity_idx")
     .on(t.parentExperimentId, t.forkRound, t.player1StrategyId, t.player2StrategyId, t.batchLabel)
     .where(sql`${t.parentExperimentId} is not null and ${t.batchLabel} is not null`),
+  // Concurrency-safe replicate idempotency: at most one non-fork experiment
+  // per (game, strategy pair, batch label, seed). Stops a duplicate replicate
+  // when two runners — or a client-timeout race that leaves a run in flight —
+  // create the same design slot. NULL batch labels / seeds stay distinct, so
+  // ad-hoc single runs remain unconstrained; only labeled seeded replicates
+  // (evidence-grade) get the hard guarantee.
+  uniqueIndex("experiments_replicate_identity_idx")
+    .on(t.gameId, t.player1StrategyId, t.player2StrategyId, t.batchLabel, t.seed)
+    .where(sql`${t.parentExperimentId} is null and ${t.batchLabel} is not null and ${t.seed} is not null`),
 ]);
 
 export const insertExperimentSchema = createInsertSchema(experimentsTable).omit({ id: true, createdAt: true, status: true, player1TotalPayoff: true, player2TotalPayoff: true, cooperationRate: true, nashDeviationScore: true, completedAt: true, errorMessage: true });

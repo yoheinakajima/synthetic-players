@@ -37,18 +37,33 @@ class GameDefModel(BaseModel):
     nashEquilibria: list[list[int]]
 
 
+class ScriptedMove(BaseModel):
+    """One externally decided move for a 'scripted' seat (LLM event-sourcing)."""
+
+    action: int = Field(ge=0)
+    reasoning: Optional[str] = None
+
+
 class RunRequest(BaseModel):
     game: GameDefModel
     strategy1Slug: str
     strategy2Slug: str
     numRounds: int = Field(ge=1, le=10000)
     seed: int = Field(ge=0, le=0xFFFFFFFF)
+    scripted1: Optional[list[ScriptedMove]] = None
+    scripted2: Optional[list[ScriptedMove]] = None
 
 
 class ForkRequest(BaseModel):
     forkRound: int = Field(ge=1)
     strategy1Slug: Optional[str] = None
     strategy2Slug: Optional[str] = None
+    scripted1: Optional[list[ScriptedMove]] = None
+    scripted2: Optional[list[ScriptedMove]] = None
+
+
+def _moves(items: Optional[list[ScriptedMove]]) -> Optional[list[dict]]:
+    return [m.model_dump() for m in items] if items is not None else None
 
 
 @app.get("/healthz")
@@ -75,6 +90,8 @@ def create_run(body: RunRequest) -> dict[str, Any]:
         strategy2_slug=body.strategy2Slug,
         num_rounds=body.numRounds,
         seed=body.seed,
+        scripted1=_moves(body.scripted1),
+        scripted2=_moves(body.scripted2),
     )
 
 
@@ -86,6 +103,8 @@ def fork_run(run_id: str, body: ForkRequest) -> dict[str, Any]:
         fork_round=body.forkRound,
         strategy1_slug=body.strategy1Slug,
         strategy2_slug=body.strategy2Slug,
+        scripted1=_moves(body.scripted1),
+        scripted2=_moves(body.scripted2),
     )
 
 

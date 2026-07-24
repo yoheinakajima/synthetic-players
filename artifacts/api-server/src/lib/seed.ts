@@ -196,3 +196,24 @@ export async function seedIfEmpty(): Promise<void> {
 
   logger.info("Seed complete: 7 games, 8 strategies.");
 }
+
+/**
+ * Ensure AI (LLM) strategies exist. Runs unconditionally at startup (unlike
+ * seedIfEmpty) so existing databases pick up new AI strategies; idempotent
+ * via ON CONFLICT DO NOTHING on the slug.
+ */
+export async function ensureAiStrategies(): Promise<void> {
+  await db
+    .insert(strategiesTable)
+    .values([
+      {
+        slug: "llm-gpt-5-mini",
+        name: "LLM (GPT-5 Mini)",
+        description:
+          "Large language model player (GPT-5 Mini via Replit AI Integrations). Decides each round from the full game history with a fixed prompt (iterated-game-player-v1); the round horizon is disclosed. NOT seed-reproducible — runs are event-sourced instead: every decision (action + stated reasoning) is recorded and materialized on the engine as scripted events for exact replay. Behavior is sampled, so claims require replicate batches and confidence intervals.",
+        type: "ai_model",
+        modelId: "gpt-5-mini",
+      },
+    ])
+    .onConflictDoNothing({ target: strategiesTable.slug });
+}

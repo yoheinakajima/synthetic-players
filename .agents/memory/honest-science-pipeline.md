@@ -55,3 +55,24 @@ refutations prominent — they are the credibility proof of the pipeline.
 sd ≈ 1e-18 from float accumulation; a t-CI over that degenerates and Cohen's d
 explodes to ~1e17. Route sd below ~1e-12 to the exact-comparison path and
 suppress effect size there.
+
+**Sampled agents (LLM seats) are event-sourced, never seed-reproduced.** When a
+decision-maker can't be replayed from a seed (provider pins sampling), record
+every decision (action + stated reasoning) and re-materialize it on the
+authoritative engine as scripted events, verified byte-exact against the live
+loop before persisting. Never leave an event-sourced seat in place on a fork —
+replaying its log against a changed history fabricates decisions it never made
+for that context. Expect **bimodal** behavior across replicates (e.g. one run
+95% cooperative, the next 0%): wide CIs and inconclusive verdicts are honest
+outcomes, not pipeline failures.
+
+**Pre-registration must be enforced by the script, not by discipline.** The
+study runner's claims step aborts if target batches already contain data and
+its runs step aborts if the claims aren't registered — ordering violations
+fail loudly instead of silently becoming HARKing.
+
+**Infrastructure duplicates get an outcome-blind exclusion rule.** When a race
+creates two replicates for one design slot (same seed/label), decide by a rule
+fixed before looking at results — e.g. "first completedAt wins; relabel the
+other to an overflow batch with a note". Deleting nothing, disclosing the
+relabel, and never choosing by outcome keeps the evidence set defensible.

@@ -112,6 +112,11 @@ export interface Experiment {
      */
   engineRunId?: string | null;
   /**
+     * LLM-run provenance as a JSON string (model per seat, prompt version, token usage). Null for non-LLM experiments. LLM runs are event-sourced rather than seed-reproducible.
+     * @nullable
+     */
+  llmMetaJson?: string | null;
+  /**
      * Parent experiment id when this experiment is a fork
      * @nullable
      */
@@ -207,6 +212,11 @@ export interface ExperimentDetail {
      * @nullable
      */
   engineRunId?: string | null;
+  /**
+     * LLM-run provenance as a JSON string (model per seat, prompt version, token usage). Null for non-LLM experiments. LLM runs are event-sourced rather than seed-reproducible.
+     * @nullable
+     */
+  llmMetaJson?: string | null;
   /**
      * Parent experiment id when this experiment is a fork
      * @nullable

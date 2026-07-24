@@ -18,3 +18,17 @@ only ~60s.
 adequate timeout; make them idempotent/resumable and invoke repeatedly if they
 might exceed the 5-minute cap; use a workflow for anything genuinely
 long-running.
+
+**Server-side work outlives a killed client.** When a shell-call timeout kills
+a script mid-HTTP-request, the Express handler keeps running and usually
+completes (rows land minutes later). A resumable runner that only checks
+"completed" state will re-create the in-flight item → duplicate data.
+
+**Why:** a study runner killed at the 5-min cap left one run in flight; the
+next invocation saw it "not completed", created a second experiment for the
+same design slot, and both finished — a duplicate replicate needing an
+outcome-blind exclusion rule after the fact.
+
+**How to apply:** resumable scripts must treat any non-failed row (pending/
+running/completed) as claiming its slot; only a failed row frees it. Log
+in-flight items instead of retrying them.

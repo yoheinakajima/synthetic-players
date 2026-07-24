@@ -4,7 +4,10 @@
  * execution path is identical everywhere.
  */
 
-import { eq, asc, and } from "drizzle-orm";
+import { eq, asc, and, inArray } from "drizzle-orm";
+import type { Strategy } from "@workspace/db";
+import type { EngineRunResult } from "./engine-client";
+import { playLlmLiveLoop, type SeatSpec } from "./llm-player";
 import {
   db,
   experimentsTable,
@@ -36,8 +39,17 @@ export class EngineDriftError extends Error {
   }
 }
 
+/** A run was requested for an experiment already running or completed (lost the acquire race). */
+export class ExperimentBusyError extends Error {
+  constructor(expId: number) {
+    super(`Experiment ${expId} is already running or completed`);
+    this.name = "ExperimentBusyError";
+  }
+}
+
 /** Map engine failures to an HTTP status + message (502 when the sidecar is down). */
 export function engineErrorStatus(err: unknown): { status: number; message: string } {
+  if (err instanceof ExperimentBusyError) return { status: 409, message: err.message };
   if (err instanceof EngineUnreachableError) return { status: 502, message: err.message };
   if (err instanceof EngineRequestError)
     return { status: err.status >= 500 ? 502 : err.status, message: err.message };
@@ -101,6 +113,25 @@ export async function executeExperiment(expId: number): Promise<ExperimentRow> {
     .where(eq(strategiesTable.id, exp.player2StrategyId));
   if (!game || !p1Strat || !p2Strat) throw new Error("Game or strategy not found");
 
+  // Atomically acquire the run: only a pending/failed experiment can move to
+  // "running", and only one caller wins this conditional update. Without the
+  // CAS, two concurrent /run requests could both execute the same experiment
+  // — for LLM seats that means two different sampled trajectories, with the
+  // loser overwriting the winner (or a late failure flipping a completed run
+  // back to failed). The route's status pre-check is a fast path; this is the
+  // authoritative guard.
+  const acquired = await db
+    .update(experimentsTable)
+    .set({ status: "running", errorMessage: null })
+    .where(
+      and(
+        eq(experimentsTable.id, exp.id),
+        inArray(experimentsTable.status, ["pending", "failed"])
+      )
+    )
+    .returning({ id: experimentsTable.id });
+  if (acquired.length === 0) throw new ExperimentBusyError(exp.id);
+
   // Ensure a persisted seed BEFORE running, so every run is reproducible.
   let seed = exp.seed;
   if (seed == null) {
@@ -108,18 +139,34 @@ export async function executeExperiment(expId: number): Promise<ExperimentRow> {
     await db.update(experimentsTable).set({ seed }).where(eq(experimentsTable.id, exp.id));
   }
 
-  await db.update(experimentsTable).set({ status: "running" }).where(eq(experimentsTable.id, exp.id));
-
   try {
-    // Simulation runs on the ActiveGraph engine sidecar. If the engine is
-    // unreachable this throws before any rounds are persisted.
-    const result = await runOnEngine({
-      game: toGameDef(game),
-      strategy1Slug: p1Strat.slug,
-      strategy2Slug: p2Strat.slug,
-      numRounds: exp.numRounds,
-      seed,
-    });
+    const gameDef = toGameDef(game);
+    let result: EngineRunResult;
+    let llmMetaJson: string | null = null;
+
+    if (p1Strat.type === "ai_model" || p2Strat.type === "ai_model") {
+      // LLM seats: play live (model decides each round), then materialize the
+      // decision log on the engine as scripted events and verify exactly.
+      const llmRun = await runLlmExperiment({
+        gameDef: { ...gameDef, name: game.name },
+        p1Strat,
+        p2Strat,
+        numRounds: exp.numRounds,
+        seed,
+      });
+      result = llmRun.result;
+      llmMetaJson = llmRun.llmMetaJson;
+    } else {
+      // Simulation runs on the ActiveGraph engine sidecar. If the engine is
+      // unreachable this throws before any rounds are persisted.
+      result = await runOnEngine({
+        game: gameDef,
+        strategy1Slug: p1Strat.slug,
+        strategy2Slug: p2Strat.slug,
+        numRounds: exp.numRounds,
+        seed,
+      });
+    }
 
     // Delete any existing rounds (re-run scenario)
     await db.delete(roundsTable).where(eq(roundsTable.experimentId, exp.id));
@@ -149,6 +196,7 @@ export async function executeExperiment(expId: number): Promise<ExperimentRow> {
         player2TotalPayoff: result.player2TotalPayoff,
         cooperationRate: result.cooperationRate,
         nashDeviationScore: result.nashDeviationScore,
+        llmMetaJson,
         completedAt: new Date(),
         errorMessage: null,
       })
@@ -208,12 +256,25 @@ export async function ensureEngineRun(
       `Experiment ${expId} has ${stored.length} stored rounds, expected ${exp.numRounds}`
     );
 
+  // LLM (ai_model) seats are event-sourced, not seed-derived: rematerialize
+  // them from the stored decision log as scripted engine seats. Classic seats
+  // replay from the seed as usual. The exact-match check below applies either
+  // way, so a corrupted decision log can never be linked to an engine run.
+  const p1Scripted = p1Strat.type === "ai_model";
+  const p2Scripted = p2Strat.type === "ai_model";
+  const asMoves = (which: 1 | 2) =>
+    stored.map((r) => ({
+      action: which === 1 ? r.player1Action : r.player2Action,
+      reasoning: which === 1 ? r.player1Reasoning : r.player2Reasoning,
+    }));
   const result = await runOnEngine({
     game: toGameDef(game),
-    strategy1Slug: p1Strat.slug,
-    strategy2Slug: p2Strat.slug,
+    strategy1Slug: p1Scripted ? "scripted" : p1Strat.slug,
+    strategy2Slug: p2Scripted ? "scripted" : p2Strat.slug,
     numRounds: exp.numRounds,
     seed: exp.seed,
+    scripted1: p1Scripted ? asMoves(1) : undefined,
+    scripted2: p2Scripted ? asMoves(2) : undefined,
   });
 
   for (let i = 0; i < stored.length; i++) {
@@ -273,6 +334,16 @@ export async function forkExperimentFromParent(
     .from(strategiesTable)
     .where(eq(strategiesTable.id, p2StrategyId));
   if (!p1Strat || !p2Strat) throw new Error("Strategy not found");
+
+  // Event-sourced (LLM) seats cannot exist on forks: replaying an LLM's
+  // recorded moves against a different unfolding history would fabricate
+  // decisions the model never made for that context, and running the model
+  // live mid-fork is a Track 3 concern. Every fork seat must be classic.
+  if (p1Strat.type === "ai_model" || p2Strat.type === "ai_model")
+    throw new Error(
+      "Forks cannot have an LLM seat — swap every LLM seat to a classic strategy " +
+        "(replaying recorded LLM moves against a changed history would fabricate decisions)"
+    );
 
   const result = await forkOnEngine(parent.engineRunId, {
     forkRound: opts.forkRound,
@@ -345,6 +416,73 @@ export async function forkExperimentFromParent(
 
   invalidateEvidenceCache();
   return forkExp;
+}
+
+export class LlmMaterializationError extends Error {
+  constructor(message: string) {
+    super(`LLM run materialization failed: ${message}`);
+    this.name = "LlmMaterializationError";
+  }
+}
+
+/**
+ * Execute an experiment with at least one LLM seat: live loop first (the
+ * model decides each round with full history), then an engine run with the
+ * decision log as scripted seat(s), verified round-by-round against the live
+ * loop. The engine result is authoritative; any divergence (e.g. opponent
+ * predictor drift) fails the experiment rather than persisting a near-match.
+ */
+async function runLlmExperiment(input: {
+  gameDef: ReturnType<typeof toGameDef> & { name?: string };
+  p1Strat: Strategy;
+  p2Strat: Strategy;
+  numRounds: number;
+  seed: number;
+}): Promise<{ result: EngineRunResult; llmMetaJson: string }> {
+  const { gameDef, p1Strat, p2Strat, numRounds, seed } = input;
+
+  const seat = (s: Strategy): SeatSpec => {
+    if (s.type !== "ai_model") return { kind: "classic", slug: s.slug };
+    if (!s.modelId) throw new Error(`AI strategy "${s.slug}" has no modelId configured`);
+    return { kind: "llm", model: s.modelId, strategySlug: s.slug };
+  };
+
+  const live = await playLlmLiveLoop({
+    game: gameDef,
+    seats: { p1: seat(p1Strat), p2: seat(p2Strat) },
+    numRounds,
+  });
+
+  const result = await runOnEngine({
+    game: gameDef,
+    strategy1Slug: p1Strat.type === "ai_model" ? "scripted" : p1Strat.slug,
+    strategy2Slug: p2Strat.type === "ai_model" ? "scripted" : p2Strat.slug,
+    numRounds,
+    seed,
+    scripted1: live.p1Moves ?? undefined,
+    scripted2: live.p2Moves ?? undefined,
+  });
+
+  if (result.rounds.length !== live.history.length)
+    throw new LlmMaterializationError(
+      `engine produced ${result.rounds.length} rounds, live loop played ${live.history.length}`
+    );
+  for (let i = 0; i < live.history.length; i++) {
+    const l = live.history[i];
+    const r = result.rounds[i];
+    if (r.player1Action !== l.p1Action || r.player2Action !== l.p2Action)
+      throw new LlmMaterializationError(
+        `round ${r.roundNumber}: live actions (${l.p1Action},${l.p2Action}) vs engine ` +
+          `(${r.player1Action},${r.player2Action}) — opponent predictor drift`
+      );
+    if (r.player1Payoff !== l.p1Payoff || r.player2Payoff !== l.p2Payoff)
+      throw new LlmMaterializationError(
+        `round ${r.roundNumber}: payoffs live (${l.p1Payoff},${l.p2Payoff}) vs engine ` +
+          `(${r.player1Payoff},${r.player2Payoff})`
+      );
+  }
+
+  return { result, llmMetaJson: JSON.stringify(live.meta) };
 }
 
 /**

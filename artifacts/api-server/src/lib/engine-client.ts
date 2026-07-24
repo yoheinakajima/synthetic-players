@@ -110,12 +110,20 @@ async function engineFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return (await res.json()) as T;
 }
 
+/** One externally decided move for a "scripted" engine seat (LLM event-sourcing). */
+export interface ScriptedMove {
+  action: number;
+  reasoning?: string | null;
+}
+
 export function runOnEngine(input: {
   game: EngineGameDef;
   strategy1Slug: string;
   strategy2Slug: string;
   numRounds: number;
   seed: number;
+  scripted1?: ScriptedMove[] | null;
+  scripted2?: ScriptedMove[] | null;
 }): Promise<EngineRunResult> {
   return engineFetch<EngineRunResult>("/runs", {
     method: "POST",
@@ -125,7 +133,13 @@ export function runOnEngine(input: {
 
 export function forkOnEngine(
   parentEngineRunId: string,
-  input: { forkRound: number; strategy1Slug?: string | null; strategy2Slug?: string | null }
+  input: {
+    forkRound: number;
+    strategy1Slug?: string | null;
+    strategy2Slug?: string | null;
+    scripted1?: ScriptedMove[] | null;
+    scripted2?: ScriptedMove[] | null;
+  }
 ): Promise<EngineForkResult> {
   return engineFetch<EngineForkResult>(
     `/runs/${encodeURIComponent(parentEngineRunId)}/fork`,

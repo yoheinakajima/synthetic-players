@@ -128,6 +128,19 @@ export default function ExperimentDetail() {
   }
   if (!exp) return <div>Experiment not found</div>;
 
+  // LLM provenance (event-sourced runs); null for classic seeded runs
+  let llmMeta: {
+    models?: Record<string, string>;
+    promptVersion?: string;
+    llmCalls?: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    retriedCalls?: number;
+  } | null = null;
+  if (exp.llmMetaJson) {
+    try { llmMeta = JSON.parse(exp.llmMetaJson); } catch { llmMeta = null; }
+  }
+
   // Chart data computation
   let chartData: any[] = [];
   if (rounds && rounds.length > 0) {
@@ -235,11 +248,40 @@ export default function ExperimentDetail() {
           <Card>
             <CardContent className="pt-5">
               <p className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider mb-1">Reproducibility</p>
-              <p className="text-2xl font-mono">{exp.seed != null ? 'seeded' : 'legacy'}</p>
-              <p className="text-[11px] text-muted-foreground font-mono mt-1">{exp.seed != null ? `re-run with seed ${exp.seed} for identical rounds` : 'pre-seeding v1 run'}</p>
+              <p className="text-2xl font-mono" data-testid="text-reproducibility">{llmMeta ? 'event-sourced' : exp.seed != null ? 'seeded' : 'legacy'}</p>
+              <p className="text-[11px] text-muted-foreground font-mono mt-1">
+                {llmMeta
+                  ? 'LLM decisions recorded and replayed as scripted engine events'
+                  : exp.seed != null ? `re-run with seed ${exp.seed} for identical rounds` : 'pre-seeding v1 run'}
+              </p>
             </CardContent>
           </Card>
         </div>
+      )}
+
+      {exp.status === 'completed' && llmMeta && (
+        <Card data-testid="card-llm-meta">
+          <CardContent className="pt-5 flex flex-wrap gap-x-8 gap-y-2 items-center">
+            <div className="flex items-center gap-2">
+              <BrainCircuit className="w-4 h-4 text-primary" />
+              <span className="text-[10px] uppercase text-muted-foreground font-bold tracking-wider">LLM Run</span>
+            </div>
+            {llmMeta.models && Object.entries(llmMeta.models).map(([seat, model]) => (
+              <span key={seat} className="font-mono text-sm">{seat.toUpperCase()}: {model}</span>
+            ))}
+            <span className="font-mono text-sm text-muted-foreground">prompt {llmMeta.promptVersion ?? '?'}</span>
+            <span className="font-mono text-sm text-muted-foreground">{llmMeta.llmCalls ?? '?'} model calls</span>
+            <span className="font-mono text-sm text-muted-foreground">
+              {(llmMeta.promptTokens ?? 0).toLocaleString()} in / {(llmMeta.completionTokens ?? 0).toLocaleString()} out tokens
+            </span>
+            {llmMeta.retriedCalls ? (
+              <span className="font-mono text-sm text-amber-600">{llmMeta.retriedCalls} retried</span>
+            ) : null}
+            <span className="text-[11px] text-muted-foreground">
+              Sampled behavior — not seed-reproducible; exact replay comes from the recorded decisions.
+            </span>
+          </CardContent>
+        </Card>
       )}
 
       {exp.status === 'completed' && (
@@ -328,6 +370,7 @@ export default function ExperimentDetail() {
                     <th className="p-3 font-medium text-right">P1 Payoff</th>
                     <th className="p-3 font-medium text-right">P2 Payoff</th>
                     <th className="p-3 font-medium text-center">Nash</th>
+                    {llmMeta && <th className="p-3 font-medium">LLM Reasoning</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -341,11 +384,19 @@ export default function ExperimentDetail() {
                       <td className="p-3 text-center">
                         {r.isNashOutcome && <Badge variant="outline" className="text-[8px] bg-background">NASH</Badge>}
                       </td>
+                      {llmMeta && (
+                        <td className="p-3 text-[11px] text-muted-foreground font-sans whitespace-normal min-w-[280px] max-w-md" data-testid={`text-reasoning-${r.roundNumber}`}>
+                          {[
+                            llmMeta.models?.p1 ? r.player1Reasoning : null,
+                            llmMeta.models?.p2 ? r.player2Reasoning : null,
+                          ].filter(Boolean).join(' • ') || '—'}
+                        </td>
+                      )}
                     </tr>
                   ))}
                   {(!rounds || rounds.length === 0) && (
                     <tr>
-                      <td colSpan={6} className="p-8 text-center text-muted-foreground font-sans">
+                      <td colSpan={llmMeta ? 7 : 6} className="p-8 text-center text-muted-foreground font-sans">
                         No rounds recorded.
                       </td>
                     </tr>

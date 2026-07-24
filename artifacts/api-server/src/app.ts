@@ -3,7 +3,7 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
-import { seedIfEmpty } from "./lib/seed";
+import { seedIfEmpty, ensureAiStrategies } from "./lib/seed";
 import { backfillClaimPredicates } from "./lib/claim-predicates";
 
 const app: Express = express();
@@ -35,6 +35,7 @@ app.use("/api", router);
 
 // Seed reference data on startup (idempotent)
 seedIfEmpty()
+  .then(() => ensureAiStrategies())
   .then(() => backfillClaimPredicates())
   .catch((err) => {
   logger.error({ err }, "Seed failed");

@@ -131,21 +131,50 @@ router.post("/experiments", async (req, res): Promise<void> => {
     return;
   }
 
-  const [exp] = await db
-    .insert(experimentsTable)
-    .values({
-      gameId: parsed.data.gameId,
-      player1StrategyId: parsed.data.player1StrategyId,
-      player2StrategyId: parsed.data.player2StrategyId,
-      numRounds: parsed.data.numRounds,
-      seed: parsed.data.seed ?? generateSeed(),
-      batchLabel: parsed.data.batchLabel ?? null,
-      notes: parsed.data.notes ?? null,
-    })
-    .returning();
-
-  const detail = await buildExperimentDetail(exp);
-  res.status(201).json(CreateExperimentResponse.parse(detail));
+  try {
+    const [exp] = await db
+      .insert(experimentsTable)
+      .values({
+        gameId: parsed.data.gameId,
+        player1StrategyId: parsed.data.player1StrategyId,
+        player2StrategyId: parsed.data.player2StrategyId,
+        numRounds: parsed.data.numRounds,
+        seed: parsed.data.seed ?? generateSeed(),
+        batchLabel: parsed.data.batchLabel ?? null,
+        notes: parsed.data.notes ?? null,
+      })
+      .returning();
+    const detail = await buildExperimentDetail(exp);
+    res.status(201).json(CreateExperimentResponse.parse(detail));
+  } catch (err) {
+    // Replicate-identity conflict (experiments_replicate_identity_idx): a
+    // concurrent create raced us to the same (game, strategies, batch, seed).
+    // Return the existing row so replicate creation is idempotent instead of
+    // 500-ing or spawning a duplicate.
+    const code =
+      (err as { code?: string })?.code ?? (err as { cause?: { code?: string } })?.cause?.code;
+    if (code === "23505" && parsed.data.batchLabel != null && parsed.data.seed != null) {
+      const [existing] = await db
+        .select()
+        .from(experimentsTable)
+        .where(
+          and(
+            eq(experimentsTable.gameId, parsed.data.gameId),
+            eq(experimentsTable.player1StrategyId, parsed.data.player1StrategyId),
+            eq(experimentsTable.player2StrategyId, parsed.data.player2StrategyId),
+            eq(experimentsTable.batchLabel, parsed.data.batchLabel),
+            eq(experimentsTable.seed, parsed.data.seed),
+            isNull(experimentsTable.parentExperimentId)
+          )
+        );
+      if (existing) {
+        const detail = await buildExperimentDetail(existing);
+        res.status(200).json(CreateExperimentResponse.parse(detail));
+        return;
+      }
+    }
+    throw err;
+  }
 });
 
 /**
@@ -169,6 +198,17 @@ router.post("/experiments/batch", async (req, res): Promise<void> => {
   const [p2] = await db.select().from(strategiesTable).where(eq(strategiesTable.id, parsed.data.player2StrategyId));
   if (!p1 || !p2) {
     res.status(400).json({ error: "Strategy not found" });
+    return;
+  }
+
+  // LLM seats make one model call per round: a whole batch in one request
+  // would run for many minutes and risk client timeouts. Replicate LLM runs
+  // one experiment at a time (create + run) instead.
+  if (p1.type === "ai_model" || p2.type === "ai_model") {
+    res.status(400).json({
+      error:
+        "Batch runs are not supported for LLM strategies — create and run replicates individually",
+    });
     return;
   }
 
@@ -201,18 +241,31 @@ router.post("/experiments/batch", async (req, res): Promise<void> => {
 
   const experimentIds: number[] = [];
   for (const seed of newSeeds) {
-    const [exp] = await db
-      .insert(experimentsTable)
-      .values({
-        gameId: parsed.data.gameId,
-        player1StrategyId: parsed.data.player1StrategyId,
-        player2StrategyId: parsed.data.player2StrategyId,
-        numRounds: parsed.data.numRounds,
-        seed,
-        batchLabel,
-        notes: parsed.data.notes ?? `Batch replicate (seed ${seed})`,
-      })
-      .returning();
+    let exp;
+    try {
+      [exp] = await db
+        .insert(experimentsTable)
+        .values({
+          gameId: parsed.data.gameId,
+          player1StrategyId: parsed.data.player1StrategyId,
+          player2StrategyId: parsed.data.player2StrategyId,
+          numRounds: parsed.data.numRounds,
+          seed,
+          batchLabel,
+          notes: parsed.data.notes ?? `Batch replicate (seed ${seed})`,
+        })
+        .returning();
+    } catch (err) {
+      // Concurrent batch/runner raced us to this exact (matchup, batch, seed)
+      // slot (experiments_replicate_identity_idx). Treat as already-existing.
+      const code =
+        (err as { code?: string })?.code ?? (err as { cause?: { code?: string } })?.cause?.code;
+      if (code === "23505") {
+        skippedSeeds.push(seed);
+        continue;
+      }
+      throw err;
+    }
 
     await executeExperiment(exp.id);
     await analyzeExperiment(exp.id);
@@ -275,6 +328,10 @@ router.post("/experiments/:id/run", async (req, res): Promise<void> => {
 
   try {
     const updated = await executeExperiment(exp.id);
+    // Keep run semantics aligned with the batch route: every completed run
+    // gets its v2 analysis immediately, so claims adjudication always sees
+    // singly-run experiments (LLM replicates run through this path).
+    await analyzeExperiment(updated.id);
     const detail = await buildExperimentDetail(updated);
     res.json(RunExperimentResponse.parse(detail));
   } catch (err) {

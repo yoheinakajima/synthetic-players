@@ -865,6 +865,12 @@ components:
         engineRunId:
           type: ["string", "null"]
           description: ActiveGraph engine run id; null until first run
+        llmMetaJson:
+          type: ["string", "null"]
+          description: >-
+            LLM-run provenance as a JSON string (model per seat, prompt
+            version, token usage). Null for non-LLM experiments. LLM runs are
+            event-sourced rather than seed-reproducible.
         parentExperimentId:
           type: ["integer", "null"]
           description: Parent experiment id when this experiment is a fork
@@ -941,6 +947,12 @@ components:
         engineRunId:
           type: ["string", "null"]
           description: ActiveGraph engine run id; null until first run
+        llmMetaJson:
+          type: ["string", "null"]
+          description: >-
+            LLM-run provenance as a JSON string (model per seat, prompt
+            version, token usage). Null for non-LLM experiments. LLM runs are
+            event-sourced rather than seed-reproducible.
         parentExperimentId:
           type: ["integer", "null"]
           description: Parent experiment id when this experiment is a fork
