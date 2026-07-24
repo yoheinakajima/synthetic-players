@@ -39,6 +39,7 @@ DB_PATH = os.path.join(_HERE, "data", "engine.db")
 DOCS = os.path.join(REPO_ROOT, "docs", "phase4")
 ARMS_PATH = os.path.join(DOCS, "arms.json")
 SCHEDULE_PATH = os.path.join(DOCS, "execution-schedule.json")
+AMEND_PATH = os.path.join(DOCS, "execution-schedule-amendments.json")
 BASELINE_JSON = os.path.join(DOCS, "sentinel-baseline.json")
 API = "http://localhost:80/api"
 
@@ -142,7 +143,7 @@ def scan(block: str) -> int:
         if ec.get("dirty") is not False:
             anomalies.append(f"{rid}: engineCommit dirty flag {ec}")
         arm = store.get(r["armId"])
-        if arm and r.get("block") == "X2-screening":
+        if arm and r.get("block") in ("X2-screening", "X2-confirmation"):
             want, trunc = draw_horizon(r["seed"], int(arm["deltaPct"]))
             got = len(r["rounds"]) if r["completed"] else None
             if not r["invalid"] and got != want:
@@ -150,12 +151,21 @@ def scan(block: str) -> int:
         if arm and r.get("block") in ("D1", "D2", "D3") and not r["invalid"] and len(r["rounds"]) != 1:
             anomalies.append(f"{rid}: one-shot block with {len(r['rounds'])} rounds")
 
-    # coverage vs the sealed schedule
-    if block in ("X2-screening", "D1", "D2", "D3", "E", "F"):
-        sched = json.load(open(SCHEDULE_PATH))
-        eps = next(b for b in sched["blocks"] if b["block"] == block)["episodes"]
+    # coverage vs the sealed schedule (X2-confirmation lives in the amendments
+    # file — packaging gap #2, provenance-notes.md; sealed schedule untouched)
+    if block in ("X2-screening", "D1", "D2", "D3", "E", "F", "X2-confirmation"):
+        src = AMEND_PATH if block == "X2-confirmation" else SCHEDULE_PATH
+        eps = next(b for b in json.load(open(src))["blocks"] if b["block"] == block)["episodes"]
         seen = {(r["armId"], r.get("episodeIndex")) for r in sel.values()}
         missing = [(e["armId"], e["ep"]) for e in eps if (e["armId"], e["ep"]) not in seen]
+        if block in ("X2-confirmation", "E"):
+            # zero-call truncation exclusions (X1 rule) are legitimate absences
+            trunc = [(e["armId"], e["ep"]) for e in eps
+                     if (e["armId"], e["ep"]) in {(m[0], m[1]) for m in missing}
+                     and draw_horizon(e["seed"], int(store[e["armId"]]["deltaPct"]))[1]]
+            if trunc:
+                print(f"note: {len(trunc)} episodes absent by cap-120 truncation rule (zero calls): {trunc}")
+            missing = [m for m in missing if m not in trunc]
         dupes = len(sel) - len(seen)
         if missing:
             anomalies.append(f"coverage: {len(missing)} scheduled episodes missing (first: {missing[:4]})")
@@ -1078,6 +1088,247 @@ def d3() -> int:
     return 0
 
 
+# ── X2 confirmation (frozen: predicates.md §Family X2, P4-X2-1) ──────────────
+#
+# Pins (committed before adjudication; dispatch may run concurrently — the
+# claim math is fixed here, the data arrive sealed from the event store):
+#   unit      — episode; Y_ep = ((a1==0)+(a2==0))/2 from the round-1 record,
+#               IDENTICAL to the screening extraction (x2_screening()).
+#   contrast  — Δ = mean(Y_ep | conf-hi) − mean(Y_ep | conf-lo); orientation
+#               fixed at selection: screened direction recomputed from the
+#               X2-screening events for the two resolved rung templates and
+#               asserted against the sign recorded in the resolution notes.
+#   method    — BCa(20260801, B=10000) one-sided 95% LOWER bound on Δ via the
+#               family _bca_fit/_bca_endpoint(0.05) machinery (identical
+#               draw-order pins). Either cell constant, or degenerate fit →
+#               registered exact fallback (family 'Degenerate designs' rule,
+#               same seat-level CP construction as _bca_diff_claim): LB =
+#               CP_lo(hi; cell α=.05) − CP_hi(lo; cell α=.05); per-cell tails
+#               0.025 each ⇒ one-sided miss ≤ 0.05 (Bonferroni; conservative).
+#               §X2 words the fallback for the both-constant case; applying it
+#               to either-constant is the strictly more conservative superset
+#               of the family-wide rule, disclosed here.
+#   verdict   — SUPPORTED iff LB > 0.50 AND sign(Δ̂) matches the screened
+#               direction (predicates §X2 P4-X2-1, threshold strict).
+#   handling  — invalid trials excluded + disclosed; absent episodes allowed
+#               only under the cap-120 truncation rule (zero calls, replicated
+#               via draw_horizon); any other gap, duplicate, seed/template/
+#               stamp mismatch, or missing round-1 record REFUSES adjudication.
+
+def _x2c_lb(g_hi: list[float], g_lo: list[float]) -> dict:
+    """One-sided 95% lower bound on mean(hi)−mean(lo), per the pins above."""
+    stat = lambda gs: sum(gs[0]) / len(gs[0]) - sum(gs[1]) / len(gs[1])
+    est = stat([g_hi, g_lo])
+    const = len(set(g_hi)) == 1 or len(set(g_lo)) == 1
+    if not const:
+        theta, sb, z0, a, degen = _bca_fit([g_hi, g_lo], stat)
+        if not degen:
+            return {"method": "BCa(20260801) one-sided 95% lower bound",
+                    "estimate": theta, "lowerBound95": _bca_endpoint(sb, z0, a, 0.05)}
+    from scipy.stats import beta
+
+    def cp(g, cell_alpha):                       # seat-level trials, 2/episode
+        k = int(round(sum(g) * 2)); n = 2 * len(g)
+        lo = 0.0 if k == 0 else float(beta.ppf(cell_alpha / 2, k, n - k + 1))
+        hi = 1.0 if k == n else float(beta.ppf(1 - cell_alpha / 2, k + 1, n - k))
+        return lo, hi
+
+    lb = cp(g_hi, 0.05)[0] - cp(g_lo, 0.05)[1]
+    return {"method": "exact fallback (constant/degenerate cell): CP seat-level, "
+                      "Bonferroni one-sided ≤0.05 (conservative)",
+            "estimate": est, "lowerBound95": lb,
+            "cellCP95": {"hi": cp(g_hi, 0.05), "lo": cp(g_lo, 0.05)},
+            "constantCells": {"hi": len(set(g_hi)) == 1, "lo": len(set(g_lo)) == 1}}
+
+
+def _resolutions() -> dict[str, dict]:
+    db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+    out: dict[str, dict] = {}
+    for (p,) in db.execute("SELECT payload FROM events WHERE type='infra.phase4.resolution'"):
+        d = json.loads(p)
+        if d["key"] in out and out[d["key"]]["templateId"] != d["templateId"]:
+            raise SystemExit(f"resolution {d['key']} written twice with different "
+                             f"templateIds — write-once violated, refusing")
+        out[d["key"]] = d
+    db.close()
+    return out
+
+
+def x2_confirm() -> int:
+    import re
+    store = arms()
+    conf_arms = {a["armId"]: a for a in store.values() if a.get("block") == "X2-confirmation"}
+    if sorted(conf_arms) != ["p4-x2-conf-hi", "p4-x2-conf-lo"]:
+        raise SystemExit(f"unexpected conf arms {sorted(conf_arms)} — refusing")
+
+    # expected episodes from the amendments file, cross-checked against arms.json
+    amem = json.load(open(AMEND_PATH))
+    eps_sched = next(b for b in amem["blocks"] if b["block"] == "X2-confirmation")["episodes"]
+    expected: dict[tuple[str, int], int] = {}
+    for e in eps_sched:
+        expected[(e["armId"], e["ep"])] = e["seed"]
+    if len(eps_sched) != 40 or len(expected) != 40:
+        raise SystemExit(f"amendments block has {len(eps_sched)} episodes, {len(expected)} unique — refusing")
+    for aid, a in conf_arms.items():
+        sch = sorted(s for (ai, _), s in expected.items() if ai == aid)
+        if sch != a["seeds"] or sch != list(range(2953, 2973)):
+            raise SystemExit(f"{aid}: amendment seeds != sealed arms.json seeds — refusing")
+
+    # sealed resolutions fix the templates and the screened direction
+    res = _resolutions()
+    if "X2-conf-lo" not in res or "X2-conf-hi" not in res:
+        raise SystemExit("X2-conf-lo/hi resolutions absent from event store — refusing")
+    tmpl = {"p4-x2-conf-lo": res["X2-conf-lo"]["templateId"],
+            "p4-x2-conf-hi": res["X2-conf-hi"]["templateId"]}
+    signs = set()
+    for k in ("X2-conf-lo", "X2-conf-hi"):
+        m = re.search(r"dY\s*=\s*([+-])", res[k].get("note", ""))
+        if not m:
+            raise SystemExit(f"resolution {k} note carries no signed dY — refusing")
+        signs.add(m.group(1))
+    if signs != {"+"}:
+        raise SystemExit(f"resolution notes disagree on screened sign or are negative "
+                         f"({signs}) — selection recorded forward S2 dY=+0.85; refusing")
+    screened_sign = +1
+
+    # screened direction recomputed from screening events (same extraction)
+    runs = load_phase4_runs()
+    rung_arm = {side: t.replace("pd-x2-", "p4-x2-") for side, t in tmpl.items()}
+    rung_means: dict[str, float] = {}
+    for side, ra in rung_arm.items():
+        ys = [((r["rounds"][1][0] == 0) + (r["rounds"][1][1] == 0)) / 2
+              for r in runs.values()
+              if r.get("block") == "X2-screening" and r["armId"] == ra
+              and not r["invalid"] and 1 in r["rounds"]]
+        if len(ys) != 10:
+            raise SystemExit(f"screening rung {ra}: {len(ys)} usable episodes (want 10) — refusing")
+        rung_means[side] = sum(ys) / len(ys)
+    gap_screen = rung_means["p4-x2-conf-hi"] - rung_means["p4-x2-conf-lo"]
+    if not (gap_screen > 0) == (screened_sign > 0):
+        raise SystemExit(f"recomputed screening gap {gap_screen:+.3f} contradicts the "
+                         f"recorded selection sign — refusing")
+
+    # per-run templateIds (requested-side), engine stamps
+    db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+    tmpl_by_run: dict[str, set] = {}
+    for rid, t in db.execute(
+            """SELECT run_id, json_extract(payload,'$.templateId') FROM events
+               WHERE type='llm.requested' AND json_extract(payload,'$.block')='X2-confirmation'"""):
+        tmpl_by_run.setdefault(rid, set()).add(t)
+    db.close()
+
+    seen: dict[tuple[str, int], str] = {}
+    y: dict[str, list[float]] = {"p4-x2-conf-lo": [], "p4-x2-conf-hi": []}
+    excluded: list[str] = []
+    for rid, r in runs.items():
+        if r.get("block") != "X2-confirmation":
+            continue
+        key = (r["armId"], r.get("episodeIndex"))
+        if key not in expected:
+            raise SystemExit(f"{rid}: unscheduled episode {key} — refusing")
+        if key in seen:
+            raise SystemExit(f"{rid}: duplicate of {key} (also {seen[key]}) — refusing")
+        seen[key] = rid
+        if r["seed"] != expected[key]:
+            raise SystemExit(f"{rid}: seed {r['seed']} != scheduled {expected[key]} — refusing")
+        if r["model"] != "gpt-4.1":
+            raise SystemExit(f"{rid}: model {r['model']} != gpt-4.1 — refusing")
+        ec = r.get("engineCommit") or {}
+        if ec.get("dirty") is not False:
+            raise SystemExit(f"{rid}: engine stamp not clean ({ec}) — refusing")
+        ts = tmpl_by_run.get(rid, set())
+        if ts != {tmpl[r["armId"]]}:
+            raise SystemExit(f"{rid}: requested templates {ts} != sealed resolution "
+                             f"{tmpl[r['armId']]} — refusing")
+        if r["invalid"]:
+            excluded.append(f"{key}: invalid trial (registered handling)")
+            continue
+        if not r["completed"]:
+            raise SystemExit(f"{rid}: no run.completed — block incomplete, refusing")
+        want, trunc = draw_horizon(r["seed"], int(conf_arms[r["armId"]]["deltaPct"]))
+        if trunc or len(r["rounds"]) != want:
+            raise SystemExit(f"{rid}: rounds {len(r['rounds'])} vs drawn horizon "
+                             f"{want} (trunc={trunc}) — refusing")
+        if 1 not in r["rounds"]:
+            raise SystemExit(f"{rid}: no round-1 record — refusing")
+        a1, a2 = r["rounds"][1]
+        y[r["armId"]].append(((a1 == 0) + (a2 == 0)) / 2)
+
+    absent = [k for k in expected if k not in seen]
+    for aid, ep in absent:
+        s = expected[(aid, ep)]
+        if not draw_horizon(s, int(conf_arms[aid]["deltaPct"]))[1]:
+            raise SystemExit(f"episode ({aid}, ep{ep}, seed {s}) absent without the "
+                             f"truncation rule — refusing")
+        excluded.append(f"({aid}, ep{ep}): cap-120 truncation, zero calls (X1 rule)")
+
+    g_hi, g_lo = y["p4-x2-conf-hi"], y["p4-x2-conf-lo"]
+    if not g_hi or not g_lo:
+        raise SystemExit("a confirmation side has zero usable episodes — refusing")
+    claim = _x2c_lb(g_hi, g_lo)
+    est, lb = claim["estimate"], claim["lowerBound95"]
+    sign_ok = (est > 0) == (screened_sign > 0) and est != 0
+    verdict = "supported" if (lb > 0.50 and sign_ok) else "not supported"
+
+    report = {
+        "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "status": "adjudicated (interim; finals at step 8 after full replay)",
+        "claim": "P4-X2-1", "threshold": 0.50, "screenedSign": "+",
+        "resolutions": {k: {kk: res[k][kk] for kk in ("templateId", "templateSha256")}
+                        for k in ("X2-conf-lo", "X2-conf-hi")},
+        "screeningAnchor": {"means": rung_means, "gap": gap_screen},
+        "n": {"hi": len(g_hi), "lo": len(g_lo)},
+        "means": {"hi": sum(g_hi) / len(g_hi), "lo": sum(g_lo) / len(g_lo)},
+        "excluded": excluded, "result": claim,
+        "signMatchesScreening": sign_ok, "verdict": verdict,
+    }
+    with open(os.path.join(DOCS, "x2-confirmation-report.json"), "w") as f:
+        json.dump(report, f, indent=1)
+    md = ["# X2 confirmation report (interim, per registered rider: final verdicts in step 8)", "",
+          f"P4-X2-1 — minimal pair around span S2, sealed seeds 2953–2972, "
+          f"{len(g_hi)}+{len(g_lo)} usable episodes ({len(excluded)} excluded: "
+          f"{'; '.join(excluded) if excluded else 'none'}).", "",
+          f"- lo ({tmpl['p4-x2-conf-lo']}): mean Y_ep = {report['means']['lo']:.4f}",
+          f"- hi ({tmpl['p4-x2-conf-hi']}): mean Y_ep = {report['means']['hi']:.4f}",
+          f"- Δ̂ (screened direction) = {est:+.4f}; one-sided 95% LB = {lb:+.4f} "
+          f"({claim['method']})",
+          f"- screening anchor: lo {rung_means['p4-x2-conf-lo']:.2f} → "
+          f"hi {rung_means['p4-x2-conf-hi']:.2f} (gap {gap_screen:+.2f})",
+          f"- **verdict: {verdict}** (criterion: LB > 0.50 AND sign matches screening)", ""]
+    with open(os.path.join(DOCS, "x2-confirmation-report.md"), "w") as f:
+        f.write("\n".join(md) + "\n")
+    print(json.dumps({"verdict": verdict, "estimate": est, "lowerBound95": lb,
+                      "n": report["n"], "means": report["means"],
+                      "excluded": len(excluded), "method": claim["method"]}, indent=1))
+    return 0
+
+
+def selftest_x2c() -> int:
+    checks = []
+
+    def close(x, y, tol=1e-9):
+        return abs(x - y) <= tol
+
+    r = _x2c_lb([1.0] * 18 + [0.5, 0.5], [0.0] * 18 + [0.5, 0.5])
+    checks.append(("bca-clear-support", r["lowerBound95"] > 0.50 and
+                   r["method"].startswith("BCa") and r["lowerBound95"] < r["estimate"]))
+    r = _x2c_lb([1.0, 0.5] * 10, [0.5, 0.0] * 10)
+    checks.append(("bca-near-threshold-fails", close(r["estimate"], 0.5) and
+                   r["lowerBound95"] < 0.50))
+    r = _x2c_lb([1.0] * 20, [0.0] * 20)
+    manual = 2 * 0.025 ** (1 / 40) - 1
+    checks.append(("fallback-both-constant", "fallback" in r["method"] and
+                   close(r["lowerBound95"], manual, 1e-6) and r["lowerBound95"] > 0.50))
+    r = _x2c_lb([0.0] * 20, [1.0] * 20)
+    checks.append(("sign-mismatch-est-negative", r["estimate"] == -1.0))
+    r = _x2c_lb([1.0] * 20, [0.0] * 19 + [0.5])
+    checks.append(("fallback-one-constant", "fallback" in r["method"] and
+                   0.5 < r["lowerBound95"] < r["estimate"]))
+    for name, ok in checks:
+        print(("PASS " if ok else "FAIL ") + name)
+    return 0 if all(ok for _, ok in checks) else 1
+
+
 def main() -> None:
     if "--scan" in sys.argv:
         raise SystemExit(scan(sys.argv[sys.argv.index("--scan") + 1]))
@@ -1085,6 +1336,10 @@ def main() -> None:
         raise SystemExit(sentinel(int(sys.argv[sys.argv.index("--sentinel") + 1])))
     if "--x2-screening" in sys.argv:
         raise SystemExit(x2_screening())
+    if "--x2-confirm" in sys.argv:
+        raise SystemExit(x2_confirm())
+    if "--selftest-x2c" in sys.argv:
+        raise SystemExit(selftest_x2c())
     if "--d1" in sys.argv:
         raise SystemExit(d1())
     if "--d2" in sys.argv:
