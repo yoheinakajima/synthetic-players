@@ -3,6 +3,7 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
+import { seedIfEmpty } from "./lib/seed";
 
 const app: Express = express();
 
@@ -30,5 +31,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
+
+// Seed reference data on startup (idempotent)
+seedIfEmpty().catch((err) => {
+  logger.error({ err }, "Seed failed");
+});
 
 export default app;

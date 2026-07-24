@@ -3,20 +3,36 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Game Theory Research Lab API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: games
+    description: Game type definitions with payoff matrices
+  - name: strategies
+    description: Player strategies and agent models
+  - name: experiments
+    description: Experiment configuration and execution
+  - name: rounds
+    description: Individual rounds within experiments
+  - name: analyses
+    description: Statistical analyses comparing results to Nash equilibria
+  - name: claims
+    description: Research claims generated from analyses
+  - name: papers
+    description: Generated research papers
+  - name: dashboard
+    description: Summary statistics and leaderboards
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +40,475 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  # ── Games ────────────────────────────────────────────────────────────────
+  /games:
+    get:
+      operationId: listGames
+      tags: [games]
+      summary: List all game types
+      responses:
+        "200":
+          description: List of games
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Game"
+
+  /games/{id}:
+    get:
+      operationId: getGame
+      tags: [games]
+      summary: Get a game type by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Game found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Game"
+        "404":
+          description: Not found
+
+  # ── Strategies ───────────────────────────────────────────────────────────
+  /strategies:
+    get:
+      operationId: listStrategies
+      tags: [strategies]
+      summary: List all player strategies
+      responses:
+        "200":
+          description: List of strategies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Strategy"
+
+  /strategies/{id}:
+    get:
+      operationId: getStrategy
+      tags: [strategies]
+      summary: Get a strategy by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Strategy found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Strategy"
+        "404":
+          description: Not found
+
+  # ── Experiments ──────────────────────────────────────────────────────────
+  /experiments:
+    get:
+      operationId: listExperiments
+      tags: [experiments]
+      summary: List all experiments
+      parameters:
+        - name: gameId
+          in: query
+          schema:
+            type: integer
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, running, completed, failed]
+      responses:
+        "200":
+          description: List of experiments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Experiment"
+    post:
+      operationId: createExperiment
+      tags: [experiments]
+      summary: Create a new experiment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExperimentInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Experiment"
+        "400":
+          description: Invalid input
+
+  /experiments/{id}:
+    get:
+      operationId: getExperiment
+      tags: [experiments]
+      summary: Get an experiment by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Experiment found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExperimentDetail"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteExperiment
+      tags: [experiments]
+      summary: Delete an experiment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /experiments/{id}/run:
+    post:
+      operationId: runExperiment
+      tags: [experiments]
+      summary: Execute an experiment (runs all rounds)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Experiment run complete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExperimentDetail"
+        "400":
+          description: Experiment already run or invalid state
+        "404":
+          description: Not found
+
+  # ── Rounds ───────────────────────────────────────────────────────────────
+  /experiments/{experimentId}/rounds:
+    get:
+      operationId: listRounds
+      tags: [rounds]
+      summary: List rounds for an experiment
+      parameters:
+        - name: experimentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of rounds
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Round"
+
+  # ── Analyses ─────────────────────────────────────────────────────────────
+  /experiments/{experimentId}/analysis:
+    get:
+      operationId: getAnalysis
+      tags: [analyses]
+      summary: Get statistical analysis for an experiment
+      parameters:
+        - name: experimentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Analysis"
+        "404":
+          description: Analysis not found
+    post:
+      operationId: createAnalysis
+      tags: [analyses]
+      summary: Run statistical analysis for a completed experiment
+      parameters:
+        - name: experimentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "201":
+          description: Analysis created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Analysis"
+        "400":
+          description: Experiment not completed
+
+  # ── Claims ───────────────────────────────────────────────────────────────
+  /claims:
+    get:
+      operationId: listClaims
+      tags: [claims]
+      summary: List all research claims
+      parameters:
+        - name: gameId
+          in: query
+          schema:
+            type: integer
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [hypothesis, supported, refuted, inconclusive]
+      responses:
+        "200":
+          description: List of claims
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Claim"
+    post:
+      operationId: createClaim
+      tags: [claims]
+      summary: Create a research claim
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClaimInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Claim"
+        "400":
+          description: Invalid input
+
+  /claims/{id}:
+    get:
+      operationId: getClaim
+      tags: [claims]
+      summary: Get a claim by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Claim found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Claim"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateClaim
+      tags: [claims]
+      summary: Update a claim's status or evidence
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClaimUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Claim"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteClaim
+      tags: [claims]
+      summary: Delete a claim
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  # ── Papers ───────────────────────────────────────────────────────────────
+  /papers:
+    get:
+      operationId: listPapers
+      tags: [papers]
+      summary: List all generated research papers
+      responses:
+        "200":
+          description: List of papers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Paper"
+    post:
+      operationId: generatePaper
+      tags: [papers]
+      summary: Generate a research paper from completed experiments and claims
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaperInput"
+      responses:
+        "201":
+          description: Paper generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Paper"
+        "400":
+          description: Insufficient data
+
+  /papers/{id}:
+    get:
+      operationId: getPaper
+      tags: [papers]
+      summary: Get a paper by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Paper found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Paper"
+        "404":
+          description: Not found
+
+  # ── Dashboard / Wow endpoints ─────────────────────────────────────────────
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Overall lab statistics
+      responses:
+        "200":
+          description: Dashboard statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /dashboard/strategy-leaderboard:
+    get:
+      operationId: getStrategyLeaderboard
+      tags: [dashboard]
+      summary: Strategy rankings by average payoff vs Nash equilibrium
+      responses:
+        "200":
+          description: Strategy leaderboard
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StrategyRank"
+
+  /dashboard/game-summaries:
+    get:
+      operationId: getGameSummaries
+      tags: [dashboard]
+      summary: Per-game cooperation rates and Nash deviation statistics
+      responses:
+        "200":
+          description: Game summaries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GameSummary"
+
+  /dashboard/activity:
+    get:
+      operationId: getRecentActivity
+      tags: [dashboard]
+      summary: Recent experiment and claim activity feed
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: Activity feed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityItem"
+
 components:
   schemas:
     HealthStatus:
@@ -31,6 +516,446 @@ components:
       properties:
         status:
           type: string
-      required:
-        - status
+      required: [status]
 
+    # ── Game ──────────────────────────────────────────────────────────────
+    Game:
+      type: object
+      required: [id, slug, name, description, numActions, actionLabels, payoffMatrix, nashEquilibria, category, createdAt]
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        numActions:
+          type: integer
+        actionLabels:
+          type: array
+          items:
+            type: string
+        payoffMatrix:
+          description: "JSON-encoded 2D array of [player1payoff, player2payoff] pairs"
+          type: string
+        nashEquilibria:
+          description: "JSON-encoded list of Nash equilibrium action pairs"
+          type: string
+        nashDescription:
+          type: ["string", "null"]
+        theoreticalCooperationRate:
+          type: ["number", "null"]
+        category:
+          type: string
+          enum: [coordination, social_dilemma, zero_sum, bargaining]
+        createdAt:
+          type: string
+          format: date-time
+
+    # ── Strategy ──────────────────────────────────────────────────────────
+    Strategy:
+      type: object
+      required: [id, slug, name, description, type, createdAt]
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [deterministic, probabilistic, ai_model, human_optimal]
+        modelId:
+          type: ["string", "null"]
+          description: For AI strategies, the model identifier
+        createdAt:
+          type: string
+          format: date-time
+
+    # ── Experiment ────────────────────────────────────────────────────────
+    ExperimentInput:
+      type: object
+      required: [gameId, player1StrategyId, player2StrategyId, numRounds]
+      properties:
+        gameId:
+          type: integer
+        player1StrategyId:
+          type: integer
+        player2StrategyId:
+          type: integer
+        numRounds:
+          type: integer
+          minimum: 1
+          maximum: 200
+        notes:
+          type: string
+
+    Experiment:
+      type: object
+      required: [id, gameId, player1StrategyId, player2StrategyId, numRounds, status, createdAt]
+      properties:
+        id:
+          type: integer
+        gameId:
+          type: integer
+        gameName:
+          type: ["string", "null"]
+        player1StrategyId:
+          type: integer
+        player1StrategyName:
+          type: ["string", "null"]
+        player2StrategyId:
+          type: integer
+        player2StrategyName:
+          type: ["string", "null"]
+        numRounds:
+          type: integer
+        status:
+          type: string
+          enum: [pending, running, completed, failed]
+        player1TotalPayoff:
+          type: ["number", "null"]
+        player2TotalPayoff:
+          type: ["number", "null"]
+        cooperationRate:
+          type: ["number", "null"]
+        nashDeviationScore:
+          type: ["number", "null"]
+        notes:
+          type: ["string", "null"]
+        errorMessage:
+          type: ["string", "null"]
+        completedAt:
+          type: ["string", "null"]
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+
+    ExperimentDetail:
+      type: object
+      required: [id, gameId, player1StrategyId, player2StrategyId, numRounds, status, createdAt, game, player1Strategy, player2Strategy, rounds]
+      properties:
+        id:
+          type: integer
+        gameId:
+          type: integer
+        player1StrategyId:
+          type: integer
+        player2StrategyId:
+          type: integer
+        numRounds:
+          type: integer
+        status:
+          type: string
+          enum: [pending, running, completed, failed]
+        player1TotalPayoff:
+          type: ["number", "null"]
+        player2TotalPayoff:
+          type: ["number", "null"]
+        cooperationRate:
+          type: ["number", "null"]
+        nashDeviationScore:
+          type: ["number", "null"]
+        notes:
+          type: ["string", "null"]
+        errorMessage:
+          type: ["string", "null"]
+        completedAt:
+          type: ["string", "null"]
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        game:
+          $ref: "#/components/schemas/Game"
+        player1Strategy:
+          $ref: "#/components/schemas/Strategy"
+        player2Strategy:
+          $ref: "#/components/schemas/Strategy"
+        rounds:
+          type: array
+          items:
+            $ref: "#/components/schemas/Round"
+
+    # ── Round ─────────────────────────────────────────────────────────────
+    Round:
+      type: object
+      required: [id, experimentId, roundNumber, player1Action, player2Action, player1Payoff, player2Payoff, isNashOutcome, createdAt]
+      properties:
+        id:
+          type: integer
+        experimentId:
+          type: integer
+        roundNumber:
+          type: integer
+        player1Action:
+          type: integer
+          description: Index into the game's actionLabels array
+        player2Action:
+          type: integer
+        player1Payoff:
+          type: number
+        player2Payoff:
+          type: number
+        player1Reasoning:
+          type: ["string", "null"]
+        player2Reasoning:
+          type: ["string", "null"]
+        isNashOutcome:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    # ── Analysis ──────────────────────────────────────────────────────────
+    Analysis:
+      type: object
+      required: [id, experimentId, nashEquilibriumRate, player1CooperationRate, player2CooperationRate, player1AvgPayoff, player2AvgPayoff, theoreticalPlayer1Payoff, theoreticalPlayer2Payoff, player1PayoffDeviation, player2PayoffDeviation, mutualCooperationRate, mutualDefectionRate, mixedOutcomeRate, summary, createdAt]
+      properties:
+        id:
+          type: integer
+        experimentId:
+          type: integer
+        nashEquilibriumRate:
+          type: number
+          description: Fraction of rounds landing on Nash equilibrium
+        player1CooperationRate:
+          type: number
+        player2CooperationRate:
+          type: number
+        player1AvgPayoff:
+          type: number
+        player2AvgPayoff:
+          type: number
+        theoreticalPlayer1Payoff:
+          type: number
+          description: Expected payoff if players played Nash every round
+        theoreticalPlayer2Payoff:
+          type: number
+        player1PayoffDeviation:
+          type: number
+          description: Percentage deviation from theoretical Nash payoff
+        player2PayoffDeviation:
+          type: number
+        mutualCooperationRate:
+          type: number
+        mutualDefectionRate:
+          type: number
+        mixedOutcomeRate:
+          type: number
+        roundByRoundJson:
+          type: ["string", "null"]
+          description: JSON array of cumulative stats per round
+        summary:
+          type: string
+          description: Human-readable analysis narrative
+        createdAt:
+          type: string
+          format: date-time
+
+    # ── Claim ─────────────────────────────────────────────────────────────
+    ClaimInput:
+      type: object
+      required: [title, statement, gameId]
+      properties:
+        title:
+          type: string
+        statement:
+          type: string
+          description: The full claim as a testable proposition
+        gameId:
+          type: integer
+        strategyId:
+          type: ["integer", "null"]
+        analysisId:
+          type: ["integer", "null"]
+        evidenceSummary:
+          type: string
+
+    ClaimUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        statement:
+          type: string
+        status:
+          type: string
+          enum: [hypothesis, supported, refuted, inconclusive]
+        evidenceSummary:
+          type: string
+        linkedAnalysisId:
+          type: ["integer", "null"]
+
+    Claim:
+      type: object
+      required: [id, title, statement, gameId, status, createdAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        statement:
+          type: string
+        gameId:
+          type: integer
+        gameName:
+          type: ["string", "null"]
+        strategyId:
+          type: ["integer", "null"]
+        strategyName:
+          type: ["string", "null"]
+        analysisId:
+          type: ["integer", "null"]
+        status:
+          type: string
+          enum: [hypothesis, supported, refuted, inconclusive]
+        evidenceSummary:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # ── Paper ─────────────────────────────────────────────────────────────
+    PaperInput:
+      type: object
+      required: [title]
+      properties:
+        title:
+          type: string
+        abstract:
+          type: string
+        gameIds:
+          type: array
+          items:
+            type: integer
+          description: Which games to include; empty means all completed games
+
+    Paper:
+      type: object
+      required: [id, title, status, createdAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        abstract:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [draft, generating, complete]
+        sections:
+          type: ["string", "null"]
+          description: JSON array of paper sections
+        claimsJson:
+          type: ["string", "null"]
+          description: JSON array of claim IDs included
+        experimentsJson:
+          type: ["string", "null"]
+          description: JSON array of experiment IDs included
+        wordCount:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # ── Dashboard schemas ─────────────────────────────────────────────────
+    DashboardStats:
+      type: object
+      required: [totalExperiments, completedExperiments, totalRounds, gamesCovered, claimsGenerated, supportedClaims, refutedClaims, papersGenerated]
+      properties:
+        totalExperiments:
+          type: integer
+        completedExperiments:
+          type: integer
+        totalRounds:
+          type: integer
+        gamesCovered:
+          type: integer
+        claimsGenerated:
+          type: integer
+        supportedClaims:
+          type: integer
+        refutedClaims:
+          type: integer
+        papersGenerated:
+          type: integer
+        avgNashDeviationScore:
+          type: ["number", "null"]
+        avgCooperationRate:
+          type: ["number", "null"]
+
+    StrategyRank:
+      type: object
+      required: [strategyId, strategyName, strategyType, experimentsPlayed, avgPayoff, avgNashDeviationScore, rank]
+      properties:
+        strategyId:
+          type: integer
+        strategyName:
+          type: string
+        strategyType:
+          type: string
+        experimentsPlayed:
+          type: integer
+        avgPayoff:
+          type: number
+        avgNashDeviationScore:
+          type: number
+        cooperationRate:
+          type: ["number", "null"]
+        rank:
+          type: integer
+
+    GameSummary:
+      type: object
+      required: [gameId, gameName, gameSlug, category, experimentsRun, avgCooperationRate, avgNashEquilibriumRate, avgPayoffDeviation, claimsCount]
+      properties:
+        gameId:
+          type: integer
+        gameName:
+          type: string
+        gameSlug:
+          type: string
+        category:
+          type: string
+        experimentsRun:
+          type: integer
+        avgCooperationRate:
+          type: number
+        avgNashEquilibriumRate:
+          type: number
+        avgPayoffDeviation:
+          type: number
+        claimsCount:
+          type: integer
+
+    ActivityItem:
+      type: object
+      required: [id, type, title, description, timestamp]
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [experiment_completed, claim_created, claim_updated, paper_generated, analysis_created]
+        title:
+          type: string
+        description:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        relatedId:
+          type: ["integer", "null"]

@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Game Theory Research Lab"
+version = "1.0.0"
+id = "artifacts/lab"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22635
+
+[services.development]
+run = "pnpm --filter @workspace/lab run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/lab", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/lab/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22635"
+BASE_PATH = "/"
