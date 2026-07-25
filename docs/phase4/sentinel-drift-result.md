@@ -55,3 +55,16 @@ mechanically adjudicated detection record showing that behavioral
 fingerprinting catches subject drift that version pinning cannot see, on a live
 provider endpoint, mid-study, with the freeze landing before any contaminated
 spend.
+
+## Upgraded reading (operator rider 6, check-7 boundary, 2026-07-25)
+
+An unversioned hosted endpoint is an **uncontrolled mixture**, not a single
+stable subject. The v2a × gemini-2.5-flash fingerprint cell now reads
+**10 → 7 → 10 → 6** across checks (original-baseline descriptive series) —
+oscillation, not a step to a new level. Continuous fingerprinting is what
+makes the mixture visible: a one-shot validation would have sampled one
+component and reported it as "the model." The full oscillation trajectory is
+the figure for this section. The corresponding analysis discipline is
+per-window indexing (alert-5 memo §Second reversion): gemini-side results
+are read as behavior within window W(k,k+1), never as timeless properties of
+an endpoint name.

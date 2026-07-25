@@ -45,3 +45,13 @@ the kind corrected in A-OVH-2.
 
 SHED-1 is operator-directed. SHED-2/3 are proposed here and stand unless the
 operator amends them before F preflight.
+
+## SHED-2 approval (operator, check-7 boundary, 2026-07-25)
+
+SHED-2 = `p4-f-shuffled-history-cvx` is **approved** as proposed: controls
+before probes, secondary model before primary, and the gpt twin
+(`p4-f-shuffled-history-gpt`) keeps the control interpretable if shedding
+reaches it. The order stands: SHED-1 `p4-f-ngram3-gpt` (operator-directed),
+SHED-2 `p4-f-shuffled-history-cvx` (operator-approved), then per the
+registered invariants (depth-3 last among trackers, primary treatment arms
+shed last).

@@ -485,3 +485,13 @@ sentinel-alert-5-memo.md §Second reversion. Per the alert-5 precedent the
 decision (dispatch h2 / amend / extended hold) is the operator's, and the
 freeze lifts only on a committed decision entry. No analysis surface, gate,
 or threshold touched by this disclosure.
+
+Same day — check-7 decision recorded. Operator selected option (a): dispatch
+E:h2 per cadence. Rider 5 registered (pre-committed before any h2 gemini
+adjudication: sealed gemini E predicates adjudicate exactly as written on
+their defined samples; window indexing is interpretation-only; no pooling
+choice after window contrasts become visible). Rider 6 registered (the
+uncontrolled-mixture reading, recorded in sentinel-drift-result.md; the full
+oscillation trajectory is the figure). SHED-2 = p4-f-shuffled-history-cvx
+approved as proposed (gpt twin keeps the control). The boundary freeze lifts
+at the E:h2 preflight, after this commit is pushed.

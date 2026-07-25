@@ -185,3 +185,32 @@ fired check, per rider 2 ("a fire anywhere means the same boundary freeze").
   Recommendation on record: (a) — riders 2/3 built exactly this instrument,
   and pausing cvx arms would modify a sealed schedule to avoid data the
   indexing already handles honestly.
+
+### Decision (operator, recorded 2026-07-25)
+
+Option (a): dispatch E:h2 per cadence. Operator reasoning, transcribed:
+10 → 7 → 10 → 6 is oscillation, so there is no clean regime to wait for;
+deferring the cvx arms would delete the demonstration rather than protect
+it; per-window indexing under riders 2/3 is the honest instrument for a
+moving target; gpt-4.1 shows zero drift, so the primary is untouched.
+
+Two riders attach to the decision, continuing the memo's numbering:
+
+- **Rider 5 (adjudication ordering — pre-committed before any h2 gemini
+  adjudication):** sealed gemini E predicates adjudicate exactly as written
+  on their defined samples; window indexing layers on as interpretation
+  only. No pooling choice is made after window contrasts become visible —
+  the sealed sample is the unit of adjudication, and per-window splits are
+  disclosure, never decision surfaces.
+- **Rider 6 (stability reading):** the stability section states the
+  upgraded reading — an unversioned endpoint is an uncontrolled mixture
+  rather than a single stable subject; continuous fingerprinting is what
+  makes that visible; the full oscillation trajectory is the figure.
+  Recorded in sentinel-drift-result.md.
+
+SHED-2 (`p4-f-shuffled-history-cvx`) approved as proposed in the same
+decision; the gpt twin keeps the control (shedding-order.md).
+
+The freeze lifts at the first post-decision dispatch (the E:h2 preflight),
+per the alert-5 pattern: only after this entry, the drift-result addendum,
+and the shedding-order approval are committed and disclosed.
