@@ -236,3 +236,36 @@ zero drift on the primary subject through E, again.
   check-8 read is consistent with rider 6 (unversioned endpoint as
   uncontrolled mixture). No gate, threshold, or analysis surface is touched
   by this entry.
+
+## Decision — F staging on the check-8 fire (operator, 2026-07-25)
+
+Recorded per rider 2 (a fire holds the boundary until a decision entry
+commits). Operator decision, verbatim intent:
+
+1. The check-8 read stands under the standing oscillation interpretation
+   (riders 5/6): series 10 → 7 → 10 → 6 → 7 on the unversioned endpoint,
+   treated as an uncontrolled mixture; per-regime reporting already
+   registered (rider 3). No re-baseline, no threshold change.
+2. **F stages per the registered cadence** (check 9 gemini-only mid-F,
+   check 10 full post-F), with the registered shedding order applying
+   mechanically at preflight (shedding-order.md trigger arithmetic, whole
+   arms only).
+3. **An engine capability check precedes any dispatch: F dispatches only on
+   pass.** If any seat-2 opponent is unimplemented, the gap list plus a
+   selftest/architect plan goes to the operator before any engine work
+   dispatches live.
+4. Two presentation-only riders on the E report (no protocol surface
+   touched): **E-R1** per-cell gate anatomy — which bound of (0.05, 0.95)
+   failed, with the M_ep counts; **E-R2** a methods note on the gate's
+   ceiling side (lesson → registration → error prevented).
+
+Capability check result (same day, pre-dispatch; full inventory in
+provenance-notes.md): **FAILED — F dispatch remains blocked.** None of the
+six opponent slugs is registered in the engine's strategy registry (the
+step-4 refusal fires, as designed and as selftested). `fo-tracker` and
+`wsls-targeter` have complete sealed specs; `shuffled-history` needs one
+base-tracker confirmation; `ngram2`, `ngram3`, and `switcher-r26` lack full
+sealed specifications (switchRound = 26 is sealed in bindings; the regimes on
+either side are not). No engine work dispatches until the operator registers
+the missing specs and the implementation lands with selftests and architect
+review.

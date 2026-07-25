@@ -1585,6 +1585,24 @@ def _e_gate_cell(g: list[float]) -> dict:
             "insideOpen05_95": (lo > 0.05) and (hi < 0.95)}
 
 
+def _e_gate_bound_status(cell: dict) -> str:
+    """Rider E-R1 (presentation-only; memo §Decision — F staging): label WHICH
+    bound of the open interval (0.05, 0.95) a gate cell violated, so a denial
+    of slope license is legible as a mechanical bound violation. Never
+    verdict-bearing — the gate's verdict key remains insideOpen05_95, computed
+    independently above; a selftest asserts the two stay consistent."""
+    lo, hi = cell["cp95"]
+    floor_v = lo <= 0.05
+    ceil_v = hi >= 0.95
+    if floor_v and ceil_v:
+        return "both bounds violated (lo ≤ 0.05 and hi ≥ 0.95)"
+    if floor_v:
+        return "floor bound violated (lo ≤ 0.05)"
+    if ceil_v:
+        return "ceiling bound violated (hi ≥ 0.95)"
+    return "inside open (0.05, 0.95)"
+
+
 def _e_sens_cell(g: list[float]) -> dict:
     """Disclosed sensitivity only — never verdict-bearing."""
     mean = sum(g) / len(g)
@@ -1636,6 +1654,8 @@ def _e_eval(y: dict[str, list[float]]) -> dict:
             if not g10 or not g90:
                 raise SystemExit(f"assay {pres}|{model}: empty δ cell — refusing")
             cells = {"d10": _e_gate_cell(g10), "d90": _e_gate_cell(g90)}
+            for _c in cells.values():   # rider E-R1: additive, presentation-only
+                _c["boundStatus"] = _e_gate_bound_status(_c)
             valid = cells["d10"]["insideOpen05_95"] or cells["d90"]["insideOpen05_95"]
             a = {"gate": {"cells": cells, "valid": valid,
                           "sensitivityBCaMeanY": {"d10": _e_sens_cell(g10),
@@ -1815,8 +1835,46 @@ def e() -> int:
           "## Branch outcomes (registered vocabulary)", ""]
     for k, a in assays.items():
         md.append(f"- **{k}** — {a['interimVerdict']}")
+    # Rider E-R1 (presentation-only; memo §Decision — F staging, 2026-07-25):
+    # per-cell gate anatomy. Verdict-bearing quantity is still insideOpen05_95.
     md += ["",
-           "Ordering per rider 5: the verdicts above are adjudicated on the "
+           "### Gate anatomy (per cell — which bound denied the license)", "",
+           "Gate predicate (registered pre-dispatch): Clopper–Pearson 95% on "
+           "the episode-majority binary M_ep = 1{Y_ep ≥ .5} wholly inside the "
+           "OPEN interval (0.05, 0.95) in at least one δ cell. A violated "
+           "bound is the entire content of a denial — no judgment enters.", "",
+           "| assay | δ cell | M_ep | CP95 | bound status |",
+           "|---|---|---|---|---|"]
+    for k, a in assays.items():
+        for rung in ("d10", "d90"):
+            c = a["gate"]["cells"][rung]
+            md.append(f"| {k} | {rung} | {c['kMajority']}/{c['n']} "
+                      f"| [{c['cp95'][0]:.3f}, {c['cp95'][1]:.3f}] "
+                      f"| {c['boundStatus']} |")
+    # Rider E-R2 (presentation-only): methods note written to the in-tree
+    # record; lineage caveat disclosed in provenance-notes.md (2026-07-25
+    # F-capability entry) rather than smoothed over.
+    md += ["",
+           "### Methods note — the ceiling side of the gate", "",
+           "**Lesson.** The X1 endpoints taught this design that corner cells "
+           "break interval inference: the sealed v1 endpoint sat constant at "
+           "the floor (every episode Y = 0.00), which is why the registered "
+           "machinery carries exact fallbacks for constant cells "
+           "(predicates §X2). **Registration.** E's assay gate was registered "
+           "pre-dispatch as a two-sided OPEN interval — floor and ceiling are "
+           "symmetric refusals — and the INTERIOR selection rule was "
+           "registered at the D1/D2 boundary expressly to maximize the chance "
+           "of clearing it (the MAXCOOP alternative's rationale named the "
+           "corner risk). **Error prevented here.** community|gpt-4.1 "
+           "realized M_ep = 20/20 in both δ cells (means 1.000/1.000), so its "
+           "slope descriptive is exactly Δ̂ = +0.000. Without a ceiling side, "
+           "the gate would have passed at ceiling and that flat descriptive "
+           "would have entered the record as branch (iii) \"inconclusive\" — "
+           "inviting a δ-insensitivity reading the design cannot support. "
+           "With it, the cell is corner-confounded (branch i) and the "
+           "registered rule that flatness is never asserted holds "
+           "mechanically.", ""]
+    md += ["Ordering per rider 5: the verdicts above are adjudicated on the "
            "sealed samples exactly as written; window composition is "
            "interpretation-layer disclosure, never a decision surface.", ""]
     if window_comp:
@@ -1912,6 +1970,22 @@ def selftest_e() -> int:
     g = _e_gate_cell([0.5] * 20)
     check("M_ep threshold: Y=.5 counts as majority (k=20 → corner)",
           g["kMajority"] == 20 and not g["insideOpen05_95"])
+    # rider E-R1: bound-status labels (presentation-only) must stay consistent
+    # with the verdict-bearing insideOpen05_95 on every case exercised here
+    check("anatomy: k=20/20 → ceiling bound violated",
+          _e_gate_bound_status(_e_gate_cell([1.0] * 20)).startswith("ceiling"))
+    check("anatomy: k=0/20 → floor bound violated",
+          _e_gate_bound_status(_e_gate_cell([0.0] * 20)).startswith("floor"))
+    check("anatomy: k=10/20 → inside open (0.05, 0.95)",
+          _e_gate_bound_status(
+              _e_gate_cell([1.0] * 10 + [0.0] * 10)).startswith("inside"))
+    check("anatomy: k=1/2 (tiny n, wide CP) → both bounds violated",
+          _e_gate_bound_status(_e_gate_cell([1.0, 0.0])).startswith("both"))
+    check("anatomy label ↔ gate verdict consistency across cases",
+          all(_e_gate_bound_status(c).startswith("inside") == c["insideOpen05_95"]
+              for c in (_e_gate_cell(v) for v in
+                        ([1.0] * 20, [0.0] * 20, [1.0] * 10 + [0.0] * 10,
+                         [1.0, 0.0], [1.0] * 4 + [0.0] * 16, [0.5] * 20))))
 
     # primary: supported via exact fallback (constant d10 cell)
     y = mk(dg10=[0.0] * 20, dg90=[1.0] * 12 + [0.0] * 8)

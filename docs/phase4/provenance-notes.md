@@ -527,3 +527,61 @@ before because every prior consumer used run-level seeds directly. Fix is
 checker-side only: pure helper `_e_sched_seed` (1-based ep → 0-based array,
 out-of-range → None → refusal) with selftest coverage; no sealed file
 touched. The gate then passed and the E adjudication ran.
+
+## F capability check — pre-dispatch inventory (2026-07-25)
+
+Trigger: operator decision at the check-8 boundary (memo §Decision — F
+staging) conditions all F dispatch on an engine capability pass. Method:
+read-only inspection of the enforcement path and the strategy registry; no
+dispatch, no engine edit.
+
+- Enforcement is fail-closed exactly as sealed: seat 1 must be
+  `llm-subject`; seat 2 must equal `bindings.opponent`; an opponent absent
+  from the registry refuses with the step-4 message. The engine selftest
+  asserts this refusal (fo-tracker fixture), so the stub is load-bearing and
+  the flip to implemented behavior must update that selftest deliberately.
+- Registry inventory: none of the six F opponent slugs is registered. Spec
+  status from the sealed tree:
+  - `fo-tracker` — complete. Predicates §F names it the contemporaneous
+    re-run control; the pre-registered Phase 3 first-order
+    conditional-frequency tracker exists under the slug `pattern-tracker`
+    (deterministic, zero RNG draws). Implementation is a registry alias,
+    disclosed.
+  - `wsls-targeter` — complete. Full frozen behavioral spec in predicates §F
+    (round-1 uniform from the seeded adversary stream; WSLS prediction of
+    the subject; counter-play; all draws archived).
+  - `shuffled-history` — near-complete. Predicates §F + provider packet fix
+    the causal contract (prefix-only; permutation re-drawn per decision from
+    the seeded stream, seed-recorded; shuffled prefix archived per
+    decision). The tracker consuming the shuffled prefix is not named; the
+    only reading consistent with the registered secondary directional
+    (Ū_shuffled-history < Ū_fo-tracker — "sequence order carries exploitable
+    signal beyond marginals") is the fo-tracker logic run on the shuffled
+    prefix. Operator confirmation requested before implementation; to be
+    recorded as a pre-dispatch clarification.
+  - `ngram2`, `ngram3` — NOT specified in the sealed tree beyond the slugs.
+    The family analogy (order-2/-3 conditional-frequency trackers extending
+    the sealed first-order recipe: Laplace α=1 counts, burn-in, first-index
+    argmax best response) leaves free parameters — context definition,
+    burn-in length and policy for the sparser tables, degenerate-context
+    handling. Requires an operator-registered specification pre-dispatch.
+  - `switcher-r26` — NOT specified beyond `switchRound: 26` (sealed in
+    bindings). The regime on each side of round 26 is absent from the tree.
+    Requires an operator-registered specification pre-dispatch.
+- Consequence: F stays undispatched. Staged path: spec registration →
+  implementation + engine selftests (including the deliberate flip of the
+  refusal test) → architect review → driver staging per the shedding-order
+  arithmetic.
+
+Also this date, riders E-R1/E-R2 (presentation-only): e() now emits per-cell
+gate anatomy (M_ep counts, CP95 bounds, violated-bound labels; additive
+`boundStatus` key per gate cell) and a methods note on the gate's ceiling
+side. Lineage caveat, disclosed rather than smoothed: the operator's request
+described the ceiling side as originating in a post-X1 amendment; the
+in-tree record shows the two-sided open-interval gate present at its first
+registration (E pins, 2026-07-24) and in the INTERIOR-rule rationale at the
+D1/D2 boundary, with the X1 connection running through the corner-degeneracy
+lesson (the v1 endpoint constant at floor 0.00 → the registered
+exact-fallback machinery). The methods note is written to the record; if a
+sign-off text outside the tree documents the amendment, the note will be
+corrected to cite it.

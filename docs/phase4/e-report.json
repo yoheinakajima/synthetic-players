@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-25T03:33:58Z",
+ "generatedAt": "2026-07-25T04:11:55Z",
  "status": "adjudicated (interim; finals at step 8 after full replay)",
  "frozenSpec": "predicates.md \u00a7Family E \u2014 gate (CP on M_ep, open (0.05,0.95)) then slope (BCa one-sided LB; exact fallback); Holm m=3 secondaries; pins in phase4_adjudicate.py (committed pre-dispatch)",
  "resolution": {
@@ -62,7 +62,8 @@
        0.7512672372279722,
        0.9987349105020502
       ],
-      "insideOpen05_95": false
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
      },
      "d90": {
       "kMajority": 20,
@@ -71,7 +72,8 @@
        0.8315665290169146,
        1.0
       ],
-      "insideOpen05_95": false
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
      }
     },
     "valid": false,
@@ -110,7 +112,8 @@
        0.0320709371854637,
        0.37892682654531396
       ],
-      "insideOpen05_95": false
+      "insideOpen05_95": false,
+      "boundStatus": "floor bound violated (lo \u2264 0.05)"
      },
      "d90": {
       "kMajority": 17,
@@ -119,7 +122,8 @@
        0.621073173454686,
        0.9679290628145363
       ],
-      "insideOpen05_95": false
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
      }
     },
     "valid": false,
@@ -163,7 +167,8 @@
        0.8315665290169146,
        1.0
       ],
-      "insideOpen05_95": false
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
      },
      "d90": {
       "kMajority": 20,
@@ -172,7 +177,8 @@
        0.8315665290169146,
        1.0
       ],
-      "insideOpen05_95": false
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
      }
     },
     "valid": false,
@@ -210,7 +216,8 @@
        0.621073173454686,
        0.9679290628145363
       ],
-      "insideOpen05_95": false
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
      },
      "d90": {
       "kMajority": 18,
@@ -219,7 +226,8 @@
        0.6830172859809177,
        0.9876514728297052
       ],
-      "insideOpen05_95": false
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
      }
     },
     "valid": false,
