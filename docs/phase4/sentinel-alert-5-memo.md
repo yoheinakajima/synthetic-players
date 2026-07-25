@@ -269,3 +269,14 @@ sealed specifications (switchRound = 26 is sealed in bindings; the regimes on
 either side are not). No engine work dispatches until the operator registers
 the missing specs and the implementation lands with selftests and architect
 review.
+
+## F-SPEC-1 drafting round (2026-07-25, post-capability-check)
+
+Operator directive received: candidate F opponent specs drafted as an
+outcome-blind completion amendment (`f-opponent-specs.md`, PROPOSED) — no
+implementation or dispatch before sign-off. Fixtures hand-worked and
+cross-checked offline (no engine edits, zero provider calls, zero spend).
+E-R2 lineage ruling recorded (record authoritative; note stands; audit
+found no amendment-origin claim in the rendered prose). Shuffled-history
+base confirmed by operator: fo-tracker on the causal shuffled prefix.
+Spend unchanged: F 0/11,600; global 8,600/21,000. Hold stands.

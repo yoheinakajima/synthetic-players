@@ -585,3 +585,57 @@ lesson (the v1 endpoint constant at floor 0.00 → the registered
 exact-fallback machinery). The methods note is written to the record; if a
 sign-off text outside the tree documents the amendment, the note will be
 corrected to cite it.
+
+## E-R2 lineage ruling (2026-07-25, operator)
+
+Operator ruling on the caveat above: **the contemporaneous in-tree record
+is authoritative** — the two-sided open-interval gate was present at Family
+E's first registration; X1 is linked through the broader corner-degeneracy
+lesson and exact-fallback machinery, not through a presently documented
+post-X1 addition of the ceiling bound. The methods note stands as written.
+Prose audit on this ruling: the rendered note (e-report.md §Methods note,
+generator in `phase4_adjudicate.py`) contains no claim that the ceiling
+side originated in a post-X1 amendment — its Registration paragraph
+attributes the two-sided gate to E's pre-dispatch registration; no
+correction was required. The defensible methods result is recorded as: the
+already-registered ceiling bound prevented a false flat-at-ceiling
+interpretation in Family E — a successful application of the gate, not
+evidence of a particular amendment lineage. Standing rule per the ruling:
+if a timestamped sign-off passage establishing the amendment is later
+located, it is ADDED here with its exact citation and a reconciliation
+note; the current record is never silently rewritten.
+
+## F-SPEC-1 — specification-completion amendment PROPOSED (2026-07-25)
+
+Operator directive (2026-07-25, in response to the capability-check FAIL):
+draft candidate specifications for the underspecified F opponents as a
+**prospective, outcome-blind completion amendment** — not a reconstruction
+of sealed semantics — for operator registration sign-off; **no engine
+implementation or live dispatch before that sign-off**. Constraints:
+derivation only from the sealed F material, the registered family analogy,
+sealed Phase 3 strategy semantics, or cited canonical defaults; no Family E
+descriptives used to select among alternatives; no live-model inspection;
+no pilot calls. The final F report must distinguish the original
+registration (2026-07-24) from this completion entry, and the architect
+review must separately determine whether each completed arm remains
+confirmatory under the amended protocol or requires a narrower label.
+
+Packet: `f-opponent-specs.md` (status PROPOSED), with per-opponent
+candidate definitions, alternatives-with-consequences, and hand-worked
+fixture traces (initialization, first usable context, unseen-context
+fallback, ties, switch boundary, ordinary later decisions) cross-checked
+offline against the sealed PRNG/matrix definitions — zero engine edits,
+zero provider calls, zero spend. Free bit left to sign-off rather than
+resolved silently: switcher regime order (packet §6.3).
+
+Recorded clarifications folded into the packet:
+- `shuffled-history` base tracker **CONFIRMED by the operator
+  (2026-07-25)**: fo-tracker logic on the causal, per-decision shuffled
+  prefix — the pre-dispatch clarification anticipated in the
+  capability-check entry above. Permutation + all draws from the seeded
+  adversary stream, archived; prefix-only causality restated.
+- `fo-tracker` is a **disclosed registry alias** for the pre-registered
+  Phase 3 `pattern-tracker` (restated in packet §3).
+
+Status: **awaiting operator sign-off** (packet §9). Implementation,
+selftest flip, architect review, and driver staging remain HELD.
