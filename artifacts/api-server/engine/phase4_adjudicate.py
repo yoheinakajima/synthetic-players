@@ -1896,6 +1896,10 @@ def selftest_e() -> int:
           _e_window_label(25, 10, 20) == "W(7,8)")
     check("window: interleaved episode surfaces as indeterminate",
           _e_window_label(15, 10, 20) == "indeterminate")
+    check("window: exact lo-boundary equality is indeterminate (frozen semantics)",
+          _e_window_label(10, 10, 20) == "indeterminate")
+    check("window: exact hi-boundary equality is indeterminate (frozen semantics)",
+          _e_window_label(20, 10, 20) == "indeterminate")
     check("sched seed: 1-based ep 1 → seeds[0]", _e_sched_seed([100, 101, 102], 1) == 100)
     check("sched seed: 1-based ep N → seeds[N-1]", _e_sched_seed([100, 101, 102], 3) == 102)
     check("sched seed: ep 0 out of range → None (refusal path)",
