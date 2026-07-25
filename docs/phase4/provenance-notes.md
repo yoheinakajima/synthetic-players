@@ -456,3 +456,20 @@ with branches for it) — presentation-only, decision mechanics untouched.
 (6) Registered pre-F: docs/phase4/shedding-order.md fixes the arm-shedding
 order for any global-cap bind (SHED-1 operator-directed `p4-f-ngram3-gpt`;
 SHED-2 proposed `p4-f-shuffled-history-cvx`), with a mechanical trigger.
+
+Addendum, same day — second partial attempt for the same episode, different
+cause. During the paced re-dispatch of `p4-e-community-d90-cvx` ep5 (seed
+2897), the platform container restarted mid-episode, killing engine and
+driver; in-flight run `run_1784939744_e18b90c8` stopped at 8 played rounds
+with no `run.completed` and, unlike the 429 attempt, no terminal failure
+event — the engine died before it could write one. The registered
+provider-failure rule applies **by signature** (attempt without
+`run.completed`), which is why it was written signature-based rather than
+cause-based: the episode now carries two disclosed non-observation attempts,
+and its next completed run is its observation. Spend for both attempts is
+budget-real (≈49 calls combined); E projection including waste ≈ 1,403 ≤
+1,800 — no amendment needed. The inflight marker resolved through the
+designed manual path a second time: reconcile matched the partials and kept
+the marker; it is cleared with this entry as the investigation record. No
+analysis surface touched; no code change needed — the at-most-once and
+disposition machinery handled both causes identically.
