@@ -131,3 +131,22 @@ and it behaved exactly as designed.
 The freeze lifts at the first post-decision dispatch (sentinel:6), and only
 after this memo section, the tooling changes, and the E-resolution write are
 committed and disclosed.
+
+## Recovery (check 6, fresh pre-E read — recorded 2026-07-25)
+
+Check 6 read the drifted cell (v2a × gemini-2.5-flash) at **10/10** on the
+fresh fingerprint — full reversion from check 5's 7/10. The recovery framing
+is part of the finding, not an all-clear:
+
+- The endpoint is **non-stationary with reversion**. That upgrades the drift
+  catch: a one-time validation check would either have missed the drift
+  entirely (sampled at check 6) or overreacted to it (sampled at check 5,
+  concluding durable degradation). Continuous fingerprinting is the only
+  design that observes both the erosion and the recovery.
+- **One clean check is not evidence of stability.** The operative claim is
+  "non-stationary with reversion," and it is carried by the densified cadence
+  (checks 7–10, rider 2) adjudicated against the re-baseline
+  (sentinel-rebaseline.json) under rule (c) — not by check 6 alone.
+- Per rider 4, the final report presents the full trajectory (10 → 7 → 10,
+  per-check fingerprints) as a first-class result, regime-indexed per rider 3
+  (R1 pre-drift baseline, R2 post-re-baseline).

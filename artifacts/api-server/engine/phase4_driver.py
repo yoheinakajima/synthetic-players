@@ -327,6 +327,14 @@ def act_dry_all(state: dict, store: ArmStore, registry: dict, schedule: dict) ->
     print(f"DRY-ALL PASSED — {n} requests validated, zero spend", flush=True)
 
 
+# Ops constants (analysis-surface-neutral; provenance-notes.md 2026-07-25):
+# pacing and bounded rate-limit retry affect wall-clock only — never prompts,
+# seeds, templates, or decision rules. δ=90 gemini episodes are a sustained
+# ~2-calls/round burst that D/X2 never produced; check 429 freeze at E ep 26.
+GEMINI_PACE_S = 6.0
+RATE_LIMIT_BACKOFF_S = 120.0
+
+
 def _live(state: dict, body: dict, key: str) -> dict:
     # At-most-once guard: persist an inflight marker BEFORE the POST. If the
     # process dies between response receipt and state save, startup sees the
@@ -334,7 +342,23 @@ def _live(state: dict, body: dict, key: str) -> dict:
     state["inflight"] = {"key": key,
                          "at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     save_state(state)
-    resp = http_json("POST", "/phase4/llm-runs", body)
+    try:
+        resp = http_json("POST", "/phase4/llm-runs", body)
+    except DriverFreeze as exc:
+        msg = str(exc)
+        if msg.startswith("HTTP ") and ("rate_limited" in msg or "RATELIMIT" in msg):
+            # The engine returned a terminal rate-limit refusal: the response
+            # WAS received, the failed attempt is disclosed in the event store
+            # (llm.* events without run.completed), and its spend is counted.
+            # One paced re-dispatch of the same scheduled episode is the
+            # registered ops response; a second failure freezes as designed.
+            # The inflight marker stays up through the backoff.
+            print(f"  RATE-LIMITED {key}: terminal 429 from provider — backing off "
+                  f"{RATE_LIMIT_BACKOFF_S:.0f}s, single re-dispatch (disclosed)", flush=True)
+            time.sleep(RATE_LIMIT_BACKOFF_S)
+            resp = http_json("POST", "/phase4/llm-runs", body)
+        else:
+            raise
     meta = resp.get("meta", {})
     if not state.get("_commit_checked"):
         check_engine_commit(state, meta)
@@ -351,6 +375,8 @@ def _live(state: dict, body: dict, key: str) -> dict:
     }
     state.pop("inflight", None)
     save_state(state)
+    if str(body.get("model", "")).startswith("gemini"):
+        time.sleep(GEMINI_PACE_S)  # inter-run pacing, wall-clock only
     return resp
 
 

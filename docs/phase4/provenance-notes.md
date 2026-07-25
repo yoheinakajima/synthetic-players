@@ -424,3 +424,35 @@ episodes, not calls). A-OVH-2 re-amends the cap 1,000 → 1,250 against the
 corrected remaining-cadence cost of 360; no cap was violated at any dispatch
 (check 6 ran at 855 ≤ 1,000). Lesson recorded: projections must be derived
 from ledger prices, never from design-unit counts.
+
+2026-07-25 — infra freeze during block E h1; provider-failure rule registered
+pre-adjudication; ops changes. (1) Disclosure: at E episode 26 of h1, the
+gemini proxy returned 429 RATELIMIT_EXCEEDED; the engine's bounded retries
+(3) exhausted and the run terminated partial — `p4-e-community-d90-cvx` ep5,
+seed 2897, engineRunId run_1784936973_0c12b60d, 15 rounds played, 30
+responded calls, no `run.completed`. The driver froze exactly as designed
+(STOP-ON-ANOMALY); spend for the failed attempt is budget-real and counted
+(E projection incl. waste: 1,385 ≤ 1,800 — no cap amendment needed). Root
+cause: sustained δ=90 gemini episodes are a burst pattern (~2 calls/round,
+back-to-back episodes) that D/X2 never produced. (2) Registered rule, before
+any E adjudication exists: **a completed run is the episode's observation;
+an attempt without `run.completed` is a provider-failure non-observation** —
+it never enters episode mapping, and the adjudication report must disclose
+every such attempt (runId, arm, episode, seed). Fail-closed properties
+preserved: two *completed* runs for one scheduled episode still refuse;
+a scheduled episode with no completed run still refuses. X2C's already-closed
+adjudication is untouched (its data contains no partial attempts). (3) Ops
+changes, analysis-surface-neutral (no prompt, seed, template, or decision-rule
+effect): the driver paces gemini dispatches (6 s after each gemini run) and,
+on a rate-limit refusal, backs off 120 s and re-POSTs the episode once —
+a second failure freezes as before. Failed attempts remain in the store as
+the disclosure trail. (4) The ep5 inflight marker is cleared after this
+event-store investigation (the reconcile path's designed manual step; the
+partial's spend and terminality are established above). (5) The E report
+gains an upfront "Selection context" paragraph (all 16 M=can candidate cells
+low; "most interior" is relative; selected cell mean 0.100; a gate failure at
+the D-selected cells, floor or ceiling, is an informative registered outcome
+with branches for it) — presentation-only, decision mechanics untouched.
+(6) Registered pre-F: docs/phase4/shedding-order.md fixes the arm-shedding
+order for any global-cap bind (SHED-1 operator-directed `p4-f-ngram3-gpt`;
+SHED-2 proposed `p4-f-shuffled-history-cvx`), with a mechanical trigger.

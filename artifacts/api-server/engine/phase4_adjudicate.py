@@ -1523,6 +1523,22 @@ E_SECONDARY_ORDER = (("community", "gpt-4.1"), ("dselected", "gemini-2.5-flash")
 E_COMMUNITY_TID = "pd-rep-community-w1"
 
 
+def _e_run_disposition(completed: bool, invalid: bool) -> str:
+    """Registered provider-failure rule (provenance-notes.md 2026-07-25).
+
+    invalid trials keep their registered excluded-with-disclosure handling
+    (they are concluded trials); completed runs are observations; anything
+    else — an attempt that never reached run.completed (e.g. terminal
+    provider 429 mid-episode) — is a provider-failure non-observation,
+    disclosed in the report and barred from episode mapping.
+    """
+    if invalid:
+        return "invalid-excluded"
+    if completed:
+        return "observation"
+    return "provider-failure"
+
+
 def _e_arm_id(pres: str, delta: int, model: str) -> str:
     return f"p4-e-{pres}-d{delta}-{'gpt' if model == 'gpt-4.1' else 'cvx'}"
 
@@ -1672,12 +1688,23 @@ def e() -> int:
     seen: dict[tuple[str, int], str] = {}
     y: dict[str, list[float]] = {aid: [] for aid in e_arms}
     excluded: list[str] = []
+    provider_failures: list[dict] = []
     for rid, r in runs.items():
         if r.get("block") != "E":
             continue
         key = (r["armId"], r.get("episodeIndex"))
         if key not in expected:
             raise SystemExit(f"{rid}: unscheduled episode {key} — refusing")
+        if _e_run_disposition(r["completed"], r["invalid"]) == "provider-failure":
+            # Registered rule (provenance-notes.md 2026-07-25): an attempt
+            # without run.completed is a provider-failure non-observation.
+            # It never enters episode mapping — the completed re-run is the
+            # observation — but it MUST be disclosed in the report. Duplicate
+            # COMPLETED runs and episodes with no completed run still refuse.
+            provider_failures.append({"runId": rid, "armId": r["armId"],
+                                      "episodeIndex": r.get("episodeIndex"),
+                                      "seed": r.get("seed")})
+            continue
         if key in seen:
             raise SystemExit(f"{rid}: duplicate of {key} (also {seen[key]}) — refusing")
         seen[key] = rid
@@ -1725,15 +1752,28 @@ def e() -> int:
                                        for k in ("templateId", "templateSha256")}},
         "nUsable": {aid: len(v) for aid, v in y.items()},
         "excluded": excluded,
+        "providerFailureAttempts": provider_failures,
         "assays": assays,
     }
     with open(os.path.join(DOCS, "e-report.json"), "w") as f:
         json.dump(report, f, indent=1)
     md = ["# Family E report (interim, per registered rider: final verdicts in step 8)", "",
+          # Selection-context paragraph: presentation-only addendum
+          # (provenance-notes.md 2026-07-25 item 5); decision mechanics untouched.
+          "**Selection context.** \"Most interior\" was relative, not absolute: all 16 "
+          "M=can candidate cells in D1 sat low (grand mean 0.2547), and the selected "
+          "cell's D1 mean is 0.100 (distance 0.400 from 0.5). A gate failure at the "
+          "D-selected cells — floor or ceiling — is therefore an informative, "
+          "registered outcome, and the adjudication branches (supported / "
+          "corner-confounded / inconclusive) exist for exactly that case.", "",
           f"D-selected presentation: `{dsel_tid}` (write-once resolution; "
           f"selection derivation in e-selection-report.md).",
           f"{sum(len(v) for v in y.values())} usable episodes; "
-          f"{len(excluded)} excluded ({'; '.join(excluded) if excluded else 'none'}).", "",
+          f"{len(excluded)} excluded ({'; '.join(excluded) if excluded else 'none'}).",
+          f"Provider-failure attempts (non-observations, registered rule): "
+          f"{len(provider_failures)}"
+          + (f" — {json.dumps(provider_failures)}" if provider_failures else "")
+          + ".", "",
           "| assay | gate | mean Y δ=.10 | mean Y δ=.90 | slope Δ̂ | LB95 | verdict |",
           "|---|---|---|---|---|---|---|"]
     for k, a in assays.items():
@@ -1774,6 +1814,12 @@ def selftest_e() -> int:
         return base
 
     g = _e_gate_cell([1.0] * 4 + [0.0] * 16)
+    check("disposition: completed+valid → observation",
+          _e_run_disposition(True, False) == "observation")
+    check("disposition: invalid trial → invalid-excluded (registered handling)",
+          _e_run_disposition(False, True) == "invalid-excluded")
+    check("disposition: no run.completed → provider-failure non-observation",
+          _e_run_disposition(False, False) == "provider-failure")
     check("gate cell k=4/20 is inside (0.05,0.95)", g["insideOpen05_95"])
     g = _e_gate_cell([0.0] * 20)
     check("gate cell k=0/20 is NOT inside (corner)", not g["insideOpen05_95"])
