@@ -473,3 +473,15 @@ designed manual path a second time: reconcile matched the partials and kept
 the marker; it is cleared with this entry as the investigation record. No
 analysis surface touched; no code change needed — the at-most-once and
 disposition machinery handled both causes identically.
+
+Same day, later — sentinel check 7 rule-(c) fire, escalated. Check 7
+(gemini-only; first armed use of the check-6 re-baseline) fired on
+v2a × gemini-2.5-flash: 6/10 vs re-baseline 10/10, Δ=4 (adjudicator exit 2);
+companion cells in band. E:h1 had completed before the check dispatched
+(E spend 847 of 1,800; overhead 915 of 1,250 after the 60-call check). The
+driver held at the registered boundary; nothing was dispatched past the
+fired check. The disclosure and the per-window bracket rule are recorded in
+sentinel-alert-5-memo.md §Second reversion. Per the alert-5 precedent the
+decision (dispatch h2 / amend / extended hold) is the operator's, and the
+freeze lifts only on a committed decision entry. No analysis surface, gate,
+or threshold touched by this disclosure.

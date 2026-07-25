@@ -169,6 +169,30 @@ overwritten), run a fresh gate round for the new candidate, and have the amendme
 state what changed AND what verifiably did not (prompt registry byte-identical, seeds/
 schedule/budgets unchanged), with the verification run before the claim is written.
 
+## Budget projections from ledger prices, never design-unit counts (2026-07-25)
+Price every forward projection from the event store's recorded cost per unit
+(calls per episode as dispatched), not from design units (episodes, cells,
+checks). **Why:** a registered cap amendment was itself mispriced 2× — sentinel
+episodes are self-play (two subject seats = two calls each), the driver's
+"10/10" tallies count episodes not calls, and the error surfaced only when live
+spend outran the projection; no cap was violated purely by ordering luck. A
+same-day correcting amendment was required. **How to apply:** before
+registering any cap or amendment, query the ledger for the realized unit price
+of that exact block type; cross-check that sealed group caps reproduce from
+ledger arithmetic (seats × rounds × episodes).
+
+## Failure rules by store signature, not by cause (2026-07-25)
+Write data-validity rules against event-store signatures ("attempt without
+`run.completed` = disclosed non-observation; the completed re-run is the
+observation; duplicate COMPLETED runs still refuse; absence still refuses"),
+never against failure causes. **Why:** a rule registered for a provider-429
+partial applied unchanged an hour later to a container-death partial — same
+signature, different cause, zero amendment needed. Cause-based wording would
+have forced a mid-data rule change. Keep failed attempts in the append-only
+store as the disclosure trail and surface them in reports; at-most-once
+inflight markers + event-store reconcile make killed-mid-episode dispatch
+recoverable, with marker clearance as a ledgered manual act.
+
 ## Capture honesty: mirror-vs-actual sha seam (2026-07-24)
 Provenance shas of provider requests must be computed TWICE from independent code
 paths: a runner-side mirror (from protocol fields) recorded in the request event, and

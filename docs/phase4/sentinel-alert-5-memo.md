@@ -150,3 +150,38 @@ is part of the finding, not an all-clear:
 - Per rider 4, the final report presents the full trajectory (10 → 7 → 10,
   per-check fingerprints) as a first-class result, regime-indexed per rider 3
   (R1 pre-drift baseline, R2 post-re-baseline).
+
+## Second reversion (check 7, mid-E — recorded 2026-07-25)
+
+Check 7 (gemini-only, densified cadence) read v2a × gemini-2.5-flash at
+**6/10** against the check-6 re-baseline of 10/10 — Δ=4, a rule (c) fire on
+the first armed use of the re-baseline. Companion cells were in band (v1:
+10/10 modal 1; fallback: 9/10 modal 0). Adjudicator exit 2; the driver was
+already at the registered hold and nothing has been dispatched past the
+fired check, per rider 2 ("a fire anywhere means the same boundary freeze").
+
+- The cell's trajectory now reads **10 → 7 → 10 → 6** (original-baseline
+  descriptive series; per-check fingerprints in the store). This is
+  oscillation, not a one-time step: §Recovery's reading ("one clean check is
+  not evidence of stability") is borne out at the first armed check after it
+  was written.
+- Consequence for rider 3: R2 ("post-re-baseline") is **not internally
+  stationary** for this cell. For the oscillating cell, regime indexing must
+  be **per dispatch window**, not merely per era: window W(k,k+1) = episodes
+  whose store rows fall between the last run.completed of check k and the
+  first llm.requested of check k+1. By construction all E:h1 episodes lie in
+  W(6,7) — dispatched after a clean check, closed by a fired one; exact
+  counts are derivable from the sealed schedule and store timestamps.
+  Non-oscillating cells keep the two-regime presentation, with the window
+  table as disclosure.
+- No gate, threshold, exclusion, or analysis surface is touched by this
+  entry. E adjudication mechanics are unchanged; gpt-side cells are outside
+  the alert's scope.
+- **Decision pending.** Per the alert-5 precedent the boundary freeze lifts
+  only on an operator decision recorded here. Options put to the operator:
+  (a) dispatch E:h2 per cadence — check 8 (full) closes W(7,8) immediately
+  after h2 and cvx results carry per-window indexing; (b) registered
+  amendment deferring or shedding E cvx arms; (c) extended hold.
+  Recommendation on record: (a) — riders 2/3 built exactly this instrument,
+  and pausing cvx arms would modify a sealed schedule to avoid data the
+  indexing already handles honestly.

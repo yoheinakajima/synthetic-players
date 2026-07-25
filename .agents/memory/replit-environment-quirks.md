@@ -55,6 +55,24 @@ with NO_REMOTE / UNKNOWN_REMOTE even though a valid GitHub remote exists.
 **How to apply:** `git remote add origin <same URL>` — the callback then pushes
 with platform-injected credentials (no PAT, no token handling in scripts).
 
+**The whole container can restart under you mid-run.** All workflows die
+simultaneously and the active shell call fails with "SERVER unexpectedly
+disconnected"; anything dispatched by a workflow at that instant is killed
+mid-flight (server-side too — unlike the shell-timeout case above, the engine
+dies with the client, leaving a partial run with no terminal event).
+
+**How to apply:** workflow-hosted dispatch loops must persist resume state
+before every request (at-most-once marker + append-only event store +
+reconcile path); treat "killable at any instant" as the design contract.
+
+**AI-proxy gemini RPM binds on sustained multi-round bursts.** Back-to-back
+multi-call episodes at ~190 calls/min drew terminal 429s (proxy retries 3×
+then fails); ~30–40 calls/min with a 6 s inter-run gap runs clean. gpt-4.1
+traffic at the same volumes never bound. Pace gemini dispatch and use a single
+bounded backoff-retry (~120 s) on rate-limit refusals — the failed attempt is
+terminal server-side once an HTTP response arrives, so one re-dispatch is safe
+under at-most-once bookkeeping.
+
 **Connector credentials from agent contexts.** For a freshly-attached
 connection, sandbox `listConnections('<slug>')` can return `[]`. The shell-side
 credential proxy (`$REPLIT_CONNECTORS_HOSTNAME/api/v2/connection`,
