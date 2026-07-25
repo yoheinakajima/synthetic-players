@@ -214,3 +214,25 @@ decision; the gpt twin keeps the control (shedding-order.md).
 The freeze lifts at the first post-decision dispatch (the E:h2 preflight),
 per the alert-5 pattern: only after this entry, the drift-result addendum,
 and the shedding-order approval are committed and disclosed.
+
+## Check 8 (full, post-E) — rule (c) fire again; W(7,8) closed (2026-07-25)
+
+Check 8 (full scope, both models) fired rule (c) on the drifted cell only:
+v2a × gemini at **7/10** vs re-baseline@6 10/10 — Δ=3, exactly at the frozen
+threshold. The oscillation series is now **10 → 7 → 10 → 6 → 7**
+(original-baseline descriptive series per rider 3). All other cells are in
+band under the frozen rule, with two disclosures for eyeball readers:
+v1 × gemini read 6/10 against a sealed check-0 baseline of **8/10** for that
+cell (Δ=2 — its sealed baseline was never 10), and fallback × gemini 8/10
+equals its re-baseline exactly. gpt-4.1 cells: 10/10 on all three arms —
+zero drift on the primary subject through E, again.
+
+- W(7,8) is closed: every E:h2 episode lies between check 7's last store row
+  and check 8's first (§Second reversion window rule). The E report
+  discloses per-window composition for every gemini cell; per rider 5 this
+  is presentation — the sealed samples adjudicate as written.
+- Per rider 2 the fire holds the boundary: **no F dispatch without an
+  operator decision entry.** The plan ended at hold; nothing is staged. The
+  check-8 read is consistent with rider 6 (unversioned endpoint as
+  uncontrolled mixture). No gate, threshold, or analysis surface is touched
+  by this entry.

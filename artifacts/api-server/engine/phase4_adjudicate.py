@@ -132,6 +132,15 @@ def scan(block: str) -> int:
     store = arms()
     sel = {rid: r for rid, r in runs.items()
            if (r.get("block") == block if block != "sentinel" else r.get("sentinelCheckIndex") is not None)}
+    # Registered provider-failure rule (provenance-notes.md 2026-07-25):
+    # attempts without run.completed are disclosed non-observations. Their
+    # responded calls are still integrity-scanned (returned model, finish
+    # reason), but they never count toward coverage or duplicate detection;
+    # duplicate COMPLETED records still flag.
+    pfail = [{"runId": rid, "armId": r["armId"], "episodeIndex": r.get("episodeIndex")}
+             for rid, r in sel.items()
+             if _e_run_disposition(r["completed"], r["invalid"]) == "provider-failure"]
+    _pfail_ids = {p["runId"] for p in pfail}
     anomalies: list[str] = []
     retried = invalid = 0
     for rid, r in sel.items():
@@ -169,7 +178,8 @@ def scan(block: str) -> int:
     if block in ("X2-screening", "D1", "D2", "D3", "E", "F", "X2-confirmation"):
         src = AMEND_PATH if block == "X2-confirmation" else SCHEDULE_PATH
         eps = next(b for b in json.load(open(src))["blocks"] if b["block"] == block)["episodes"]
-        seen = {(r["armId"], r.get("episodeIndex")) for r in sel.values()}
+        obs = {rid: r for rid, r in sel.items() if rid not in _pfail_ids}
+        seen = {(r["armId"], r.get("episodeIndex")) for r in obs.values()}
         missing = [(e["armId"], e["ep"]) for e in eps if (e["armId"], e["ep"]) not in seen]
         if block in ("X2-confirmation", "E"):
             # zero-call truncation exclusions (X1 rule) are legitimate absences
@@ -179,7 +189,7 @@ def scan(block: str) -> int:
             if trunc:
                 print(f"note: {len(trunc)} episodes absent by cap-120 truncation rule (zero calls): {trunc}")
             missing = [m for m in missing if m not in trunc]
-        dupes = len(sel) - len(seen)
+        dupes = len(obs) - len(seen)
         if missing:
             anomalies.append(f"coverage: {len(missing)} scheduled episodes missing (first: {missing[:4]})")
         if dupes:
@@ -187,7 +197,8 @@ def scan(block: str) -> int:
 
     print(json.dumps({
         "block": block, "runs": len(sel), "retriedCalls": retried,
-        "invalidTrials": invalid, "anomalies": anomalies,
+        "invalidTrials": invalid, "providerFailureAttempts": pfail,
+        "anomalies": anomalies,
     }, indent=1))
     return 1 if anomalies else 0
 
@@ -1539,6 +1550,29 @@ def _e_run_disposition(completed: bool, invalid: bool) -> str:
     return "provider-failure"
 
 
+def _e_sched_seed(arm_seeds: list, ep: int):
+    """Sealed-schedule `ep` is 1-based in every block (X2, D1–D3, E, F all
+    span [1, N]; dispatch payloads use the same convention, verified against
+    the store 160/160 for E); seeds arrays are 0-based JSON. Returns the
+    arm's sealed seed for schedule episode `ep`, or None when out of range
+    (caller refuses). Registered after the 2026-07-25 e() entry-gate
+    refusal — checker-side correction only, no sealed artifact touched."""
+    return arm_seeds[ep - 1] if 1 <= ep <= len(arm_seeds) else None
+
+
+def _e_window_label(first_seq: int, sent7_lo: int, sent7_hi: int) -> str:
+    """Dispatch-window label for an E episode relative to sentinel check 7
+    (memo §Second reversion): W(6,7) = strictly before the check's first
+    store row; W(7,8) = strictly after its last. Driver dispatch is serial,
+    so an interleaved episode should not occur; if one does it is labeled
+    indeterminate and surfaced verbatim. Presentation-only (rider 5)."""
+    if first_seq < sent7_lo:
+        return "W(6,7)"
+    if first_seq > sent7_hi:
+        return "W(7,8)"
+    return "indeterminate"
+
+
 def _e_arm_id(pres: str, delta: int, model: str) -> str:
     return f"p4-e-{pres}-d{delta}-{'gpt' if model == 'gpt-4.1' else 'cvx'}"
 
@@ -1662,9 +1696,9 @@ def e() -> int:
         raise SystemExit(f"schedule E block has {len(eps_sched)} episodes, "
                          f"{len(expected)} unique — refusing")
     for (aid, ep), s in expected.items():
-        if e_arms[aid]["seeds"][ep] != s:
+        if _e_sched_seed(e_arms[aid]["seeds"], ep) != s:
             raise SystemExit(f"schedule ({aid}, ep{ep}) seed {s} != sealed arms.json "
-                             f"seeds[{ep}] — refusing")
+                             f"seeds[{ep - 1}] (schedule ep is 1-based) — refusing")
 
     res = _resolutions()
     if "E-dselected" not in res:
@@ -1741,6 +1775,25 @@ def e() -> int:
                              f"truncation rule — refusing")
         excluded.append(f"({aid}, ep{ep}): cap-120 truncation, zero calls (X1 rule)")
 
+    # Per-window composition for gemini cells (memo §Second reversion;
+    # presentation-only under rider 5 — sealed samples adjudicate exactly as
+    # written, windows are disclosure, never decision surfaces).
+    sent7_ids = [rid for rid, r in runs.items() if r.get("sentinelCheckIndex") == 7]
+    window_comp: dict[str, dict[str, int]] = {}
+    if sent7_ids:
+        db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+        seq_rng = {rid: (lo, hi) for rid, lo, hi in db.execute(
+            "SELECT run_id, MIN(seq), MAX(seq) FROM events GROUP BY run_id")}
+        db.close()
+        s7lo = min(seq_rng[rid][0] for rid in sent7_ids if rid in seq_rng)
+        s7hi = max(seq_rng[rid][1] for rid in sent7_ids if rid in seq_rng)
+        for (aid, ep), rid in sorted(seen.items()):
+            if runs[rid]["invalid"] or not e_arms[aid]["model"].startswith("gemini"):
+                continue
+            lbl = _e_window_label(seq_rng[rid][0], s7lo, s7hi)
+            d = window_comp.setdefault(aid, {})
+            d[lbl] = d.get(lbl, 0) + 1
+
     assays = _e_eval(y)
     report = {
         "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -1753,11 +1806,27 @@ def e() -> int:
         "nUsable": {aid: len(v) for aid, v in y.items()},
         "excluded": excluded,
         "providerFailureAttempts": provider_failures,
+        "windowComposition": window_comp,
         "assays": assays,
     }
     with open(os.path.join(DOCS, "e-report.json"), "w") as f:
         json.dump(report, f, indent=1)
     md = ["# Family E report (interim, per registered rider: final verdicts in step 8)", "",
+          "## Branch outcomes (registered vocabulary)", ""]
+    for k, a in assays.items():
+        md.append(f"- **{k}** — {a['interimVerdict']}")
+    md += ["",
+           "Ordering per rider 5: the verdicts above are adjudicated on the "
+           "sealed samples exactly as written; window composition is "
+           "interpretation-layer disclosure, never a decision surface.", ""]
+    if window_comp:
+        md += ["### Gemini cells — usable episodes by dispatch window "
+               "(boundaries = sentinel check 7 store rows)", ""]
+        for aid in sorted(window_comp):
+            parts = ", ".join(f"{w}: {n}" for w, n in sorted(window_comp[aid].items()))
+            md.append(f"- `{aid}` — {parts}")
+        md.append("")
+    md += [
           # Selection-context paragraph: presentation-only addendum
           # (provenance-notes.md 2026-07-25 item 5); decision mechanics untouched.
           "**Selection context.** \"Most interior\" was relative, not absolute: all 16 "
@@ -1774,6 +1843,7 @@ def e() -> int:
           f"{len(provider_failures)}"
           + (f" — {json.dumps(provider_failures)}" if provider_failures else "")
           + ".", "",
+          "## Descriptive numbers", "",
           "| assay | gate | mean Y δ=.10 | mean Y δ=.90 | slope Δ̂ | LB95 | verdict |",
           "|---|---|---|---|---|---|---|"]
     for k, a in assays.items():
@@ -1820,6 +1890,18 @@ def selftest_e() -> int:
           _e_run_disposition(False, True) == "invalid-excluded")
     check("disposition: no run.completed → provider-failure non-observation",
           _e_run_disposition(False, False) == "provider-failure")
+    check("window: pre-check-7 episode → W(6,7)",
+          _e_window_label(5, 10, 20) == "W(6,7)")
+    check("window: post-check-7 episode → W(7,8)",
+          _e_window_label(25, 10, 20) == "W(7,8)")
+    check("window: interleaved episode surfaces as indeterminate",
+          _e_window_label(15, 10, 20) == "indeterminate")
+    check("sched seed: 1-based ep 1 → seeds[0]", _e_sched_seed([100, 101, 102], 1) == 100)
+    check("sched seed: 1-based ep N → seeds[N-1]", _e_sched_seed([100, 101, 102], 3) == 102)
+    check("sched seed: ep 0 out of range → None (refusal path)",
+          _e_sched_seed([100, 101, 102], 0) is None)
+    check("sched seed: ep N+1 out of range → None (refusal path)",
+          _e_sched_seed([100, 101, 102], 4) is None)
     check("gate cell k=4/20 is inside (0.05,0.95)", g["insideOpen05_95"])
     g = _e_gate_cell([0.0] * 20)
     check("gate cell k=0/20 is NOT inside (corner)", not g["insideOpen05_95"])

@@ -495,3 +495,35 @@ uncontrolled-mixture reading, recorded in sentinel-drift-result.md; the full
 oscillation trajectory is the figure). SHED-2 = p4-f-shuffled-history-cvx
 approved as proposed (gpt twin keeps the control). The boundary freeze lifts
 at the E:h2 preflight, after this commit is pushed.
+
+Same day — post-E boundary. E:h2 completed (E spend 1,403 of 1,800, matching
+the disclosed projection including partial-attempt waste). Sentinel check 8
+(full) fired rule (c) on v2a × gemini: 7/10 vs re-baseline 10/10, Δ=3 at
+threshold (exit 2); all other cells in band (v1 × gemini 6/10 vs its sealed
+baseline 8/10, Δ=2, disclosed; gpt cells 10/10 throughout). Oscillation
+series 10→7→10→6→7. W(7,8) closed; F dispatch held pending an operator
+decision entry per rider 2. Scan E initially exited 1 on "2 duplicate
+(armId, episode) run records" — the two ep5 provider-failure partials
+tripping a disposition-unaware duplicate check; the scan was brought under
+the registered provider-failure rule (non-observations excluded from
+coverage/duplicate counting, disclosed as providerFailureAttempts in scan
+output) and rerun clean before the E adjudication. E-report presentation
+changes per operator request: branch outcomes lead in the registered
+vocabulary, per-window episode composition shown for gemini cells, rider-5
+ordering stated in the report — presentation-only, decision mechanics
+untouched.
+
+Same day — the E adjudication's first invocation refused at its own entry
+gate: "schedule (p4-e-dselected-d90-gpt, ep18) seed 2950 != sealed
+arms.json seeds[18]". Forensics (read-only, and outcome-blind: the refusal
+precedes Y extraction, so no result was visible when the correction was
+chosen): dispatched seeds match the sealed schedule 160/160; the sealed
+schedule's `ep` field is 1-based in every block (X2, D1–D3, E, F all span
+[1, N]); arms.json seeds arrays are 0-based JSON; seeds[ep−1] reconciles
+the schedule for all 160 E episodes and every other block with zero
+mismatches. The sealed artifacts are mutually consistent — the new e()
+entry gate had misindexed seeds[ep], a convention that never surfaced
+before because every prior consumer used run-level seeds directly. Fix is
+checker-side only: pure helper `_e_sched_seed` (1-based ep → 0-based array,
+out-of-range → None → refusal) with selftest coverage; no sealed file
+touched. The gate then passed and the E adjudication ran.
