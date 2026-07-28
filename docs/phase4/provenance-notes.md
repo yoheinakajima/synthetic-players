@@ -744,3 +744,16 @@ arrive only as explicit messages; ambiguous ambient events are flagged, not
 interpreted. Additional presentation instruction: the sentinel series is now
 closed at both ends — the F/final reporting presents the full v2a × gemini
 trajectory as the complete figure, baseline through closing 10/10.
+
+2026-07-28 — correction: F non-observation count is 22, not 3. The earlier
+"running disclosure count for F: three" enumerated only the marker-path
+partials (those that stopped the driver: ngram2-cvx ep20, fo-tracker-cvx
+ep20, ngram2-cvx ep19). The registered 429 backoff/single-re-dispatch path
+(ops entry 2026-07-25) also produced 19 further partial attempts during F —
+announced in driver logs at dispatch time but not enumerated in this file.
+The mechanical scan (`--scan F`) is the ledger of record: 242 F run records
+= 220 completed observations + 22 provider-failure non-observations (all on
+the gemini route; every arm-episode has exactly one completed observation;
+0 invalid trials, 0 retried calls, 0 anomalies). The F report discloses all
+22 verbatim from the scan, per the registered rule. Lesson recorded: running
+counts in prose are not ledgers; only mechanical scans are.

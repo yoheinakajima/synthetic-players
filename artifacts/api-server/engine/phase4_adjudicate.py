@@ -2028,6 +2028,417 @@ def selftest_e() -> int:
     return 0 if ok else 1
 
 
+# ── Family F adjudication (frozen: predicates.md §Family F; specs:
+# docs/phase4/f-opponent-specs.md — original registration 2026-07-24,
+# completion amendment REGISTERED 2026-07-28 §9.1) ───────────────────────────
+#
+# Unit = episode: Ū_X = ADVERSARY (seat 2) mean per-round payoff over the 50
+# rounds (sign convention frozen in arms.json bindings: positive = adversary
+# exploits the subject). Payoffs read verbatim from round.played events —
+# never recomputed from actions here.
+#
+# Claims (predicates.md §Family F):
+#   P4-F-1 primary conjunction (gpt tier, single): Δ(wsls−fo) and Ū_wsls,
+#     both BCa(20260801) one-sided 95% LB > 0; branches supported /
+#     only-first / only-second / neither.
+#   Secondary family Holm m=6 (gpt): each Ū_X vs 0 two-sided.
+#   Secondary directional (gpt): Ū_shuffled-history < Ū_fo-tracker, one-sided
+#     (adjudicated as Δ(fo−shuffled) LB > 0).
+#   Cross-vendor mirrors (cvx, secondary replication tier): conjunction
+#     mirror + Holm m=5 profile (ngram3 dropped, registered).
+# Constant/degenerate cells are an unregistered condition for these
+# continuous episode means — refuse (fail-closed), never improvise a test.
+
+F_OPPONENTS = ["fo-tracker", "ngram2", "ngram3", "wsls-targeter",
+               "switcher-r26", "shuffled-history"]
+F_CVX_OPPONENTS = [o for o in F_OPPONENTS if o != "ngram3"]
+F_TID = "rps-v1"
+
+# Architect review ruling (recorded provenance-notes.md 2026-07-28) — labels
+# reproduced VERBATIM per the registered final-report obligation.
+F_CONFIRMATORY_STATUS = {
+    "fo-tracker": "CONFIRMATORY (sealed-complete alias)",
+    "wsls-targeter": "CONFIRMATORY (sealed-complete, operational pins only)",
+    "ngram2": "CONFIRMATORY UNDER COMPLETION AMENDMENT",
+    "ngram3": "CONFIRMATORY UNDER COMPLETION AMENDMENT",
+    "switcher-r26": "CONFIRMATORY UNDER COMPLETION AMENDMENT",
+    "shuffled-history": "CONFIRMATORY UNDER COMPLETION AMENDMENT",
+}
+
+
+def _f_arm_id(opp: str, model: str) -> str:
+    return f"p4-f-{opp}-{'gpt' if model == 'gpt-4.1' else 'cvx'}"
+
+
+def _f_refuse_constant(name: str, g: list[float]) -> None:
+    if len(set(g)) == 1:
+        raise SystemExit(f"F claim {name}: constant cell (all Ū = {g[0]}) — "
+                         f"unregistered condition for continuous episode means, refusing")
+
+
+def _f_mean_claim(name: str, g: list[float], two_sided: bool) -> dict:
+    """Single-group mean-vs-0 claim, BCa(20260801) with CI-inversion p."""
+    _f_refuse_constant(name, g)
+    stat = lambda gs: sum(gs[0]) / len(gs[0])
+    theta, sb, z0, a, degen = _bca_fit([g], stat)
+    if degen:
+        raise SystemExit(f"F claim {name}: BCa degenerate ({degen}) — refusing")
+    out = {"method": "BCa(20260801), 10000 resamples", "estimate": theta,
+           "ci95": [_bca_endpoint(sb, z0, a, 0.025), _bca_endpoint(sb, z0, a, 0.975)],
+           "lowerBound95": _bca_endpoint(sb, z0, a, 0.05)}
+    if two_sided:
+        out["p"] = _invert_p(lambda al: (_bca_endpoint(sb, z0, a, al / 2) > 0)
+                             or (_bca_endpoint(sb, z0, a, 1 - al / 2) < 0),
+                             floor=1.0 / (BCA_B + 1))
+    else:
+        out["pOneSided"] = _invert_p(lambda al: _bca_endpoint(sb, z0, a, al) > 0,
+                                     floor=1.0 / (BCA_B + 1))
+    return out
+
+
+def _f_diff_claim(name: str, g_hi: list[float], g_lo: list[float]) -> dict:
+    """One-sided difference-of-means (unpaired) claim: LB on mean(hi)−mean(lo)."""
+    _f_refuse_constant(name + " (hi cell)", g_hi)
+    _f_refuse_constant(name + " (lo cell)", g_lo)
+    stat = lambda gs: sum(gs[0]) / len(gs[0]) - sum(gs[1]) / len(gs[1])
+    theta, sb, z0, a, degen = _bca_fit([g_hi, g_lo], stat)
+    if degen:
+        raise SystemExit(f"F claim {name}: BCa degenerate ({degen}) — refusing")
+    return {"method": "BCa(20260801), 10000 resamples", "estimate": theta,
+            "lowerBound95": _bca_endpoint(sb, z0, a, 0.05),
+            "pOneSided": _invert_p(lambda al: _bca_endpoint(sb, z0, a, al) > 0,
+                                   floor=1.0 / (BCA_B + 1))}
+
+
+def _f_conjunction(y: dict[str, list[float]], model: str, tier: str) -> dict:
+    wsls, fo = y[_f_arm_id("wsls-targeter", model)], y[_f_arm_id("fo-tracker", model)]
+    first = _f_diff_claim(f"{tier} conjunction Δ(wsls−fo)", wsls, fo)
+    second = _f_mean_claim(f"{tier} conjunction Ū_wsls", wsls, two_sided=False)
+    ok1, ok2 = first["lowerBound95"] > 0, second["lowerBound95"] > 0
+    verdict = ("supported (both one-sided 95% LB > 0)" if ok1 and ok2 else
+               "only-first (Δ LB > 0; Ū_wsls LB ≤ 0) — registered branch" if ok1 else
+               "only-second (Ū_wsls LB > 0; Δ LB ≤ 0) — registered branch" if ok2 else
+               "neither — registered branch")
+    return {"deltaWslsMinusFo": first, "uWslsVsZero": second,
+            "interimVerdict": verdict}
+
+
+def _f_eval(y: dict[str, list[float]]) -> dict:
+    """Pure adjudication core over per-arm Ū_ep lists (selftest-covered)."""
+    out: dict[str, dict] = {}
+    # gpt tier
+    prim = _f_conjunction(y, "gpt-4.1", "P4-F-1")
+    prim["claim"] = "P4-F-1 (primary, conjunction, single)"
+    out["primary"] = prim
+    pvals = {opp: _f_mean_claim(f"secondary {opp}", y[_f_arm_id(opp, "gpt-4.1")],
+                                two_sided=True) for opp in F_OPPONENTS}
+    hp = holm({o: c["p"] for o, c in pvals.items()})
+    sec = {}
+    for opp in F_OPPONENTS:
+        c = dict(pvals[opp])
+        c["holmP"] = hp[opp]
+        c["interimVerdict"] = ("supported (Holm-adjusted two-sided p < 0.05)"
+                               if hp[opp] < 0.05 else "not significant under Holm")
+        sec[opp] = c
+    out["secondaryHolmM6"] = sec
+    d = _f_diff_claim("directional Δ(fo−shuffled)",
+                      y[_f_arm_id("fo-tracker", "gpt-4.1")],
+                      y[_f_arm_id("shuffled-history", "gpt-4.1")])
+    d["claim"] = "secondary directional: Ū_shuffled-history < Ū_fo-tracker"
+    d["interimVerdict"] = ("supported (order carries exploitable signal; one-sided LB > 0)"
+                           if d["lowerBound95"] > 0 else "not supported (LB ≤ 0)")
+    out["secondaryDirectional"] = d
+    # cross-vendor replication tier
+    mirror = _f_conjunction(y, "gemini-2.5-flash", "cross-vendor mirror")
+    mirror["claim"] = "cross-vendor conjunction mirror (secondary replication tier)"
+    cvp = {opp: _f_mean_claim(f"cvx profile {opp}", y[_f_arm_id(opp, "gemini-2.5-flash")],
+                              two_sided=True) for opp in F_CVX_OPPONENTS}
+    chp = holm({o: c["p"] for o, c in cvp.items()})
+    cvx_sec = {}
+    for opp in F_CVX_OPPONENTS:
+        c = dict(cvp[opp])
+        c["holmP"] = chp[opp]
+        c["interimVerdict"] = ("replicated-direction (Holm-adjusted two-sided p < 0.05)"
+                               if chp[opp] < 0.05 else "not significant under Holm")
+        cvx_sec[opp] = c
+    out["crossVendor"] = {"conjunctionMirror": mirror, "profileHolmM5": cvx_sec}
+    return out
+
+
+def _f_sentinel_trajectory() -> list[dict]:
+    """Descriptive v2a × gemini fingerprint series across every dispatched
+    check (presentation-only; operator instruction 2026-07-28: series closed
+    at both ends, full trajectory is the figure). Recomputed from the event
+    store with the same fingerprint definition as sentinel()."""
+    runs = load_phase4_runs()
+    per_check: dict[int, list] = {}
+    for r in runs.values():
+        k = r.get("sentinelCheckIndex")
+        if k is None or r["invalid"] or r.get("armId") != "p4-sent-v2a":
+            continue
+        if r.get("model") != "gemini-2.5-flash":
+            continue
+        per_check.setdefault(k, []).append(r["rounds"].get(1, (None, None))[0])
+    series = []
+    for k in sorted(per_check):
+        seats = per_check[k]
+        counts: dict[int, int] = {}
+        for a in seats:
+            counts[a] = counts.get(a, 0) + 1
+        modal = min([a for a in counts if counts[a] == max(counts.values())])
+        series.append({"check": k, "n": len(seats), "modalAction": modal,
+                       "count": counts[modal],
+                       "regime": ("sealed baseline" if k == 0 else
+                                  "re-baseline read" if k == REBASELINE_CHECK else
+                                  "vs re-baseline@6" if k > REBASELINE_CHECK else
+                                  "vs sealed baseline")})
+    return series
+
+
+def f() -> int:
+    store = arms()
+    f_arms = {a["armId"]: a for a in store.values() if a.get("block") == "F"}
+    want_ids = sorted([_f_arm_id(o, "gpt-4.1") for o in F_OPPONENTS] +
+                      [_f_arm_id(o, "gemini-2.5-flash") for o in F_CVX_OPPONENTS])
+    if sorted(f_arms) != want_ids:
+        raise SystemExit(f"unexpected F arms {sorted(f_arms)} — refusing")
+
+    sched = json.load(open(SCHEDULE_PATH))
+    eps_sched = next(b for b in sched["blocks"] if b["block"] == "F")["episodes"]
+    expected: dict[tuple[str, int], int] = {}
+    for ent in eps_sched:
+        expected[(ent["armId"], ent["ep"])] = ent["seed"]
+    if len(eps_sched) != 220 or len(expected) != 220:
+        raise SystemExit(f"schedule F block has {len(eps_sched)} episodes, "
+                         f"{len(expected)} unique — refusing")
+    for (aid, ep), s in expected.items():
+        if _e_sched_seed(f_arms[aid]["seeds"], ep) != s:
+            raise SystemExit(f"schedule ({aid}, ep{ep}) seed {s} != sealed arms.json "
+                             f"seeds[{ep - 1}] — refusing")
+
+    runs = load_phase4_runs()
+    db = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+    tmpl_by_run: dict[str, set] = {}
+    for rid, t in db.execute(
+            """SELECT run_id, json_extract(payload,'$.templateId') FROM events
+               WHERE type='llm.requested' AND json_extract(payload,'$.block')='F'"""):
+        tmpl_by_run.setdefault(rid, set()).add(t)
+    p2: dict[str, tuple[float, int]] = {}
+    for rid, tot, n in db.execute(
+            """SELECT run_id, SUM(json_extract(payload,'$.player2Payoff')),
+                      COUNT(*) FROM events WHERE type='round.played'
+               GROUP BY run_id"""):
+        p2[rid] = (tot, n)
+    db.close()
+
+    seen: dict[tuple[str, int], str] = {}
+    y: dict[str, list[float]] = {aid: [] for aid in f_arms}
+    excluded: list[str] = []
+    provider_failures: list[dict] = []
+    for rid, r in runs.items():
+        if r.get("block") != "F":
+            continue
+        key = (r["armId"], r.get("episodeIndex"))
+        if key not in expected:
+            raise SystemExit(f"{rid}: unscheduled episode {key} — refusing")
+        if _e_run_disposition(r["completed"], r["invalid"]) == "provider-failure":
+            # Registered rule (provenance-notes.md 2026-07-25, applied to F
+            # 2026-07-28 ×3): non-observation, disclosed, never mapped.
+            provider_failures.append({"runId": rid, "armId": r["armId"],
+                                      "episodeIndex": r.get("episodeIndex"),
+                                      "seed": r.get("seed"),
+                                      "roundsPlayed": len(r["rounds"])})
+            continue
+        if key in seen:
+            raise SystemExit(f"{rid}: duplicate of {key} (also {seen[key]}) — refusing")
+        seen[key] = rid
+        if r["seed"] != expected[key]:
+            raise SystemExit(f"{rid}: seed {r['seed']} != scheduled {expected[key]} — refusing")
+        if r["model"] != f_arms[r["armId"]]["model"]:
+            raise SystemExit(f"{rid}: model {r['model']} != arm pin — refusing")
+        ec = r.get("engineCommit") or {}
+        if ec.get("dirty") is not False:
+            raise SystemExit(f"{rid}: engine stamp not clean ({ec}) — refusing")
+        ts = tmpl_by_run.get(rid, set())
+        if ts != {F_TID}:
+            raise SystemExit(f"{rid}: requested templates {ts} != pinned {F_TID} — refusing")
+        if r["invalid"]:
+            excluded.append(f"{key}: invalid trial (registered handling)")
+            continue
+        if not r["completed"]:
+            raise SystemExit(f"{rid}: no run.completed — block incomplete, refusing")
+        if sorted(r["rounds"]) != list(range(1, 51)):
+            raise SystemExit(f"{rid}: rounds != 1..50 — refusing")
+        tot, n = p2.get(rid, (None, 0))
+        if n != 50 or tot is None:
+            raise SystemExit(f"{rid}: {n} round.played payoff rows != 50 — refusing")
+        y[r["armId"]].append(tot / 50.0)
+
+    for key2 in expected:
+        if key2 not in seen:
+            raise SystemExit(f"scheduled F episode {key2} has no completed run — refusing")
+
+    claims = _f_eval(y)
+    report = {
+        "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "status": "adjudicated (interim; finals at step 8 after full replay)",
+        "frozenSpec": "predicates.md §Family F (50 rounds, switcher r26, sign "
+                      "convention: Ū_X = adversary per-round mean, positive = "
+                      "exploits subject); opponent semantics: "
+                      "f-opponent-specs.md",
+        "registration": {
+            "original": "2026-07-24 (freeze packet; predicates.md §Family F; "
+                        "f-stabilization gate → 50-round reversion)",
+            "completionAmendment": "2026-07-28 (f-opponent-specs.md §9.1, "
+                                   "operator sign-off; outcome-blind, "
+                                   "zero-spend; fixtures = selftests)",
+            "perArmConfirmatoryStatus": F_CONFIRMATORY_STATUS,
+        },
+        "nUsable": {aid: len(v) for aid, v in y.items()},
+        "means": {aid: (sum(v) / len(v) if v else None) for aid, v in y.items()},
+        "excluded": excluded,
+        "providerFailureAttempts": provider_failures,
+        "sentinelTrajectoryV2aGemini": _f_sentinel_trajectory(),
+        "claims": claims,
+    }
+    with open(os.path.join(DOCS, "f-report.json"), "w") as fh:
+        json.dump(report, fh, indent=1)
+    md = ["# Family F report (interim, per registered rider: final verdicts in step 8)",
+          "",
+          "Registration: original 2026-07-24; completion amendment 2026-07-28 "
+          "(f-opponent-specs.md §9.1). Per-arm confirmatory status "
+          "(architect ruling, verbatim):", ""]
+    for opp in F_OPPONENTS:
+        md.append(f"- `{opp}` — {F_CONFIRMATORY_STATUS[opp]}")
+    md += ["", "## Ū_X per arm (adversary mean per-round payoff; n usable episodes)", "",
+           "| arm | n | mean Ū_X |", "|---|---|---|"]
+    for aid in sorted(y):
+        md.append(f"| {aid} | {len(y[aid])} | {sum(y[aid]) / len(y[aid]):+.4f} |")
+    md += ["", "## Claims", "",
+           f"- **P4-F-1 (primary conjunction)** — {claims['primary']['interimVerdict']}",
+           f"  - Δ(wsls−fo): est {claims['primary']['deltaWslsMinusFo']['estimate']:+.4f}, "
+           f"LB95 {claims['primary']['deltaWslsMinusFo']['lowerBound95']:+.4f}",
+           f"  - Ū_wsls: est {claims['primary']['uWslsVsZero']['estimate']:+.4f}, "
+           f"LB95 {claims['primary']['uWslsVsZero']['lowerBound95']:+.4f}", "",
+           "### Secondary family (Holm m=6, gpt tier)", "",
+           "| opponent | est Ū_X | p (two-sided) | Holm p | verdict |", "|---|---|---|---|---|"]
+    for opp in F_OPPONENTS:
+        c = claims["secondaryHolmM6"][opp]
+        md.append(f"| {opp} | {c['estimate']:+.4f} | {c['p']:.2e} | {c['holmP']:.2e} "
+                  f"| {c['interimVerdict']} |")
+    dd = claims["secondaryDirectional"]
+    md += ["", f"- **Directional (shuffled < fo)** — {dd['interimVerdict']} "
+           f"(Δ(fo−shuffled) est {dd['estimate']:+.4f}, LB95 {dd['lowerBound95']:+.4f})", "",
+           "### Cross-vendor replication tier (gemini-2.5-flash)", "",
+           f"- Conjunction mirror — {claims['crossVendor']['conjunctionMirror']['interimVerdict']}",
+           "", "| opponent | est Ū_X | p | Holm p (m=5) | verdict |", "|---|---|---|---|---|"]
+    for opp in F_CVX_OPPONENTS:
+        c = claims["crossVendor"]["profileHolmM5"][opp]
+        md.append(f"| {opp} | {c['estimate']:+.4f} | {c['p']:.2e} | {c['holmP']:.2e} "
+                  f"| {c['interimVerdict']} |")
+    md += ["", "## Provider-failure non-observations (registered rule, disclosed)", ""]
+    for pf in provider_failures:
+        md.append(f"- {pf['armId']} ep{pf['episodeIndex']} (runId {pf['runId']}, "
+                  f"seed {pf['seed']}, {pf['roundsPlayed']} rounds played)")
+    md += ["", "## Sentinel stability: v2a × gemini-2.5-flash, full trajectory "
+           "(closed at both ends)", "",
+           "| check | modal | count/10 | regime |", "|---|---|---|---|"]
+    for pt in report["sentinelTrajectoryV2aGemini"]:
+        md.append(f"| {pt['check']} | {pt['modalAction']} | {pt['count']} | {pt['regime']} |")
+    with open(os.path.join(DOCS, "f-report.md"), "w") as fh:
+        fh.write("\n".join(md) + "\n")
+    print(json.dumps({"primary": claims["primary"]["interimVerdict"],
+                      "directional": dd["interimVerdict"],
+                      "nUsable": report["nUsable"],
+                      "providerFailureAttempts": len(provider_failures)}, indent=1))
+    return 0
+
+
+def selftest_f() -> int:
+    """Pure-logic checks of _f_eval on synthetic Ū lists (no store access)."""
+    ok = True
+
+    def check(name: str, cond: bool) -> None:
+        nonlocal ok
+        print(("PASS" if cond else "FAIL") + f"  {name}")
+        ok = ok and cond
+
+    import random
+    rnd = random.Random(7)
+    def cell(mu):  # 20 episodes, mild jitter, non-constant
+        return [mu + rnd.uniform(-0.05, 0.05) for _ in range(20)]
+
+    base = {}
+    for opp in F_OPPONENTS:
+        base[_f_arm_id(opp, "gpt-4.1")] = cell(0.0)
+    for opp in F_CVX_OPPONENTS:
+        base[_f_arm_id(opp, "gemini-2.5-flash")] = cell(0.0)
+
+    # supported conjunction: wsls clearly exploits, fo near zero
+    y = {k: list(v) for k, v in base.items()}
+    y[_f_arm_id("wsls-targeter", "gpt-4.1")] = cell(0.5)
+    r = _f_eval(y)
+    check("conjunction supported when both LBs > 0",
+          r["primary"]["interimVerdict"].startswith("supported"))
+    check("wsls secondary survives Holm m=6",
+          r["secondaryHolmM6"]["wsls-targeter"]["holmP"] < 0.05)
+    check("null fo secondary not significant",
+          r["secondaryHolmM6"]["fo-tracker"]["holmP"] >= 0.05)
+
+    # only-second: wsls > 0 but fo even higher (Δ < 0)
+    y2 = {k: list(v) for k, v in base.items()}
+    y2[_f_arm_id("wsls-targeter", "gpt-4.1")] = cell(0.3)
+    y2[_f_arm_id("fo-tracker", "gpt-4.1")] = cell(0.6)
+    r2 = _f_eval(y2)
+    check("only-second branch when Δ LB ≤ 0 but Ū_wsls LB > 0",
+          r2["primary"]["interimVerdict"].startswith("only-second"))
+
+    # neither: wsls clearly negative, fo above it (Δ < 0 and Ū_wsls < 0)
+    y3 = {k: list(v) for k, v in base.items()}
+    y3[_f_arm_id("wsls-targeter", "gpt-4.1")] = cell(-0.3)
+    r3 = _f_eval(y3)
+    check("neither branch when Δ LB ≤ 0 and Ū_wsls LB ≤ 0",
+          r3["primary"]["interimVerdict"].startswith("neither"))
+
+    # directional: fo exploits more than shuffled → supported
+    y4 = {k: list(v) for k, v in base.items()}
+    y4[_f_arm_id("fo-tracker", "gpt-4.1")] = cell(0.4)
+    y4[_f_arm_id("shuffled-history", "gpt-4.1")] = cell(0.05)
+    r4 = _f_eval(y4)
+    check("directional supported when Δ(fo−shuffled) LB > 0",
+          r4["secondaryDirectional"]["interimVerdict"].startswith("supported"))
+    y4b = {k: list(v) for k, v in base.items()}
+    y4b[_f_arm_id("shuffled-history", "gpt-4.1")] = cell(0.3)  # shuffled ABOVE fo
+    check("directional not supported when Δ(fo−shuffled) < 0",
+          _f_eval(y4b)["secondaryDirectional"]["interimVerdict"].startswith("not supported"))
+
+    # Holm monotonicity within the gpt m=6 family
+    hps = [r["secondaryHolmM6"][o]["holmP"] for o in F_OPPONENTS]
+    ps = [r["secondaryHolmM6"][o]["p"] for o in F_OPPONENTS]
+    order = sorted(range(6), key=lambda i: ps[i])
+    check("Holm p monotone in raw p order",
+          all(hps[order[i]] <= hps[order[i + 1]] for i in range(5)))
+
+    # constant cell refuses
+    y5 = {k: list(v) for k, v in base.items()}
+    y5[_f_arm_id("wsls-targeter", "gpt-4.1")] = [0.5] * 20
+    try:
+        _f_eval(y5)
+        check("constant cell refuses (fail-closed)", False)
+    except SystemExit:
+        check("constant cell refuses (fail-closed)", True)
+
+    # confirmatory labels present, verbatim endings
+    check("all six opponents carry a confirmatory-status label",
+          set(F_CONFIRMATORY_STATUS) == set(F_OPPONENTS))
+    check("amendment arms labeled UNDER COMPLETION AMENDMENT",
+          all(F_CONFIRMATORY_STATUS[o].endswith("UNDER COMPLETION AMENDMENT")
+              for o in ("ngram2", "ngram3", "switcher-r26", "shuffled-history")))
+
+    print("selftest-f:", "ALL PASS" if ok else "FAILURES")
+    return 0 if ok else 1
+
+
 def main() -> None:
     if "--scan" in sys.argv:
         raise SystemExit(scan(sys.argv[sys.argv.index("--scan") + 1]))
@@ -2043,6 +2454,10 @@ def main() -> None:
         raise SystemExit(selftest_x2c())
     if "--e" in sys.argv:
         raise SystemExit(e())
+    if "--f" in sys.argv:
+        raise SystemExit(f())
+    if "--selftest-f" in sys.argv:
+        raise SystemExit(selftest_f())
     if "--selftest-e" in sys.argv:
         raise SystemExit(selftest_e())
     if "--d1" in sys.argv:
