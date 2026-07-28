@@ -714,3 +714,19 @@ Spend is budget-real (3 calls, 462 input tokens). Reconcile matched the
 partial and kept the marker; it is cleared with this entry as the
 investigation record. Episode ep20's next completed run is its observation.
 No analysis surface touched; no code change.
+
+2026-07-28 — third F provider-failure partial, ep19 of p4-f-ngram2-cvx,
+retry-exhaustion signature. Block F h1 and gemini-only sentinel check 9 had
+completed (check in cadence, no fire recorded — driver proceeded); during
+block F h2, run run_1785208122_5454bcc1 (`F|p4-f-ngram2-cvx|ep19`) played
+22 rounds, then three consecutive zero-token transport failures at r23
+(LLMBehaviorError); bounded retries exhausted, no `run.completed`. The
+registered provider-failure rule applies by signature: non-observation,
+excluded from episode mapping, disclosed here and in the F adjudication
+report. Spend is budget-real (22 responded calls + 3 zero-token failure
+rows, 7,504 input tokens). Reconcile matched the partial and kept the
+marker; it is cleared with this entry as the investigation record. Episode
+ep19's next completed run is its observation. No analysis surface touched;
+no code change. Running disclosure count for F: three non-observation
+attempts (ngram2-cvx ep20, fo-tracker-cvx ep20, ngram2-cvx ep19) — all on
+the gemini route, consistent with the E-era burst-pattern diagnosis.
