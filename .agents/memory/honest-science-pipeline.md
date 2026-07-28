@@ -217,3 +217,12 @@ adding any conditional dispatch behavior (resolutions, switches, donor
 substitutions), grep the replay/verification path for the same rule before
 sealing. Two instances so far: sentinel third-cell switch deltaPct, and the
 1-based schedule ep vs 0-based seeds array.
+
+**Phase 5 packet stage:** entry mechanisms live — `engine/freeze_lint.py`
+(seal gate; manifest-driven; acceptance selftest reproduces the 5 sealed-text
+instances + fail-closed shape/coverage, 8/8), `engine/watchdog.py`
+(auto-resume ONLY for `resume-signatures.json` matches; scientific freezes
+stay manual), `engine/phase5_budget.py` (all prices from budget.db per-run
+actuals). Personas: seeded mulberry32, full trait cross, banned-word guard,
+leaning fixed at generation. Discussion branches pre-committed in
+docs/paper/ before dispatch; linter C5 requires branch per verdict combo.
