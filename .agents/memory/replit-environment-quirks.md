@@ -85,3 +85,9 @@ client-side on `connector_name`. Keep the token inside the script process;
 print only ids/urls/shas. The GitHub API can then create annotated tag objects,
 releases, and upload assets directly — a release is the clean external
 timestamp anchor for research artifacts.
+
+**OpenTimestamps stamping works via `uvx --from opentimestamps-client ots
+stamp <file>` with `LD_LIBRARY_PATH` pointed at a real openssl lib dir**
+(find it via `ldd` on python's `_ssl` module — /nix/store globbing times
+out). `python -m otsclient.ots` fails silently; python-bitcoinlib's ctypes
+needs libssl.so.3 on the path. Four public calendars respond in seconds.
