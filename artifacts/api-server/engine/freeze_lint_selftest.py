@@ -79,7 +79,7 @@ def _manifest(**over) -> dict:
 def _run(m: dict) -> dict:
     fd, path = tempfile.mkstemp(suffix=".json", dir=tempfile.gettempdir())
     with os.fdopen(fd, "w") as f:
-        json.dump({k: v for k, v in m.items() if v is not None}, f)
+        json.dump(m, f)  # keep explicit nulls: absence vs null is meaningful (C0)
     try:
         return lint(path)
     finally:
@@ -147,13 +147,26 @@ def main() -> int:
     r = _run(_manifest())
     results.append(("A6 control PASS (no false positives)", r["pass"], r))
 
+    # A7 — empty/structurally incomplete manifest must FAIL (fail-closed shape).
+    r = _run({"packet": "selftest",
+              "registryPath": os.path.relpath(REGISTRY, tempfile.gettempdir()),
+              "cells": [], "schedule": []})
+    results.append(("A7 empty manifest fails closed", not r["pass"] and
+                    any(f["check"] == "C0-manifest" for f in r["failures"]), r))
+
+    # A8 — duplicate schedule entries must FAIL (exact coverage).
+    r = _run(_manifest(schedule=["cell-a", "cell-a"]))
+    results.append(("A8 duplicate schedule entries fail", not r["pass"] and
+                    any(f["check"] == "C3-schedule" and "duplicate" in f["message"]
+                        for f in r["failures"]), r))
+
     ok = True
     for name, passed, r in results:
         print(f"{'PASS' if passed else 'FAIL'}  {name}")
         if not passed:
             ok = False
             print(json.dumps(r, indent=2))
-    print(f"\nacceptance: {'PASS 6/6' if ok else 'FAIL'}")
+    print(f"\nacceptance: {'PASS 8/8' if ok else 'FAIL'}")
     return 0 if ok else 1
 
 

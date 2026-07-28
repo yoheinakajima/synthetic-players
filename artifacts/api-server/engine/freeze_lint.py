@@ -113,6 +113,22 @@ def lint(manifest_path: str) -> dict:
     runtime = m.get("runtimeVars", {})
     cells = m.get("cells", [])
     cell_ids = [c["id"] for c in cells]
+    # C0: fail-closed manifest shape — an empty or structurally incomplete
+    # manifest must never PASS the seal gate.
+    if not cells:
+        failures.append(LintFailure("C0-manifest", None,
+                                    "manifest has no cells — nothing to seal is not a seal"))
+    if not m.get("schedule"):
+        failures.append(LintFailure("C0-manifest", None,
+                                    "manifest has no schedule"))
+    if "sealedRules" not in m:
+        failures.append(LintFailure("C0-manifest", None,
+                                    "manifest missing 'sealedRules' (empty list must be "
+                                    "explicit, not absent)"))
+    if "verdictBranches" not in m:
+        failures.append(LintFailure("C0-manifest", None,
+                                    "manifest missing 'verdictBranches' (null must be "
+                                    "explicit, not absent)"))
     if len(set(cell_ids)) != len(cell_ids):
         failures.append(LintFailure("C0-manifest", None, "duplicate cell ids"))
 
@@ -146,6 +162,11 @@ def lint(manifest_path: str) -> dict:
 
     # --- C3: schedule coverage (both directions), conditional branches included.
     sched = m.get("schedule", [])
+    dupes = sorted({s for s in sched if sched.count(s) > 1})
+    if dupes:
+        failures.append(LintFailure(
+            "C3-schedule", None,
+            f"duplicate schedule entries {dupes} — coverage must be exact"))
     missing = [c for c in cell_ids if c not in sched]
     unknown = [s for s in sched if s not in cell_ids]
     for c in missing:

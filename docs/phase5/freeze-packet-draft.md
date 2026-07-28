@@ -16,7 +16,7 @@ Design sketch (operator's order, committed verbatim):
 All five instance-ledger rules verified with mechanical evidence; see the
 verification record. Summary: (1) completeness linter **live**
 (`engine/freeze_lint.py`), acceptance test reproduces the five Phase 4
-sealed-text instances as seal failures (6/6); (2) attestation gating **live**
+sealed-text instances as seal failures, plus fail-closed shape and exact-coverage checks (8/8); (2) attestation gating **live**
 (unchanged Phase 4 driver code); (3) three-layer rule **mechanized** as
 linter check C4; (4) watchdog auto-resume **live** for the registered
 signature list only (`engine/watchdog.py`, `engine/resume-signatures.json`),

@@ -16,13 +16,13 @@ the mechanism, its evidence, and how to re-run the check.
   verdict combination. Any failure ⇒ exit 1 ⇒ no seal.
 - **Acceptance test (registered criterion): reproduce the five Phase 4
   sealed-text instances as seal failures.**
-  `uv run python engine/freeze_lint_selftest.py` → **PASS 6/6**:
+  `uv run python engine/freeze_lint_selftest.py` → **PASS 8/8**:
   A1 E-dselected registration gap (ledger #10) ⇒ C2 fail; A2 sealed rule
   absent from a layer (sentinel third-cell switch) ⇒ C4 fail; A3 conditional
   block missing from schedule (ledger #11) ⇒ C3 fail; A4 RESOLVED-BY-*
   dispatch gap (ledger #12) ⇒ C1 fail; A5 unpinned template parameter —
   `deltaPct` on the real sealed pd-rep template (ledger #15) ⇒ C1 fail;
-  A6 fully specified control manifest ⇒ PASS (no false positives).
+  A6 fully specified control manifest ⇒ PASS (no false positives); A7 empty/structurally incomplete manifest ⇒ C0 fail (fail-closed shape); A8 duplicate schedule entries ⇒ C3 fail (exact coverage).
   Fixtures render against the real `prompts/registry.json`, not synthetic
   templates.
 - Draft-stage run: `docs/phase5/lint-manifest-draft.json` (all 6 task cells,
