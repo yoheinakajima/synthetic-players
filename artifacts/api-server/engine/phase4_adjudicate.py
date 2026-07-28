@@ -2242,6 +2242,7 @@ def f() -> int:
     db.close()
 
     seen: dict[tuple[str, int], str] = {}
+    f_commit_shas: set = set()
     y: dict[str, list[float]] = {aid: [] for aid in f_arms}
     excluded: list[str] = []
     provider_failures: list[dict] = []
@@ -2269,6 +2270,7 @@ def f() -> int:
         ec = r.get("engineCommit") or {}
         if ec.get("dirty") is not False:
             raise SystemExit(f"{rid}: engine stamp not clean ({ec}) — refusing")
+        f_commit_shas.add(ec.get("sha"))
         ts = tmpl_by_run.get(rid, set())
         if ts != {F_TID}:
             raise SystemExit(f"{rid}: requested templates {ts} != pinned {F_TID} — refusing")
@@ -2287,6 +2289,20 @@ def f() -> int:
     for key2 in expected:
         if key2 not in seen:
             raise SystemExit(f"scheduled F episode {key2} has no completed run — refusing")
+    # F dispatch legitimately spans exactly four clean commits: the staging
+    # commit and the three registered provider-failure recovery commits
+    # (provenance-notes.md 2026-07-28 entries; each a disclosed
+    # commit+restart with no analysis-surface change). Anything outside
+    # this sealed set — or a missing sha — refuses.
+    F_COMMIT_ALLOWLIST = {
+        "e5d0508cad9d5f706fab9075e04734c39b31bf0a",  # F staging
+        "5e1de92f1ca3ee89fd1656b8c8ee2507bb894abb",  # recovery 1 (ngram2-cvx ep20)
+        "7590ad8b8d25f8d4bd306799309343aaf4c04bfd",  # recovery 2 (fo-tracker-cvx ep20)
+        "3b786932c7621d3df574be7b023c14f34acfd998",  # recovery 3 (ngram2-cvx ep19)
+    }
+    if not f_commit_shas or not f_commit_shas.issubset(F_COMMIT_ALLOWLIST):
+        raise SystemExit(f"F observations carry engine commits {sorted(map(str, f_commit_shas))} "
+                         f"outside the registered F dispatch set — refusing")
 
     claims = _f_eval(y)
     report = {
@@ -2307,6 +2323,7 @@ def f() -> int:
         "nUsable": {aid: len(v) for aid, v in y.items()},
         "means": {aid: (sum(v) / len(v) if v else None) for aid, v in y.items()},
         "excluded": excluded,
+        "engineCommits": sorted(f_commit_shas),
         "admissibilityDisclosure": (
             "F h2 was dispatched after sentinel check 9 without the registered "
             "rule-(c) evaluator having been run; run late, that check FIRED. "

@@ -479,6 +479,18 @@ def act_sentinel(state: dict, store: ArmStore, registry: dict, k: int,
 
 def act_block(state: dict, store: ArmStore, registry: dict, schedule: dict, name: str) -> None:
     assert_clean_tree(state)
+    # Attestation precondition (operator-registered, sentinel-alert-6-memo.md
+    # §Decision riders): every sentinel check already dispatched must carry a
+    # positive evaluator attestation before any further block dispatch —
+    # absence of evaluation fail-closes; "no fire seen" is never "no fire".
+    dispatched_checks = {int(k.split("|")[0][4:]) for k in state.get("runs", {})
+                         if k.startswith("sent")}
+    attested = set(map(int, state.get("sentinelAttestations", {})))
+    missing = sorted(dispatched_checks - attested)
+    if missing:
+        freeze(state, f"block dispatch requires evaluator attestation for sentinel "
+                      f"check(s) {missing} — run the registered evaluator and record "
+                      "the attestation (or a decision entry for a fired check) first")
     half = None
     if name.endswith((":h1", ":h2")):
         name, half = name.rsplit(":", 1)  # dispatch partition only: sealed

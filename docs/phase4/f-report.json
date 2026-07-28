@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-28T05:31:20Z",
+ "generatedAt": "2026-07-28T05:40:32Z",
  "status": "adjudicated (interim; finals at step 8 after full replay)",
  "frozenSpec": "predicates.md \u00a7Family F (50 rounds, switcher r26, sign convention: \u016a_X = adversary per-round mean, positive = exploits subject); opponent semantics: f-opponent-specs.md",
  "registration": {
@@ -41,6 +41,12 @@
   "p4-f-shuffled-history-cvx": 0.023
  },
  "excluded": [],
+ "engineCommits": [
+  "3b786932c7621d3df574be7b023c14f34acfd998",
+  "5e1de92f1ca3ee89fd1656b8c8ee2507bb894abb",
+  "7590ad8b8d25f8d4bd306799309343aaf4c04bfd",
+  "e5d0508cad9d5f706fab9075e04734c39b31bf0a"
+ ],
  "admissibilityDisclosure": "F h2 was dispatched after sentinel check 9 without the registered rule-(c) evaluator having been run; run late, that check FIRED. Operator ruling 2026-07-28: h2 ADMITTED WITH DISCLOSURE (subject cells are independent of sentinel cells); the cross-vendor gemini tier is separately demoted to descriptive-only. sentinel-alert-6-memo.md \u00a7Decision.",
  "providerFailureAttempts": [
   {

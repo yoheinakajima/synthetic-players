@@ -576,23 +576,32 @@ def replay_llm_p4(engine: Engine, run_id: str, *, store: ArmStore) -> dict[str, 
     if arm is not None:
         try:
             replay_arm = arm
-            if (arm.get("armId") == "p4-sent-fallback"
-                    and tid != arm.get("templateId")):
+            if arm.get("armId") == "p4-sent-fallback":
                 # Sealed third-cell switch (validate_run_request /
-                # _sentinel_switch_delta): post-switch dispatches render the
-                # D-selected pd-rep representation with the sentinel
-                # battery's donor deltaPct. The replay re-derivation must
-                # apply the identical sealed rule — checker-side mirror of
-                # provenance instance 5; fail-closed if the recorded
-                # template is not the written E-dselected resolution.
-                from phase4 import _sentinel_switch_delta
-                res = BudgetLedger().get_resolution("E-dselected")
-                res_tid = res["templateId"] if res else None
-                if res_tid != tid:
+                # _sentinel_switch_delta): dispatches from check 6 on render
+                # the D-selected pd-rep representation with the sentinel
+                # battery's donor deltaPct; sealed fallback before. The
+                # replay re-derivation applies the identical rule keyed on
+                # the recorded check index — checker-side mirror of
+                # provenance instance 5, enforced for EVERY fallback run so
+                # a stale/wrong recorded template can never pass silently.
+                k = llm_cfg.get("sentinelCheckIndex")
+                if k is None:
+                    mismatches.append("sentinel fallback run has no recorded sentinelCheckIndex")
+                elif k >= 6:  # re-baseline check; switch effective from 6 on
+                    from phase4 import _sentinel_switch_delta
+                    res = BudgetLedger().get_resolution("E-dselected")
+                    res_tid = res["templateId"] if res else None
+                    if res_tid is None or res_tid != tid:
+                        mismatches.append(
+                            f"sentinel fallback check {k}: recorded template {tid} != "
+                            f"written E-dselected resolution {res_tid}")
+                    else:
+                        replay_arm = {**arm, "deltaPct": _sentinel_switch_delta(store)}
+                elif tid != arm.get("templateId"):
                     mismatches.append(
-                        f"sentinel fallback post-switch template {tid} != written "
-                        f"E-dselected resolution {res_tid}")
-                replay_arm = {**arm, "deltaPct": _sentinel_switch_delta(store)}
+                        f"sentinel fallback check {k}: recorded template {tid} != "
+                        f"sealed fallback {arm.get('templateId')} (pre-switch)")
             re_subs = render_substitutions(replay_arm, tid, registry)
             from provenance import canonical_json as _cj
             if _cj(re_subs) != _cj(llm_cfg.get("substitutions")):

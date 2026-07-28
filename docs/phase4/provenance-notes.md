@@ -817,3 +817,17 @@ the sealed rule in the checker and fail-closes if the recorded template is
 not the written E-dselected resolution; no sealed artifact or stored byte
 touched; rerun CLEAN. Interim verdicts across X2/D1/D2/D3/E/F promoted to
 final verbatim; F cvx tier carried as descriptive-only per alert-6 ruling.
+
+2026-07-28 — post-finals review round, three fail-closed hardenings (no
+verdict, number, or sealed artifact changed; --f and the step-8 replay
+audit rerun CLEAN after each): (1) replay checker now enforces the sentinel
+third-cell template rule for EVERY fallback run keyed on the recorded check
+index (pre-switch must equal the sealed fallback; post-switch must equal
+the written E-dselected resolution) — previously a post-switch run with a
+stale recorded template could skip the comparison. (2) F adjudication now
+refuses engine commits outside the registered four-commit F dispatch set
+(staging + three disclosed recovery commits), disclosed as engineCommits in
+f-report.json — previously only clean/dirty was checked. (3) Driver block
+dispatch now hard-requires a positive evaluator attestation for every
+dispatched sentinel check (fail-closed freeze if absent); state backfilled
+for checks 0–10 with each fired check's decision-entry citation.
