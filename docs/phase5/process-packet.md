@@ -1,3 +1,10 @@
+> **STATUS: PROPOSED — UNREGISTERED, UNSEALED, NOT RUN.** Nothing in this
+> document (or anywhere under `docs/phase5/`) has been registered, sealed,
+> or executed. The three entry requirements below (completeness linter,
+> attestation gating, three-layer rule) are preconditions any future Phase 5
+> registration must satisfy before dispatch. The live infrastructure is
+> quiescent; new dispatch requires a new sealed registration.
+
 # Phase 5 process packet
 
 Forward-looking process changes distilled from Phase 4 incidents. Items here

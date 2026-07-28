@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this repository — the results, the data artifacts, or the protocol — please cite it as below."
+title: "Synthetic Players: pre-registered, mechanically adjudicated experiments on LLM game play"
+type: software
+authors:
+  - family-names: Nakajima
+    given-names: Yohei
+repository-code: "https://github.com/yoheinakajima/synthetic-players"
+license: MIT
+version: phase4-final
+date-released: "2026-07-28"
+abstract: >-
+  A research program on how large language models play games, run under
+  sealed pre-registration with fail-closed mechanical adjudication and
+  byte-exact replay from an append-only event store. Central finding:
+  subject behavior is driven by local semantic-textual content, not payoffs
+  and not display mechanics; the cross-vendor twin inverts per channel.
+  Data artifacts (event store, ledgers, adjudication records) are released
+  under CC BY 4.0 as versioned release assets.
+keywords:
+  - game theory
+  - large language models
+  - preregistration
+  - reproducibility
+  - mechanical adjudication
