@@ -771,3 +771,32 @@ items 1–2. F adjudication (--f) output stands as interim; gpt tier is
 unaffected by any disposition. Corrections to prior entries: "sentinel
 check 9 passed in cadence" and "check 10 all six cells 10/10" are hereby
 marked as dispatch-completion statements only.
+
+2026-07-28 — sentinel alert 6 DECISION recorded (operator, batched form):
+Option A + admit-with-disclosure. (1) Alerts at checks 9 and 10 accepted as
+fired; F cross-vendor (gemini) tier demoted to DESCRIPTIVE-ONLY. Option B
+rejected on outcome-blindness grounds — no rule is ever re-evaluated
+against data it fired on, even if that rescued the tier. Option C rejected —
+no additional check can un-fire a frozen rule; plateau already characterized
+at four points. (2) F h2 admitted with disclosure (subject cells independent
+of sentinel cells). (3) "Closes 10/10" struck everywhere, including the
+operator's own prior instruction; the series closes with fires at 9 and 10
+on a stable 6/7 plateau; check-6 re-baseline 10/10 flagged descriptively as
+the probable outlier (post-hoc, non-decisional). (4) Phase 5 + limitations
+registration: dispatch gates must require a positive evaluator attestation
+for the preceding check — absence of evaluation fail-closes; "no fire seen"
+is never "no fire"; console dispatch counts renamed so they cannot read as
+rule outcomes (attestation gate joins the completeness linter as a Phase 5
+requirement; strongest instance yet of the promised-control-not-
+mechanically-coupled class). (5) The mechanical scan's 22-count
+non-observation ledger supersedes the in-run narrative's 3 everywhere.
+Implementation in this commit: memo §Decision; f-report regenerated
+(descriptive-only tier, admissibility disclosure, corrected trajectory
+table with per-check rule-(c) status — fires at 5/7/8 were dispositioned
+contemporaneously, only 9/10 were late); driver attestation gate added to
+act_sentinel (registered evaluator run in-process, nonzero exit freezes,
+attestation recorded in state; dispatch-count print renamed). Verified:
+checks 7 and 8 fires were evaluated and dispositioned at the time (alert-5
+§Second reversion, check-7/check-8 decision entries) — the late-evaluation
+lapse is confined to checks 9 and 10. HOLD LIFTS per ruling; proceeding to
+step-8 replay audit.

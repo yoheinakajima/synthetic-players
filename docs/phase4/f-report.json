@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-07-28T04:23:00Z",
+ "generatedAt": "2026-07-28T05:31:20Z",
  "status": "adjudicated (interim; finals at step 8 after full replay)",
  "frozenSpec": "predicates.md \u00a7Family F (50 rounds, switcher r26, sign convention: \u016a_X = adversary per-round mean, positive = exploits subject); opponent semantics: f-opponent-specs.md",
  "registration": {
@@ -41,6 +41,7 @@
   "p4-f-shuffled-history-cvx": 0.023
  },
  "excluded": [],
+ "admissibilityDisclosure": "F h2 was dispatched after sentinel check 9 without the registered rule-(c) evaluator having been run; run late, that check FIRED. Operator ruling 2026-07-28: h2 ADMITTED WITH DISCLOSURE (subject cells are independent of sentinel cells); the cross-vendor gemini tier is separately demoted to descriptive-only. sentinel-alert-6-memo.md \u00a7Decision.",
  "providerFailureAttempts": [
   {
    "runId": "run_1785197810_ce96bdb0",
@@ -238,7 +239,8 @@
    "n": 10,
    "modalAction": 0,
    "count": 7,
-   "regime": "vs sealed baseline"
+   "regime": "vs sealed baseline",
+   "ruleC": "FIRED"
   },
   {
    "check": 6,
@@ -252,28 +254,32 @@
    "n": 10,
    "modalAction": 0,
    "count": 6,
-   "regime": "vs re-baseline@6"
+   "regime": "vs re-baseline@6",
+   "ruleC": "FIRED"
   },
   {
    "check": 8,
    "n": 10,
    "modalAction": 0,
    "count": 7,
-   "regime": "vs re-baseline@6"
+   "regime": "vs re-baseline@6",
+   "ruleC": "FIRED"
   },
   {
    "check": 9,
    "n": 10,
    "modalAction": 0,
    "count": 6,
-   "regime": "vs re-baseline@6"
+   "regime": "vs re-baseline@6",
+   "ruleC": "FIRED"
   },
   {
    "check": 10,
    "n": 10,
    "modalAction": 0,
    "count": 7,
-   "regime": "vs re-baseline@6"
+   "regime": "vs re-baseline@6",
+   "ruleC": "FIRED"
   }
  ],
  "claims": {
@@ -380,6 +386,7 @@
    "interimVerdict": "not supported (LB \u2264 0)"
   },
   "crossVendor": {
+   "tierStatus": "DESCRIPTIVE-ONLY \u2014 demoted from secondary replication tier per sentinel alert 6 disposition (rule (c) fired at checks 9 and 10 on p4-sent-v2a \u00d7 gemini-2.5-flash; operator ruling 2026-07-28, Option A; sentinel-alert-6-memo.md \u00a7Decision)",
    "conjunctionMirror": {
     "deltaWslsMinusFo": {
      "method": "BCa(20260801), 10000 resamples",
@@ -398,7 +405,7 @@
      "pOneSided": 1.0
     },
     "interimVerdict": "neither \u2014 registered branch",
-    "claim": "cross-vendor conjunction mirror (secondary replication tier)"
+    "claim": "cross-vendor conjunction mirror \u2014 DESCRIPTIVE-ONLY (sentinel alert 6 disposition, operator ruling 2026-07-28)"
    },
    "profileHolmM5": {
     "fo-tracker": {

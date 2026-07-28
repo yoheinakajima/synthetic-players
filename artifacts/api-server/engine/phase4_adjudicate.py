@@ -2150,7 +2150,8 @@ def _f_eval(y: dict[str, list[float]]) -> dict:
     out["secondaryDirectional"] = d
     # cross-vendor replication tier
     mirror = _f_conjunction(y, "gemini-2.5-flash", "cross-vendor mirror")
-    mirror["claim"] = "cross-vendor conjunction mirror (secondary replication tier)"
+    mirror["claim"] = ("cross-vendor conjunction mirror — DESCRIPTIVE-ONLY "
+                       "(sentinel alert 6 disposition, operator ruling 2026-07-28)")
     cvp = {opp: _f_mean_claim(f"cvx profile {opp}", y[_f_arm_id(opp, "gemini-2.5-flash")],
                               two_sided=True) for opp in F_CVX_OPPONENTS}
     chp = holm({o: c["p"] for o, c in cvp.items()})
@@ -2161,7 +2162,13 @@ def _f_eval(y: dict[str, list[float]]) -> dict:
         c["interimVerdict"] = ("replicated-direction (Holm-adjusted two-sided p < 0.05)"
                                if chp[opp] < 0.05 else "not significant under Holm")
         cvx_sec[opp] = c
-    out["crossVendor"] = {"conjunctionMirror": mirror, "profileHolmM5": cvx_sec}
+    out["crossVendor"] = {
+        "tierStatus": "DESCRIPTIVE-ONLY — demoted from secondary replication "
+                      "tier per sentinel alert 6 disposition (rule (c) fired at "
+                      "checks 9 and 10 on p4-sent-v2a × gemini-2.5-flash; "
+                      "operator ruling 2026-07-28, Option A; "
+                      "sentinel-alert-6-memo.md §Decision)",
+        "conjunctionMirror": mirror, "profileHolmM5": cvx_sec}
     return out
 
 
@@ -2186,12 +2193,15 @@ def _f_sentinel_trajectory() -> list[dict]:
         for a in seats:
             counts[a] = counts.get(a, 0) + 1
         modal = min([a for a in counts if counts[a] == max(counts.values())])
-        series.append({"check": k, "n": len(seats), "modalAction": modal,
-                       "count": counts[modal],
-                       "regime": ("sealed baseline" if k == 0 else
-                                  "re-baseline read" if k == REBASELINE_CHECK else
-                                  "vs re-baseline@6" if k > REBASELINE_CHECK else
-                                  "vs sealed baseline")})
+        entry = {"check": k, "n": len(seats), "modalAction": modal,
+                 "count": counts[modal],
+                 "regime": ("sealed baseline" if k == 0 else
+                            "re-baseline read" if k == REBASELINE_CHECK else
+                            "vs re-baseline@6" if k > REBASELINE_CHECK else
+                            "vs sealed baseline")}
+        if k == 5 or (k > REBASELINE_CHECK and abs(counts[modal] - 10) >= 3):
+            entry["ruleC"] = "FIRED"
+        series.append(entry)
     return series
 
 
@@ -2297,6 +2307,13 @@ def f() -> int:
         "nUsable": {aid: len(v) for aid, v in y.items()},
         "means": {aid: (sum(v) / len(v) if v else None) for aid, v in y.items()},
         "excluded": excluded,
+        "admissibilityDisclosure": (
+            "F h2 was dispatched after sentinel check 9 without the registered "
+            "rule-(c) evaluator having been run; run late, that check FIRED. "
+            "Operator ruling 2026-07-28: h2 ADMITTED WITH DISCLOSURE (subject "
+            "cells are independent of sentinel cells); the cross-vendor gemini "
+            "tier is separately demoted to descriptive-only. "
+            "sentinel-alert-6-memo.md §Decision."),
         "providerFailureAttempts": provider_failures,
         "sentinelTrajectoryV2aGemini": _f_sentinel_trajectory(),
         "claims": claims,
@@ -2329,22 +2346,36 @@ def f() -> int:
     dd = claims["secondaryDirectional"]
     md += ["", f"- **Directional (shuffled < fo)** — {dd['interimVerdict']} "
            f"(Δ(fo−shuffled) est {dd['estimate']:+.4f}, LB95 {dd['lowerBound95']:+.4f})", "",
-           "### Cross-vendor replication tier (gemini-2.5-flash)", "",
-           f"- Conjunction mirror — {claims['crossVendor']['conjunctionMirror']['interimVerdict']}",
+           "### Cross-vendor tier (gemini-2.5-flash) — DESCRIPTIVE-ONLY", "",
+           claims["crossVendor"]["tierStatus"], "",
+           f"- Conjunction mirror (descriptive) — {claims['crossVendor']['conjunctionMirror']['interimVerdict']}",
            "", "| opponent | est Ū_X | p | Holm p (m=5) | verdict |", "|---|---|---|---|---|"]
     for opp in F_CVX_OPPONENTS:
         c = claims["crossVendor"]["profileHolmM5"][opp]
         md.append(f"| {opp} | {c['estimate']:+.4f} | {c['p']:.2e} | {c['holmP']:.2e} "
                   f"| {c['interimVerdict']} |")
-    md += ["", "## Provider-failure non-observations (registered rule, disclosed)", ""]
+    md += ["", "## Admissibility disclosure", "", report["admissibilityDisclosure"],
+           "", "## Provider-failure non-observations (registered rule, disclosed; "
+           "mechanical scan is the ledger of record — supersedes the in-run "
+           "narrative count of 3)", ""]
     for pf in provider_failures:
         md.append(f"- {pf['armId']} ep{pf['episodeIndex']} (runId {pf['runId']}, "
                   f"seed {pf['seed']}, {pf['roundsPlayed']} rounds played)")
-    md += ["", "## Sentinel stability: v2a × gemini-2.5-flash, full trajectory "
-           "(closed at both ends)", "",
-           "| check | modal | count/10 | regime |", "|---|---|---|---|"]
+    md += ["", "## Sentinel stability: v2a × gemini-2.5-flash, full trajectory", "",
+           "The series does NOT close clean. Rule (c) fired at checks 5, 7, 8 "
+           "(each evaluated and dispositioned contemporaneously: alert-5 memo "
+           "re-baseline; check-7 and check-8 operator decision entries) and at "
+           "checks 9 and 10 (evaluator run LATE — sentinel-alert-6-memo.md; "
+           "cross-vendor tier demoted to descriptive-only). Earlier \"closes "
+           "10/10\" statements came from dispatch-count console lines, not rule "
+           "evaluations, and are struck. Post-re-baseline the series is a "
+           "stable 6/7 plateau; the check-6 re-baseline read of 10/10 is "
+           "flagged descriptively as the probable outlier (post-hoc, "
+           "non-decisional).", "",
+           "| check | modal | count/10 | regime | rule (c) |", "|---|---|---|---|---|"]
     for pt in report["sentinelTrajectoryV2aGemini"]:
-        md.append(f"| {pt['check']} | {pt['modalAction']} | {pt['count']} | {pt['regime']} |")
+        md.append(f"| {pt['check']} | {pt['modalAction']} | {pt['count']} | {pt['regime']} "
+                  f"| {pt.get('ruleC', '—')} |")
     with open(os.path.join(DOCS, "f-report.md"), "w") as fh:
         fh.write("\n".join(md) + "\n")
     print(json.dumps({"primary": claims["primary"]["interimVerdict"],

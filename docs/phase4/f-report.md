@@ -44,9 +44,11 @@ Registration: original 2026-07-24; completion amendment 2026-07-28 (f-opponent-s
 
 - **Directional (shuffled < fo)** — not supported (LB ≤ 0) (Δ(fo−shuffled) est -0.0830, LB95 -0.1160)
 
-### Cross-vendor replication tier (gemini-2.5-flash)
+### Cross-vendor tier (gemini-2.5-flash) — DESCRIPTIVE-ONLY
 
-- Conjunction mirror — neither — registered branch
+DESCRIPTIVE-ONLY — demoted from secondary replication tier per sentinel alert 6 disposition (rule (c) fired at checks 9 and 10 on p4-sent-v2a × gemini-2.5-flash; operator ruling 2026-07-28, Option A; sentinel-alert-6-memo.md §Decision)
+
+- Conjunction mirror (descriptive) — neither — registered branch
 
 | opponent | est Ū_X | p | Holm p (m=5) | verdict |
 |---|---|---|---|---|
@@ -56,7 +58,11 @@ Registration: original 2026-07-24; completion amendment 2026-07-28 (f-opponent-s
 | switcher-r26 | -0.0320 | 1.36e-01 | 2.72e-01 | not significant under Holm |
 | shuffled-history | +0.0230 | 4.21e-01 | 4.21e-01 | not significant under Holm |
 
-## Provider-failure non-observations (registered rule, disclosed)
+## Admissibility disclosure
+
+F h2 was dispatched after sentinel check 9 without the registered rule-(c) evaluator having been run; run late, that check FIRED. Operator ruling 2026-07-28: h2 ADMITTED WITH DISCLOSURE (subject cells are independent of sentinel cells); the cross-vendor gemini tier is separately demoted to descriptive-only. sentinel-alert-6-memo.md §Decision.
+
+## Provider-failure non-observations (registered rule, disclosed; mechanical scan is the ledger of record — supersedes the in-run narrative count of 3)
 
 - p4-f-switcher-r26-cvx ep9 (runId run_1785197810_ce96bdb0, seed 3061, 0 rounds played)
 - p4-f-switcher-r26-cvx ep4 (runId run_1785198107_39264278, seed 3056, 4 rounds played)
@@ -81,18 +87,20 @@ Registration: original 2026-07-24; completion amendment 2026-07-28 (f-opponent-s
 - p4-f-ngram2-cvx ep7 (runId run_1785210888_0bec5103, seed 2999, 5 rounds played)
 - p4-f-shuffled-history-cvx ep1 (runId run_1785211315_03f6220a, seed 3073, 0 rounds played)
 
-## Sentinel stability: v2a × gemini-2.5-flash, full trajectory (closed at both ends)
+## Sentinel stability: v2a × gemini-2.5-flash, full trajectory
 
-| check | modal | count/10 | regime |
-|---|---|---|---|
-| 0 | 0 | 10 | sealed baseline |
-| 1 | 0 | 9 | vs sealed baseline |
-| 2 | 0 | 9 | vs sealed baseline |
-| 3 | 0 | 8 | vs sealed baseline |
-| 4 | 0 | 8 | vs sealed baseline |
-| 5 | 0 | 7 | vs sealed baseline |
-| 6 | 0 | 10 | re-baseline read |
-| 7 | 0 | 6 | vs re-baseline@6 |
-| 8 | 0 | 7 | vs re-baseline@6 |
-| 9 | 0 | 6 | vs re-baseline@6 |
-| 10 | 0 | 7 | vs re-baseline@6 |
+The series does NOT close clean. Rule (c) fired at checks 5, 7, 8 (each evaluated and dispositioned contemporaneously: alert-5 memo re-baseline; check-7 and check-8 operator decision entries) and at checks 9 and 10 (evaluator run LATE — sentinel-alert-6-memo.md; cross-vendor tier demoted to descriptive-only). Earlier "closes 10/10" statements came from dispatch-count console lines, not rule evaluations, and are struck. Post-re-baseline the series is a stable 6/7 plateau; the check-6 re-baseline read of 10/10 is flagged descriptively as the probable outlier (post-hoc, non-decisional).
+
+| check | modal | count/10 | regime | rule (c) |
+|---|---|---|---|---|
+| 0 | 0 | 10 | sealed baseline | — |
+| 1 | 0 | 9 | vs sealed baseline | — |
+| 2 | 0 | 9 | vs sealed baseline | — |
+| 3 | 0 | 8 | vs sealed baseline | — |
+| 4 | 0 | 8 | vs sealed baseline | — |
+| 5 | 0 | 7 | vs sealed baseline | FIRED |
+| 6 | 0 | 10 | re-baseline read | — |
+| 7 | 0 | 6 | vs re-baseline@6 | FIRED |
+| 8 | 0 | 7 | vs re-baseline@6 | FIRED |
+| 9 | 0 | 6 | vs re-baseline@6 | FIRED |
+| 10 | 0 | 7 | vs re-baseline@6 | FIRED |

@@ -456,8 +456,25 @@ def act_sentinel(state: dict, store: ArmStore, registry: dict, k: int,
                                   f"retried={meta.get('retriedCalls')} "
                                   f"invalid={resp.get('invalidTrial')} — block-boundary freeze; "
                                   "disclosure + decision memo before resuming")
-            print(f"  cell {arm_id} × {model}: 10/10", flush=True)
-    print(f"sentinel check {k} complete", flush=True)
+            print(f"  cell {arm_id} × {model}: dispatch-count 10/10 "
+                  "(NOT a rule outcome)", flush=True)
+    # Attestation gate (operator-registered, sentinel-alert-6-memo.md
+    # §Decision riders): dispatch past a sentinel check requires a POSITIVE
+    # evaluator attestation — absence of evaluation fail-closes; "no fire
+    # seen" is never "no fire". Runs the registered evaluator in-process
+    # via subprocess; any nonzero exit freezes at this boundary.
+    import subprocess
+    r = subprocess.run(
+        ["uv", "run", "python", os.path.join(os.path.dirname(__file__), "phase4_adjudicate.py"),
+         "--sentinel", str(k)], capture_output=True, text=True, cwd=os.path.dirname(__file__))
+    print(r.stdout, flush=True)
+    if r.returncode != 0:
+        freeze(state, f"SENTINEL check {k}: registered evaluator exit {r.returncode} "
+                      f"(rule fired or refused) — attestation gate freeze; "
+                      f"stderr: {r.stderr[-500:]}")
+    state.setdefault("sentinelAttestations", {})[str(k)] = "evaluator exit 0"
+    save_state(state)
+    print(f"sentinel check {k} complete — evaluator attestation recorded", flush=True)
 
 
 def act_block(state: dict, store: ArmStore, registry: dict, schedule: dict, name: str) -> None:

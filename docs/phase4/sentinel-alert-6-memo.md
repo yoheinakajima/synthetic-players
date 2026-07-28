@@ -1,7 +1,37 @@
 # Sentinel alert 6 — rule (c) fires at checks 9 and 10 (v2a × gemini), discovered late
 
-Status: OPEN — awaiting operator decision. No further adjudication finals or
-step-8 replay verdicts issue until resolved. Written 2026-07-28.
+Status: RESOLVED — operator ruling 2026-07-28 (see §Decision). Written
+2026-07-28.
+
+## Decision (operator, 2026-07-28, recorded verbatim in substance)
+
+Item 1: **Option A.** Alerts accepted as fired; F cross-vendor (gemini)
+tier demoted to **descriptive-only**. Option B rejected on principle — no
+rule is ever re-evaluated against data it fired on; it would be rejected
+even if it rescued the tier. Option C rejected — no additional check can
+un-fire a frozen rule; the plateau is already characterized at four points.
+The demotion forfeits almost no confirmatory content (the mirror came back
+neither-branch anyway) while keeping the record exact.
+
+Item 2: **Admit F h2 with disclosure** — subject cells are independent of
+sentinel cells.
+
+Riders (operator-registered):
+- Strike "closes 10/10" wherever the closing series appears, including the
+  operator's own prior instruction: that figure came from dispatch-count
+  console lines, not evaluations. The series closes with **fires at 9 and
+  10** on a stable 6/7 plateau; the check-6 re-baseline 10/10 is flagged
+  descriptively as the probable outlier — stated post-hoc and
+  non-decisionally.
+- Root-cause class registered for Phase 5 and the limitations section:
+  **dispatch gates must require a positive evaluator attestation for the
+  preceding check — absence of evaluation fail-closes; "no fire seen" is
+  never "no fire."** Console dispatch counts must be renamed/namespaced so
+  they cannot be read as rule outcomes. Strongest instance yet of the
+  promised-control-not-mechanically-coupled class; the attestation gate
+  joins the completeness linter as a Phase 5 requirement.
+- The scan's 22-count non-observation correction supersedes the in-run
+  narrative's 3 everywhere; the mechanical scan is the source of truth.
 
 ## Facts (all from the registered evaluator, `phase4_adjudicate.py --sentinel k`, read-only)
 
