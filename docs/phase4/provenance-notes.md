@@ -687,3 +687,17 @@ episode request; F group added to progress spend printout. Staging plan
 (memo cadence): preflight → preflight-f → block:F:h1 → sentinelg:9
 (gemini-only mid-F, rider 2) → block:F:h2 → sentinel:10 (full, post-F) →
 hold.
+
+2026-07-28 — F provider-failure partial, ep20 of p4-f-ngram2-cvx. During
+block F h1, run run_1785197733-era dispatch `F|p4-f-ngram2-cvx|ep20`
+(engineRunId run_1785198346_443ff1da) played 12 rounds, then the gemini
+route returned three consecutive transport failures at r13 (LLMBehaviorError,
+zero tokens); bounded retries exhausted and the run terminated partial with
+no `run.completed`. The registered provider-failure rule applies by
+signature: non-observation, excluded from episode mapping, disclosed here
+and in the F adjudication report (arm p4-f-ngram2-cvx, ep20, runId above).
+Spend is budget-real and counted (13 responded + 2 zero-token failure rows;
+F ledger reflects it). Reconcile matched the partial and kept the marker per
+design; the marker is cleared with this entry as the investigation record.
+Episode ep20's next completed run is its observation. No analysis surface
+touched; no code change.
