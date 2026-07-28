@@ -663,3 +663,27 @@ refusal coverage retained on an unknown slug. Selftest: ALL 77 CHECKS
 PASSED, zero provider calls, zero spend. Final F report obligation stands:
 distinguish original registration (2026-07-24) from this completion entry;
 architect review to rule per-arm confirmatory vs narrower label.
+
+## F staging — architect review + driver support (2026-07-28)
+
+Architect review (registered obligation, post-implementation): PASS — no
+spec or replay deviations found; selftest re-run confirmed 77/77.
+Per-arm confirmatory-status ruling (to be used verbatim in the final F
+report): fo-tracker CONFIRMATORY (sealed-complete alias); wsls-targeter
+CONFIRMATORY (sealed-complete, operational pins only); ngram2, ngram3,
+switcher-r26, shuffled-history CONFIRMATORY UNDER COMPLETION AMENDMENT
+(prospective, outcome-blind completion; switcher order operator-chosen
+pre-data on a stated design basis). Reviewer directed first staged F
+replay audit to inspect rngCalls profiles (shuffled: 0 for r1–10 then
+n−2; switcher Order A: all 0).
+
+Driver F support added (analysis-surface-neutral dispatch plumbing):
+seat 2 = the arm's pinned opponent for F bodies (enforcement refuses
+anything else); new `preflight-f` plan action implementing the registered
+mechanical shed trigger (shedding-order.md: freeze with the projection
+arithmetic if spent + remaining_need(F) > 21,000; shed application is a
+disclosed resume act) plus zero-spend dry-validation of every remaining F
+episode request; F group added to progress spend printout. Staging plan
+(memo cadence): preflight → preflight-f → block:F:h1 → sentinelg:9
+(gemini-only mid-F, rider 2) → block:F:h2 → sentinel:10 (full, post-F) →
+hold.

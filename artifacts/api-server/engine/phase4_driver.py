@@ -168,7 +168,10 @@ def run_body(arm: dict, registry: dict, *, seed: int, model: str,
         "armId": arm["armId"],
         "game": build_game_def(arm, registry),
         "strategy1Slug": "llm-subject",
-        "strategy2Slug": "llm-subject",
+        # F block: seat 2 is the arm's pinned engine opponent (F-SPEC-1 §2;
+        # enforcement refuses anything else). All other blocks are self-play.
+        "strategy2Slug": (arm["bindings"]["opponent"] if arm["block"] == "F"
+                          else "llm-subject"),
         "numRounds": num_rounds,
         "seed": seed,
         "model": model,
@@ -289,6 +292,53 @@ def act_preflight(state: dict, store: ArmStore, registry: dict, schedule: dict) 
     if dry.get("liveCalls") != 0:
         freeze(state, f"preflight dry run did not report zero live calls: {dry}")
     print(f"preflight dry run ok (bundle {dry.get('bundleSha256', '')[:16]}…)", flush=True)
+
+
+GLOBAL_CAP = 21_000  # budget.md frozen global kill-switch cap
+
+
+def act_preflight_f(state: dict, store: ArmStore, registry: dict, schedule: dict) -> None:
+    """F staging preflight (F-SPEC-1 post-sign-off path):
+    (1) registered shed projection — shedding-order.md's mechanical trigger:
+        if spent + remaining_need(F) > 21,000, FREEZE with the arithmetic; the
+        resume plan applies the registered shed order (whole arms, disclosed
+        in provenance at apply time). No discretionary mid-data call.
+    (2) dry-validation of every remaining F episode request against the
+        enforcement layer at zero spend (seats, rounds, matrix, labels)."""
+    status = http_json("GET", "/phase4/status", timeout=30)
+    if not status.get("sealed") or not status["selfCheck"]["ok"]:
+        freeze(state, f"engine not sealed/self-checked: {json.dumps(status)[:400]}")
+    assert_clean_tree(state)
+
+    block = next(b for b in schedule["blocks"] if b["block"] == "F")
+    remaining = [e for e in block["episodes"]
+                 if f"F|{e['armId']}|ep{e['ep']}" not in state["runs"]]
+    need = 0
+    for e in remaining:
+        nr, truncated = num_rounds_for(store.get(e["armId"]), e["seed"])
+        if truncated or nr is None:
+            freeze(state, f"F horizon rule returned truncated/None for {e} — F is fixed 50 rounds")
+        need += nr  # subject calls: 1 per round (seat 2 is an engine opponent)
+    spent = sum(g["calls"] for g in status["budget"]["byGroup"].values())
+    print(f"F shed projection: spent {spent} + remaining F need {need} = "
+          f"{spent + need} vs global cap {GLOBAL_CAP}", flush=True)
+    if spent + need > GLOBAL_CAP:
+        freeze(state, f"F preflight projection binds: {spent} + {need} > {GLOBAL_CAP} — "
+                      "apply registered shed order (shedding-order.md), whole arms only, "
+                      "disclose in provenance-notes.md, then resume")
+
+    n = 0
+    for e in remaining:
+        arm = store.get(e["armId"])
+        nr, _ = num_rounds_for(arm, e["seed"])
+        http_json("POST", "/phase4/llm-runs",
+                  run_body(arm, registry, seed=e["seed"], model=e["model"],
+                           num_rounds=nr, episode_index=e["ep"],
+                           sentinel_check_index=None, dry=True), timeout=60)
+        n += 1
+        if n % 50 == 0:
+            print(f"dry-F: {n}/{len(remaining)}", flush=True)
+    print(f"F PREFLIGHT PASSED — projection clear, {n} requests dry-validated, zero spend", flush=True)
 
 
 def act_dry_all(state: dict, store: ArmStore, registry: dict, schedule: dict) -> None:
@@ -461,7 +511,8 @@ def act_block(state: dict, store: ArmStore, registry: dict, schedule: dict, name
             g = st["budget"]["byGroup"]
             rate = (i - done0) / max(time.time() - t0, 1e-9)
             print(f"  {name} {i}/{len(eps)}  spend D={g['D']['calls']} X2={g['X2']['calls']} "
-                  f"E={g['E']['calls']} ovh={g['overhead']['calls']}  "
+                  f"E={g['E']['calls']} F={g.get('F', {}).get('calls', 0)} "
+                  f"ovh={g['overhead']['calls']}  "
                   f"({rate * 60:.1f} eps/min, invalids {invalids})", flush=True)
     print(f"block {name} complete ({invalids} invalid trials)", flush=True)
 
@@ -595,6 +646,8 @@ def main() -> None:
             print(f"=== action: {action} ===", flush=True)
             if action == "preflight":
                 act_preflight(state, store, registry, schedule)
+            elif action == "preflight-f":
+                act_preflight_f(state, store, registry, schedule)
             elif action == "dry-all":
                 act_dry_all(state, store, registry, schedule)
             elif action.startswith("sentinelg:"):
