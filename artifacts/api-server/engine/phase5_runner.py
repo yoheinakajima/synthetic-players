@@ -477,6 +477,19 @@ def replay_llm_p5(engine: Engine, run_id: str, *, store: ArmStoreP5,
             if pin is not None and returned != pin:
                 mismatches.append(
                     f"R3: recorded returned model {returned!r} != revision pin {pin!r}")
+        elif e.type == "llm.requested" and arm is not None:
+            # Per-event pin asserts (close-out hardening): every recorded
+            # request must carry the arm's pinned model and temperature —
+            # the run-level llm config alone is not trusted to speak for
+            # each dispatched call.
+            if e.payload.get("model") != arm["model"]:
+                mismatches.append(
+                    f"R3e: requested model {e.payload.get('model')!r} != arm pin "
+                    f"{arm['model']!r} (round {e.payload.get('roundNumber')})")
+            if float(e.payload.get("temperature", -1)) != float(arm["temperature"]):
+                mismatches.append(
+                    f"R2e: requested temperature {e.payload.get('temperature')} != arm pin "
+                    f"{arm['temperature']} (round {e.payload.get('roundNumber')})")
 
     if arm is not None:
         try:

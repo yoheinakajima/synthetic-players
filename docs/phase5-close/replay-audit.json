@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-07-28T19:08:26Z",
+  "verdict": "PASS \u2014 CLEAN",
+  "totals": {
+    "runs": 1712,
+    "ok": 1712,
+    "invalidTrials": 0,
+    "llmCallsVerified": 10428,
+    "bundleShasVerified": 10428,
+    "requestBodyShasVerified": 10428,
+    "parsedActionsVerified": 10428,
+    "recordedLlmCalls": 10428
+  },
+  "perBlock": {
+    "P5-entry": {
+      "runs": 24,
+      "ok": 24,
+      "invalidTrials": 0,
+      "callsVerified": 48
+    },
+    "P5-sentinel": {
+      "runs": 200,
+      "ok": 200,
+      "invalidTrials": 0,
+      "callsVerified": 400
+    },
+    "P5A-os": {
+      "runs": 640,
+      "ok": 640,
+      "invalidTrials": 0,
+      "callsVerified": 1280
+    },
+    "P5A-rep": {
+      "runs": 384,
+      "ok": 384,
+      "invalidTrials": 0,
+      "callsVerified": 3888
+    },
+    "P5B-os": {
+      "runs": 200,
+      "ok": 200,
+      "invalidTrials": 0,
+      "callsVerified": 400
+    },
+    "P5B-rep": {
+      "runs": 120,
+      "ok": 120,
+      "invalidTrials": 0,
+      "callsVerified": 2974
+    },
+    "P5C-os": {
+      "runs": 80,
+      "ok": 80,
+      "invalidTrials": 0,
+      "callsVerified": 160
+    },
+    "P5C-rep": {
+      "runs": 64,
+      "ok": 64,
+      "invalidTrials": 0,
+      "callsVerified": 1278
+    }
+  },
+  "failures": [],
+  "checks": [
+    "bundleSha256 byte-recompute",
+    "requestBodySha256 recompute",
+    "parsed-action re-derivation",
+    "R1 persona re-composition from sealed store",
+    "R2 run-level + R2e per-request temperature pin",
+    "R3 per-response + R3e per-request model/revision pin",
+    "substitution re-derivation from arm bindings",
+    "template sha vs sealed manifest"
+  ],
+  "liveCalls": 0
+}

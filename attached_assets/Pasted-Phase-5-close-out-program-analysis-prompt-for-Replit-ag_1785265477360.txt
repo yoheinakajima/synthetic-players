@@ -1,0 +1,43 @@
+Phase 5 close-out + program analysis prompt for Replit agent
+
+First, governance: the two cancelled tasks carried no operator intent — same rule as before, cancellations are never signals, and asking instead of inferring was exactly right. Instruction arrives with this message: proceed in-session, straight through, batching anything that needs me. Strict ordering below — the sealed pipeline completes and the branch selects BEFORE any exploratory analysis is generated, so the registered record closes untouched by narrative.
+
+1. Preregistered pipeline first (confirmatory, untouched order)
+Replay audits: R1–R3 re-derivation over all recorded Phase 5 runs, plus the reviewer's model/temperature-pin assertion on recorded request events. Byte-exact or stop.
+Sealed-predicate adjudication exactly as registered: P5-1a (restricted set, θ₁=0.10) with unrestricted and by-cell-family secondaries; P5-1b vs the pinned DF2011 values; P5-2 hierarchy; P5-3 existence with θ₂=0.20 grading; P5-4 with the Newcombe intervals and invalid-rate secondaries. Verdicts verbatim from the adjudicator.
+Branch selection: run the registered selection rule, record the verdict-combination row → branch id mapping, quote the selected branch by sha, and show the diff status (byte-identical or not) against the sealed discussion-branches file.
+Seal the close: SHA256SUMS + OTS for the Phase 5 record, phase5-final tag and release, same anchoring discipline as every prior seal.
+2. Phase 5 final report
+
+Registered format, same as Phase 4's finals: verdicts first in registered vocabulary, per-window disclosures where relevant, non-observations enumerated from the scan (not the narrative), amendments and their root causes, sentinel attestation record, budget actuals. The selected discussion branch appears quoted with its sha and anchor timestamp.
+
+3. Cross-phase analysis pack (EXPLORATORY — generated only after §1 closes)
+
+This is preparation for my pre-final paper analysis. Everything here is labeled EXPLORATORY, regenerable from the event store, scripts committed. Deliver as docs/analysis/ with an INDEX.md:
+
+claims-ledger.csv + .md — every registered claim from v1 through P5, one row each: claim id, phase, predicate, threshold and its source, verdict, effect size, CI, n, tier (confirmatory / amendment / replication / descriptive), record pointer. The paper's spine.
+dead-predictions-final.md — the tally updated with Phase 5 resolutions of all twelve live author predictions; final count, same affirmative-refutation standard as before.
+human-anchor-scorecard.csv + .md — regularity × human value with source × subject value with CI × direction match × magnitude match × variance match, per model.
+corner-map.csv + .md — every cell ever run across all phases: phase, game, presentation, wording, context (one-shot/repeated, δ), persona, T, model → mean, episode-gate interior/corner status. One exhaustive table answering "does any interior operating point exist anywhere in the program." Flag the interior rows.
+persona-pack/ — per-persona × cell × T behavioral table with bare-twin deltas; between/within-persona variance decomposition; conflict-cell (hierarchy) outcomes per persona; leaning-vs-behavior correlation.
+temperature-pack/ — interior fraction, choice entropy, and invalid rate by T, bare lanes and persona lanes separated (the de-aliased contrast is the point).
+distribution-pack/ — persona-pool distributions vs the pinned DF2011 panel values: variance ratios and a simple registered-in-the-doc distance metric, figure-ready.
+stability-compendium.md — all behavioral-fingerprint time series across Phases 4–5, both models, with fires, windows, and dispositions in one table; series data as CSV.
+ops-meta.md — program totals: calls, tokens, spend at ledger prices, wall-clock per phase, incidents by class, waste accounting, and the instance-ledger-to-rules mapping.
+figure-sources/ — CSVs backing each candidate figure: the X2 span ladder, the D2 swap table, the E ceiling saturation, the F adversary profile, the gemini oscillation trajectory, the corner map, the temperature curves, the persona mixture. Draft matplotlib renders welcome but the CSVs are the deliverable.
+4. Program synthesis draft
+
+One document, docs/analysis/program-synthesis-DRAFT.md, banner-marked WORKING DRAFT: the full arc v1 → v2 → Phase 3 → X1/X2 → Phase 4 → Phase 5 in descriptive, estimand-level prose — what was registered, what was found, what was refuted, per phase. No new claims, no interpretation beyond the selected branch. This is input to the paper discussion, not the paper.
+
+5. UI + repo draft status
+
+Every paper-like artifact everywhere gets an unmissable status: WORKING DRAFT — PRE-PUBLICATION, NOT FOR CITATION. That means: the lab UI posts (including the original v1/v2 game-theory writeups), every report in docs/, and the README front door. Prefer a mechanical status field rendered by the UI over hand-edits per page, so flipping to published later is one change. The README also states the single-paper plan: one publication after Phase 5, coordinated public drop, everything before it is a draft.
+
+6. Push + verify
+Commit and push everything to main. No history rewrites; secret scan before push, stop-and-report on any hit.
+phase5-final release with assets: final report, adjudication records, the Phase 5 event-store export (versioned, sha'd), the analysis pack, SHA256SUMS.txt + .ots.
+Extend the fresh-clone verification to cover Phase 5: clone, restore, replay byte-exact, adjudicate-all identical, zero live calls, zero secrets. Transcript into docs/close-out-verification.md.
+Repo stays private — the visibility flip happens at the coordinated drop, not now.
+7. Deliverable gate
+
+Reply with: the phase5-final release URL, the fresh-clone verification summary, the selected branch id with its diff status, the final dead-predictions count, and the analysis-pack INDEX listing — plus anything incomplete with reasons. That package comes back to me for the pre-final paper analysis; nothing further dispatches after it.
