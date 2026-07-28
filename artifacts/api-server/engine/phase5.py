@@ -53,9 +53,21 @@ ALLOWED_TEMPERATURES = (0.7, 1.0, 1.3)
 # R3-revision-pin registered values (freeze packet §5).
 PINNED_REVISIONS = {"gpt-4.1": "gpt-4.1-2025-04-14", "gemini-2.5-flash": "gemini-2.5-flash"}
 
-# Kill-switch caps (call-table.json + 7.5% headroom per tier; sealed).
-GLOBAL_CAP_P5 = 8_984
-CAP_GROUPS_P5 = {"P5-A": 4_866, "P5-B": 2_347, "P5-C": 1_316, "P5-overhead": 456}
+# Kill-switch caps — AMENDMENT 1 (operator-approved 2026-07-28, pre-data).
+# Original sealed values (call-table.json estimates + 7.5% headroom):
+#   global 8,984; {"P5-A": 4,866, "P5-B": 2,347, "P5-C": 1,316, "P5-overhead": 456}.
+# Root cause of the bind: the call table priced rep-PD episodes from Phase 4
+# ledger per-episode AVERAGES (~7.4 rounds mean at δ=0.90), but the Phase 5
+# seed lanes deterministically draw longer games (exact seeded need:
+# A 5,168 / B 3,374 / C 1,438 + 424 overhead = 10,404 > 8,984). Horizons are a
+# pure function of the sealed seeds, computed before any dispatch — zero
+# outcome bits observed at amendment time. Amended caps = exact seeded need
+# + 7.5% headroom per tier; global 11,185 ≤ operator standing cap 15,000.
+# Registered rule going forward: sealed call tables for seeded designs are
+# computed from EXACT seeded horizons at freeze, and the linter checks it.
+# See docs/phase5/amendment-1-caps.md.
+GLOBAL_CAP_P5 = 11_185
+CAP_GROUPS_P5 = {"P5-A": 5_556, "P5-B": 3_627, "P5-C": 1_546, "P5-overhead": 456}
 BLOCK_TO_GROUP_P5 = {
     "P5A-rep": "P5-A", "P5A-os": "P5-A",
     "P5B-rep": "P5-B", "P5B-os": "P5-B",
