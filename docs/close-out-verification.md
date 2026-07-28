@@ -85,3 +85,54 @@ change to any artifact in this record.
 The Phase 4 driver is at **hold** with a completed plan and a full sentinel
 attestation record; every workflow is stopped. Any new dispatch requires a
 new sealed registration (see `docs/phase5/process-packet.md`, PROPOSED).
+
+---
+
+# Phase 5 close-out verification (fresh clone), 2026-07-28
+
+Same protocol extended to Phase 5, run after the `phase5-final` tag and
+release were published. Fresh `git clone` into a scratch directory at commit
+`7f1e2bf` (tag `phase5-final`); data restored **only** from the
+`phase5-final` release assets, never from the working tree.
+
+## 1. Asset restore
+
+| step | result |
+|---|---|
+| download `engine.db.xz`, `budget.db.xz`, `phase5-driver-state.json`, `phase5-driver-plan.json`, `DATA-SHA256SUMS.txt` from the `phase5-final` release | PASS |
+| `sha256sum -c DATA-SHA256SUMS.txt` | PASS — all four `OK` |
+| install into `artifacts/api-server/engine/data/` | PASS (databases are sqlite `.backup()` snapshots — WAL folded in) |
+
+## 2. Replay + adjudication, zero live calls, zero secrets
+
+All commands run under `env -u AI_INTEGRATIONS_*` (every provider key and
+base-URL unset):
+
+| step | result |
+|---|---|
+| `phase5_replay_audit.py` | **PASS — CLEAN**: 1,712/1,712 runs byte-exact; 10,428/10,428 recorded calls verified (bundle-sha, request-body-sha, parsed actions, R1 persona re-composition, R2/R2e temperature pins, R3/R3e model pins) |
+| `phase5_closeout_adjudicate.py --selftest` | **ALL PASS** (incl. the 8-row branch-combination table) |
+| `phase5_closeout_adjudicate.py --adjudicate` | PASS — exits 0; axes A=supported, B=at-least-one, C=no; **selectedBranch 2** |
+| replay-audit JSON vs committed record | **IDENTICAL** modulo `generatedAt` |
+| adjudication-report JSON vs committed record | **IDENTICAL** modulo `generatedAt` |
+| secret scan over the full clone | PASS — zero matches for provider/token patterns |
+
+## 3. Anchors (Phase 5 close)
+
+- Pre-dispatch seal anchor (unchanged): `docs/phase5-close/SHA256SUMS.txt` +
+  `.ots` — this remains the registration seal.
+- Close seal: `docs/phase5-close/SHA256SUMS-final.txt` (31 files: final
+  report, all close records, the full analysis pack, and the sealed
+  discussion-branches file) + OpenTimestamps proof
+  `SHA256SUMS-final.txt.ots`, created 2026-07-28, four calendars; upgrades
+  to a Bitcoin attestation via `ots upgrade` later.
+- Annotated tag `phase5-final` (commit `7f1e2bf`) + GitHub release with all
+  assets — GitHub server timestamp is the first anchor. Same disclosed
+  deviation as every prior seal: no GPG signature.
+
+## 4. Quiescence
+
+Both drivers are at **hold** with completed plans ("plan complete"); all 10
+Phase 5 sentinel checks POSITIVE; 0 invalid trials; budget closed at
+10,428/11,185. Under the scope seal (`docs/paper/scope-seal.md`) the program
+ends with paper one — nothing further dispatches.
