@@ -226,3 +226,13 @@ stay manual), `engine/phase5_budget.py` (all prices from budget.db per-run
 actuals). Personas: seeded mulberry32, full trait cross, banned-word guard,
 leaning fixed at generation. Discussion branches pre-committed in
 docs/paper/ before dispatch; linter C5 requires branch per verdict combo.
+
+## Seeded call tables must be exact (Phase 5 amendment 1 lesson)
+For seeded designs, compute sealed budget/call tables from the EXACT seeded
+horizon draws at freeze time — never from per-episode averages of a prior
+phase. **Why:** Phase 5 caps were priced from Phase 4 ledger averages (~7.4
+rounds mean at δ=0.90) while the actual seed lanes drew 12.4; every cap group
+bound at preflight and the registered shed order couldn't clear it, forcing a
+pre-data operator amendment. **How to apply:** at freeze, sum 2×drawn horizon
+over the schedule per cap group; make the seal linter check the call table
+against the schedule's draws.

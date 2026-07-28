@@ -91,3 +91,8 @@ stamp <file>` with `LD_LIBRARY_PATH` pointed at a real openssl lib dir**
 (find it via `ldd` on python's `_ssl` module — /nix/store globbing times
 out). `python -m otsclient.ots` fails silently; python-bitcoinlib's ctypes
 needs libssl.so.3 on the path. Four public calendars respond in seconds.
+
+**Registering a workflow rewrites `.replit`**, which trips clean-worktree
+gates in dispatch drivers and then a head-moved gate after you commit it.
+**How to apply:** register workflows and commit `.replit` BEFORE starting a
+clean-tree-gated driver; expect one unfreeze cycle otherwise.
