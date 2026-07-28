@@ -1,0 +1,141 @@
+{
+  "ledgerPrices": {
+    "oneshot:gpt-4.1": 2,
+    "oneshot:gemini-2.5-flash": 3,
+    "rep-d10:gpt-4.1": 4,
+    "rep-d10:gpt-4.1:mean": 2.05,
+    "rep-d90:gpt-4.1": 44,
+    "rep-d90:gpt-4.1:mean": 14.85,
+    "rep-d10:gemini-2.5-flash": 4,
+    "rep-d10:gemini-2.5-flash:mean": 2.05,
+    "rep-d90:gemini-2.5-flash": 44,
+    "rep-d90:gemini-2.5-flash:mean": 15.36,
+    "sentinel": 2
+  },
+  "rows": [
+    {
+      "tier": "A",
+      "block": "rep-PD d=0.10 x S2{p,a} (2 cells)",
+      "model": "gpt-4.1",
+      "episodes": 192,
+      "callsPerEpisode": 2.05,
+      "calls": 394,
+      "note": "16 personas x 2 cells x 6 ep"
+    },
+    {
+      "tier": "A",
+      "block": "rep-PD d=0.90 x S2{p,a} (2 cells)",
+      "model": "gpt-4.1",
+      "episodes": 192,
+      "callsPerEpisode": 14.85,
+      "calls": 2852,
+      "note": "16 personas x 2 cells x 6 ep"
+    },
+    {
+      "tier": "A",
+      "block": "one-shot label-swap",
+      "model": "gpt-4.1",
+      "episodes": 320,
+      "callsPerEpisode": 2,
+      "calls": 640,
+      "note": "16 x 20 ep"
+    },
+    {
+      "tier": "A",
+      "block": "one-shot community",
+      "model": "gpt-4.1",
+      "episodes": 320,
+      "callsPerEpisode": 2,
+      "calls": 640,
+      "note": "16 x 20 ep"
+    },
+    {
+      "tier": "B",
+      "block": "rep-PD d=0.90 pair, T sweep",
+      "model": "gpt-4.1",
+      "episodes": 96,
+      "callsPerEpisode": 14.85,
+      "calls": 1426,
+      "note": "4 personas x 2 cells x 2 temps x 6 ep"
+    },
+    {
+      "tier": "B",
+      "block": "label-swap, T sweep",
+      "model": "gpt-4.1",
+      "episodes": 160,
+      "callsPerEpisode": 2,
+      "calls": 320,
+      "note": "4 personas x 2 temps x 20 ep"
+    },
+    {
+      "tier": "B",
+      "block": "bare subject, T sweep, d=0.90 pair",
+      "model": "gpt-4.1",
+      "episodes": 24,
+      "callsPerEpisode": 14.85,
+      "calls": 357,
+      "note": "1 bare x 2 cells x 2 temps x 6 ep"
+    },
+    {
+      "tier": "B",
+      "block": "bare subject, T sweep, swap",
+      "model": "gpt-4.1",
+      "episodes": 40,
+      "callsPerEpisode": 2,
+      "calls": 80,
+      "note": "1 bare x 2 temps x 20 ep"
+    },
+    {
+      "tier": "C",
+      "block": "rep-PD d=0.90 pair (gemini)",
+      "model": "gemini-2.5-flash",
+      "episodes": 64,
+      "callsPerEpisode": 15.36,
+      "calls": 984,
+      "note": "8-persona registered half x 2 cells x 4 ep"
+    },
+    {
+      "tier": "C",
+      "block": "label-swap (gemini)",
+      "model": "gemini-2.5-flash",
+      "episodes": 80,
+      "callsPerEpisode": 3,
+      "calls": 240,
+      "note": "8 x 10 ep"
+    },
+    {
+      "tier": "S",
+      "block": "sentinel battery",
+      "model": "both",
+      "episodes": 200,
+      "callsPerEpisode": 2,
+      "calls": 400,
+      "note": "10 checks x 2 models x 2 cells x 5 ep"
+    },
+    {
+      "tier": "S",
+      "block": "gate0-style entry verification",
+      "model": "both",
+      "episodes": 0,
+      "callsPerEpisode": 0,
+      "calls": 24,
+      "note": "revision pin + per-T echo assertion, 3 temps x 2 models x 4 calls"
+    }
+  ],
+  "subtotal": 8357,
+  "tierC_separable": 1224,
+  "headroom": {
+    "rate": 0.075,
+    "calls": 627
+  },
+  "total": 8984,
+  "globalCap": 15000,
+  "underCap": true,
+  "sheddingOrder": [
+    "1. Drop Tier C (gemini replication) whole \u2014 costed separately above",
+    "2. Tier B rep-PD episodes 6 -> 4 per cell (both temps equally)",
+    "3. Tier A rep-PD episodes 6 -> 4 per cell (all personas kept)",
+    "4. One-shot episodes 20 -> 12 (all tiers, all personas kept)",
+    "5. Freeze. NEVER shed personas (kills the zero-of-16 claim) or sentinels (kills attestation) \u2014 shedding reduces episodes only."
+  ]
+}

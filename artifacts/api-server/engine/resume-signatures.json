@@ -1,0 +1,7 @@
+{
+  "comment": "Registered auto-resume signatures for the driver watchdog. ONLY freezes whose reason contains one of these substrings may be auto-resumed (after --reconcile). Everything else — sentinel alerts, attestation gaps, worktree/commit mismatches, budget binds, plan errors — stays frozen for manual investigation. Append-only; changes to this list are registered events.",
+  "registeredAt": "2026-07-28",
+  "signatures": [
+    "AMBIGUOUS transport failure on"
+  ]
+}
