@@ -1,0 +1,1794 @@
+{
+ "pinnedConstants": {
+  "theta1": 0.1,
+  "rho": 0.75,
+  "humanSD": {
+   "d90": 0.3116,
+   "d10": 0.4122
+  },
+  "theta2": 0.2,
+  "p52": [
+   0.8,
+   0.2
+  ]
+ },
+ "decisions": {
+  "recordedAt": "2026-07-28",
+  "kind": "outcome-blind completions of underspecified sealed predicate bits",
+  "procedure": "Completion-amendment pattern: bare-gate table computed from bare data only (docs/phase5-close/adjudication-report.json:P5-1a.bareGateTable); no Phase 5 persona outcome was disclosed to the operator before sign-off. Operator answers recorded verbatim below.",
+  "p51aRestrictedCells": [
+   "rep-d90-s2a",
+   "os-swap"
+  ],
+  "p51aTwinNote": "D1 (exact-only, operator-signed): 'Exact-twin only. Restricted set = {rep-d90-s2a, os-swap}, 32 units. Rationale for the record: the program's own confirmed findings \u2014 context-dependence (D1) and the S2 switch (X2) \u2014 invalidate cross-context and cross-switch twin substitution; options 2 and 3 would ground the flagship predicate in inference patterns this study refuted. The three cells without exact bare twins enter the registered unrestricted secondary and the by-cell-family breakdown flagged \"no exact bare twin,\" and the corner map marks their bare lanes as not run. No bare-lattice completion run: the scope-seal's no-new-arms rule applies, and a post-hoc completion that could expand the restricted set is exactly the discretion the seal forbids. Proceed with adjudication.'",
+  "cellsWithoutExactBareTwin": [
+   "rep-d90-s2p",
+   "rep-d10-s2a",
+   "rep-d10-s2p"
+  ],
+  "p52Coding": {
+   "cooperative-leaning|rep-d10-s2a": {
+    "taskConsistent": "defect-role"
+   },
+   "cooperative-leaning|rep-d90-s2a": {
+    "taskConsistent": "defect-role"
+   },
+   "defect-leaning|rep-d10-s2p": {
+    "taskConsistent": "coop-role"
+   },
+   "defect-leaning|rep-d90-s2p": {
+    "taskConsistent": "coop-role"
+   },
+   "defect-leaning|os-swap": {
+    "taskConsistent": "coop-role"
+   }
+  },
+  "p52Note": "D2 (defect-lean-only, operator-signed): 'Option 1 \u2014 role-level leanings; only defect-leaning \u00d7 swap enters the P5-2 confirmatory conflict set; task direction = the bare-subject word-constant choice [word DEFECT = cooperate role]. Rationale for the record: the registered leaning construct is built from behavioral-trait vocabulary and the banned-word guard excludes all game lexicon from persona texts, so the construct is codable only at the role level; word-level persona influence is a mechanism hypothesis, not the registered construct. Option 2 rejected for level-inconsistency \u2014 persona-consistency may not mean role for one leaning and word for the other within a single estimand. Coop-leaning \u00d7 swap cells are reported descriptively as a word-level dissociation probe (any pull toward the COOPERATE-worded option is exploratory evidence of lexical persona operation). Record this as the third outcome-blind completion in the ledger series, and extend the linter going forward: conflict-cell coding must be pinned at freeze for any cell where word and role dissociate. Proceed.' Rep-cell coding (unambiguous, both parties): task-consistent = defect in S2-absent, cooperate in S2-present; round-1, seat-level.",
+  "p52DescriptiveProbes": [
+   "cooperative-leaning|os-swap (word-level dissociation probe, exploratory only)"
+  ],
+  "axisARule": "p51a-only",
+  "axisANote": "D3 (p51a-only, operator-signed): 'Option 1 \u2014 Axis A = the P5-1a verdict alone; P5-1b reported in full alongside, selecting within-branch variant text where the branch file provides it, never the branch itself. Rationale for the record: (1) statistical \u2014 between-persona variance is shape-blind; a corner mixture produces maximal variance and can numerically match human panel spread while being bimodal, so the mixture axis must key off the shape-sensitive interior-fraction gate, which is what P5-1a is; (2) procedural \u2014 \"corner-mixture-consistent under P5-1b\" is a per-cell classification absent from the sealed predicates, and compounding Axis A would risk verdict combinations outside the linter-certified 8-row table. One consistency check before executing: confirm the sealed combination table Axis A column enumerates P5-1a verdict values only, and record that confirmation with the completion. Log this as the fourth outcome-blind completion, and extend the linter: branch-selection axes must enumerate their bearing predicates explicitly at freeze. Proceed to selection.'",
+  "axisAConsistencyCheck": "CONFIRMED before adjudication: docs/phase5/lint-manifest.json verdictBranches.combinationTable Axis A column values are exactly {supported, not-supported} \u2014 the P5-1a verdict vocabulary; no P5-1b term appears in any of the 8 certified rows.",
+  "linterFollowUps": [
+   "conflict-cell coding must be pinned at freeze for any cell where word and role dissociate",
+   "branch-selection axes must enumerate their bearing predicates explicitly at freeze"
+  ]
+ },
+ "P5-1a": {
+  "restrictedCells": [
+   "rep-d90-s2a",
+   "os-swap"
+  ],
+  "restrictedN": 32,
+  "restrictedInterior": 3,
+  "restrictedFraction": 0.09375,
+  "verdict": "supported",
+  "unrestrictedFraction": 0.14583333333333334,
+  "byFamily": {
+   "os-community": {
+    "n": 16,
+    "interior": 2,
+    "fraction": 0.125
+   },
+   "os-swap": {
+    "n": 16,
+    "interior": 0,
+    "fraction": 0.0
+   },
+   "rep-\u03b410": {
+    "n": 32,
+    "interior": 4,
+    "fraction": 0.125
+   },
+   "rep-\u03b490": {
+    "n": 32,
+    "interior": 8,
+    "fraction": 0.25
+   }
+  },
+  "bareGateTable": {
+   "sent-bare-gpt (pd-rep-w1-neu \u03b490 T0.7, exact template)": {
+    "k": 0,
+    "n": 100,
+    "mean": 0.0,
+    "cp95": [
+     0.0,
+     0.03621669264517641
+    ],
+    "interior": false,
+    "episodes": 50,
+    "gateStatus": "NOT interior (gate fails \u2192 restricted-set candidate)"
+   },
+   "p4-d2-w1-can-sw-gpt (os-swap exact twin)": {
+    "k": 0,
+    "n": 40,
+    "mean": 0.0,
+    "cp95": [
+     0.0,
+     0.08809730287880237
+    ],
+    "interior": false,
+    "episodes": 20,
+    "gateStatus": "NOT interior (gate fails \u2192 restricted-set candidate)"
+   },
+   "p3-community-bare (pd-oneshot-v1 community gpt T0.7)": {
+    "k": 7,
+    "n": 42,
+    "mean": 0.16666666666666666,
+    "cp95": [
+     0.06974066365567509,
+     0.3136408668806712
+    ],
+    "interior": true,
+    "episodes": 21,
+    "gateStatus": "INTERIOR (gate passes)"
+   },
+   "p4-d1-can-w1-neu-cf-ad-gpt (one-shot wording match, w1-neu)": {
+    "k": 0,
+    "n": 20,
+    "mean": 0.0,
+    "cp95": [
+     0.0,
+     0.1684334709830853
+    ],
+    "interior": false,
+    "episodes": 10,
+    "gateStatus": "NOT interior (gate fails \u2192 restricted-set candidate)"
+   },
+   "p4-d1-can-w2a-neu-cf-ad-gpt (one-shot wording match, w2a-neu)": {
+    "k": 0,
+    "n": 20,
+    "mean": 0.0,
+    "cp95": [
+     0.0,
+     0.1684334709830853
+    ],
+    "interior": false,
+    "episodes": 10,
+    "gateStatus": "NOT interior (gate fails \u2192 restricted-set candidate)"
+   }
+  },
+  "twinDecision": "D1 (exact-only, operator-signed): 'Exact-twin only. Restricted set = {rep-d90-s2a, os-swap}, 32 units. Rationale for the record: the program's own confirmed findings \u2014 context-dependence (D1) and the S2 switch (X2) \u2014 invalidate cross-context and cross-switch twin substitution; options 2 and 3 would ground the flagship predicate in inference patterns this study refuted. The three cells without exact bare twins enter the registered unrestricted secondary and the by-cell-family breakdown flagged \"no exact bare twin,\" and the corner map marks their bare lanes as not run. No bare-lattice completion run: the scope-seal's no-new-arms rule applies, and a post-hoc completion that could expand the restricted set is exactly the discretion the seal forbids. Proceed with adjudication.'"
+ },
+ "P5-1b": {
+  "cells": {
+   "rep-d10-s2a": {
+    "n": 16,
+    "betweenPersonaSD": 0.42406624002144516,
+    "humanSD": 0.4122,
+    "rho": 0.75,
+    "threshold": 0.30915000000000004,
+    "verdict": "corner-mixture-consistent"
+   },
+   "rep-d10-s2p": {
+    "n": 16,
+    "betweenPersonaSD": 0.480041471973844,
+    "humanSD": 0.4122,
+    "rho": 0.75,
+    "threshold": 0.30915000000000004,
+    "verdict": "corner-mixture-consistent"
+   },
+   "rep-d90-s2a": {
+    "n": 16,
+    "betweenPersonaSD": 0.4453657984673323,
+    "humanSD": 0.3116,
+    "rho": 0.75,
+    "threshold": 0.2337,
+    "verdict": "corner-mixture-consistent"
+   },
+   "rep-d90-s2p": {
+    "n": 16,
+    "betweenPersonaSD": 0.43617524298450566,
+    "humanSD": 0.3116,
+    "rho": 0.75,
+    "threshold": 0.2337,
+    "verdict": "corner-mixture-consistent"
+   }
+  },
+  "oneShotNote": "one-shot cells: null (predicate defined for matched rep-PD cells only; never 0)"
+ },
+ "P5-2": {
+  "byConflictCell": {
+   "cooperative-leaning|rep-d10-s2a": {
+    "k": 37,
+    "n": 96,
+    "share": 0.3854166666666667,
+    "cp95": [
+     0.28782302980608276,
+     0.4902813701463655
+    ],
+    "verdict": "mixed"
+   },
+   "cooperative-leaning|rep-d90-s2a": {
+    "k": 30,
+    "n": 96,
+    "share": 0.3125,
+    "cp95": [
+     0.22175264431207148,
+     0.4151815974671896
+    ],
+    "verdict": "mixed"
+   },
+   "defect-leaning|os-swap": {
+    "k": 0,
+    "n": 320,
+    "share": 0.0,
+    "cp95": [
+     0.0,
+     0.011461558388074885
+    ],
+    "verdict": "persona-dominant"
+   },
+   "defect-leaning|rep-d10-s2p": {
+    "k": 9,
+    "n": 96,
+    "share": 0.09375,
+    "cp95": [
+     0.043770383262710065,
+     0.1705185443412363
+    ],
+    "verdict": "persona-dominant"
+   },
+   "defect-leaning|rep-d90-s2p": {
+    "k": 14,
+    "n": 96,
+    "share": 0.14583333333333334,
+    "cp95": [
+     0.08208470827129134,
+     0.2325635591377562
+    ],
+    "verdict": "mixed"
+   }
+  },
+  "pooled": {
+   "k": 90,
+   "n": 704,
+   "share": 0.1278409090909091,
+   "cp95": [
+    0.10406628385909734,
+    0.15478396637679906
+   ],
+   "verdict": "persona-dominant"
+  },
+  "coding": {
+   "cooperative-leaning|rep-d10-s2a": {
+    "taskConsistent": "defect-role"
+   },
+   "cooperative-leaning|rep-d90-s2a": {
+    "taskConsistent": "defect-role"
+   },
+   "defect-leaning|rep-d10-s2p": {
+    "taskConsistent": "coop-role"
+   },
+   "defect-leaning|rep-d90-s2p": {
+    "taskConsistent": "coop-role"
+   },
+   "defect-leaning|os-swap": {
+    "taskConsistent": "coop-role"
+   }
+  },
+  "note": "D2 (defect-lean-only, operator-signed): 'Option 1 \u2014 role-level leanings; only defect-leaning \u00d7 swap enters the P5-2 confirmatory conflict set; task direction = the bare-subject word-constant choice [word DEFECT = cooperate role]. Rationale for the record: the registered leaning construct is built from behavioral-trait vocabulary and the banned-word guard excludes all game lexicon from persona texts, so the construct is codable only at the role level; word-level persona influence is a mechanism hypothesis, not the registered construct. Option 2 rejected for level-inconsistency \u2014 persona-consistency may not mean role for one leaning and word for the other within a single estimand. Coop-leaning \u00d7 swap cells are reported descriptively as a word-level dissociation probe (any pull toward the COOPERATE-worded option is exploratory evidence of lexical persona operation). Record this as the third outcome-blind completion in the ledger series, and extend the linter going forward: conflict-cell coding must be pinned at freeze for any cell where word and role dissociate. Proceed.' Rep-cell coding (unambiguous, both parties): task-consistent = defect in S2-absent, cooperate in S2-present; round-1, seat-level.",
+  "verdict": "persona-dominant"
+ },
+ "P5-3": {
+  "perPersona": {
+   "p01": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 41,
+       "n": 60,
+       "cpLB": 0.5504403122359474,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p02": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 47,
+       "n": 60,
+       "cpLB": 0.6580438212653474,
+       "passes": true
+      },
+      "1.0": {
+       "k": 34,
+       "n": 40,
+       "cpLB": 0.7016473331604235,
+       "passes": true
+      },
+      "1.3": {
+       "k": 31,
+       "n": 40,
+       "cpLB": 0.6154883226965773,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p03": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p04": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 5,
+        "n": 12,
+        "mean": 0.4166666666666667,
+        "cp95": [
+         0.15165222980843013,
+         0.7233303143178942
+        ],
+        "interior": true
+       },
+       "d10": {
+        "k": 7,
+        "n": 12,
+        "mean": 0.5833333333333334,
+        "cp95": [
+         0.2766696856821058,
+         0.8483477701915698
+        ],
+        "interior": true
+       },
+       "bothInterior": true,
+       "slope": {
+        "method": "BCa(20260801) one-sided 95% lower bound",
+        "estimate": -0.16666666666666669,
+        "lowerBound95": -0.5,
+        "pOneSided": 0.968032563413505
+       },
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p05": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 7,
+        "n": 12,
+        "mean": 0.5833333333333334,
+        "cp95": [
+         0.2766696856821058,
+         0.8483477701915698
+        ],
+        "interior": true
+       },
+       "d10": {
+        "k": 6,
+        "n": 12,
+        "mean": 0.5,
+        "cp95": [
+         0.21094463823929666,
+         0.7890553617607033
+        ],
+        "interior": true
+       },
+       "bothInterior": true,
+       "slope": {
+        "method": "BCa(20260801) one-sided 95% lower bound",
+        "estimate": 0.08333333333333337,
+        "lowerBound95": -0.16666666666666663,
+        "pOneSided": 0.3744104249756438
+       },
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 7,
+        "n": 12,
+        "mean": 0.5833333333333334,
+        "cp95": [
+         0.2766696856821058,
+         0.8483477701915698
+        ],
+        "interior": true
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p06": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 48,
+       "n": 60,
+       "cpLB": 0.6766995761987096,
+       "passes": true
+      },
+      "1.0": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      },
+      "1.3": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p07": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 7,
+        "n": 12,
+        "mean": 0.5833333333333334,
+        "cp95": [
+         0.2766696856821058,
+         0.8483477701915698
+        ],
+        "interior": true
+       },
+       "d10": {
+        "k": 2,
+        "n": 12,
+        "mean": 0.16666666666666666,
+        "cp95": [
+         0.020862525460092384,
+         0.48413774868596704
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 55,
+       "n": 60,
+       "cpLB": 0.8161422166234142,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p08": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p09": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 44,
+       "n": 60,
+       "cpLB": 0.6033896599745044,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p10": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 2,
+        "n": 12,
+        "mean": 0.16666666666666666,
+        "cp95": [
+         0.020862525460092384,
+         0.48413774868596704
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 1,
+        "n": 12,
+        "mean": 0.08333333333333333,
+        "cp95": [
+         0.0021075932318602264,
+         0.38479616515094406
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p11": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 12,
+        "n": 12,
+        "mean": 1.0,
+        "cp95": [
+         0.7353515306029488,
+         1.0
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      },
+      "1.0": {
+       "k": 39,
+       "n": 40,
+       "cpLB": 0.8684141415172343,
+       "passes": true
+      },
+      "1.3": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p12": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 3,
+        "n": 12,
+        "mean": 0.25,
+        "cp95": [
+         0.05486064452799272,
+         0.5718584618781891
+        ],
+        "interior": true
+       },
+       "d10": {
+        "k": 2,
+        "n": 12,
+        "mean": 0.16666666666666666,
+        "cp95": [
+         0.020862525460092384,
+         0.48413774868596704
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p13": {
+    "passes": true,
+    "viaA": true,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 9,
+        "n": 12,
+        "mean": 0.75,
+        "cp95": [
+         0.4281415381218108,
+         0.9451393554720072
+        ],
+        "interior": true
+       },
+       "d10": {
+        "k": 4,
+        "n": 12,
+        "mean": 0.3333333333333333,
+        "cp95": [
+         0.09924609114958328,
+         0.6511244935811844
+        ],
+        "interior": true
+       },
+       "bothInterior": true,
+       "slope": {
+        "method": "BCa(20260801) one-sided 95% lower bound",
+        "estimate": 0.4166666666666667,
+        "lowerBound95": 0.08333333333333326,
+        "pOneSided": 0.047312666256204824
+       },
+       "passes": true
+      },
+      "s2p": {
+       "d90": {
+        "k": 4,
+        "n": 12,
+        "mean": 0.3333333333333333,
+        "cp95": [
+         0.09924609114958328,
+         0.6511244935811844
+        ],
+        "interior": true
+       },
+       "d10": {
+        "k": 1,
+        "n": 12,
+        "mean": 0.08333333333333333,
+        "cp95": [
+         0.0021075932318602264,
+         0.38479616515094406
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 50,
+       "n": 60,
+       "cpLB": 0.7147807451712972,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p14": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 52,
+       "n": 60,
+       "cpLB": 0.7540777788695802,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p15": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 10,
+        "n": 12,
+        "mean": 0.8333333333333334,
+        "cp95": [
+         0.5158622513140328,
+         0.9791374745399076
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 6,
+        "n": 12,
+        "mean": 0.5,
+        "cp95": [
+         0.21094463823929666,
+         0.7890553617607033
+        ],
+        "interior": true
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 6,
+        "n": 12,
+        "mean": 0.5,
+        "cp95": [
+         0.21094463823929666,
+         0.7890553617607033
+        ],
+        "interior": true
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      },
+      "1.0": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      },
+      "1.3": {
+       "k": 40,
+       "n": 40,
+       "cpLB": 0.9119026971211976,
+       "passes": true
+      }
+     }
+    }
+   },
+   "p16": {
+    "passes": true,
+    "viaA": false,
+    "viaB": true,
+    "detail": {
+     "a": {
+      "s2a": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      },
+      "s2p": {
+       "d90": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "d10": {
+        "k": 0,
+        "n": 12,
+        "mean": 0.0,
+        "cp95": [
+         0.0,
+         0.2646484693970512
+        ],
+        "interior": false
+       },
+       "bothInterior": false,
+       "passes": false
+      }
+     },
+     "b": {
+      "0.7": {
+       "k": 52,
+       "n": 60,
+       "cpLB": 0.7540777788695802,
+       "passes": true
+      }
+     }
+    }
+   }
+  },
+  "passing": [
+   "p01",
+   "p02",
+   "p03",
+   "p04",
+   "p05",
+   "p06",
+   "p07",
+   "p08",
+   "p09",
+   "p10",
+   "p11",
+   "p12",
+   "p13",
+   "p14",
+   "p15",
+   "p16"
+  ],
+  "axisB": "at-least-one",
+  "registeredPrediction": "zero of 16 pass",
+  "predictionOutcome": "failed"
+ },
+ "P5-4": {
+  "matchedUnits": {
+   "T0.7": 12,
+   "T1.3": 12
+  },
+  "interiorFraction": {
+   "T0.7": 0.08333333333333333,
+   "T1.3": 0.25
+  },
+  "newcombeOneSidedLB95_diff_T13_minus_T07": -0.0952072351266931,
+  "clause1": "not refuted",
+  "clause2": "non-estimable (registered aliasing disclosure: T is not crossed with \u03b4=0.10; \u03b4-slope at T\u2208{1.0,1.3} has no \u03b4=0.10 cell \u2014 clause cannot fire; disclosed, not adjudicated)",
+  "verdict": "not refuted",
+  "axisC": "no",
+  "descriptiveT10": {
+   "n": 12,
+   "fraction": 0.16666666666666666
+  },
+  "secondaries": {
+   "invalidRateByT": {
+    "0.7": {
+     "invalid": 0,
+     "runs": 1376,
+     "rate": 0.0
+    },
+    "1.0": {
+     "invalid": 0,
+     "runs": 168,
+     "rate": 0.0
+    },
+    "1.3": {
+     "invalid": 0,
+     "runs": 168,
+     "rate": 0.0
+    }
+   },
+   "round1ChoiceEntropyByT": {
+    "0.7": 0.9057042357051235,
+    "1.0": 0.7868287672763264,
+    "1.3": 0.77655578544446
+   }
+  }
+ },
+ "interiorMap": {
+  "p01|os-community": false,
+  "p01|os-swap": false,
+  "p01|rep-d10-s2a": false,
+  "p01|rep-d10-s2p": false,
+  "p01|rep-d90-s2a": false,
+  "p01|rep-d90-s2p": false,
+  "p02|os-community": false,
+  "p02|os-swap": false,
+  "p02|rep-d10-s2a": false,
+  "p02|rep-d10-s2p": false,
+  "p02|rep-d90-s2a": false,
+  "p02|rep-d90-s2p": false,
+  "p03|os-community": false,
+  "p03|os-swap": false,
+  "p03|rep-d10-s2a": false,
+  "p03|rep-d10-s2p": false,
+  "p03|rep-d90-s2a": false,
+  "p03|rep-d90-s2p": false,
+  "p04|os-community": false,
+  "p04|os-swap": false,
+  "p04|rep-d10-s2a": false,
+  "p04|rep-d10-s2p": true,
+  "p04|rep-d90-s2a": false,
+  "p04|rep-d90-s2p": true,
+  "p05|os-community": false,
+  "p05|os-swap": false,
+  "p05|rep-d10-s2a": true,
+  "p05|rep-d10-s2p": false,
+  "p05|rep-d90-s2a": true,
+  "p05|rep-d90-s2p": true,
+  "p06|os-community": false,
+  "p06|os-swap": false,
+  "p06|rep-d10-s2a": false,
+  "p06|rep-d10-s2p": false,
+  "p06|rep-d90-s2a": false,
+  "p06|rep-d90-s2p": false,
+  "p07|os-community": false,
+  "p07|os-swap": false,
+  "p07|rep-d10-s2a": false,
+  "p07|rep-d10-s2p": false,
+  "p07|rep-d90-s2a": true,
+  "p07|rep-d90-s2p": false,
+  "p08|os-community": false,
+  "p08|os-swap": false,
+  "p08|rep-d10-s2a": false,
+  "p08|rep-d10-s2p": false,
+  "p08|rep-d90-s2a": false,
+  "p08|rep-d90-s2p": false,
+  "p09|os-community": false,
+  "p09|os-swap": false,
+  "p09|rep-d10-s2a": false,
+  "p09|rep-d10-s2p": false,
+  "p09|rep-d90-s2a": false,
+  "p09|rep-d90-s2p": false,
+  "p10|os-community": false,
+  "p10|os-swap": false,
+  "p10|rep-d10-s2a": false,
+  "p10|rep-d10-s2p": false,
+  "p10|rep-d90-s2a": false,
+  "p10|rep-d90-s2p": false,
+  "p11|os-community": false,
+  "p11|os-swap": false,
+  "p11|rep-d10-s2a": false,
+  "p11|rep-d10-s2p": false,
+  "p11|rep-d90-s2a": false,
+  "p11|rep-d90-s2p": false,
+  "p12|os-community": false,
+  "p12|os-swap": false,
+  "p12|rep-d10-s2a": false,
+  "p12|rep-d10-s2p": false,
+  "p12|rep-d90-s2a": false,
+  "p12|rep-d90-s2p": true,
+  "p13|os-community": true,
+  "p13|os-swap": false,
+  "p13|rep-d10-s2a": true,
+  "p13|rep-d10-s2p": false,
+  "p13|rep-d90-s2a": true,
+  "p13|rep-d90-s2p": true,
+  "p14|os-community": false,
+  "p14|os-swap": false,
+  "p14|rep-d10-s2a": false,
+  "p14|rep-d10-s2p": false,
+  "p14|rep-d90-s2a": false,
+  "p14|rep-d90-s2p": false,
+  "p15|os-community": true,
+  "p15|os-swap": false,
+  "p15|rep-d10-s2a": true,
+  "p15|rep-d10-s2p": false,
+  "p15|rep-d90-s2a": false,
+  "p15|rep-d90-s2p": true,
+  "p16|os-community": false,
+  "p16|os-swap": false,
+  "p16|rep-d10-s2a": false,
+  "p16|rep-d10-s2p": false,
+  "p16|rep-d90-s2a": false,
+  "p16|rep-d90-s2p": false
+ },
+ "tierCDescriptive": {
+  "p01|os-swap": {
+   "k": 18,
+   "n": 20,
+   "mean": 0.9,
+   "cp95": [
+    0.6830172859809177,
+    0.9876514728297052
+   ],
+   "interior": false
+  },
+  "p01|rep-d90-s2a": {
+   "k": 6,
+   "n": 8,
+   "mean": 0.75,
+   "cp95": [
+    0.3491442055871758,
+    0.9681459737500557
+   ],
+   "interior": false
+  },
+  "p01|rep-d90-s2p": {
+   "k": 2,
+   "n": 8,
+   "mean": 0.25,
+   "cp95": [
+    0.031854026249944226,
+    0.6508557944128242
+   ],
+   "interior": false
+  },
+  "p02|os-swap": {
+   "k": 9,
+   "n": 20,
+   "mean": 0.45,
+   "cp95": [
+    0.2305778967759241,
+    0.6847218669594515
+   ],
+   "interior": true
+  },
+  "p02|rep-d90-s2a": {
+   "k": 6,
+   "n": 8,
+   "mean": 0.75,
+   "cp95": [
+    0.3491442055871758,
+    0.9681459737500557
+   ],
+   "interior": false
+  },
+  "p02|rep-d90-s2p": {
+   "k": 7,
+   "n": 8,
+   "mean": 0.875,
+   "cp95": [
+    0.47349032912479344,
+    0.9968402764687481
+   ],
+   "interior": false
+  },
+  "p06|os-swap": {
+   "k": 12,
+   "n": 20,
+   "mean": 0.6,
+   "cp95": [
+    0.36054258730748967,
+    0.8088099392746928
+   ],
+   "interior": true
+  },
+  "p06|rep-d90-s2a": {
+   "k": 2,
+   "n": 8,
+   "mean": 0.25,
+   "cp95": [
+    0.031854026249944226,
+    0.6508557944128242
+   ],
+   "interior": false
+  },
+  "p06|rep-d90-s2p": {
+   "k": 1,
+   "n": 8,
+   "mean": 0.125,
+   "cp95": [
+    0.0031597235312519063,
+    0.5265096708752065
+   ],
+   "interior": false
+  },
+  "p07|os-swap": {
+   "k": 5,
+   "n": 20,
+   "mean": 0.25,
+   "cp95": [
+    0.08657146910143461,
+    0.49104587170795744
+   ],
+   "interior": true
+  },
+  "p07|rep-d90-s2a": {
+   "k": 3,
+   "n": 8,
+   "mean": 0.375,
+   "cp95": [
+    0.08523341413725354,
+    0.7551367836334484
+   ],
+   "interior": true
+  },
+  "p07|rep-d90-s2p": {
+   "k": 1,
+   "n": 8,
+   "mean": 0.125,
+   "cp95": [
+    0.0031597235312519063,
+    0.5265096708752065
+   ],
+   "interior": false
+  },
+  "p09|os-swap": {
+   "k": 16,
+   "n": 20,
+   "mean": 0.8,
+   "cp95": [
+    0.5633859970033317,
+    0.9426660029499672
+   ],
+   "interior": true
+  },
+  "p09|rep-d90-s2a": {
+   "k": 7,
+   "n": 8,
+   "mean": 0.875,
+   "cp95": [
+    0.47349032912479344,
+    0.9968402764687481
+   ],
+   "interior": false
+  },
+  "p09|rep-d90-s2p": {
+   "k": 0,
+   "n": 8,
+   "mean": 0.0,
+   "cp95": [
+    0.0,
+    0.3694166475528192
+   ],
+   "interior": false
+  },
+  "p13|os-swap": {
+   "k": 10,
+   "n": 20,
+   "mean": 0.5,
+   "cp95": [
+    0.27195784956079183,
+    0.7280421504392081
+   ],
+   "interior": true
+  },
+  "p13|rep-d90-s2a": {
+   "k": 4,
+   "n": 8,
+   "mean": 0.5,
+   "cp95": [
+    0.15701277048705795,
+    0.842987229512942
+   ],
+   "interior": true
+  },
+  "p13|rep-d90-s2p": {
+   "k": 0,
+   "n": 8,
+   "mean": 0.0,
+   "cp95": [
+    0.0,
+    0.3694166475528192
+   ],
+   "interior": false
+  },
+  "p14|os-swap": {
+   "k": 8,
+   "n": 20,
+   "mean": 0.4,
+   "cp95": [
+    0.1911900607253072,
+    0.6394574126925103
+   ],
+   "interior": true
+  },
+  "p14|rep-d90-s2a": {
+   "k": 0,
+   "n": 8,
+   "mean": 0.0,
+   "cp95": [
+    0.0,
+    0.3694166475528192
+   ],
+   "interior": false
+  },
+  "p14|rep-d90-s2p": {
+   "k": 0,
+   "n": 8,
+   "mean": 0.0,
+   "cp95": [
+    0.0,
+    0.3694166475528192
+   ],
+   "interior": false
+  },
+  "p16|os-swap": {
+   "k": 8,
+   "n": 20,
+   "mean": 0.4,
+   "cp95": [
+    0.1911900607253072,
+    0.6394574126925103
+   ],
+   "interior": true
+  },
+  "p16|rep-d90-s2a": {
+   "k": 0,
+   "n": 8,
+   "mean": 0.0,
+   "cp95": [
+    0.0,
+    0.3694166475528192
+   ],
+   "interior": false
+  },
+  "p16|rep-d90-s2p": {
+   "k": 0,
+   "n": 8,
+   "mean": 0.0,
+   "cp95": [
+    0.0,
+    0.3694166475528192
+   ],
+   "interior": false
+  }
+ },
+ "axes": {
+  "A": "supported",
+  "B": "at-least-one",
+  "C": "no"
+ },
+ "selectedBranch": 2
+}

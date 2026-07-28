@@ -1,0 +1,9 @@
+presentation,model,delta,meanRound1Coop,n
+dselected,gpt-4.1,d10,0.75,20
+dselected,gpt-4.1,d90,1.0,20
+dselected,gemini-2.5-flash,d10,0.075,20
+dselected,gemini-2.5-flash,d90,0.45,20
+community,gpt-4.1,d10,1.0,20
+community,gpt-4.1,d90,1.0,20
+community,gemini-2.5-flash,d10,0.725,20
+community,gemini-2.5-flash,d90,0.725,20

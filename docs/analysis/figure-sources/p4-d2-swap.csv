@@ -1,0 +1,17 @@
+family,cell,level,mean
+gpt,can-al,role,0.0625
+gpt,can-sw,role,1.0
+gpt,cfd-al,role,0.7875
+gpt,cfd-sw,role,1.0
+gpt,can-al,word,0.0625
+gpt,can-sw,word,0.0
+gpt,cfd-al,word,0.7875
+gpt,cfd-sw,word,0.0
+cvx,can-al,role,0.0
+cvx,can-sw,role,0.2125
+cvx,cfd-al,role,0.6375
+cvx,cfd-sw,role,0.975
+cvx,can-al,word,0.0
+cvx,can-sw,word,0.7875
+cvx,cfd-al,word,0.6375
+cvx,cfd-sw,word,0.025

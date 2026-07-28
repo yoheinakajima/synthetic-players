@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDateTime } from '@/lib/format';
 import { FileText } from 'lucide-react';
+import { PRE_PUBLICATION, DRAFT_BANNER } from '@/lib/publicationStatus';
 
 export default function PaperDetail() {
   const { id } = useParams();
@@ -43,6 +44,11 @@ export default function PaperDetail() {
   return (
     <article className="max-w-4xl mx-auto py-12 px-4 md:px-8 bg-card shadow-sm border mt-8 mb-24 rounded-lg animate-in fade-in duration-700">
       <header className="mb-16 text-center">
+        {PRE_PUBLICATION && (
+          <div className="border border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded px-4 py-2 font-mono text-xs uppercase tracking-widest text-center mb-8" data-testid="banner-draft-status">
+            {DRAFT_BANNER}
+          </div>
+        )}
         <div className="flex justify-center mb-6">
           <Badge variant={paper.status === 'complete' ? 'outline' : 'secondary'} className="uppercase tracking-widest text-[10px]">
             {paper.status}

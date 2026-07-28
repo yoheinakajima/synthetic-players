@@ -1,0 +1,24 @@
+{
+  "recordedAt": "2026-07-28",
+  "kind": "outcome-blind completions of underspecified sealed predicate bits",
+  "procedure": "Completion-amendment pattern: bare-gate table computed from bare data only (docs/phase5-close/adjudication-report.json:P5-1a.bareGateTable); no Phase 5 persona outcome was disclosed to the operator before sign-off. Operator answers recorded verbatim below.",
+  "p51aRestrictedCells": ["rep-d90-s2a", "os-swap"],
+  "p51aTwinNote": "D1 (exact-only, operator-signed): 'Exact-twin only. Restricted set = {rep-d90-s2a, os-swap}, 32 units. Rationale for the record: the program's own confirmed findings — context-dependence (D1) and the S2 switch (X2) — invalidate cross-context and cross-switch twin substitution; options 2 and 3 would ground the flagship predicate in inference patterns this study refuted. The three cells without exact bare twins enter the registered unrestricted secondary and the by-cell-family breakdown flagged \"no exact bare twin,\" and the corner map marks their bare lanes as not run. No bare-lattice completion run: the scope-seal's no-new-arms rule applies, and a post-hoc completion that could expand the restricted set is exactly the discretion the seal forbids. Proceed with adjudication.'",
+  "cellsWithoutExactBareTwin": ["rep-d90-s2p", "rep-d10-s2a", "rep-d10-s2p"],
+  "p52Coding": {
+    "cooperative-leaning|rep-d10-s2a": {"taskConsistent": "defect-role"},
+    "cooperative-leaning|rep-d90-s2a": {"taskConsistent": "defect-role"},
+    "defect-leaning|rep-d10-s2p": {"taskConsistent": "coop-role"},
+    "defect-leaning|rep-d90-s2p": {"taskConsistent": "coop-role"},
+    "defect-leaning|os-swap": {"taskConsistent": "coop-role"}
+  },
+  "p52Note": "D2 (defect-lean-only, operator-signed): 'Option 1 — role-level leanings; only defect-leaning × swap enters the P5-2 confirmatory conflict set; task direction = the bare-subject word-constant choice [word DEFECT = cooperate role]. Rationale for the record: the registered leaning construct is built from behavioral-trait vocabulary and the banned-word guard excludes all game lexicon from persona texts, so the construct is codable only at the role level; word-level persona influence is a mechanism hypothesis, not the registered construct. Option 2 rejected for level-inconsistency — persona-consistency may not mean role for one leaning and word for the other within a single estimand. Coop-leaning × swap cells are reported descriptively as a word-level dissociation probe (any pull toward the COOPERATE-worded option is exploratory evidence of lexical persona operation). Record this as the third outcome-blind completion in the ledger series, and extend the linter going forward: conflict-cell coding must be pinned at freeze for any cell where word and role dissociate. Proceed.' Rep-cell coding (unambiguous, both parties): task-consistent = defect in S2-absent, cooperate in S2-present; round-1, seat-level.",
+  "p52DescriptiveProbes": ["cooperative-leaning|os-swap (word-level dissociation probe, exploratory only)"],
+  "axisARule": "p51a-only",
+  "axisANote": "D3 (p51a-only, operator-signed): 'Option 1 — Axis A = the P5-1a verdict alone; P5-1b reported in full alongside, selecting within-branch variant text where the branch file provides it, never the branch itself. Rationale for the record: (1) statistical — between-persona variance is shape-blind; a corner mixture produces maximal variance and can numerically match human panel spread while being bimodal, so the mixture axis must key off the shape-sensitive interior-fraction gate, which is what P5-1a is; (2) procedural — \"corner-mixture-consistent under P5-1b\" is a per-cell classification absent from the sealed predicates, and compounding Axis A would risk verdict combinations outside the linter-certified 8-row table. One consistency check before executing: confirm the sealed combination table Axis A column enumerates P5-1a verdict values only, and record that confirmation with the completion. Log this as the fourth outcome-blind completion, and extend the linter: branch-selection axes must enumerate their bearing predicates explicitly at freeze. Proceed to selection.'",
+  "axisAConsistencyCheck": "CONFIRMED before adjudication: docs/phase5/lint-manifest.json verdictBranches.combinationTable Axis A column values are exactly {supported, not-supported} — the P5-1a verdict vocabulary; no P5-1b term appears in any of the 8 certified rows.",
+  "linterFollowUps": [
+    "conflict-cell coding must be pinned at freeze for any cell where word and role dissociate",
+    "branch-selection axes must enumerate their bearing predicates explicitly at freeze"
+  ]
+}

@@ -16,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Link } from 'wouter';
 import { FileText, Plus } from 'lucide-react';
 import { formatDateTime } from '@/lib/format';
+import { PRE_PUBLICATION, DRAFT_BANNER } from '@/lib/publicationStatus';
 
 const paperSchema = z.object({
   title: z.string().min(1, "Title required"),
@@ -48,6 +49,11 @@ export default function Papers() {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      {PRE_PUBLICATION && (
+        <div className="border border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded px-4 py-2 font-mono text-xs uppercase tracking-widest text-center" data-testid="banner-draft-status">
+          {DRAFT_BANNER}
+        </div>
+      )}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
           <h1 className="text-3xl font-serif font-bold tracking-tight">Research Papers</h1>

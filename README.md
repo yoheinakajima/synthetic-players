@@ -1,5 +1,12 @@
 # Synthetic Players: a game-theory research lab that survived its own author
 
+> **STATUS: WORKING DRAFT — PRE-PUBLICATION, NOT FOR CITATION.** The program
+> is complete through Phase 5 and closes with **one paper** synthesizing
+> v1→Phase 5 (working draft:
+> [docs/analysis/program-synthesis-DRAFT.md](docs/analysis/program-synthesis-DRAFT.md)).
+> Everything in this repository is citable-in-principle from its sealed
+> records, but no document is final until the coordinated public drop.
+
 This repository is a full research program on how large language models play
 games — run end-to-end under pre-registered, mechanically adjudicated,
 fail-closed protocol. The central empirical finding: **LLM subject behavior is
@@ -20,8 +27,9 @@ observation replays byte-exact from an append-only event store; and every
 process failure along the way — 22 of them — is on the record with the rule
 it produced. See [docs/instance-ledger.md](docs/instance-ledger.md) (the
 protocol contribution) and
-[docs/dead-predictions.md](docs/dead-predictions.md) (ten author predictions
-the machinery refuted, enumerated from the record).
+[docs/analysis/dead-predictions-final.md](docs/analysis/dead-predictions-final.md)
+(**twelve** author predictions the machinery refuted across five phases,
+enumerated from the record — including both registered Phase 5 predictions).
 
 ## Phase map
 
@@ -32,6 +40,7 @@ the machinery refuted, enumerated from the record).
 | X1 | Paraphrase fragility: the 0.000 cooperation corner flips to 1.000 under rewording, same seeds | registered in phase3-report §6 | [docs/phase4/x1-semantic-equivalence.md](docs/phase4/x1-semantic-equivalence.md), [parser audit](docs/phase4/x1-parser-audit.md) |
 | X2 | Which tokens carry the effect: screening + sealed confirmation | [freeze packet](docs/phase4/freeze-packet.md), [predicates](docs/phase4/predicates.md) | [screening](docs/phase4/x2-screening-report.md), [confirmation](docs/phase4/x2-confirmation-report.md) — supported (+0.925, LB .708) |
 | Phase 4 | The main sealed program: D1 presentation factors, D2 role/word decomposition, D3 labeled-option bias, E δ-sensitivity, F adversarial exploitability, cross-vendor twin (gemini-2.5-flash), continuous sentinel monitoring | [freeze packet](docs/phase4/freeze-packet.md) · [predicates](docs/phase4/predicates.md) · [seal record](docs/phase4/seal-record.md) | **[docs/phase4/final-report.md](docs/phase4/final-report.md)** and per-family reports in [docs/phase4/](docs/phase4/) |
+| Phase 5 | The conditioning layer: 16 sealed personas × the program's instruments, surface-cue dominance, temperature sweep (0.7/1.0/1.3), pre-committed discussion branches | [freeze packet](docs/phase5/process-packet.md) · [seal record](docs/phase5/seal-record.md) · [amendment 1](docs/phase5/amendment-1-caps.md) | **[docs/phase5/final-report.md](docs/phase5/final-report.md)** · [adjudication](docs/phase5-close/adjudication-report.md) · **Branch 2 selected** ([record](docs/phase5-close/branch-selection.md)) |
 
 ## Final verdicts (Phase 4; primary tier gpt-4.1 — details in the final report)
 
@@ -47,6 +56,22 @@ the machinery refuted, enumerated from the record).
 | F | secondaries (Holm m=6) | ngram2 exploits subject (+0.215); fo-tracker **negative** (−0.118 — subject beats it); rest n.s. |
 | F | shuffled < fo directional | Not supported (−0.083) |
 | F | cross-vendor tier | **Descriptive-only** (sentinel alert 6 ruling — see [memo](docs/phase4/sentinel-alert-6-memo.md)) |
+
+## Final verdicts (Phase 5 — details in [docs/phase5/final-report.md](docs/phase5/final-report.md))
+
+| Claim | Verdict |
+|---|---|
+| P5-1a persona pools are corner mixtures | **Supported** (restricted interior fraction 3/32 = 0.094 < 0.10 — by one unit; disclosed) |
+| P5-1b between-persona SD vs human panels | **Corner-mixture-consistent** in all 4 matched cells |
+| P5-2 surface-cue dominance | **Persona-dominant** — the author's registered task-dominant prediction failed (pooled task-consistent share 0.128, CP95 [0.104, 0.155]) |
+| P5-3 interior-persona existence | **16/16 pass** against a registered prediction of zero; persona p13 passes the Family-E signature (δ-slope LB +0.083 > 0) — the program's only such pass |
+| P5-4 temperature refutation | **Not refuted** (Newcombe LB −0.095); descriptively, entropy *fell* with T and invalids stayed 0 |
+
+Axes A=supported · B=at-least-one · C=no select **Branch 2 — "an interior
+persona exists"** from the pre-committed, hash-sealed
+[discussion branches](docs/paper/discussion-branches.md)
+(byte-identical to the sealed sha —
+[branch-selection record](docs/phase5-close/branch-selection.md)).
 
 ## Reproducibility contract
 
@@ -85,12 +110,18 @@ clone is in [docs/close-out-verification.md](docs/close-out-verification.md).
   `SHA256SUMS.txt`, and an OpenTimestamps proof on the sums file as the second
   independent anchor.
 
-## Status: closed
+## Status: program closed (scope-sealed at one paper)
 
-Phase 4 is complete and the live infrastructure is **quiescent**: the driver
-is at hold, and any new dispatch requires a new sealed registration. All
-Phase 5 material ([docs/phase5/](docs/phase5/)) is **PROPOSED — unregistered,
-unsealed, not run**.
+Phases 4 and 5 are complete; both drivers are at hold ("plan complete") and
+any new dispatch requires a new sealed registration. Phase 5 closed clean:
+1,712/1,712 runs replay byte-exact, 0 invalid trials, all 10 sentinel checks
+positive, 10,428/11,185 budget. The close-out record is in
+[docs/phase5-close/](docs/phase5-close/); the exploratory cross-program
+analysis pack (claims ledger, dead predictions, human-anchor scorecard,
+persona/temperature/distribution packs) starts at
+[docs/analysis/INDEX.md](docs/analysis/INDEX.md). Under the
+[scope seal](docs/paper/scope-seal.md) the program ends with **paper one**;
+no new arms.
 
 ## Repository layout
 
