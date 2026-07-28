@@ -341,6 +341,141 @@ def create_phase4_resolution(body: P4ResolutionRequest) -> dict[str, Any]:
     )
 
 
+# ── Phase 5 endpoints (persona × temperature; sealed rules R1–R3) ───────────
+# Phase 4 routes above are sealed — never edited; Phase 5 is appended.
+
+from phase5 import (  # noqa: E402
+    ArmStoreP5,
+    BudgetLedgerP5,
+    PHASE5_PROTOCOL,
+    PersonaStore,
+    validate_run_request_p5,
+)
+from phase5_runner import dry_run_p5, replay_llm_p5, run_llm_p5  # noqa: E402
+
+
+def _p5_bootstrap() -> dict[str, Any]:
+    try:
+        registry, _sha = load_registry()
+        store = ArmStoreP5()
+        personas = PersonaStore()  # re-verifies every preamble sha (R1)
+        ledger = BudgetLedgerP5()
+        check = self_check(registry, store)
+        return {"store": store, "personas": personas, "ledger": ledger, "check": check}
+    except Exception as e:  # disclosed via /phase5/status, never silent
+        return {
+            "store": None, "personas": None, "ledger": None,
+            "check": {"ok": False, "templatesChecked": 0,
+                      "mismatches": [f"bootstrap failure: {type(e).__name__}: {e}"]},
+        }
+
+
+P5 = _p5_bootstrap()
+print(
+    f"[phase5] startup self-check ok={P5['check']['ok']} "
+    f"templatesChecked={P5['check'].get('templatesChecked', 0)} "
+    f"personas={len(P5['personas'].personas) if P5['personas'] else 0} "
+    f"mismatches={len(P5['check'].get('mismatches', []))}",
+    flush=True,
+)
+
+
+def _p5_ready() -> None:
+    if P5["store"] is None or P5["personas"] is None or not P5["check"]["ok"]:
+        raise HTTPException(status_code=503, detail={
+            "error": "Phase 5 endpoints disabled: startup self-check failed",
+            "selfCheck": P5["check"],
+        })
+
+
+class P5RunRequest(BaseModel):
+    armId: str
+    game: GameDefModel
+    strategy1Slug: str
+    strategy2Slug: str
+    numRounds: int = Field(ge=1, le=200)
+    seed: int = Field(ge=0, le=0xFFFFFFFF)
+    model: str
+    # Temperature is PER-ARM in Phase 5: the client states it explicitly and
+    # the server refuses any value that differs from the arm's sealed pin.
+    temperature: float = Field(ge=0.0, le=2.0)
+    maxTokens: int = PHASE5_PROTOCOL["maxTokens"]
+    episodeIndex: Optional[int] = Field(default=None, ge=1)
+    sentinelCheckIndex: Optional[int] = Field(default=None, ge=0)
+    dryRun: bool = False
+
+
+@app.get("/phase5/status")
+def phase5_status() -> dict[str, Any]:
+    reg, sha = load_registry()
+    out: dict[str, Any] = {
+        "selfCheck": P5["check"],
+        "registryVersion": reg.get("registryVersion"),
+        "registrySha256": sha,
+        "sealed": not str(reg.get("registryVersion", "")).endswith("-proposed"),
+        "protocol": PHASE5_PROTOCOL,
+    }
+    if P5["ledger"] is not None:
+        out["budget"] = P5["ledger"].totals_p5()
+    if P5["store"] is not None:
+        out["armsManifestSha256"] = P5["store"].manifest_sha
+        out["arms"] = len(P5["store"].arms)
+    if P5["personas"] is not None:
+        out["personasFileSha256"] = P5["personas"].file_sha
+        out["personas"] = len(P5["personas"].personas)
+    return out
+
+
+@app.post("/phase5/llm-runs")
+def create_phase5_run(body: P5RunRequest) -> dict[str, Any]:
+    """Phase 5 run against a sealed arm. Enforcement-first exactly as Phase 4;
+    additionally pins persona sha (R1) and per-arm temperature (R2), and the
+    runner aborts on any revision-pin mismatch (R3). Live runs require the
+    registry sealed; dryRun is zero-spend."""
+    _p5_ready()
+    reg, _sha = load_registry()
+    version = str(reg.get("registryVersion", ""))
+    if version.endswith("-proposed") and not body.dryRun:
+        raise HTTPException(
+            status_code=403,
+            detail=(f"registry {version} is not sealed; live Phase 5 runs are "
+                    "refused until the seal record exists (dryRun is allowed)"))
+
+    def _do() -> dict[str, Any]:
+        arm = P5["store"].get(body.armId)
+        pinned = validate_run_request_p5(
+            arm=arm, registry=reg, store=P5["store"], personas=P5["personas"],
+            game_def=body.game.model_dump(),
+            strategy1_slug=body.strategy1Slug, strategy2_slug=body.strategy2Slug,
+            num_rounds=body.numRounds, seed=body.seed, model=body.model,
+            temperature=body.temperature, max_tokens=body.maxTokens,
+            episode_index=body.episodeIndex,
+            sentinel_check_index=body.sentinelCheckIndex,
+        )
+        if body.dryRun:
+            return dry_run_p5(
+                arm=arm, pinned=pinned, game_def=body.game.model_dump(),
+                num_rounds=body.numRounds, seed=body.seed, model=body.model,
+                store=P5["store"])
+        return run_llm_p5(
+            engine, arm=arm, pinned=pinned, game_def=body.game.model_dump(),
+            strategy1_slug=body.strategy1Slug, strategy2_slug=body.strategy2Slug,
+            num_rounds=body.numRounds, seed=body.seed, model=body.model,
+            episode_index=body.episodeIndex,
+            sentinel_check_index=body.sentinelCheckIndex,
+            store=P5["store"], ledger=P5["ledger"])
+
+    return _guard(_do)
+
+
+@app.post("/phase5/llm-runs/{run_id}/replay")
+def replay_phase5_run(run_id: str) -> dict[str, Any]:
+    """Extended Phase 5 replay: Phase 4 checks + R1 composition re-derivation
+    from the sealed persona store + R2/R3 record checks. Zero live calls."""
+    _p5_ready()
+    return _guard(replay_llm_p5, engine, run_id, store=P5["store"], personas=P5["personas"])
+
+
 if __name__ == "__main__":
     import uvicorn
 

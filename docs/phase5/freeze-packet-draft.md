@@ -106,16 +106,44 @@ store-derived indexing, verdict branches written before dispatch.
 
 **P5-1 corner mixture.** Persona pools are mixtures of corners, not interior
 distributions.
-- P5-1a (interior fraction): unit = persona-cell (Tier A: 16 personas × 6
-  cells = 96). A persona-cell is *interior* iff its episode-level cooperation
-  CP interval sits **wholly inside (0.05, 0.95)** — the Phase 4 two-sided
-  gate reused verbatim. Supported iff interior fraction < **θ₁ = 0.10**
-  (draft; **PIN AT FREEZE**).
-- P5-1b (population variance): between-persona SD of round-1 cooperation per
-  cell vs published human within-condition between-subject panels. Human
-  source: Dal Bó & Fréchette (2011 AER; 2018 JEL survey) repeated-PD panels,
-  matched by δ regime. Exact panel values and the ratio threshold **PIN AT
-  FREEZE** with citations in the predicate, as always.
+- P5-1a (interior fraction) — **AMENDED AT FREEZE (operator, 2026-07-28)**:
+  unit = persona-cell. A persona-cell is *interior* iff its episode-level
+  cooperation CP interval sits **wholly inside (0.05, 0.95)** — the Phase 4
+  two-sided gate reused verbatim. **Primary set (restricted):** only
+  persona-cells whose **bare twin fails the interior gate** (the same
+  two-sided gate applied to the recorded bare data at T = 0.7). Supported iff
+  the interior fraction on that restricted set < **θ₁ = 0.10 (PINNED)**.
+  Registered edge case: if the restricted set is empty (every bare cell is
+  interior), P5-1a is **undefined — null verdict, disclosed**, never coerced
+  to supported/refuted. **Registered secondaries:** unrestricted interior
+  fraction over all 96 persona-cells; by-cell-family breakdown (rep δ=.90,
+  rep δ=.10, one-shot swap, one-shot community).
+- P5-1b (population variance) — **PINNED AT FREEZE**. Human source:
+  Dal Bó & Fréchette (2011), "The Evolution of Cooperation in Infinitely
+  Repeated Games: Experimental Evidence," *American Economic Review* 101(1):
+  411–429. Payoff matching: our normalized stage-game gain
+  (R−P)/(T−P) = 0.5 sits nearest their **R = 40** column
+  ((40−25)/(50−25) = 0.6; R=32 → 0.28, R=48 → 0.92), so both matched panels
+  come from R = 40. δ matching by regime: our δ=.90 (cooperation
+  supportable) ↔ their δ=¾; our δ=.10 (SPE defect) ↔ their δ=½.
+  **Panel values echoed in the seal record:**
+  - Table 3, first-round cooperation, last seven interactions:
+    δ=¾, R=40 = **61.10%**; δ=½, R=40 = **18.72%**.
+  - Table 7, strategy-frequency estimates, R=40 columns (bootstrapped SEs):
+    δ=½: AD 0.783 (0.074), AC 0.078 (0.059), G 0.040 (0.040), TFT 0.098
+    (0.070), WSLS 0.000 (0.007), T2 0.000, γ 0.541 (1.077).
+    δ=¾: AD 0.109 (0.096), AC 0.296 (0.123), G 0.267 (0.202), TFT 0.327
+    (0.186), WSLS 0.000 (0.000), T2 0.000, γ 0.435 (0.126).
+  - Mechanical map (registered): each strategy's round-1 move is a corner —
+    AD → defect; AC, G, TFT, WSLS, T2 → cooperate. Cooperative-start share
+    q(δ=¾) = 0.891, q(δ=½) = 0.217. Implied human between-subject round-1
+    SD = √(q(1−q)): **0.3116** (δ=¾) and **0.4122** (δ=½).
+  - Predicate: per matched rep-PD cell (the four rep cells only; one-shot
+    cells have no matched δ panel → **null, not 0**), the persona pool is
+    corner-mixture-consistent iff between-persona SD of persona-level
+    round-1 cooperation ≥ **ρ × implied human SD** for the matched panel,
+    with **ρ = 0.75 (PINNED)** — rationale: within one bootstrap-SE band of
+    the human point values; constant chosen before any Phase 5 data exists.
 
 **P5-2 surface-cue dominance hierarchy.** Conflict cells: cooperative-leaning
 × S2-absent; defect-leaning × S2-present; each leaning × label-swap.
@@ -130,7 +158,7 @@ iff, at any registered temperature: (a) both its δ cells (matched S2 level)
 have episode means inside the two-sided gate **and** its δ-slope (round-1
 coop at δ=.90 − δ=.10) has one-sided 95% LB > 0 — the Phase 4 Family-E assay
 reused; **or** (b) it refuses the dominated mislabeled option in the swap
-cell with CP LB ≥ **θ₂ = 0.20** (draft; **PIN AT FREEZE**; bare subject's
+cell with CP LB ≥ **θ₂ = 0.20 (PINNED AT FREEZE, operator 2026-07-28)** (bare subject's
 observed rate and human anchors cited at freeze). **Registered operator
 prediction: zero of 16 passes** (and zero in the sweep). One passing persona
 relocates human-likeness into the conditioning; zero across 16 × 3
@@ -138,7 +166,8 @@ temperatures completes the paper's strongest claim.
 
 **P5-4 temperature.** Confirmatory: interior fraction does not increase with
 T on the sweep subset — refuted iff LB(interior fraction at T=1.3 − at
-T=0.7, matched cells/personas, CI method pinned at freeze) > 0, **or** a
+T=0.7, matched cells/personas; **CI method PINNED: Newcombe score-based
+interval for a difference of proportions, one-sided 95% lower bound**) > 0, **or** a
 persona×cell shows δ-slope LB > 0 at T ∈ {1.0, 1.3} where the same
 persona×cell shows none at 0.7. Registered secondaries: invalid rate per T,
 choice entropy per T; behavioral change decomposed from parse degradation
@@ -235,14 +264,31 @@ discussion-branches + scope-seal hashes. Seal procedure identical to
 three-layer anchors for the Phase 5 dispatch/enforcement/replay code),
 SHA256SUMS, annotated tag + GitHub release + OTS stamp.
 
-## §9 Sign-off checklist (operator)
+## §9 Sign-off record (operator, 2026-07-28) — ALL APPROVED
 
-1. Predicate thresholds: θ₁ (P5-1a), P5-1b human panel values + ratio, θ₂
-   (P5-3b), P5-4 CI method — approve drafts or set values (**PIN AT FREEZE**).
-2. Persona registry as generated (seed 20260728) — approve or order a reroll
-   with a new registered seed (no hand-edits; the procedure is the registry).
-3. Fraction, aliasing consequences, call table, shedding order — approve.
-4. Gemini Tier C — keep (1,224 calls) or drop now.
-5. Discussion branches + scope seal — approve as sealed material.
-6. One-line approval → predicates freeze → registry v4 seals + anchors →
-   entry battery (live) → dispatch.
+1. **Pinned:** θ₁ = 0.10 on the amended (bare-twin-restricted) P5-1a set;
+   θ₂ = 0.20; P5-1b panel values from Dal Bó & Fréchette (2011 AER) Tables
+   3 and 7 with ρ = 0.75 (values echoed in §4 and in the seal record);
+   P5-4 CI method = Newcombe one-sided 95% LB.
+2. **Persona seed 20260728 approved, no reroll** — operator: rerolling
+   without a rule violation is itself selection. The banned-content guard's
+   full list is part of the seal record (§1) for the paper.
+3. Fraction, four aliasing consequences, call table, shedding order —
+   **approved**. Tier B bare-subject temperature twin **approved** (de-alias
+   worth its 437 calls).
+4. Gemini Tier C **kept** (1,224 calls): cross-vendor twin, replication
+   framing + per-window indexing from day one; personas and sentinels never
+   shed, as registered.
+5. Discussion branches + scope seal **approved as sealed material**; the
+   branch-file sha enters registry v4 and the paper's methods section cites
+   the sha + anchor timestamp.
+6. 24-call entry battery (revision pin + per-T echo) **approved as ledgered
+   overhead** immediately post-seal.
+
+**Freeze order:** amended packet re-lints clean → registry v4 seals →
+external anchor → entry battery → dispatch.
+
+**Banned-content guard (verbatim, from the persona generator; sealed):**
+`["game", "cooperat", "defect", "strateg", "opponent", "payoff", ...]` — the
+authoritative list is `bannedContentGuard` in `personas-v4-proposed.json`,
+sha-anchored with registry v4; the generator fails closed on any hit.
