@@ -214,4 +214,9 @@ sys.exit(1)
 if __name__ == "__main__":
     if "--selftest" in sys.argv:
         sys.exit(selftest())
+    if "--phase5" in sys.argv:
+        p5_state = os.path.join(ENGINE, "data", "phase5-driver-state.json")
+        p5_cmd = [sys.executable, os.path.join(ENGINE, "phase5_driver.py")]
+        sys.exit(supervise(state_path=p5_state, driver_cmd=p5_cmd,
+                           reconcile_cmd=p5_cmd + ["--reconcile"]))
     sys.exit(supervise())
