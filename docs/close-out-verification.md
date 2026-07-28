@@ -92,7 +92,7 @@ new sealed registration (see `docs/phase5/process-packet.md`, PROPOSED).
 
 Same protocol extended to Phase 5, run after the `phase5-final` tag and
 release were published. Fresh `git clone` into a scratch directory at commit
-`7f1e2bf` (tag `phase5-final`); data restored **only** from the
+`71efd08` and successors (tag `phase5-final`; replay/adjudication identity verified at `7f1e2bf`, unchanged by the post-review doc/CSV fixes); data restored **only** from the
 `phase5-final` release assets, never from the working tree.
 
 ## 1. Asset restore
@@ -126,7 +126,7 @@ base-URL unset):
   discussion-branches file) + OpenTimestamps proof
   `SHA256SUMS-final.txt.ots`, created 2026-07-28, four calendars; upgrades
   to a Bitcoin attestation via `ots upgrade` later.
-- Annotated tag `phase5-final` (commit `7f1e2bf`) + GitHub release with all
+- Annotated tag `phase5-final` (commit `71efd08`) + GitHub release with all
   assets — GitHub server timestamp is the first anchor. Same disclosed
   deviation as every prior seal: no GPG signature.
 
