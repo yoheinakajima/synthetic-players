@@ -280,3 +280,8 @@ E-R2 lineage ruling recorded (record authoritative; note stands; audit
 found no amendment-origin claim in the rendered prose). Shuffled-history
 base confirmed by operator: fo-tracker on the causal shuffled prefix.
 Spend unchanged: F 0/11,600; global 8,600/21,000. Hold stands.
+
+- 2026-07-28 (F-SPEC-1 implementation round): operator signed all packet
+  items (Order A); strategies implemented + selftests green (77/77). Zero
+  provider calls, zero spend this round. Hold on live dispatch stands until
+  driver staging per cadence + architect review.

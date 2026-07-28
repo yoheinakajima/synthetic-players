@@ -639,3 +639,27 @@ Recorded clarifications folded into the packet:
 
 Status: **awaiting operator sign-off** (packet §9). Implementation,
 selftest flip, architect review, and driver staging remain HELD.
+
+## F-SPEC-1 REGISTERED — operator sign-off (2026-07-28)
+
+Operator sign-off received 2026-07-28 (form responses; recorded here and in
+`f-opponent-specs.md` §9.1). Decisions: O3 ngram2 ACCEPTED; O4 ngram3
+ACCEPTED; O5 switcher semantics ACCEPTED (boundary = r26 first regime-B
+decision, 25/25; regimes {fo-tracker, wsls-targeter}; no reset, true round
+numbers); O5 order = **Order A** (fo-tracker r1–25 → wsls-targeter r26–50),
+resolved on a stated design basis (within-episode baseline → exploitation-
+onset contrast against the primary conjunction's exploiter; 0-draw property
+noted as tiebreaker only — full text in §9.1); O6 shuffled-history
+COUNTERSIGNED (Fisher–Yates pin + zero-draw burn-in); O1 alias and O2 wsls
+pins ACKNOWLEDGED.
+
+Implementation completed same day per the registered post-sign-off path:
+pure functions + fo-tracker alias in `engine/strategies.py` (F-SPEC-1
+comments cite the packet); engine selftest extended with every §8 fixture
+asserted verbatim (F1–F6, incl. PRNG constants, permutation + shuffled-
+prefix archival, and the F5 boundary simulation); the F "not implemented"
+refusal selftest flipped to a positive acceptance check, with fail-closed
+refusal coverage retained on an unknown slug. Selftest: ALL 77 CHECKS
+PASSED, zero provider calls, zero spend. Final F report obligation stands:
+distinguish original registration (2026-07-24) from this completion entry;
+architect review to rule per-arm confirmatory vs narrower label.

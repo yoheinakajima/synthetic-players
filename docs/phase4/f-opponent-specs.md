@@ -1,6 +1,8 @@
 # Family F opponent specifications — completion amendment F-SPEC-1
 
 **Status: PROPOSED (draft for operator sign-off) — 2026-07-25.**
+**Status update: REGISTERED — 2026-07-28 (operator sign-off recorded in §9.1;
+mirrored in `provenance-notes.md`).**
 No engine implementation, selftest change, or live dispatch occurs before the
 operator signs the completed specification (sign-off block, §9). On sign-off
 this document becomes REGISTERED and the decision is mirrored in
@@ -386,3 +388,31 @@ dispatch before this sign-off.** Post-sign-off path: implementation
 (fixtures above; refusal-test flip) → architect review (incl. §8
 confirmatory-status determination per arm) → driver staging per the sealed
 cadence and shedding order.
+
+### 9.1 Sign-off record — 2026-07-28 (appended; table above left as filed)
+
+Operator responses received 2026-07-28 via the sign-off form; recorded
+verbatim in `provenance-notes.md`. Every item resolves:
+
+| Item | Decision |
+|---|---|
+| O3 `ngram2` (§4) | **ACCEPTED as registered** |
+| O4 `ngram3` (§4) | **ACCEPTED as registered** |
+| O5 `switcher-r26` semantics (§6.1, §6.2, §6.4) | **ACCEPTED as registered** |
+| O5 regime order (§6.3) | **Order A** (fo-tracker r1–25 → wsls-targeter r26–50) |
+| O6 `shuffled-history` (§7) | **COUNTERSIGNED** (Fisher–Yates pin + zero-draw burn-in) |
+| O1 alias (§3), O2 pins (§5) | **ACKNOWLEDGED** |
+
+Order A was resolved on a stated scientific basis, not convenience
+(operator, 2026-07-28): the fo-tracker half replicates the Phase 3
+condition as a within-episode baseline, so wsls-targeter switching on at
+r26 reads as a before/after contrast against a known regime — exploitation
+onset, and whether the subject's near-deterministic lose-shift persists
+once it starts losing, is measured within-episode against its own
+baseline. A′ would instead measure post-exploitation carryover, secondary
+to the registered central prediction. The 0-draw property of Order A is a
+tiebreaker only.
+
+This document is REGISTERED as of this entry. The hold on engine
+implementation is lifted; live F dispatch remains gated on the sealed
+driver cadence and architect review per the post-sign-off path above.

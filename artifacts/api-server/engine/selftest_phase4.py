@@ -22,7 +22,7 @@ os.environ["BUDGET_DB_PATH"] = os.path.join(_TMP, "budget.db")  # before imports
 
 from engine import Engine  # noqa: E402
 from llm_subject import PARSER_VERSION, load_registry  # noqa: E402
-from strategies import STRATEGIES  # noqa: E402
+from strategies import STRATEGIES, CountingRng, get_action  # noqa: E402
 from activegraph.llm.types import LLMResponse  # noqa: E402
 
 import phase4  # noqa: E402
@@ -145,6 +145,85 @@ def pd_game(rr, rs, rt, rp, swapped=False, labels=("J", "F")):
     }
 
 
+def run_f_fixture_checks(rps_std) -> None:
+    """F-SPEC-1 §8 fixture traces, asserted verbatim (registered 2026-07-28).
+    Subject = seat 1, adversary = seat 2; r/p/s = 0/1/2."""
+    print("— F opponent fixtures (F-SPEC-1 §8) —")
+    game = {"slug": "phase4-rps", "numActions": 3,
+            "actionLabels": ["rock", "paper", "scissors"],
+            "payoffMatrix": rps_std, "nashEquilibria": []}
+
+    def hist(subject, adversary=None):
+        adversary = adversary if adversary is not None else [0] * len(subject)
+        rows = []
+        for a1, a2 in zip(subject, adversary):
+            p1, p2 = rps_std[a1][a2]
+            rows.append({"p1Action": a1, "p2Action": a2,
+                         "p1Payoff": p1, "p2Payoff": p2})
+        return rows
+
+    def check(label, slug, history, expect_action, expect_draws, seed=424242):
+        rng = CountingRng(seed)
+        action, reasoning = get_action(slug, history, 2, game, rng)
+        ok(label, action == expect_action and rng.calls == expect_draws,
+           f"action={action} draws={rng.calls} reasoning={reasoning!r}")
+        return reasoning
+
+    r, p, s = 0, 1, 2
+    ok("fo-tracker is a byte-identical alias of pattern-tracker",
+       STRATEGIES["fo-tracker"] is STRATEGIES["pattern-tracker"])
+
+    # F1 fo-tracker
+    check("F1 burn-in r5", "fo-tracker", hist([r, p, s, r]), p, 0)
+    check("F1 first-usable r11", "fo-tracker", hist([r, p, s, r, p, s, r, p, s, r]), s, 0)
+    check("F1 unseen+tie r11", "fo-tracker", hist([p, s, p, s, p, s, p, s, p, r]), r, 0)
+    check("F1 ordinary r13", "fo-tracker", hist([r, p, s, r, p, s, r, p, s, r, p, s]), p, 0)
+
+    # F2 wsls-targeter
+    check("F2 round-1 uniform (seed 424242 -> rock, 1 draw)", "wsls-targeter", [], r, 1)
+    check("F2 after subject WIN (s,+1) -> rock", "wsls-targeter", hist([s], [p]), r, 0)
+    check("F2 after subject LOSS (s,-1) -> paper", "wsls-targeter", hist([s], [r]), p, 0)
+    check("F2 after TIE (p,0) -> scissors", "wsls-targeter", hist([p], [p]), s, 0)
+
+    # F3 ngram2
+    alt = [r, p, r, p, r, p, r, p, r, p]
+    check("F3 burn-in r5", "ngram2", hist([r, p, r, p]), p, 0)
+    check("F3 first-usable r11 (counter alternator)", "ngram2", hist(alt), p, 0)
+    check("F3 ordinary r12 (a11=r)", "ngram2", hist(alt + [r]), s, 0)
+    check("F3 unseen+tie r12 (a11=s)", "ngram2", hist(alt + [s]), r, 0)
+
+    # F4 ngram3
+    cyc10 = [r, p, s, r, p, s, r, p, s, r]
+    check("F4 burn-in r5", "ngram3", hist([r, p, s, r]), p, 0)
+    check("F4 first-usable r11", "ngram3", hist(cyc10), s, 0)
+    check("F4 ordinary r12 (a11=p)", "ngram3", hist(cyc10 + [p]), r, 0)
+    check("F4 unseen+tie r12 (a11=r)", "ngram3", hist(cyc10 + [r]), r, 0)
+
+    # F5 switcher-r26 (Order A) — simulate vs the cycling subject, 27 rounds
+    history, sw_actions, sw_draws = [], {}, 0
+    for n in range(1, 28):
+        a1 = (n - 1) % 3
+        rng = CountingRng(424242)
+        a2, _ = get_action("switcher-r26", history, 2, game, rng)
+        sw_draws += rng.calls
+        sw_actions[n] = a2
+        p1, p2 = rps_std[a1][a2]
+        history.append({"p1Action": a1, "p2Action": a2, "p1Payoff": p1, "p2Payoff": p2})
+    ok("F5 boundary r24-27 = rock/paper/scissors/rock",
+       (sw_actions[24], sw_actions[25], sw_actions[26], sw_actions[27]) == (r, p, s, r),
+       str({k: sw_actions[k] for k in (24, 25, 26, 27)}))
+    ok("F5 Order A episode draws = 0", sw_draws == 0, str(sw_draws))
+
+    # F6 shuffled-history
+    check("F6 burn-in r5 (no permutation drawn)", "shuffled-history", hist([r, p, s, r]), p, 0)
+    reasoning = check("F6 r11 (seed 424242 -> paper, 9 draws)",
+                      "shuffled-history", hist(cyc10), p, 9)
+    ok("F6 permutation archived in round record",
+       "perm=[1, 3, 0, 7, 6, 8, 4, 5, 9, 2]" in reasoning, reasoning)
+    ok("F6 shuffled prefix archived (b = p,r,r,p,r,s,p,s,r,s)",
+       "shuffled=[1, 0, 0, 1, 0, 2, 1, 2, 0, 2]" in reasoning, reasoning)
+
+
 def main() -> None:
     registry, registry_sha = load_registry()
     store = ArmStore()
@@ -246,14 +325,22 @@ def main() -> None:
 
     f_arm = store.get("p4-f-fo-tracker-gpt")
     rps_std = phase4._rps_standard_matrix()
-    expect_reject("F opponent not implemented yet (step-4 work)",
-                  lambda: validate_run_request(**dict(
-                      good, arm=f_arm, seed=f_arm["seeds"][0], episode_index=1, num_rounds=50,
-                      strategy2_slug="fo-tracker",
-                      game_def={"slug": "phase4-rps", "numActions": 3,
-                                "actionLabels": ["rock", "paper", "scissors"],
-                                "payoffMatrix": rps_std, "nashEquilibria": []})),
-                  "not implemented")
+    p_f = validate_run_request(**dict(
+        good, arm=f_arm, seed=f_arm["seeds"][0], episode_index=1, num_rounds=50,
+        strategy2_slug="fo-tracker",
+        game_def={"slug": "phase4-rps", "numActions": 3,
+                  "actionLabels": ["ROCK", "PAPER", "SCISSORS"],
+                  "payoffMatrix": rps_std, "nashEquilibria": []}))
+    ok("F fo-tracker request accepted (F-SPEC-1 implemented)",
+       p_f["templateId"] == "rps-v1" and p_f["block"] == "F", str(p_f))
+    # Refusal coverage retained: unknown slugs still fail closed at dispatch.
+    expect_reject("unknown strategy slug refused (fail-closed)",
+                  lambda: get_action("no-such-strategy", [], 2,
+                                     {"slug": "phase4-rps", "numActions": 3,
+                                      "payoffMatrix": rps_std}, None),
+                  "unknown strategy slug")
+
+    run_f_fixture_checks(rps_std)
 
     print("— resolutions (write-once) —")
     eng_tmp = Engine(os.path.join(_TMP, "engine.db"))
