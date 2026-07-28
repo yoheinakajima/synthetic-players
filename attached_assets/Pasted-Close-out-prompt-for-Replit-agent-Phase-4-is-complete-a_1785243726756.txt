@@ -1,0 +1,24 @@
+Close-out prompt for Replit agent
+
+Phase 4 is complete and the plan is empty. Close the project out and leave main in a state a stranger can clone, verify, and cite. Zero new experiments, zero subject spend; everything below is repo work and verification.
+
+1. Repo hygiene and push
+Working tree clean, engineCommit dirty:false, all work on main and pushed. No force-pushes and no history rewrites — the disclosed mistakes are part of the record and stay in it.
+Secret scan before the final push: no API keys, tokens, or env values anywhere in the tree or in history (the AI_INTEGRATIONS_* values especially). If anything has leaked into history, stop and tell me before acting; do not rewrite history unilaterally.
+2. Reproducibility from a fresh clone
+The citable claim is "anyone can replay byte-exact with zero live calls." Make that true from a clone: export the event store for all phases — experiments, events, adjudications, provenance ledger, budget ledger — as versioned data artifacts. In-repo if size allows, otherwise release assets, either way with sha256s and a documented restore path.
+Then run the acid test yourself: fresh clone, documented steps, no secrets, replay + adjudicate-all + the §F.3 extended verifier, expecting byte-exact and zero live calls. Record the transcript in docs/close-out-verification.md. Anything that turns out to require a secret or a live call is a defect: fix it or disclose it.
+3. Final release and anchor
+Tag phase4-final on the closing commit. Publish a release with assets: final-report.md, registry.json, arms.json, the adjudication records, the data artifacts, SHA256SUMS.txt.
+Same anchoring discipline as phase4-v3-seal: annotated tag, GitHub server timestamp as the anchor, the no-GPG deviation noted again. Add the OpenTimestamps proof on SHA256SUMS.txt as the second independent anchor — approved earlier as optional hardening, do it now.
+4. Front door for a stranger
+Rewrite README.md top to bottom for a first-time reader: one paragraph on what this repo is, with the thesis sentence (behavior is driven by local semantic-textual content, not payoffs and not display mechanics, and the cross-vendor twin inverts per channel); the phase map (v1/v2 → Phase 3 → X1/X2 → Phase 4) with links to each report and preregistration; the final verdicts table; the reproducibility contract and the one-command replay; budget actuals (calls, tokens, model spend); the anchor links.
+docs/instance-ledger.md: consolidate the process-failure record end to end — every instance from the first registration gap through the evaluator attestation gap, each with cause, catch mechanism, fix, and the rule it produced (completeness linter, attestation gate, three-layer rule, signature-based non-observation, per-window indexing). This is the protocol contribution; make it standalone.
+docs/dead-predictions.md: the tally of author predictions the machinery refuted — claim, registration pointer, verdict, where it lives in the record. My count is ten; enumerate from the registries and memos and reconcile against the record, not against my count.
+CITATION.cff and LICENSE (MIT for code; state the data license explicitly).
+5. Boundary between done and proposed
+All Phase 5 material stays clearly marked PROPOSED, unregistered, unsealed: the process packet with its three entry requirements (completeness linter, attestation gating, three-layer rule) and the personas × temperature design sketch. Nothing in it may read as run.
+Driver: leave at hold and document that state. One line in the README: live infrastructure is quiescent, and any new dispatch requires a new sealed registration.
+6. Sign-off gate
+
+Do the verification before the final tag. Reply with: the release URL, the fresh-clone verification summary (pass/fail per step), the secret-scan result, and anything you could not complete, with reasons. If any verification step fails, stop there and report instead of tagging.
