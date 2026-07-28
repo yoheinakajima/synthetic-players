@@ -201,3 +201,11 @@ on every call and hard-abort on divergence. **Why:** a single computation can dr
 from the wire silently — the seam makes capture self-verifying. **How to apply:** any
 new provider adapter must populate `provider_meta.request_body_sha256` from its actual
 sent fields (transport/timeout excluded); replay recomputes the mirror side only.
+
+**Console counts are not rule evaluations.** A dispatcher's "N/N" progress
+line proves episodes completed, nothing else. Every registered decision rule
+must be executed by its registered evaluator at its registered checkpoint,
+and the evaluator's exit code — not any log line — is the record. If a rule
+evaluation is manual, wire it into the dispatcher so it cannot be skipped
+under operational churn (that skip happened once: two fired sentinel checks
+were logged as clean from progress prints).

@@ -757,3 +757,17 @@ the gemini route; every arm-episode has exactly one completed observation;
 0 invalid trials, 0 retried calls, 0 anomalies). The F report discloses all
 22 verbatim from the scan, per the registered rule. Lesson recorded: running
 counts in prose are not ledgers; only mechanical scans are.
+
+2026-07-28 — ANOMALY (sentinel alert 6): the registered evaluator, run late,
+fires rule (c) at checks 9 AND 10 for p4-sent-v2a × gemini-2.5-flash (counts
+6 and 7 vs re-baseline@6 = 10; exits 2). Earlier provenance entries recorded
+both checks as clean on the basis of the driver console line "cell … 10/10",
+which is a dispatch-completion count, not a rule evaluation — the rule-(c)
+evaluation was skipped during the F provider-failure recovery churn. F h2
+was therefore dispatched past an unevaluated fired check. Full disclosure,
+trajectory, and batched operator decision items: sentinel-alert-6-memo.md.
+HOLD: no finals or step-8 verdicts until the operator disposes of the memo's
+items 1–2. F adjudication (--f) output stands as interim; gpt tier is
+unaffected by any disposition. Corrections to prior entries: "sentinel
+check 9 passed in cadence" and "check 10 all six cells 10/10" are hereby
+marked as dispatch-completion statements only.
