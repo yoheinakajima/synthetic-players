@@ -730,3 +730,17 @@ ep19's next completed run is its observation. No analysis surface touched;
 no code change. Running disclosure count for F: three non-observation
 attempts (ngram2-cvx ep20, fo-tracker-cvx ep20, ngram2-cvx ep19) — all on
 the gemini route, consistent with the E-era burst-pattern diagnosis.
+
+2026-07-28 — ledger correction: queue event carries no operator intent.
+Project task #7 ("Adjudicate Family F…") shows CANCELLED in the platform
+task queue; the operator states they did not cancel it — most likely
+collateral from one of today's container restarts. Recorded per operator
+instruction: the cancellation is NOT a decision signal. The instruction to
+proceed with F adjudication and step 8 arrives from the operator's explicit
+message of this date (standing pre-authorization, check 10 clean), not from
+any queue event. General rule registered: operator intent is never inferred
+from platform state (task cancellations, restarts, queue changes); decisions
+arrive only as explicit messages; ambiguous ambient events are flagged, not
+interpreted. Additional presentation instruction: the sentinel series is now
+closed at both ends — the F/final reporting presents the full v2a × gemini
+trajectory as the complete figure, baseline through closing 10/10.
