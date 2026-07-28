@@ -236,3 +236,13 @@ bound at preflight and the registered shed order couldn't clear it, forcing a
 pre-data operator amendment. **How to apply:** at freeze, sum 2×drawn horizon
 over the schedule per cap group; make the seal linter check the call table
 against the schedule's draws.
+
+## Close-seal ordering
+Rule: run the code-review round BEFORE stamping the close seal (SHA256SUMS + OTS) and uploading release assets — review fixes to any sealed file force a re-hash, re-stamp, re-tag, and asset replacement.
+**Why:** Phase 5 close-out had to re-seal and force-move the `phase5-final` tag after review found doc/CSV fixes inside the sealed set.
+**How to apply:** seal + tag + release are the LAST mechanical steps of any close-out, after all reviews pass.
+
+## Sealed "twin exists" claims
+Rule: before an adjudication predicate depends on a comparison lane (bare twin, control arm), verify the lane exists as *run data* in the store — template existence is not run existence.
+**Why:** 3 of 4 Phase 5 rep cells had no exact-template bare run at the program temperature; the gap surfaced only at adjudication and required an outcome-blind completion.
+**How to apply:** at freeze time, lint that every predicate's comparison lanes resolve to nonzero recorded runs.
