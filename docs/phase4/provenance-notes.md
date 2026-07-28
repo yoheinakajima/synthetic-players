@@ -701,3 +701,16 @@ F ledger reflects it). Reconcile matched the partial and kept the marker per
 design; the marker is cleared with this entry as the investigation record.
 Episode ep20's next completed run is its observation. No analysis surface
 touched; no code change.
+
+2026-07-28 — second F provider-failure partial, ep20 of p4-f-fo-tracker-cvx,
+container-kill signature. During block F h1 (90 F episodes recorded), the
+platform container restarted mid-episode, killing engine and driver;
+in-flight run run_1785202976_2a00ea3f (`F|p4-f-fo-tracker-cvx|ep20`) stopped
+at 3 played rounds with a 4th `llm.requested` and no terminal failure event
+— the engine died before it could write one. The registered provider-failure
+rule applies by signature (attempt without `run.completed`): non-observation,
+excluded from episode mapping, to be disclosed in the F adjudication report.
+Spend is budget-real (3 calls, 462 input tokens). Reconcile matched the
+partial and kept the marker; it is cleared with this entry as the
+investigation record. Episode ep20's next completed run is its observation.
+No analysis surface touched; no code change.
