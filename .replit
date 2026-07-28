@@ -20,6 +20,10 @@ author = "agent"
 task = "workflow.run"
 args = "Phase 4 Driver"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Phase 5 Driver"
+
 [[workflows.workflow]]
 name = "Phase 4 Driver"
 author = "agent"
@@ -27,6 +31,17 @@ author = "agent"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd artifacts/api-server && uv run python engine/phase4_driver.py"
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow]]
+name = "Phase 5 Driver"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd artifacts/api-server && uv run python engine/watchdog.py --phase5"
 
 [workflows.workflow.metadata]
 outputType = "console"
