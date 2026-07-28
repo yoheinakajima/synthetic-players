@@ -25,9 +25,10 @@
 
 14/96 interior (0.146). By family: rep-δ90 8/32, rep-δ10 4/32, os-swap
 0/16, os-community 2/16. By leaning: 7 cooperative-leaning, 7
-defect-leaning. By persona: p05 and p13 lead with 3 interior cells each
-(p13's include both δ levels at s2a — the δ-slope persona); p04 2; p07,
-p12, p15 hold the rest. Nine personas have zero interior cells anywhere.
+defect-leaning. By persona: p13 leads with 4 interior cells (including
+both δ levels at s2a — the δ-slope persona), then p05 and p15 with 3,
+p04 with 2, p07 and p12 with 1. Ten personas have zero interior cells
+anywhere.
 
 ## Temperature sweep (tier B, 4 personas × 3 cells)
 

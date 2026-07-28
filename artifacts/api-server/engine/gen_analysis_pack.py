@@ -48,15 +48,18 @@ def main() -> int:
 
     # ---- temperature curves (sweep cells, incl. T=0.7 tier-A points + bare)
     rows = []
+    seen = set()
     for (pid, cell, T), eps in sorted(col["epsBT"].items(),
                                       key=lambda kv: (kv[0][0] or "",
                                                       kv[0][1], kv[0][2])):
+        seen.add((pid, cell, T))
         g = adj.gate_cell(eps)
         rows.append([pid or "bare", cell, T, len(eps), round(g["mean"], 4),
                      round(g["cp95"][0], 4), round(g["cp95"][1], 4),
                      int(g["interior"])])
     for (pid, cell), eps in sorted(col["epsA"].items()):
-        if pid in adj.SUBSET_B and cell in adj.SWEEP_CELLS:
+        if (pid in adj.SUBSET_B and cell in adj.SWEEP_CELLS
+                and (pid, cell, 0.7) not in seen):
             g = adj.gate_cell(eps)
             rows.append([pid, cell, 0.7, len(eps), round(g["mean"], 4),
                          round(g["cp95"][0], 4), round(g["cp95"][1], 4),

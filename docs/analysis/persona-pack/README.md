@@ -25,8 +25,8 @@ channel and the token channel compose, and the token channel wins the swap.
 ## Interior structure
 
 14/96 cells interior; 7 coop-leaning / 7 defect-leaning — interiority is
-NOT a leaning phenomenon. Interior cells concentrate in 7 of 16 personas:
-p05 (3), p13 (3), p04 (2), p07 (1), p12 (1), p15 (3), p02 (0)... nine
+NOT a leaning phenomenon. Interior cells concentrate in 6 of 16 personas:
+p13 (4), p05 (3), p15 (3), p04 (2), p07 (1), p12 (1); the other ten
 personas are pure-corner everywhere. Factor pattern of the interior-heavy
 personas: p05 (competitive-patient-averse, 35), p13
 (competitive-patient-averse, 61), p15 (competitive-impulsive-averse, 63) —
