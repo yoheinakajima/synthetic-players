@@ -1,5 +1,5 @@
 {
-  "registryVersion": "phase5-v4-proposed",
+  "registryVersion": "phase5-v4",
   "createdAt": "2026-07-24",
   "notes": "Phase 3 behavioral prompt registry (pre-registered, docs/phase3-preregistration.md). Design rules: neutral action labels (J/F for the dilemma games, ROCK/PAPER/SCISSORS for the cyclic game), no game-theory vocabulary (no cooperate/defect/prisoner/Nash/strategy/opponent-modeling terms), full payoff disclosure for both players, continuation probability disclosed for repeated play with realized horizon hidden, fixed horizon disclosed for the cyclic game. Parser: strip whitespace, uppercase, exact match against options; one corrective retry (new prompt hash), then the trial is invalidated. Seat tag in the system prompt guarantees per-seat prompt-hash uniqueness in self-play. APPEND-ONLY POLICY: existing prompt specs are never edited once any run has used them (replay verifies every rendered prompt byte-exactly against recorded hashes); phase3-v2 appends pd-repeated-v2a/v2b for the pre-registered paraphrase-robustness extension X1 and changes nothing else. | 2026-07-24 v3-proposed: Phase 4 templates appended (append-only; Phase 3 entries byte-untouched, per-prompt shas verified). Arms/bindings/seeds: docs/phase4/arms.json. Runs blocked pending one-line approval.",
   "prompts": {
