@@ -800,3 +800,20 @@ checks 7 and 8 fires were evaluated and dispositioned at the time (alert-5
 §Second reversion, check-7/check-8 decision entries) — the late-evaluation
 lapse is confined to checks 9 and 10. HOLD LIFTS per ruling; proceeding to
 step-8 replay audit.
+
+2026-07-28 — STEP 8 COMPLETE; FINALS ISSUED (final-report.md). Replay audit
+(phase4_step8_audit.py; step8-replay-audit.{json,md}): 2,864/2,864 completed
+observations replay byte-exact under the §F.3 extended verifier; 0 invalid
+trials; 24 provider-failure partials verified as non-observations by
+signature (2 E, 22 F); all F rngCalls profiles match the sealed spec
+(fo/ngram/switcher-A 0; wsls 1@r1; shuffled n−2 for r≥11) per the architect
+ruling. One checker-side correction was required mid-audit and is disclosed:
+the first pass failed 80/80 on exactly the post-switch p4-sent-fallback runs
+("substitutions re-derived differ") because replay_llm_p4 re-derived
+substitutions from the raw fallback arm without the sealed third-cell donor
+deltaPct that validate_run_request applies at dispatch — the same
+promised-rule-in-one-layer-only class as provenance instance 5. Fix mirrors
+the sealed rule in the checker and fail-closes if the recorded template is
+not the written E-dselected resolution; no sealed artifact or stored byte
+touched; rerun CLEAN. Interim verdicts across X2/D1/D2/D3/E/F promoted to
+final verbatim; F cvx tier carried as descriptive-only per alert-6 ruling.

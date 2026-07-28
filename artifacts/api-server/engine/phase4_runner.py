@@ -575,7 +575,25 @@ def replay_llm_p4(engine: Engine, run_id: str, *, store: ArmStore) -> dict[str, 
             )
     if arm is not None:
         try:
-            re_subs = render_substitutions(arm, tid, registry)
+            replay_arm = arm
+            if (arm.get("armId") == "p4-sent-fallback"
+                    and tid != arm.get("templateId")):
+                # Sealed third-cell switch (validate_run_request /
+                # _sentinel_switch_delta): post-switch dispatches render the
+                # D-selected pd-rep representation with the sentinel
+                # battery's donor deltaPct. The replay re-derivation must
+                # apply the identical sealed rule — checker-side mirror of
+                # provenance instance 5; fail-closed if the recorded
+                # template is not the written E-dselected resolution.
+                from phase4 import _sentinel_switch_delta
+                res = BudgetLedger().get_resolution("E-dselected")
+                res_tid = res["templateId"] if res else None
+                if res_tid != tid:
+                    mismatches.append(
+                        f"sentinel fallback post-switch template {tid} != written "
+                        f"E-dselected resolution {res_tid}")
+                replay_arm = {**arm, "deltaPct": _sentinel_switch_delta(store)}
+            re_subs = render_substitutions(replay_arm, tid, registry)
             from provenance import canonical_json as _cj
             if _cj(re_subs) != _cj(llm_cfg.get("substitutions")):
                 mismatches.append("substitutions re-derived from arm bindings differ from recorded")

@@ -209,3 +209,11 @@ and the evaluator's exit code — not any log line — is the record. If a rule
 evaluation is manual, wire it into the dispatcher so it cannot be skipped
 under operational churn (that skip happened once: two fired sentinel checks
 were logged as clean from progress prints).
+
+**Every sealed rule must exist in all three layers.** If a registered rule
+is implemented at dispatch/enforcement but not in the replay checker (or
+vice versa), the audit fails on good data — or worse, passes bad data. When
+adding any conditional dispatch behavior (resolutions, switches, donor
+substitutions), grep the replay/verification path for the same rule before
+sealing. Two instances so far: sentinel third-cell switch deltaPct, and the
+1-based schedule ep vs 0-based seeds array.
