@@ -96,3 +96,6 @@ needs libssl.so.3 on the path. Four public calendars respond in seconds.
 gates in dispatch drivers and then a head-moved gate after you commit it.
 **How to apply:** register workflows and commit `.replit` BEFORE starting a
 clean-tree-gated driver; expect one unfreeze cycle otherwise.
+
+## Connectors credential proxy no longer serves raw secrets (observed 2026-07-29)
+`/api/v2/connection?include_secrets=true` returns 401/empty for every identity form (env REPL_IDENTITY_KEY, `replit identity create` with either audience) even with the connection freshly re-authorized. Working paths: the `gitPush` sandbox callback (platform-credentialed push) and `@replit/connectors-sdk` `createProxyFetch` (api.github.com only). Dead ends: uploads.github.com (release assets) is NOT proxied; pushing `.github/workflows/*` and the contents-API PUT of a workflow file both fail (OAuth token lacks `workflow` scope). Net: release-asset uploads currently require a user-supplied token or a manual drag-and-drop; don't burn turns rediscovering this.
