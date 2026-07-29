@@ -1,97 +1,106 @@
 # Program synthesis — v1 through Phase 5
 
-> **STATUS: WORKING DRAFT — PRE-PUBLICATION, NOT FOR CITATION.**
-> Close-out §4. This document synthesizes the published records; it makes
-> **no new claims** and re-adjudicates nothing. Verdict-bearing sources:
-> `docs/POSTMORTEM.md`, `docs/phase3-report.md`, `docs/phase4/final-report.md`,
-> `docs/phase5/final-report.md`, `docs/phase5-close/`.
+> **STATUS: LIVING ANALYSIS SUMMARY — PRE-PUBLICATION, NOT FOR CITATION.**
+> This document synthesizes the sealed records and later paper-facing corrections. It changes no verdict and makes no new empirical claim. The current manuscript is [`../paper/paper-draft.md`](../paper/paper-draft.md); submission blockers are in [`submission-blockers.md`](submission-blockers.md).
 
 ## The question
 
-Can an LLM serve as a synthetic experimental subject in behavioral game
-theory — and if not as-is, under what conditioning? Five phases, one
-subject lineage (gpt-4.1 primary, cross-vendor mirrors), sealed predicates
-adjudicated by code, and an author who registered his expectations so the
-machinery could kill them. It killed twelve.
+Can an LLM-controlled agent serve as a behavioral subject in strategic games, and what evidence would be required before using such configurations as synthetic participants?
+
+Five phases tested one primary deployment lineage and descriptive cross-vendor mirrors under sealed predicates, exact prompt provenance, event sourcing, mechanical adjudication, and replay.
 
 ## The arc
 
-**v1 (naive harness).** A plausible-looking result set collapsed under
-re-adjudication: 1 refuted, 4 inconclusive on sharper analysis. Lesson
-that shaped everything after: claims must be machine-checkable predicates
-sealed before data.
+### v1→v2: plausible results are not enough
 
-**Phase 3 (the corners).** The bare subject failed every human anchor:
-round-1 cooperation 0.000 across δ, no risk-dominance separation, RPS
-rock 0.80. The decisive result was registered *after* the floor appeared:
-paraphrase X1 — same game, same seeds, reworded text — flipped 0.000 to
-1.000. Behavior was not about payoffs at all.
+A plausible-looking initial result set changed under mechanical re-adjudication. The program’s first lesson was procedural: claims needed to become machine-checkable predicates sealed before their evidence.
 
-**Phase 4 (the mechanism).** The paraphrase flip became an instrument.
-X2's confirmation span (+0.925) and D2's decomposition located control in
-the role channel of local semantic text; presentation mechanics moved
-nothing on the primary vendor; the labeled-option bias ran opposite the
-registered direction; the δ-assay corner-confounded — incentive
-sensitivity was not measurable because the subject never left the
-corners. Adversarially, the subject was exploitable by an n-gram tracker
-yet *beat* first-order tracking, and none of the profile replicated in
-sign on the mirror vendor. Thesis at the end of Phase 4: the bare subject
-is a corner machine switched by words, not an economic agent.
+### Phase 3: a corner under one representation
 
-**Phase 5 (the layer above).** Sixteen sealed personas — no explicit
-game terminology or action recommendation under the sealed
-banned-content guard, though names, ages, and occupations are
-uncontrolled semantic content — and a temperature sweep asked whether
-mechanically interior, incentive-sensitive behavior could be
-conditioned into existence. The population-level
-answer preserved the thesis: pools are corner mixtures (P5-1a, by one
-unit), with panel variance inside the published human range under coarse
-marginal checks but not the shape, and a pool δ-response substantially
-smaller than the published (nonmatched) human δ-gap. But both of the author's registered
-predictions failed. The persona frame dominated task text in conflict
-cells (P5-2 persona-dominant — the system prompt is a genuine second
-control channel, not decoration). And the existence predicate returned
-16/16 against a prediction of zero — 15 via a mechanism-ambiguous
-word/payoff-aligned clause, and one, p13, via the slope clause: both
-δ-cells interior with a positive registered slope LB — suggestive after
-the R2 family audit (permutation p = 0.053 ± 0.005 over the 32-candidate
-family; `docs/analysis/r2/p13-family-audit.md`) — the program's only
-Family-E gate-and-slope pass in five phases. Temperature, meanwhile,
-stayed inert (P5-4 not refuted) and descriptively *reduced* entropy — the
-decoding layer is not where the interior lives.
+The bare GPT-4.1 configuration produced no observed round-one cooperation across the registered continuation-probability cells, while framing and RPS yielded distinct signatures. The decisive extension was X1: formally game-equivalent wording moved observed behavior to the opposite cooperation corner.
 
-**Branch 2** (sealed pre-data, selected by the axes, byte-identical):
-the corner behavior of Phases 3–4 characterizes the bare subject, not the
-model's capability envelope; the capability is recoverable by
-content-side conditioning.
+Correct interpretation:
 
-## What this says, within the record
+> Phase 3 identified a prompt-conditional policy, not a representation-general property of GPT-4.1.
 
-1. **Levels are cheap, responses are dear.** Persona pools match human
-   means and variances while failing the δ-response and shape
-   diagnostics. Validation protocols for synthetic panels that check
-   marginal moments will certify pools that have no economics in them.
-2. **Control is layered and lexical.** Local task text controls the bare
-   subject (P3-X1, P4-X2/D2); a persona frame can contest and beat task
-   text (P5-2); the token boundary wins the swap cell for everyone. Every
-   lever that worked is a *words* lever; the two non-lexical levers
-   (payoff structure, temperature) did nearly nothing.
-3. **The interior is a persona property, and rare.** One bare interior
-   point in five phases; fourteen persona-cells, concentrated where trait
-   factors are in tension (competitive + risk-averse; trait-level
-   attribution exploratory — the confirmatory unit is the complete
-   persona sentence). One persona shows a suggestive incentive
-   sensitivity (post-audit status: `docs/analysis/r2/p13-family-audit.md`).
-   Existence, not prevalence.
-4. **The methodology carried more than the subject did.** 4,576
-   byte-exact replays, zero invalid trials, budget-to-the-call, twelve
-   published refutations of the author. The honest-science machinery is
-   the transferable artifact; the behavioral results are one model
-   lineage at two temperatures' notice.
+### Phase 4: representation and payoff channels interact
+
+X2 localized the wording switch and confirmed it on fresh seeds. D2 showed that semantic labels can override payoff dominance in direct conflict, while matrix changes affect behavior when labels do not oppose them. The δ assays were corner-confounded at the tested surfaces; they did not establish incentive insensitivity. Adversary results were opponent-contingent. The cross-vendor lane was demoted to descriptive status after sentinel-detected endpoint instability.
+
+Correct interpretation:
+
+> Semantic cues can dominate payoffs in registered conflict cells; payoff sensitivity is representation-conditional, and no universal control hierarchy was identified.
+
+### Phase 5: a fixed persona panel changes the aggregate picture
+
+Sixteen sealed persona sentences—complete bundles of name, age, occupation, and traits—were crossed with the existing instruments. Under the historical registered rules:
+
+- condition-level means entered broad published reference bands in three of four repeated cells;
+- raw observed dispersion across persona prompts was large;
+- the aggregate continuation-probability contrast remained at most 0.08;
+- most persona–condition cells were empirically corner-concentrated under the historical seat-level rule;
+- a pooled surface-conflict result favored persona conditioning, but its strongest clause was word/payoff-confounded;
+- p13 passed a per-candidate slope rule, but external review later identified missing family-level error control.
+
+The p13 mechanical verdict remains historical. Its scientific status is now a preregistered replication target because the initial family audit was boundary-level, Monte Carlo-imprecise, and did not reproduce the registered statistic exactly.
+
+Correct interpretation:
+
+> The fixed prompt panel illustrates a corner-mixture failure mode: broad marginal criteria can pass while response to the registered incentive remains weak. It does not establish prevalence across persona generators, human equivalence, or stable latent synthetic people across interventions.
+
+## What the program establishes within its record
+
+### 1. Coarse marginal validation can leave the response weakly constrained
+
+If each condition mean is accepted within a broad interval, the aggregate contrast is only partially identified. Exact condition-specific mean matching would force the aggregate difference by identity; the empirical failure lives in the slack of coarse bands.
+
+See [`propositions.md`](propositions.md).
+
+### 2. Aggregate spread can conceal its microstructure
+
+The recorded spread is carried largely by between-prompt composition of policies concentrated near behavioral corners, with little observed within-prompt variation in many cells. Mean and total variance alone do not identify that decomposition or the response coupling across conditions.
+
+Raw between-prompt SDs still require a finite-opportunity measurement-error correction before being interpreted as latent heterogeneity.
+
+### 3. Behavior belongs to a configuration
+
+Observed behavior depends on the model identifier, complete prompt bundle, decoding settings, parser, available history, provider route, and execution window. One sentence, one action label, or one persona prefix can materially alter the induced policy.
+
+### 4. Explicit persona pairing is not latent-person invariance
+
+Reusing the same persona string across interventions controls explicit assignment. It does not prove that the model instantiated the same latent synthetic individual in both conditions. Lin-style intervention-induced user drift may coexist with the observed corner-mixture pattern.
+
+### 5. Procedural exactness is not inferential validity
+
+The machinery preserved registrations, evidence scope, timestamps, raw completions, adjudication inputs, and exact replay. External review nevertheless found a family-error defect in a registered rule.
+
+> The pipeline can enforce a predicate exactly; it cannot guarantee that the predicate represents a valid estimand, test family, or construct.
+
+## Current evidence boundaries
+
+- Primary confirmatory results come from one model deployment.
+- The persona-population estimand is weakly identified at n=16; historical predicates attach to the fixed panel.
+- Historical round-one gates counted seat decisions nested within episodes; episode-clustered sensitivity remains open.
+- Human comparators are published and protocol-nonmatched.
+- Raw between-persona SD comparisons include estimation noise.
+- Clause (b) is statistically strong under historical counting but mechanism-confounded.
+- p13 is a replication target, not a contribution-level existence result.
+
+## Transferable artifact
+
+The most reusable output may be the research system itself:
+
+- append-only prompt registries;
+- externally anchored predicates and amendments;
+- event-sourced execution;
+- budget and retry accounting;
+- mechanical adjudication;
+- zero-call replay and metric recomputation;
+- behavioral sentinels;
+- explicit claim downgrades without historical rewriting.
+
+The record contains twelve predictions refuted by data and one separately categorized post-adjudication inferential downgrade.
 
 ## Scope seal
 
-The program ends with paper one. Follow-ons that the record motivates but
-does not license: an anti-aligned swap cell to split the word/payoff
-mechanisms; persona-factor sweeps around the competitive–risk-averse
-tension; the entropy-decline anomaly. They stay future work.
+The sealed experimental program ends with paper one. New subject calls require a new registration. The current work is paper-facing analysis: cluster sensitivities, variance correction, count reconciliation, final citation verification, and editorial polish.
