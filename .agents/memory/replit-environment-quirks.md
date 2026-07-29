@@ -109,3 +109,8 @@ engine/, so any repack (capsule etc.) must mirror the repo skeleton
 (artifacts/api-server/engine), and replay audits hit ENGINE_URL :8090 —
 a verifier MUST start its own server on a private port or it silently
 verifies against the workspace's running engine.
+
+## OpenTimestamps client in this container
+- `ots` (opentimestamps-client via `uv run --with`) crashes at import: python-bitcoinlib's `find_library('ssl')` resolves wrongly → `undefined symbol: BN_add` (BN_* live in libcrypto).
+- Fix: PYTHONPATH sitecustomize that monkeypatches `ctypes.util.find_library("ssl")` → a **64-bit** nix `libcrypto.so` (e.g. openssl-3.0.12 store path; the 3.4.1 one present is 32-bit → "wrong ELF class").
+- `ots verify` always ends at "Could not connect to Bitcoin node" here — file↔proof match happens *before* that line; record block heights via `ots info`.
