@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Materialize exact historical manuscript files from temporary encoded parts.
 
-Each temporary part is a separately valid Base64 segment. Decode every part
-before concatenating bytes, optionally decompress the resulting payload, verify
-the final manuscript SHA-256, write the exact history files, and remove the
-temporary materialization directory so only reviewer-facing manuscripts remain.
+Temporary part boundaries are transport-only and need not be valid Base64 on
+their own. Concatenate normalized Base64 text, decode once, optionally
+decompress the payload, verify the final manuscript SHA-256, write the exact
+history files, and remove the temporary directory so only reviewer-facing
+manuscripts remain.
 """
 from __future__ import annotations
 
@@ -20,14 +21,6 @@ TEMP = ROOT / "docs" / "paper" / "history" / ".materialize"
 MANIFEST = TEMP / "manifest.json"
 
 
-def decode_part(path: Path) -> bytes:
-    encoded = "".join(path.read_text(encoding="utf-8").split())
-    try:
-        return base64.b64decode(encoded, validate=True)
-    except Exception as exc:
-        raise RuntimeError(f"invalid Base64 history part: {path.relative_to(ROOT)}") from exc
-
-
 def main() -> int:
     if not MANIFEST.exists():
         print("materialize_draft_history: no manifest; nothing to do")
@@ -40,7 +33,14 @@ def main() -> int:
         if missing:
             print(f"materialize_draft_history: waiting for parts: {missing}")
             return 0
-        payload = b"".join(decode_part(p) for p in parts)
+        encoded = "".join(
+            "".join(path.read_text(encoding="utf-8").split()) for path in parts
+        )
+        try:
+            payload = base64.b64decode(encoded, validate=True)
+        except Exception as exc:
+            names = ", ".join(str(p.relative_to(ROOT)) for p in parts)
+            raise RuntimeError(f"invalid concatenated Base64 history parts: {names}") from exc
         compression = rec.get("compression")
         if compression is None:
             data = payload
