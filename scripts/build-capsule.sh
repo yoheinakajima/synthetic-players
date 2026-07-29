@@ -22,11 +22,23 @@ for name in ("engine.db", "budget.db"):
     db.close()
     print("exported", dst, os.path.getsize(dst))
 EOF
-# secret scan of the exports (patterns, not values): fail closed
-if strings capsule/data/engine.db capsule/data/budget.db \
-    | grep -E -m1 "sk-[A-Za-z0-9]{20}|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN( RSA)? PRIVATE KEY|xox[baprs]-" ; then
+# secret scan of the exports: fail closed. Two layers:
+# (1) known token formats; (2) generic high-entropy credential shapes
+#     (long unbroken base64/hex runs preceded by key-ish words).
+# layer 1: exact token formats (CASE-SENSITIVE — AKIA/ASIA etc. are
+# uppercase-only prefixes; -i caused false fires inside base62 response ids)
+SECRET_RE_CS='sk-[A-Za-z0-9_-]{16,}|(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|ASIA[0-9A-Z]{16}|-----BEGIN[ A-Z]* PRIVATE KEY|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_-]{30,}|ya29\.[0-9A-Za-z_-]{20,}|eyJhbGciOi[0-9A-Za-z_-]{20,}'
+# layer 2: keyword-adjacent long credentials (case-insensitive)
+SECRET_RE_KW='(api[_-]?key|apikey|client[_-]?secret|access[_-]?token|refresh[_-]?token|password|authorization: *bearer)["'"'"' :=]{1,4}[A-Za-z0-9+/_-]{24,}'
+scan_secrets() {  # scan_secrets <label> <command producing text on stdout>
+  if "$@" | grep -E -m5 "$SECRET_RE_CS"; then return 1; fi
+  if "$@" | grep -E -i -m5 "$SECRET_RE_KW"; then return 1; fi
+  return 0
+}
+if ! scan_secrets strings capsule/data/engine.db capsule/data/budget.db; then
   echo "SECRET PATTERN FOUND IN EXPORT — refusing to build capsule"; exit 1
 fi
+# scan every non-binary capsule file too (docs + code), post-copy: see below
 xz -9 -T0 capsule/data/engine.db capsule/data/budget.db
 cp "$ENG/data/phase4-driver-plan.json" "$ENG/data/phase4-driver-state.json" \
    "$ENG/data/phase5-driver-plan.json" "$ENG/data/phase5-driver-state.json" \
@@ -86,6 +98,11 @@ the final publish is manual:
 
 Built from private-repo commit \`$SRC_COMMIT\` by scripts/build-capsule.sh.
 EOF
+
+# --- 4b. whole-capsule text secret scan (fail closed) ---------------------
+if ! scan_secrets grep -R -h -E '.' capsule/docs capsule/artifacts capsule/verify capsule/README.md capsule/OPERATOR-STEPS.md --binary-files=without-match; then
+  echo "SECRET PATTERN FOUND IN CAPSULE FILES — refusing to build"; exit 1
+fi
 
 # --- 5. capsule-wide sums -----------------------------------------------
 ( cd capsule && find . -type f ! -name SHA256SUMS.capsule -print0 \

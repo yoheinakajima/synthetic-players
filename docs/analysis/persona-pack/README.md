@@ -39,9 +39,12 @@ factors, not any single factor, appears to produce interior behavior.
 
 Competitive, patient, risk-averse, 61, landscape gardener. s2a cells: d90
 0.750 [0.428, 0.945], d10 0.333 [0.099, 0.651] — both interior, slope LB
-+0.083 > 0 (Family-E assay, the only pass in the program). Note the factor
-reading: *patient* + a δ-slope is exactly the economics — the patient
-persona responds to the shadow of the future. Registered leaning:
++0.083 > 0 (Family-E assay, the only registered gate+slope fire in the
+program; interpretation **suggestive** after the R2 family audit,
+`../r2/p13-family-audit.md`). Note the factor reading (exploratory —
+the confirmatory unit is the complete persona sentence): *patient* + a
+δ-slope is exactly the economics — the patient persona responds to the
+shadow of the future. Registered leaning:
 cooperative? No — p13 is coop-leaning by the ≥2 rule (patient +
 risk-averse) yet competitive; its cells sit mid-interior rather than at
 the coop ceiling.

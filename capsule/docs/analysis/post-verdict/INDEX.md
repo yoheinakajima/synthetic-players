@@ -6,8 +6,9 @@ Read order:
 
 1. `clause-b-anatomy.md` — the swap-cell word/payoff confound, per-persona
    table, what the data cannot decide (de-confounding cell never run).
-2. `p13-deep-dive.md` — the sole Family-E δ-slope pass: card, all cells,
-   trajectories, trait gradient (exploratory).
+2. `p13-deep-dive.md` — the sole Family-E δ-slope fire (suggestive
+   post-R2 audit): card, all cells, trajectories, trait gradient
+   (exploratory).
 3. `interior-census.md` — corrected full list of the 14 interior
    persona-cells; the Branch-2 existence exhibit.
 4. `p52-decomposition.md` — pooled 0.128 split into the unconfounded rep

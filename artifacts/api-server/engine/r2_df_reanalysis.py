@@ -102,9 +102,34 @@ def load() -> pd.DataFrame:
         df["__r__"] = np.nan
         df = df.rename(columns={"__r__": "r"})
     df = df.rename(columns=ren)
-    df["coop"] = pd.to_numeric(df["coop"], errors="coerce")
+    # fail-closed cooperation recoding: only explicitly known encodings
+    raw = df["coop"]
+    if raw.dtype == object:
+        mapping = {"c": 1, "coop": 1, "cooperate": 1, "1": 1,
+                   "d": 0, "defect": 0, "0": 0}
+        vals = set(raw.astype(str).str.strip().str.lower().unique())
+        unknown = vals - set(mapping)
+        if unknown:
+            raise SystemExit(
+                f"unrecognized cooperation labels {sorted(unknown)} — "
+                "refusing to guess; extend the mapping in load() after "
+                "checking the package codebook")
+        df["coop"] = raw.astype(str).str.strip().str.lower().map(mapping)
+    else:
+        vals = set(pd.to_numeric(raw, errors="raise").dropna().unique())
+        if vals <= {0, 1}:
+            df["coop"] = raw.astype(int)
+        elif vals <= {1, 2}:
+            raise SystemExit(
+                "cooperation coded {1,2} — ambiguous (which is cooperate?); "
+                "check the package codebook and recode explicitly in load()")
+        else:
+            raise SystemExit(
+                f"unexpected cooperation values {sorted(vals)[:10]} — "
+                "refusing to threshold; check the package codebook")
     df = df.dropna(subset=["coop"])
-    df["coop"] = (df["coop"] > 0.5).astype(int)
+    print("cooperation coding audit: values OK, "
+          f"n={len(df)}, coop rate={df['coop'].mean():.3f}")
     return df
 
 

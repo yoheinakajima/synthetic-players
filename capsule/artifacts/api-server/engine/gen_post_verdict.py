@@ -232,6 +232,12 @@ mechanism-ambiguous by design of the cell.
     md = f"""# p13 deep-dive — the program's sole Family-E δ-slope pass
 
 {BANNER}
+> **Status update (R2, 2026-07-29):** the slope interpretation is
+> **suggestive**, not confirmatory — family permutation p = 0.0525 ±
+> 0.0050 over the 32-candidate clause-(a) family
+> (`../r2/p13-family-audit.md`). The registered mechanical verdict is
+> unchanged. "Pass" below means the registered gate+slope fired.
+
 **What this is:** everything the record holds on p13 (Harper), the only
 arm in the entire program to pass the human-signature δ-slope assay
 (clause (a), s2a level: one-sided 95% LB = {slope['lowerBound95']:+.3f}).

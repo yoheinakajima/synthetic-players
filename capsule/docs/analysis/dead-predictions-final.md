@@ -22,7 +22,7 @@ additions. Final count: **twelve affirmative refutations.**
 | 9 | P4-D3-1 | Labeled-option bias toward first-listed | **NOT SUPPORTED, sign reversed** — −0.1806 | `docs/phase4/d3-report.md` |
 | 10 | P4-F directional | Shuffled-history underperforms fo-tracker | **NOT SUPPORTED, nominal sign reversed** — Δ −0.083 | `docs/phase4/f-report.md` |
 | 11 | **P5-2** | Task-text switches dominate persona leaning (task-dominant at CP LB ≥ 0.80) | **FAILED — opposite verdict returned: persona-dominant** (pooled task-consistent share 0.128, CP95 [0.104, 0.155], UB ≤ 0.20) | `docs/phase5-close/adjudication-report.md` |
-| 12 | **P5-3** | Zero of 16 personas pass the interior-persona existence predicate | **FAILED — 16/16 pass**; p13 passes the Family-E signature clause (δ-slope LB +0.083 > 0), the only arm in the program to do so | `docs/phase5-close/adjudication-report.md` |
+| 12 | **P5-3** | Zero of 16 personas pass the interior-persona existence predicate | **FAILED — 16/16 pass**; p13 fired the Family-E signature clause (δ-slope LB +0.083 > 0), the only arm in the program to do so — slope interpretation downgraded to **suggestive** post-audit (`r2/p13-family-audit.md`) | `docs/phase5-close/adjudication-report.md` |
 
 Predictions that **held** in Phase 5, for the full picture: P5-1a (corner
 mixture, supported 0.094 < 0.10 — by one unit), P5-4 (temperature adds no
