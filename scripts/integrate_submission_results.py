@@ -35,6 +35,13 @@ def interval(row: dict[str, str], prefix: str) -> str:
     return f"[{f(row, prefix + 'lo')}, {f(row, prefix + 'hi')}]"
 
 
+def replace_once(text: str, pattern: str, replacement: str, label: str) -> str:
+    text, count = re.subn(pattern, replacement, text, count=1, flags=re.DOTALL)
+    if count != 1:
+        raise RuntimeError(f"expected one {label}, replaced {count}")
+    return text
+
+
 def update_paper(rows: list[dict[str, str]]) -> None:
     text = PAPER.read_text(encoding="utf-8")
     raw_min = min(float(r["rawBetweenSD"]) for r in rows)
@@ -75,14 +82,14 @@ def update_paper(rows: list[dict[str, str]]) -> None:
         f"persona-generator sensitivities, not matched human latent variances."
     )
 
-    pattern = re.compile(
+    text = replace_once(
+        text,
         r"Raw cross-persona standard deviations range from .*?"
-        r"These are fixed-panel prompt-heterogeneity estimates, not matched human latent variances\.",
-        flags=re.DOTALL,
+        r"These are fixed-panel prompt-heterogeneity estimates and exploratory "
+        r"persona-generator sensitivities, not matched human latent variances\.",
+        replacement,
+        "paper variance paragraph",
     )
-    text, count = pattern.subn(replacement, text, count=1)
-    if count != 1:
-        raise RuntimeError(f"expected one paper variance paragraph, replaced {count}")
     PAPER.write_text(text, encoding="utf-8")
 
 
@@ -112,14 +119,67 @@ def update_gate(rows: list[dict[str, str]]) -> None:
         "Artifact: `submission/variance-correction.md`.",
         "",
     ]
-    replacement = "\n".join(table)
-    pattern = re.compile(
+    text = replace_once(
+        text,
         r"### A3\. Between-prompt variance correction — \*\*COMPLETE\*\*.*?(?=## B\. Human comparator)",
-        flags=re.DOTALL,
+        "\n".join(table),
+        "gate variance section",
     )
-    text, count = pattern.subn(replacement, text, count=1)
-    if count != 1:
-        raise RuntimeError(f"expected one gate variance section, replaced {count}")
+
+    text = replace_once(
+        text,
+        r"### C3\. Retired-language scan — \*\*PENDING FINAL AUTOMATED CHECK\*\*.*?(?=## D\. Counts and reproducibility)",
+        """### C3. Retired-language scan — **COMPLETE**
+
+`scripts/paper_submission_lint.py` scans current assertion-bearing prose for retired claims while excluding sealed quotations, correction ledgers, and literature “claims to avoid.” It also checks every paper-facing relative link and enforces the sealed/data-file boundary against `main`. The final integrated workflow passed all three checks.
+
+""",
+        "retired-language status section",
+    )
+
+    text = replace_once(
+        text,
+        r"### D2\. Reproduction capsule — \*\*COMPLETE FOR SEALED RECORD; FINAL PAPER-LINK CHECK PENDING\*\*.*?(?=## E\. Literature and bibliography)",
+        """### D2. Reproduction capsule and sealed boundary — **COMPLETE**
+
+The final integrated workflow:
+
+- passed the capsule checksum integrity check;
+- staged the archived databases with no provider variables;
+- replayed all 4,576 Phase 4–5 runs byte-exact with zero live model calls;
+- passed the paper relative-link check;
+- passed the sealed/data-boundary check;
+- committed only generated post-adjudication analyses and living paper-facing updates.
+
+The living manuscript is not inserted into the immutable historical capsule; the capsule continues to certify the sealed experimental record it was designed to reproduce.
+
+""",
+        "capsule status section",
+    )
+
+    text = replace_once(
+        text,
+        r"### F2\. Public navigation — \*\*MOSTLY COMPLETE; LINK CHECK BLOCKING\*\*.*?(?=## Remaining submission blockers)",
+        """### F2. Public navigation and relative links — **COMPLETE**
+
+README and the analysis index link the paper, novelty map, literature map, propositions, hierarchy, completed submission analyses, and this checklist. Automated relative-link validation passed on the final integrated working tree.
+
+""",
+        "public-navigation status section",
+    )
+
+    text = replace_once(
+        text,
+        r"## Remaining submission blockers.*\Z",
+        """## Remaining submission blockers
+
+1. Final citation metadata verification.
+2. Formatted bibliography.
+3. Human author approval of the title, target venue, final attribution statement, and whether any quantitative protocol-nonmatched human comparator remains in the submitted version.
+""",
+        "remaining-blockers section",
+    )
+
     GATE.write_text(text, encoding="utf-8")
 
 
