@@ -44,8 +44,8 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install analysis dependencies
-        run: python -m pip install --disable-pip-version-check numpy scipy
+      - name: Install analysis and replay dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy uv
 
       - name: Stage archived databases
         shell: bash
