@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 """Materialize exact historical manuscript files from temporary encoded parts.
 
-The parts exist only because the GitHub connector writes text files. A manifest
-is committed last; until then this script is a no-op. Once every part exists,
-the script verifies SHA-256, writes the exact markdown history, and removes the
+Each temporary part is a separately valid Base64 segment. Decode every part
+before concatenating bytes, optionally decompress the resulting payload, verify
+the final manuscript SHA-256, write the exact history files, and remove the
 temporary materialization directory so only reviewer-facing manuscripts remain.
-
-The manifest may specify ``compression: gzip`` to keep connector payloads small.
 """
 from __future__ import annotations
 
@@ -22,6 +20,14 @@ TEMP = ROOT / "docs" / "paper" / "history" / ".materialize"
 MANIFEST = TEMP / "manifest.json"
 
 
+def decode_part(path: Path) -> bytes:
+    encoded = "".join(path.read_text(encoding="utf-8").split())
+    try:
+        return base64.b64decode(encoded, validate=True)
+    except Exception as exc:
+        raise RuntimeError(f"invalid Base64 history part: {path.relative_to(ROOT)}") from exc
+
+
 def main() -> int:
     if not MANIFEST.exists():
         print("materialize_draft_history: no manifest; nothing to do")
@@ -34,8 +40,7 @@ def main() -> int:
         if missing:
             print(f"materialize_draft_history: waiting for parts: {missing}")
             return 0
-        encoded = "".join(p.read_text(encoding="utf-8").strip() for p in parts)
-        payload = base64.b64decode(encoded, validate=True)
+        payload = b"".join(decode_part(p) for p in parts)
         compression = rec.get("compression")
         if compression is None:
             data = payload
