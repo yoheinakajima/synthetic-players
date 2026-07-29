@@ -1,0 +1,28 @@
+{
+  "drafts": [
+    {
+      "output": "docs/paper/history/draft-v2.md",
+      "sha256": "9b8200084287d29bed38adb3140fc7400325439cfd07a8997a69d1094d86bc6d",
+      "parts": [
+        "v2.00.b64",
+        "v2.01.b64",
+        "v2.02.b64",
+        "v2.03.b64"
+      ]
+    },
+    {
+      "output": "docs/paper/history/draft-v3.md",
+      "sha256": "8986e04ef485c5c5102a750267d4126b15aa49faf36ae82a4a91c4d18e91595d",
+      "parts": [
+        "v3.00.b64",
+        "v3.01a.b64",
+        "v3.01b.b64",
+        "v3.01c.b64",
+        "v3.02.b64",
+        "v3.03.b64",
+        "v3.04.b64",
+        "v3.05.b64"
+      ]
+    }
+  ]
+}
