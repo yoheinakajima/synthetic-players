@@ -9,6 +9,7 @@ on:
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
       - 'artifacts/api-server/engine/submission_gate_exact_cluster.py'
+      - 'artifacts/api-server/engine/submission_gate_variance_fixed.py'
       - 'artifacts/api-server/engine/phase5_closeout_adjudicate.py'
       - 'artifacts/api-server/engine/phase4_adjudicate.py'
       - 'README.md'
@@ -69,6 +70,7 @@ jobs:
           python artifacts/api-server/engine/submission_gate_analyses.py | tee /tmp/submission-analysis.log
           python artifacts/api-server/engine/submission_gate_finalize.py | tee -a /tmp/submission-analysis.log
           python artifacts/api-server/engine/submission_gate_exact_cluster.py | tee -a /tmp/submission-analysis.log
+          python artifacts/api-server/engine/submission_gate_variance_fixed.py | tee -a /tmp/submission-analysis.log
 
       - name: Lint paper surface and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
