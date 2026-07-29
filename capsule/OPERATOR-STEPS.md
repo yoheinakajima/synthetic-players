@@ -20,4 +20,4 @@ the final publish is manual:
 4. Tell the agent it is public — it will rerun the anonymous-clone
    verification (raw links included) and commit the transcript.
 
-Built from private-repo commit `f24f7f6475e580d935eec3a45bec7413c06582a9` by scripts/build-capsule.sh.
+Built from private-repo commit `ddf4e8d55542db7fc3d766f17f0374835e63432c` by scripts/build-capsule.sh.

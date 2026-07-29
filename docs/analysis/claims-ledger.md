@@ -64,3 +64,18 @@ conditioning layer up.
   New rule, linter-checked going forward (freeze_lint **C8**): every
   registered predicate must declare its family-level error control at
   freeze.
+
+## Provenance — repository made public (2026-07-29)
+
+- **Flip timestamp:** 2026-07-29T14:03Z (operator flipped visibility in the
+  GitHub UI; agent held per the pre-flip clearance protocol).
+- **Commit at flip:** `ddf4e8d` ("pre-flip clearance: banners on 4 unpinned
+  draft docs, OPERATOR-STEPS superseded (capsule rebuilt, manifest
+  re-verified); secret sweeps tree+full-history clean").
+- **No recorded artifact changed:** the visibility change alters no sha,
+  seal, tag, or release asset — all recorded hashes are byte-identical
+  before and after; only access changed. First post-flip anonymous
+  verification (clone + raw-URL assets + full capsule replay, 4,576/4,576
+  PASS) is transcribed in [docs/public-verification.md](../public-verification.md).
+- OpenTimestamps proofs upgraded same day to complete Bitcoin attestations
+  (blocks 959483 / 959985 / 960020 / 960086); upgraded proofs committed.

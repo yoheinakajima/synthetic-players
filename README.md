@@ -7,6 +7,13 @@
 > Everything in this repository is citable-in-principle from its sealed
 > records, but no document is final until the coordinated public drop.
 
+**Verify everything in one command** (anonymous clone, zero credentials, zero
+live model calls — 4,576/4,576 observations replay byte-exact):
+
+```bash
+git clone https://github.com/yoheinakajima/synthetic-players && cd synthetic-players/capsule && bash verify.sh
+```
+
 This repository is a full research program on how large language models play
 games — run end-to-end under pre-registered, mechanically adjudicated,
 fail-closed protocol. The central empirical finding: **LLM subject behavior is
@@ -110,9 +117,32 @@ clone is in [docs/close-out-verification.md](docs/close-out-verification.md).
   `SHA256SUMS.txt`, and an OpenTimestamps proof on the sums file as the second
   independent anchor.
 
-## Status: program closed (scope-sealed at one paper)
+## How to check our claims
 
-Phases 4 and 5 are complete; both drivers are at hold ("plan complete") and
+Every claim is designed to be checked without trusting the author:
+
+- **Replay the record:** `capsule/verify.sh` (command above) re-derives all
+  4,576 observations byte-exact from the committed event store with all
+  provider variables unset. First public run transcribed in
+  [docs/public-verification.md](docs/public-verification.md).
+- **Check the seals:** [phase4 seal record](docs/phase4/seal-record.md) ·
+  [phase5 seal record](docs/phase5/seal-record.md) ·
+  [branch selection](docs/phase5-close/branch-selection.md) — predicates and
+  discussion branches were hash-sealed before data.
+- **Check the timestamps:** OpenTimestamps proofs with complete Bitcoin
+  attestations (blocks 959483 / 959985 / 960020 / 960086) on the sums
+  manifests — `ots info docs/phase5-close/SHA256SUMS-final.txt.ots` etc.;
+  proofs also ship in `capsule/verify/`.
+- **Check the claim history:** the
+  [claims ledger](docs/analysis/claims-ledger.md) records every claim's
+  status over time, including the post-adjudication R2 downgrade and the
+  [twelve dead predictions](docs/analysis/dead-predictions-final.md).
+
+## Status: program closed, repository public (scope-sealed at one paper)
+
+The repository went **public on 2026-07-29** (flip entry in the
+[claims ledger](docs/analysis/claims-ledger.md); no recorded artifact
+changed — only access). Phases 4 and 5 are complete; both drivers are at hold ("plan complete") and
 any new dispatch requires a new sealed registration. Phase 5 closed clean:
 1,712/1,712 runs replay byte-exact, 0 invalid trials, all 10 sentinel checks
 positive, 10,428/11,185 budget. The close-out record is in
