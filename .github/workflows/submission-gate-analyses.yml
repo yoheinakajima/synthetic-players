@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/submission-gate-analyses.yml'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
+      - 'artifacts/api-server/engine/submission_gate_finalize.py'
       - 'artifacts/api-server/engine/phase5_closeout_adjudicate.py'
       - 'artifacts/api-server/engine/phase4_adjudicate.py'
       - 'docs/phase5/**'
@@ -57,7 +58,11 @@ jobs:
           SUBMISSION_FAMILY_PERMUTATIONS: '200000'
           SUBMISSION_FAMILY_BATCH: '5000'
           SUBMISSION_VARIANCE_BOOTSTRAPS: '50000'
-        run: python artifacts/api-server/engine/submission_gate_analyses.py | tee /tmp/submission-analysis.log
+        shell: bash
+        run: |
+          set -euo pipefail
+          python artifacts/api-server/engine/submission_gate_analyses.py | tee /tmp/submission-analysis.log
+          python artifacts/api-server/engine/submission_gate_finalize.py | tee -a /tmp/submission-analysis.log
 
       - name: Upload analysis outputs
         uses: actions/upload-artifact@v4
