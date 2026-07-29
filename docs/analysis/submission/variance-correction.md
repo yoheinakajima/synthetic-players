@@ -1,22 +1,20 @@
 # Finite-opportunity correction for between-prompt dispersion
 
-> **STATUS: POST-ADJUDICATION SENSITIVITY — ZERO SUBJECT CALLS.** Historical P5-1b point comparisons are unchanged. This analysis treats complete episodes as repeated measurements, subtracts the estimated sampling contribution from the variance of persona means, and uses a hierarchical bootstrap over personas and episodes.
+> **STATUS: POST-ADJUDICATION SENSITIVITY — ZERO SUBJECT CALLS.** Historical P5-1b comparisons are unchanged. The primary estimand is the dispersion among these sixteen fixed prompts. Primary uncertainty therefore resamples episodes within each prompt while retaining all sixteen prompts. A second two-stage bootstrap that also resamples prompts is reported only as exploratory persona-population uncertainty.
 
 ## Estimator
 
-For each repeated-game cell, the raw variance of estimated persona means is decomposed as `Var_i(p_hat_i) ≈ B + mean(s_i²/n_i)`. The corrected between-prompt component is `max(0, raw variance − estimated measurement noise)`. `W` is the average within-prompt variance of the episode-level outcome. The bootstrap resamples personas and then episodes within persona.
+For each repeated-game cell, `Var_i(p_hat_i) ≈ B + mean(s_i²/n_i)`. The corrected fixed-panel between-prompt component is `max(0, raw variance − estimated measurement noise)`. `W` is the average within-prompt variance of the episode-level outcome. Bootstrap replicates: **50,000** for each estimand.
 
-Bootstrap replicates: **50,000**.
+| cell | corrected SD | fixed-panel episode-bootstrap 95% | between share B/(B+W) | fixed-panel between-share 95% | historical 0.75×human-SD threshold | point meets? |
+|---|---:|---|---:|---|---:|---|
+| rep-d10-s2a | 0.4182 | [0.4122, 0.4391] | 0.855 | [0.820, 0.938] | 0.3091 | yes |
+| rep-d10-s2p | 0.4784 | [0.4696, 0.4916] | 0.961 | [0.946, 0.989] | 0.3091 | yes |
+| rep-d90-s2a | 0.4408 | [0.4279, 0.4654] | 0.888 | [0.867, 0.946] | 0.2337 | yes |
+| rep-d90-s2p | 0.4323 | [0.4269, 0.4496] | 0.902 | [0.879, 0.955] | 0.2337 | yes |
 
-| cell | raw SD | corrected SD | bootstrap corrected SD 95% | within variance W | between share B/(B+W) | historical 0.75×human-SD threshold | point meets? |
-|---|---:|---:|---|---:|---|---:|---|
-| rep-d10-s2a | 0.4241 | 0.4182 | [0.2703, 0.4876] | 0.0297 | 0.85488 | 0.3091 | yes |
-| rep-d10-s2p | 0.4800 | 0.4784 | [0.3643, 0.5123] | 0.0094 | 0.960651 | 0.3091 | yes |
-| rep-d90-s2a | 0.4454 | 0.4408 | [0.3466, 0.4892] | 0.0245 | 0.888095 | 0.2337 | yes |
-| rep-d90-s2p | 0.4362 | 0.4323 | [0.3358, 0.4854] | 0.0203 | 0.901955 | 0.2337 | yes |
+## Estimand boundary
 
-## Interpretation
-
-The corrected quantities estimate heterogeneity among these fixed prompt configurations at the episode-outcome level. They are not protocol-matched human latent variances, do not justify a persona-population claim, and do not remove the need to label the Dal Bó–Fréchette comparator as nonmatched.
+The fixed-panel intervals quantify episode-sampling uncertainty for these exact prompts. The wider two-stage intervals in `figure-sources/variance-correction.csv` additionally resample prompts and are exploratory statements about a hypothetical persona generator. Neither is a protocol-matched human latent-variance comparison.
 
 Machine-readable results: `figure-sources/variance-correction.csv` and `.json`.

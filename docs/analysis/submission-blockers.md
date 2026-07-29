@@ -54,21 +54,18 @@ Artifact: `submission/p13-family-audit-final.md`.
 
 ### A3. Between-prompt variance correction — **COMPLETE**
 
-A method-of-moments correction subtracts estimated finite-opportunity noise from the variance of persona means. A 50,000-replicate hierarchical bootstrap resamples personas and episodes.
+A method-of-moments correction subtracts estimated finite-opportunity noise from the variance of prompt means. The primary 50,000-replicate bootstrap retains all sixteen fixed prompts and resamples episodes within each prompt. A separate two-stage bootstrap also resamples prompts and is labeled exploratory persona-population uncertainty.
 
-Corrected between-prompt SDs:
+| cell | corrected SD | fixed-panel episode-bootstrap 95% | between share | fixed-panel share 95% | exploratory persona-population SD 95% |
+|---|---:|---|---:|---|---|
+| rep-d10-s2a | 0.4182 | [0.4122, 0.4391] | 85.5% | [82.0%, 93.8%] | [0.2724, 0.4879] |
+| rep-d10-s2p | 0.4784 | [0.4696, 0.4916] | 96.1% | [94.6%, 98.9%] | [0.3696, 0.5123] |
+| rep-d90-s2a | 0.4408 | [0.4279, 0.4654] | 88.8% | [86.7%, 94.6%] | [0.3457, 0.4890] |
+| rep-d90-s2p | 0.4323 | [0.4269, 0.4496] | 90.2% | [87.9%, 95.5%] | [0.3345, 0.4847] |
 
-| cell | corrected SD | bootstrap 95% interval | between share of total episode-level variance |
-|---|---:|---|---:|
-| rep-d10-s2a | 0.4182 | [0.2703, 0.4876] | 0.855 |
-| rep-d10-s2p | 0.4784 | [0.3643, 0.5123] | 0.961 |
-| rep-d90-s2a | 0.4408 | [0.3466, 0.4892] | 0.888 |
-| rep-d90-s2p | 0.4323 | [0.3358, 0.4854] | 0.902 |
-
-All point estimates meet the historical `0.75 × human SD` threshold; three of four bootstrap lower bounds do. These remain fixed-panel prompt-heterogeneity estimates, not matched human latent variances.
+All four fixed-panel corrected-SD lower bounds exceed the historical `0.75 × human SD` threshold. Three of four exploratory persona-population lower bounds do. Neither result is a protocol-matched estimate of human latent heterogeneity.
 
 Artifact: `submission/variance-correction.md`.
-
 ## B. Human comparator
 
 ### B1. Dal Bó–Fréchette microdata contextualization — **EXTERNAL-DATA PENDING; NOT BLOCKING UNDER CURRENT CLAIM SCOPE**

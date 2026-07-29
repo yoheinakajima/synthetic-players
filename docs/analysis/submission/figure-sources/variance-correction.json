@@ -1,229 +1,297 @@
 {
   "rep-d10-s2a": {
     "point": {
-      "cell": "rep-d10-s2a",
-      "personas": 16,
-      "episodesPerPersona": 6,
-      "poolMean": 0.348958,
-      "rawBetweenVarianceOfEstimatedMeans": 0.17983218,
-      "estimatedMeanMeasurementNoise": 0.00494792,
-      "correctedBetweenVariance": 0.17488426,
-      "rawBetweenSD": 0.424066,
-      "correctedBetweenSD": 0.418192,
-      "averageWithinEpisodeVariance": 0.0296875,
-      "betweenShare": 0.85488,
-      "historicalRhoThresholdSD": 0.30915,
-      "correctedPointMeetsHistoricalThreshold": 1,
-      "observedPointCornerMass": 0.6875,
-      "clusterGateCornerMass": 0.8125,
-      "bootstrapCorrectedSDlo": 0.270349,
-      "bootstrapCorrectedSDmedian": 0.416597,
-      "bootstrapCorrectedSDhi": 0.487577,
-      "bootstrapBetweenShareLo": 0.656407,
-      "bootstrapBetweenShareMedian": 0.877073,
-      "bootstrapBetweenShareHi": 0.979104
+      "rawB": 0.17983217592592593,
+      "measurementNoise": 0.004947916666666667,
+      "B": 0.17488425925925927,
+      "correctedSD": 0.41819165374174944,
+      "W": 0.029687500000000006,
+      "betweenShare": 0.8548797736916549
     },
-    "bootstrap": {
+    "fixedPanelBootstrap": {
       "rawB": {
-        "median": 0.17858796296296298,
-        "lo95": 0.07844328703703704,
+        "median": 0.18333333333333332,
+        "lo95": 0.1748842592592593,
+        "hi95": 0.1961805555555556
+      },
+      "measurementNoise": {
+        "median": 0.004079861111111111,
+        "lo95": 0.0020833333333333333,
+        "hi95": 0.006423611111111111
+      },
+      "B": {
+        "median": 0.17922453703703706,
+        "lo95": 0.1699074074074074,
+        "hi95": 0.19276620370370373
+      },
+      "correctedSD": {
+        "median": 0.423349190429174,
+        "lo95": 0.4121982622566565,
+        "hi95": 0.43905148183749904
+      },
+      "W": {
+        "median": 0.02447916666666667,
+        "lo95": 0.0125,
+        "hi95": 0.03854166666666667
+      },
+      "betweenShare": {
+        "median": 0.8794057675502476,
+        "lo95": 0.8201997780244172,
+        "hi95": 0.9377189522563064
+      }
+    },
+    "personaPopulationBootstrapExploratory": {
+      "rawB": {
+        "median": 0.17890625,
+        "lo95": 0.0795138888888889,
         "hi95": 0.23955439814814816
       },
-      "noise": {
+      "measurementNoise": {
         "median": 0.00390625,
-        "lo95": 0.0007812499999999999,
+        "lo95": 0.0006944444444444446,
         "hi95": 0.008680555555555556
       },
       "B": {
-        "median": 0.17355324074074074,
-        "lo95": 0.07308883101851851,
-        "hi95": 0.23773148148148146
-      },
-      "W": {
-        "median": 0.023437500000000003,
-        "lo95": 0.0046875,
-        "hi95": 0.052083333333333336
-      },
-      "ratio": {
-        "median": 0.8770731707317073,
-        "lo95": 0.6564071390667073,
-        "hi95": 0.9791037845368005
+        "median": 0.1740740740740741,
+        "lo95": 0.07418981481481483,
+        "hi95": 0.23807870370370368
       },
       "correctedSD": {
-        "median": 0.41659721643422054,
-        "lo95": 0.2703494604011514,
-        "hi95": 0.4875771543883916
+        "median": 0.41722185234485754,
+        "lo95": 0.27237807330035735,
+        "hi95": 0.4879330934705123
+      },
+      "W": {
+        "median": 0.0234375,
+        "lo95": 0.0041666666666666675,
+        "hi95": 0.052083333333333336
+      },
+      "betweenShare": {
+        "median": 0.8776743015353636,
+        "lo95": 0.6621156513472657,
+        "hi95": 0.9791304347826086
       }
     }
   },
   "rep-d10-s2p": {
     "point": {
-      "cell": "rep-d10-s2p",
-      "personas": 16,
-      "episodesPerPersona": 6,
-      "poolMean": 0.427083,
-      "rawBetweenVarianceOfEstimatedMeans": 0.23043981,
-      "estimatedMeanMeasurementNoise": 0.0015625,
-      "correctedBetweenVariance": 0.22887731,
-      "rawBetweenSD": 0.480041,
-      "correctedBetweenSD": 0.478411,
-      "averageWithinEpisodeVariance": 0.009375,
-      "betweenShare": 0.960651,
-      "historicalRhoThresholdSD": 0.30915,
-      "correctedPointMeetsHistoricalThreshold": 1,
-      "observedPointCornerMass": 0.8125,
-      "clusterGateCornerMass": 0.9375,
-      "bootstrapCorrectedSDlo": 0.364276,
-      "bootstrapCorrectedSDmedian": 0.470975,
-      "bootstrapCorrectedSDhi": 0.512348,
-      "bootstrapBetweenShareLo": 0.899492,
-      "bootstrapBetweenShareMedian": 0.967486,
-      "bootstrapBetweenShareHi": 1.0
+      "rawB": 0.23043981481481485,
+      "measurementNoise": 0.0015625,
+      "B": 0.22887731481481485,
+      "correctedSD": 0.47841124026805104,
+      "W": 0.009375000000000001,
+      "betweenShare": 0.9606509594364829
     },
-    "bootstrap": {
+    "fixedPanelBootstrap": {
+      "rawB": {
+        "median": 0.23229166666666667,
+        "lo95": 0.22219328703703703,
+        "hi95": 0.24210069444444443
+      },
+      "measurementNoise": {
+        "median": 0.0013020833333333333,
+        "lo95": 0.0004340277777777778,
+        "hi95": 0.002170138888888889
+      },
+      "B": {
+        "median": 0.230787037037037,
+        "lo95": 0.22054398148148147,
+        "hi95": 0.24166666666666664
+      },
+      "correctedSD": {
+        "median": 0.4804029944088994,
+        "lo95": 0.4696211041696076,
+        "hi95": 0.4915960401250875
+      },
+      "W": {
+        "median": 0.0078125,
+        "lo95": 0.002604166666666667,
+        "hi95": 0.013020833333333334
+      },
+      "betweenShare": {
+        "median": 0.9674855491329479,
+        "lo95": 0.9464158132888782,
+        "hi95": 0.9890909090909091
+      }
+    },
+    "personaPopulationBootstrapExploratory": {
       "rawB": {
         "median": 0.2228877314814815,
-        "lo95": 0.13506944444444446,
+        "lo95": 0.13877314814814815,
         "hi95": 0.2625
       },
-      "noise": {
+      "measurementNoise": {
         "median": 0.0012152777777777778,
         "lo95": 0.0,
         "hi95": 0.003125
       },
       "B": {
         "median": 0.2218171296296296,
-        "lo95": 0.13269675925925925,
+        "lo95": 0.13662615740740744,
         "hi95": 0.2625
+      },
+      "correctedSD": {
+        "median": 0.4709746592223722,
+        "lo95": 0.36962975396410197,
+        "hi95": 0.51234753829798
       },
       "W": {
         "median": 0.007291666666666667,
         "lo95": 0.0,
         "hi95": 0.018750000000000003
       },
-      "ratio": {
+      "betweenShare": {
         "median": 0.9674855491329479,
-        "lo95": 0.899492385786802,
+        "lo95": 0.89937106918239,
         "hi95": 1.0
-      },
-      "correctedSD": {
-        "median": 0.4709746592223722,
-        "lo95": 0.36427566383064797,
-        "hi95": 0.51234753829798
       }
     }
   },
   "rep-d90-s2a": {
     "point": {
-      "cell": "rep-d90-s2a",
-      "personas": 16,
-      "episodesPerPersona": 6,
-      "poolMean": 0.432292,
-      "rawBetweenVarianceOfEstimatedMeans": 0.19835069,
-      "estimatedMeanMeasurementNoise": 0.00407986,
-      "correctedBetweenVariance": 0.19427083,
-      "rawBetweenSD": 0.445366,
-      "correctedBetweenSD": 0.440762,
-      "averageWithinEpisodeVariance": 0.02447917,
-      "betweenShare": 0.888095,
-      "historicalRhoThresholdSD": 0.2337,
-      "correctedPointMeetsHistoricalThreshold": 1,
-      "observedPointCornerMass": 0.6875,
-      "clusterGateCornerMass": 0.8125,
-      "bootstrapCorrectedSDlo": 0.346611,
-      "bootstrapCorrectedSDmedian": 0.433814,
-      "bootstrapCorrectedSDhi": 0.489242,
-      "bootstrapBetweenShareLo": 0.773224,
-      "bootstrapBetweenShareMedian": 0.905165,
-      "bootstrapBetweenShareHi": 0.980983
+      "rawB": 0.19835069444444448,
+      "measurementNoise": 0.004079861111111111,
+      "B": 0.19427083333333336,
+      "correctedSD": 0.44076165138692974,
+      "W": 0.02447916666666667,
+      "betweenShare": 0.8880952380952382
     },
-    "bootstrap": {
+    "fixedPanelBootstrap": {
+      "rawB": {
+        "median": 0.2013599537037037,
+        "lo95": 0.1869212962962963,
+        "hi95": 0.2193287037037037
+      },
+      "measurementNoise": {
+        "median": 0.0033854166666666668,
+        "lo95": 0.0019965277777777776,
+        "hi95": 0.0049479166666666664
+      },
+      "B": {
+        "median": 0.1978587962962963,
+        "lo95": 0.18310185185185182,
+        "hi95": 0.21661024305555562
+      },
+      "correctedSD": {
+        "median": 0.4448132150648138,
+        "lo95": 0.42790402177573866,
+        "hi95": 0.46541405539729136
+      },
+      "W": {
+        "median": 0.020312499999999997,
+        "lo95": 0.011979166666666666,
+        "hi95": 0.0296875
+      },
+      "betweenShare": {
+        "median": 0.9072410147991543,
+        "lo95": 0.867209361485627,
+        "hi95": 0.9464161322423706
+      }
+    },
+    "personaPopulationBootstrapExploratory": {
       "rawB": {
         "median": 0.1916377314814815,
-        "lo95": 0.12453703703703703,
+        "lo95": 0.12395833333333334,
         "hi95": 0.240625
       },
-      "noise": {
+      "measurementNoise": {
         "median": 0.003298611111111111,
         "lo95": 0.0006944444444444446,
         "hi95": 0.006944444444444445
       },
       "B": {
-        "median": 0.18819444444444444,
-        "lo95": 0.12013888888888889,
-        "hi95": 0.23935763888888928
+        "median": 0.18819444444444441,
+        "lo95": 0.11950231481481481,
+        "hi95": 0.23912037037037037
+      },
+      "correctedSD": {
+        "median": 0.433813836160679,
+        "lo95": 0.34569106846260117,
+        "hi95": 0.48899935620649887
       },
       "W": {
         "median": 0.019791666666666666,
         "lo95": 0.0041666666666666675,
         "hi95": 0.04166666666666667
       },
-      "ratio": {
-        "median": 0.9051645484879185,
-        "lo95": 0.7732239436484417,
-        "hi95": 0.9809825673534073
-      },
-      "correctedSD": {
-        "median": 0.43381383616067903,
-        "lo95": 0.346610572384757,
-        "hi95": 0.4892419008275367
+      "betweenShare": {
+        "median": 0.9053331087836793,
+        "lo95": 0.771071269479728,
+        "hi95": 0.9804878048780488
       }
     }
   },
   "rep-d90-s2p": {
     "point": {
-      "cell": "rep-d90-s2p",
-      "personas": 16,
-      "episodesPerPersona": 6,
-      "poolMean": 0.505208,
-      "rawBetweenVarianceOfEstimatedMeans": 0.19024884,
-      "estimatedMeanMeasurementNoise": 0.00338542,
-      "correctedBetweenVariance": 0.18686343,
-      "rawBetweenSD": 0.436175,
-      "correctedBetweenSD": 0.432277,
-      "averageWithinEpisodeVariance": 0.0203125,
-      "betweenShare": 0.901955,
-      "historicalRhoThresholdSD": 0.2337,
-      "correctedPointMeetsHistoricalThreshold": 1,
-      "observedPointCornerMass": 0.6875,
-      "clusterGateCornerMass": 0.6875,
-      "bootstrapCorrectedSDlo": 0.335841,
-      "bootstrapCorrectedSDmedian": 0.42451,
-      "bootstrapCorrectedSDhi": 0.485436,
-      "bootstrapBetweenShareLo": 0.773608,
-      "bootstrapBetweenShareMedian": 0.918394,
-      "bootstrapBetweenShareHi": 0.988593
+      "rawB": 0.1902488425925926,
+      "measurementNoise": 0.0033854166666666668,
+      "B": 0.18686342592592592,
+      "correctedSD": 0.4322770245177575,
+      "W": 0.0203125,
+      "betweenShare": 0.9019553072625698
     },
-    "bootstrap": {
+    "fixedPanelBootstrap": {
       "rawB": {
-        "median": 0.18307291666666667,
-        "lo95": 0.11712962962962963,
-        "hi95": 0.23723958333333334
+        "median": 0.1925925925925926,
+        "lo95": 0.18515625,
+        "hi95": 0.20451388888888886
       },
-      "noise": {
+      "measurementNoise": {
+        "median": 0.0027777777777777783,
+        "lo95": 0.0014756944444444444,
+        "hi95": 0.004340277777777778
+      },
+      "B": {
+        "median": 0.18975694444444446,
+        "lo95": 0.1822337962962963,
+        "hi95": 0.2021412037037037
+      },
+      "correctedSD": {
+        "median": 0.43561100128950425,
+        "lo95": 0.4268885056970922,
+        "hi95": 0.4496011607010192
+      },
+      "W": {
+        "median": 0.01666666666666667,
+        "lo95": 0.008854166666666666,
+        "hi95": 0.026041666666666668
+      },
+      "betweenShare": {
+        "median": 0.9199196326061998,
+        "lo95": 0.8789997311105135,
+        "hi95": 0.955384191682732
+      }
+    },
+    "personaPopulationBootstrapExploratory": {
+      "rawB": {
+        "median": 0.18321759259259263,
+        "lo95": 0.11655092592592592,
+        "hi95": 0.23654513888888887
+      },
+      "measurementNoise": {
         "median": 0.002604166666666667,
         "lo95": 0.00043402777777777775,
         "hi95": 0.006423611111111111
       },
       "B": {
-        "median": 0.18020833333333333,
-        "lo95": 0.11278935185185185,
-        "hi95": 0.23564814814814813
+        "median": 0.1806134259259259,
+        "lo95": 0.11191984953703703,
+        "hi95": 0.23489583333333333
+      },
+      "correctedSD": {
+        "median": 0.4249863832241286,
+        "lo95": 0.33454424125165994,
+        "hi95": 0.4846605341198449
       },
       "W": {
         "median": 0.015625,
         "lo95": 0.0026041666666666665,
         "hi95": 0.03854166666666667
       },
-      "ratio": {
-        "median": 0.9183937823834197,
-        "lo95": 0.7736080466469052,
-        "hi95": 0.9885931558935361
-      },
-      "correctedSD": {
-        "median": 0.4245095208983343,
-        "lo95": 0.33584125990094166,
-        "hi95": 0.4854360391937831
+      "betweenShare": {
+        "median": 0.9186662511685884,
+        "lo95": 0.7731520815632965,
+        "hi95": 0.9886963074604371
       }
     }
   }
