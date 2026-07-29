@@ -99,3 +99,13 @@ clean-tree-gated driver; expect one unfreeze cycle otherwise.
 
 ## Connectors credential proxy no longer serves raw secrets (observed 2026-07-29)
 `/api/v2/connection?include_secrets=true` returns 401/empty for every identity form (env REPL_IDENTITY_KEY, `replit identity create` with either audience) even with the connection freshly re-authorized. Working paths: the `gitPush` sandbox callback (platform-credentialed push) and `@replit/connectors-sdk` `createProxyFetch` (api.github.com only). Dead ends: uploads.github.com (release assets) is NOT proxied; pushing `.github/workflows/*` and the contents-API PUT of a workflow file both fail (OAuth token lacks `workflow` scope). Net: release-asset uploads currently require a user-supplied token or a manual drag-and-drop; don't burn turns rediscovering this.
+
+## Secret-scan regex pitfalls (2026-07-29)
+Case-insensitive grep over AWS-style prefixes (AKIA/ASIA) false-fires
+inside base62 blobs (e.g. OpenAI response ids "…HakIA9IK…"). Keep exact
+token-format patterns CASE-SENSITIVE; run keyword-adjacent heuristics as
+a separate -i layer. Also: engine code resolves docs/ 3 levels above
+engine/, so any repack (capsule etc.) must mirror the repo skeleton
+(artifacts/api-server/engine), and replay audits hit ENGINE_URL :8090 —
+a verifier MUST start its own server on a private port or it silently
+verifies against the workspace's running engine.
