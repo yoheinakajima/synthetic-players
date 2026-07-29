@@ -1,97 +1,104 @@
 # Program synthesis — v1 through Phase 5
 
-> **STATUS: WORKING DRAFT — PRE-PUBLICATION, NOT FOR CITATION.**
-> Close-out §4. This document synthesizes the published records; it makes
-> **no new claims** and re-adjudicates nothing. Verdict-bearing sources:
-> `docs/POSTMORTEM.md`, `docs/phase3-report.md`, `docs/phase4/final-report.md`,
-> `docs/phase5/final-report.md`, `docs/phase5-close/`.
+> **STATUS: LIVING ANALYSIS SUMMARY — PRE-PUBLICATION, NOT FOR CITATION.** This document synthesizes sealed records and later paper-facing corrections. It changes no historical verdict. The current manuscript is [`../paper/paper-draft.md`](../paper/paper-draft.md); completed submission analyses are under [`submission/`](submission/).
 
 ## The question
 
-Can an LLM serve as a synthetic experimental subject in behavioral game
-theory — and if not as-is, under what conditioning? Five phases, one
-subject lineage (gpt-4.1 primary, cross-vendor mirrors), sealed predicates
-adjudicated by code, and an author who registered his expectations so the
-machinery could kill them. It killed twelve.
+Can an LLM-controlled agent serve as a behavioral subject in strategic games, and what evidence is required before configurations of that system can be used as synthetic participants?
+
+Five phases tested one primary deployment lineage and descriptive cross-vendor mirrors under sealed predicates, exact prompt provenance, event sourcing, mechanical adjudication, and replay.
 
 ## The arc
 
-**v1 (naive harness).** A plausible-looking result set collapsed under
-re-adjudication: 1 refuted, 4 inconclusive on sharper analysis. Lesson
-that shaped everything after: claims must be machine-checkable predicates
-sealed before data.
+### v1→v2: plausible output is not adjudicated evidence
 
-**Phase 3 (the corners).** The bare subject failed every human anchor:
-round-1 cooperation 0.000 across δ, no risk-dominance separation, RPS
-rock 0.80. The decisive result was registered *after* the floor appeared:
-paraphrase X1 — same game, same seeds, reworded text — flipped 0.000 to
-1.000. Behavior was not about payoffs at all.
+A plausible initial result set changed under mechanical re-adjudication. The first lesson was procedural: claims had to become machine-checkable predicates sealed before evidence.
 
-**Phase 4 (the mechanism).** The paraphrase flip became an instrument.
-X2's confirmation span (+0.925) and D2's decomposition located control in
-the role channel of local semantic text; presentation mechanics moved
-nothing on the primary vendor; the labeled-option bias ran opposite the
-registered direction; the δ-assay corner-confounded — incentive
-sensitivity was not measurable because the subject never left the
-corners. Adversarially, the subject was exploitable by an n-gram tracker
-yet *beat* first-order tracking, and none of the profile replicated in
-sign on the mirror vendor. Thesis at the end of Phase 4: the bare subject
-is a corner machine switched by words, not an economic agent.
+### Phase 3: a corner under one representation
 
-**Phase 5 (the layer above).** Sixteen sealed personas — no explicit
-game terminology or action recommendation under the sealed
-banned-content guard, though names, ages, and occupations are
-uncontrolled semantic content — and a temperature sweep asked whether
-mechanically interior, incentive-sensitive behavior could be
-conditioned into existence. The population-level
-answer preserved the thesis: pools are corner mixtures (P5-1a, by one
-unit), with panel variance inside the published human range under coarse
-marginal checks but not the shape, and a pool δ-response substantially
-smaller than the published (nonmatched) human δ-gap. But both of the author's registered
-predictions failed. The persona frame dominated task text in conflict
-cells (P5-2 persona-dominant — the system prompt is a genuine second
-control channel, not decoration). And the existence predicate returned
-16/16 against a prediction of zero — 15 via a mechanism-ambiguous
-word/payoff-aligned clause, and one, p13, via the slope clause: both
-δ-cells interior with a positive registered slope LB — suggestive after
-the R2 family audit (permutation p = 0.053 ± 0.005 over the 32-candidate
-family; `docs/analysis/r2/p13-family-audit.md`) — the program's only
-Family-E gate-and-slope pass in five phases. Temperature, meanwhile,
-stayed inert (P5-4 not refuted) and descriptively *reduced* entropy — the
-decoding layer is not where the interior lives.
+The bare GPT-4.1 configuration produced no observed round-one cooperation across the registered continuation-probability cells. Framing and RPS produced other signatures. X1 then moved behavior to the opposite cooperation corner under formally game-equivalent wording.
 
-**Branch 2** (sealed pre-data, selected by the axes, byte-identical):
-the corner behavior of Phases 3–4 characterizes the bare subject, not the
-model's capability envelope; the capability is recoverable by
-content-side conditioning.
+> Phase 3 identified a prompt-conditional policy, not a representation-general property of GPT-4.1.
 
-## What this says, within the record
+### Phase 4: representation and payoff channels interact
 
-1. **Levels are cheap, responses are dear.** Persona pools match human
-   means and variances while failing the δ-response and shape
-   diagnostics. Validation protocols for synthetic panels that check
-   marginal moments will certify pools that have no economics in them.
-2. **Control is layered and lexical.** Local task text controls the bare
-   subject (P3-X1, P4-X2/D2); a persona frame can contest and beat task
-   text (P5-2); the token boundary wins the swap cell for everyone. Every
-   lever that worked is a *words* lever; the two non-lexical levers
-   (payoff structure, temperature) did nearly nothing.
-3. **The interior is a persona property, and rare.** One bare interior
-   point in five phases; fourteen persona-cells, concentrated where trait
-   factors are in tension (competitive + risk-averse; trait-level
-   attribution exploratory — the confirmatory unit is the complete
-   persona sentence). One persona shows a suggestive incentive
-   sensitivity (post-audit status: `docs/analysis/r2/p13-family-audit.md`).
-   Existence, not prevalence.
-4. **The methodology carried more than the subject did.** 4,576
-   byte-exact replays, zero invalid trials, budget-to-the-call, twelve
-   published refutations of the author. The honest-science machinery is
-   the transferable artifact; the behavioral results are one model
-   lineage at two temperatures' notice.
+X2 localized the wording switch and confirmed it on fresh seeds. D2 showed that semantic labels can override payoff dominance in direct conflict, while matrix changes affect behavior when labels do not oppose them. The δ assays were corner-confounded at the tested surfaces, adversary behavior was opponent-contingent, and the cross-vendor lane was demoted after sentinel-detected endpoint instability.
+
+> Semantic cues can dominate payoffs in registered conflict cells; payoff sensitivity is representation-dependent, and no universal control hierarchy was identified.
+
+### Phase 5: persona conditioning creates a broad but structurally concentrated panel
+
+Sixteen sealed persona sentences—complete bundles of name, age, occupation, and traits—were crossed with the existing instruments. Historically:
+
+- condition means entered broad published reference bands in three of four repeated cells;
+- raw dispersion across persona prompts was large;
+- aggregate continuation-probability response remained at most 0.08;
+- a seat-level corner predicate passed narrowly;
+- a pooled surface-conflict predicate favored the persona side;
+- p13 passed a per-candidate slope rule.
+
+The zero-call submission analyses sharpen all three load-bearing interpretations:
+
+1. **Composition is robust, the binary corner label is not.** Corrected between-prompt SDs remain 0.418–0.478 and explain approximately 85%–96% of episode-level variation. The historical corner count is 3/32 restricted and 14/96 overall; a conservative exact episode interval gives 2/32 and 11/96; a Dirichlet–Jeffreys sensitivity gives 5/32 and 19/96. The continuous decomposition survives, while the threshold verdict is method-sensitive.
+2. **The pooled dominance result is carried by the confounded cell.** Exact episode inference leaves the pooled task-consistent share persona-dominant, but every repeated conflict subcell is mixed. The swap cell alone carries the classification, and word and payoff coincide there.
+3. **The favored p13 interpretation does not survive.** Under the historical seat gate, the familywise raw-slope permutation result is p=0.0592. Under the exact episode gate, p13 is not interior; the largest surviving slope is +0.0833 with p=0.7732. Clause (a) therefore supplies no unconfounded existence result at the episode level.
+
+The clause-(b) choice pattern remains statistically strong: all 24 evaluable lanes retain simultaneous exact familywise lower bounds above 0.20, with a minimum of 0.462. Its mechanism remains unidentified because the word and payoff point to the same action.
+
+> The fixed prompt panel illustrates a concrete failure mode: broad marginal criteria can pass largely through composition across stable prompt-conditioned policies while response to the registered incentive remains weak. It does not establish prevalence across persona generators, human equivalence, or stable latent synthetic people across interventions.
+
+## What the record now establishes
+
+### 1. Broad bands weakly constrain the aggregate response
+
+If condition means are accepted within broad intervals, the treatment contrast is only partially identified. Exact condition-specific mean matching would force the aggregate difference by identity; the empirical failure lives in the slack of coarse criteria.
+
+See [`propositions.md`](propositions.md).
+
+### 2. Aggregate moments do not reveal the response-generating microstructure
+
+Mean and total variance do not identify the allocation between prompt configurations and repeated draws, the distributional shape, boundary concentration, or the cross-condition coupling of prompt-indexed responses. Even exact marginal distributions do not identify the response coupling without pairing or structural assumptions.
+
+### 3. Prompt identity is not latent-person identity
+
+Reusing an explicit persona string across interventions controls explicit assignment. It does not prove that the model instantiated the same latent synthetic individual in both conditions. Lin-style intervention-induced user drift may coexist with the observed composition pattern.
+
+### 4. Behavior belongs to a configuration
+
+Observed behavior depends on model identifier, complete prompt bundle, decoding, parser, history, provider route, and execution window. A sentence, label, or identity prefix can materially alter the induced policy.
+
+### 5. Procedural exactness is not inferential validity
+
+The machinery preserved registrations, timestamps, evidence scope, raw completions, adjudication inputs, and exact replay. External review nevertheless found missing family control and an invalid seat-independence assumption. Reanalysis then removed the paper's favored positive result.
+
+> The pipeline can enforce a registered predicate exactly; it cannot guarantee that the predicate represents a valid estimand, test family, or construct.
+
+## Current evidence boundaries
+
+- One primary deployment carries the confirmatory record.
+- The registered estimand is the fixed panel of sixteen complete prompts; persona-population generalization is weak.
+- The corner census varies across defensible interval methods.
+- Corrected dispersion is a fixed-panel prompt-heterogeneity estimate, not matched human latent variance.
+- Human references are published and protocol-nonmatched.
+- Clause (b) is statistically robust and mechanism-confounded.
+- p13 is a replication target only; no episode-level existence result survives.
+- Explicit prompt pairing does not establish latent-person invariance.
+
+## Transferable artifact
+
+The most reusable output may be the research system:
+
+- append-only prompt registries;
+- externally anchored predicates and amendments;
+- event-sourced execution;
+- budget and retry accounting;
+- mechanical adjudication;
+- zero-call replay and metric recomputation;
+- behavioral sentinels;
+- public post-adjudication correction without historical rewriting.
+
+The record contains twelve predictions refuted by data and one separately categorized inferential downgrade.
 
 ## Scope seal
 
-The program ends with paper one. Follow-ons that the record motivates but
-does not license: an anti-aligned swap cell to split the word/payoff
-mechanisms; persona-factor sweeps around the competitive–risk-averse
-tension; the entropy-decline anomaly. They stay future work.
+The sealed experiment ends with paper one. New subject calls require a new registration. Remaining work is editorial: citation verification, bibliography, link validation, and final venue-specific formatting.

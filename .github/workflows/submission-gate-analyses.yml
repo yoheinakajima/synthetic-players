@@ -1,0 +1,116 @@
+name: submission-gate-analyses
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/submission-gate-analyses.yml'
+      - 'scripts/paper_submission_lint.py'
+      - 'scripts/integrate_submission_results.py'
+      - 'scripts/augment_p13_audit_variants.py'
+      - 'scripts/generate_prompt_delta_figure.py'
+      - 'scripts/materialize_draft_history.py'
+      - 'artifacts/api-server/engine/submission_gate_analyses.py'
+      - 'artifacts/api-server/engine/submission_gate_finalize.py'
+      - 'artifacts/api-server/engine/submission_gate_exact_cluster.py'
+      - 'artifacts/api-server/engine/submission_gate_variance_fixed.py'
+      - 'artifacts/api-server/engine/phase5_closeout_adjudicate.py'
+      - 'artifacts/api-server/engine/phase4_adjudicate.py'
+      - 'README.md'
+      - 'REVIEW.md'
+      - 'docs/paper/**'
+      - 'docs/reviews/**'
+      - 'docs/analysis/**'
+      - 'docs/phase5/**'
+      - 'docs/phase5-close/**'
+      - 'capsule/data/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: submission-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install analysis and replay dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy uv
+
+      - name: Stage archived databases
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/engine/data
+          xz -dkc capsule/data/engine.db.xz > artifacts/api-server/engine/data/engine.db
+          xz -dkc capsule/data/budget.db.xz > artifacts/api-server/engine/data/budget.db
+          cp capsule/data/phase4-driver-plan.json capsule/data/phase4-driver-state.json \
+             capsule/data/phase5-driver-plan.json capsule/data/phase5-driver-state.json \
+             artifacts/api-server/engine/data/ 2>/dev/null || true
+
+      - name: Run zero-call submission analyses
+        env:
+          SUBMISSION_DIRICHLET_DRAWS: '200000'
+          SUBMISSION_FAMILY_PERMUTATIONS: '200000'
+          SUBMISSION_FAMILY_BATCH: '5000'
+          SUBMISSION_VARIANCE_BOOTSTRAPS: '50000'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python artifacts/api-server/engine/submission_gate_analyses.py | tee /tmp/submission-analysis.log
+          python artifacts/api-server/engine/submission_gate_finalize.py | tee -a /tmp/submission-analysis.log
+          python artifacts/api-server/engine/submission_gate_exact_cluster.py | tee -a /tmp/submission-analysis.log
+          python scripts/augment_p13_audit_variants.py | tee -a /tmp/submission-analysis.log
+          python artifacts/api-server/engine/submission_gate_variance_fixed.py | tee -a /tmp/submission-analysis.log
+          python scripts/generate_prompt_delta_figure.py | tee -a /tmp/submission-analysis.log
+          python scripts/integrate_submission_results.py | tee -a /tmp/submission-analysis.log
+          python scripts/materialize_draft_history.py | tee -a /tmp/submission-analysis.log
+
+      - name: Lint paper surface and sealed boundary
+        run: python scripts/paper_submission_lint.py --base origin/main
+
+      - name: Verify reproduction capsule
+        run: bash capsule/verify.sh
+
+      - name: Upload analysis outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: submission-gate-analysis-results
+          path: |
+            docs/analysis/submission/
+            docs/paper/
+            docs/analysis/submission-blockers.md
+            /tmp/submission-analysis.log
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit generated analysis artifacts and integrated paper results
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/analysis/submission docs/paper docs/analysis/submission-blockers.md
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+            exit 0
+          fi
+          git commit -m 'integrate zero-call submission analysis results'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}

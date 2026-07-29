@@ -1,0 +1,115 @@
+{
+  "family": {
+    "registeredEligibleClauseA": 96,
+    "evaluableClauseA": 32,
+    "clauseBAnalyzedSeparately": true
+  },
+  "permutations": 200000,
+  "seed": 20260783,
+  "historicalSeatGate_rawSlopeMax": {
+    "observedTmaxRawSlope": 0.4166666666666667,
+    "argmax": [
+      "p13",
+      "s2a"
+    ],
+    "observedGatePassing": [
+      [
+        "p04",
+        "s2p"
+      ],
+      [
+        "p05",
+        "s2a"
+      ],
+      [
+        "p13",
+        "s2a"
+      ]
+    ],
+    "exceedances": 11845,
+    "pAddOne": 0.05922970385148074,
+    "mcClopperPearson95": [
+      0.05819439838937249,
+      0.06026839976041168
+    ],
+    "nullAnyGateRate": 1.0,
+    "finiteTmaxQuantiles": {
+      "q50": 0.16666666666666669,
+      "q90": 0.3333333333333333,
+      "q95": 0.4166666666666667,
+      "q99": 0.4166666666666667
+    }
+  },
+  "episodeExactCPGate_rawSlopeMax": {
+    "observedTmaxRawSlope": 0.08333333333333337,
+    "argmax": [
+      "p05",
+      "s2a"
+    ],
+    "observedGatePassing": [
+      [
+        "p04",
+        "s2p"
+      ],
+      [
+        "p05",
+        "s2a"
+      ]
+    ],
+    "exceedances": 154641,
+    "pAddOne": 0.7732061339693301,
+    "mcClopperPearson95": [
+      0.771363289663426,
+      0.7750387887190213
+    ],
+    "nullAnyGateRate": 1.0,
+    "finiteTmaxQuantiles": {
+      "q50": 0.08333333333333337,
+      "q90": 0.24999999999999994,
+      "q95": 0.3333333333333333,
+      "q99": 0.3333333333333333
+    }
+  },
+  "episodeClusterBootstrapGate_rawSlopeMax": {
+    "observedTmaxRawSlope": 0.4166666666666667,
+    "argmax": [
+      "p13",
+      "s2a"
+    ],
+    "observedGatePassing": [
+      [
+        "p04",
+        "s2p"
+      ],
+      [
+        "p05",
+        "s2a"
+      ],
+      [
+        "p13",
+        "s2a"
+      ]
+    ],
+    "permutations": 200000,
+    "exceedances": 8690,
+    "pAddOne": 0.04345478272608637,
+    "mcClopperPearson95": [
+      0.042560648530731424,
+      0.04435261432522352
+    ],
+    "nullAnyGateRate": 1.0,
+    "finiteTmaxQuantiles": {
+      "q50": 0.16666666666666669,
+      "q90": 0.3333333333333333,
+      "q95": 0.3333333333333333,
+      "q99": 0.4166666666666667
+    },
+    "nullAnyPositiveGatedMaximumRate": 0.93099
+  },
+  "postAdjudicationStatus": {
+    "registeredAtOriginalFreeze": false,
+    "specifiedAfterExternalReview": true,
+    "reportingRule": "Report all computed gate variants. The exact-episode gate is primary because it remains non-degenerate at exact corners; no post hoc variant can create prospective confirmation.",
+    "bootstrapSourceSeed": 20260782
+  }
+}

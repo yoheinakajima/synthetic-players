@@ -1,25 +1,31 @@
 cff-version: 1.2.0
-message: "If you use this repository — the results, the data artifacts, or the protocol — please cite it as below."
-title: "Synthetic Players: pre-registered, mechanically adjudicated experiments on LLM game play"
+message: "This repository and its released research artifacts are citable; the current manuscript is a working draft and should not yet be cited as a final paper."
+title: "Synthetic Players: auditable strategic experiments with LLM-controlled agents"
 type: software
 authors:
   - family-names: Nakajima
     given-names: Yohei
 repository-code: "https://github.com/yoheinakajima/synthetic-players"
 license: MIT
-version: phase4-final
-date-released: "2026-07-28"
+version: "phase5-review-v5"
+date-released: "2026-07-29"
 abstract: >-
-  A research program on how large language models play games, run under
-  sealed pre-registration with fail-closed mechanical adjudication and
-  byte-exact replay from an append-only event store. Central finding:
-  subject behavior is driven by local semantic-textual content, not payoffs
-  and not display mechanics; the cross-vendor twin inverts per channel.
-  Data artifacts (event store, ledgers, adjudication records) are released
-  under CC BY 4.0 as versioned release assets.
+  An open research program on LLM-controlled agents in strategic games,
+  including externally anchored registrations, event-sourced execution,
+  mechanical adjudication, behavioral drift monitoring, byte-exact replay,
+  and public post-adjudication sensitivity analyses. The current paper studies
+  a fixed panel of lightweight persona prompts that passes coarse marginal
+  checks while producing small, imprecisely estimated continuation-probability
+  contrasts. Corrected estimates assign most episode-level variation to
+  differences between prompt configurations. The repository does not claim
+  human substitutability, and published human references are protocol-nonmatched.
 keywords:
-  - game theory
+  - behavioral game theory
   - large language models
+  - LLM social simulation
+  - synthetic participants
+  - persona prompting
   - preregistration
-  - reproducibility
+  - computational reproducibility
   - mechanical adjudication
+  - causal validation

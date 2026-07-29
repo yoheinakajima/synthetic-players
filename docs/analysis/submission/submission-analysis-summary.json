@@ -1,0 +1,541 @@
+{
+  "generatedAt": "2026-07-29",
+  "status": "post-adjudication zero-call submission sensitivities",
+  "parameters": {
+    "dirichletDrawsPerObservedCell": 200000,
+    "familyPermutations": 200000,
+    "varianceBootstraps": 50000,
+    "baseSeed": 20260729
+  },
+  "results": {
+    "episodeCluster": {
+      "historical": {
+        "restrictedInterior": 3,
+        "restrictedN": 32,
+        "restrictedFraction": 0.09375,
+        "unrestrictedInterior": 14,
+        "unrestrictedN": 96,
+        "historicalPredicateWouldSupport": true
+      },
+      "clusterBootstrap": {
+        "restrictedInterior": 3,
+        "restrictedN": 32,
+        "restrictedFraction": 0.09375,
+        "unrestrictedInterior": 13,
+        "unrestrictedN": 96,
+        "historicalPredicateWouldSupport": true
+      },
+      "dirichletJeffreys": {
+        "restrictedInterior": 5,
+        "restrictedN": 32,
+        "restrictedFraction": 0.15625,
+        "unrestrictedInterior": 19,
+        "unrestrictedN": 96,
+        "historicalPredicateWouldSupport": false
+      }
+    },
+    "p13Family": {
+      "historicalSeatGate_rawSlopeMax": {
+        "observedTmaxRawSlope": 0.4166666666666667,
+        "argmax": [
+          "p13",
+          "s2a"
+        ],
+        "observedGatePassing": [
+          [
+            "p04",
+            "s2p"
+          ],
+          [
+            "p05",
+            "s2a"
+          ],
+          [
+            "p13",
+            "s2a"
+          ]
+        ],
+        "permutations": 200000,
+        "exceedances": 11988,
+        "pAddOne": 0.05994470027649862,
+        "mcClopperPearson95": [
+          0.05890355779673172,
+          0.060989219364291115
+        ],
+        "nullAnyGateRate": 1.0,
+        "finiteTmaxQuantiles": {
+          "q50": 0.16666666666666669,
+          "q90": 0.3333333333333333,
+          "q95": 0.4166666666666667,
+          "q99": 0.4166666666666667
+        },
+        "nullAnyPositiveGatedMaximumRate": 0.948085
+      },
+      "episodeClusterBootstrapGate_rawSlopeMax": {
+        "observedTmaxRawSlope": 0.4166666666666667,
+        "argmax": [
+          "p13",
+          "s2a"
+        ],
+        "observedGatePassing": [
+          [
+            "p04",
+            "s2p"
+          ],
+          [
+            "p05",
+            "s2a"
+          ],
+          [
+            "p13",
+            "s2a"
+          ]
+        ],
+        "permutations": 200000,
+        "exceedances": 8690,
+        "pAddOne": 0.04345478272608637,
+        "mcClopperPearson95": [
+          0.042560648530731424,
+          0.04435261432522352
+        ],
+        "nullAnyGateRate": 1.0,
+        "finiteTmaxQuantiles": {
+          "q50": 0.16666666666666669,
+          "q90": 0.3333333333333333,
+          "q95": 0.3333333333333333,
+          "q99": 0.4166666666666667
+        },
+        "nullAnyPositiveGatedMaximumRate": 0.93099
+      },
+      "family": {
+        "registeredEligibleClauseA": 96,
+        "evaluableClauseA": 32,
+        "clauseBAnalyzedSeparately": true
+      },
+      "seed": 20260782
+    },
+    "variance": {
+      "rep-d10-s2a": {
+        "point": {
+          "cell": "rep-d10-s2a",
+          "personas": 16,
+          "episodesPerPersona": 6,
+          "poolMean": 0.348958,
+          "rawBetweenVarianceOfEstimatedMeans": 0.17983218,
+          "estimatedMeanMeasurementNoise": 0.00494792,
+          "correctedBetweenVariance": 0.17488426,
+          "rawBetweenSD": 0.424066,
+          "correctedBetweenSD": 0.418192,
+          "averageWithinEpisodeVariance": 0.0296875,
+          "betweenShare": 0.85488,
+          "historicalRhoThresholdSD": 0.30915,
+          "correctedPointMeetsHistoricalThreshold": 1,
+          "observedPointCornerMass": 0.6875,
+          "clusterGateCornerMass": 0.8125,
+          "bootstrapCorrectedSDlo": 0.270349,
+          "bootstrapCorrectedSDmedian": 0.416597,
+          "bootstrapCorrectedSDhi": 0.487577,
+          "bootstrapBetweenShareLo": 0.656407,
+          "bootstrapBetweenShareMedian": 0.877073,
+          "bootstrapBetweenShareHi": 0.979104
+        },
+        "bootstrap": {
+          "rawB": {
+            "median": 0.17858796296296298,
+            "lo95": 0.07844328703703704,
+            "hi95": 0.23955439814814816
+          },
+          "noise": {
+            "median": 0.00390625,
+            "lo95": 0.0007812499999999999,
+            "hi95": 0.008680555555555556
+          },
+          "B": {
+            "median": 0.17355324074074074,
+            "lo95": 0.07308883101851851,
+            "hi95": 0.23773148148148146
+          },
+          "W": {
+            "median": 0.023437500000000003,
+            "lo95": 0.0046875,
+            "hi95": 0.052083333333333336
+          },
+          "ratio": {
+            "median": 0.8770731707317073,
+            "lo95": 0.6564071390667073,
+            "hi95": 0.9791037845368005
+          },
+          "correctedSD": {
+            "median": 0.41659721643422054,
+            "lo95": 0.2703494604011514,
+            "hi95": 0.4875771543883916
+          }
+        }
+      },
+      "rep-d10-s2p": {
+        "point": {
+          "cell": "rep-d10-s2p",
+          "personas": 16,
+          "episodesPerPersona": 6,
+          "poolMean": 0.427083,
+          "rawBetweenVarianceOfEstimatedMeans": 0.23043981,
+          "estimatedMeanMeasurementNoise": 0.0015625,
+          "correctedBetweenVariance": 0.22887731,
+          "rawBetweenSD": 0.480041,
+          "correctedBetweenSD": 0.478411,
+          "averageWithinEpisodeVariance": 0.009375,
+          "betweenShare": 0.960651,
+          "historicalRhoThresholdSD": 0.30915,
+          "correctedPointMeetsHistoricalThreshold": 1,
+          "observedPointCornerMass": 0.8125,
+          "clusterGateCornerMass": 0.9375,
+          "bootstrapCorrectedSDlo": 0.364276,
+          "bootstrapCorrectedSDmedian": 0.470975,
+          "bootstrapCorrectedSDhi": 0.512348,
+          "bootstrapBetweenShareLo": 0.899492,
+          "bootstrapBetweenShareMedian": 0.967486,
+          "bootstrapBetweenShareHi": 1.0
+        },
+        "bootstrap": {
+          "rawB": {
+            "median": 0.2228877314814815,
+            "lo95": 0.13506944444444446,
+            "hi95": 0.2625
+          },
+          "noise": {
+            "median": 0.0012152777777777778,
+            "lo95": 0.0,
+            "hi95": 0.003125
+          },
+          "B": {
+            "median": 0.2218171296296296,
+            "lo95": 0.13269675925925925,
+            "hi95": 0.2625
+          },
+          "W": {
+            "median": 0.007291666666666667,
+            "lo95": 0.0,
+            "hi95": 0.018750000000000003
+          },
+          "ratio": {
+            "median": 0.9674855491329479,
+            "lo95": 0.899492385786802,
+            "hi95": 1.0
+          },
+          "correctedSD": {
+            "median": 0.4709746592223722,
+            "lo95": 0.36427566383064797,
+            "hi95": 0.51234753829798
+          }
+        }
+      },
+      "rep-d90-s2a": {
+        "point": {
+          "cell": "rep-d90-s2a",
+          "personas": 16,
+          "episodesPerPersona": 6,
+          "poolMean": 0.432292,
+          "rawBetweenVarianceOfEstimatedMeans": 0.19835069,
+          "estimatedMeanMeasurementNoise": 0.00407986,
+          "correctedBetweenVariance": 0.19427083,
+          "rawBetweenSD": 0.445366,
+          "correctedBetweenSD": 0.440762,
+          "averageWithinEpisodeVariance": 0.02447917,
+          "betweenShare": 0.888095,
+          "historicalRhoThresholdSD": 0.2337,
+          "correctedPointMeetsHistoricalThreshold": 1,
+          "observedPointCornerMass": 0.6875,
+          "clusterGateCornerMass": 0.8125,
+          "bootstrapCorrectedSDlo": 0.346611,
+          "bootstrapCorrectedSDmedian": 0.433814,
+          "bootstrapCorrectedSDhi": 0.489242,
+          "bootstrapBetweenShareLo": 0.773224,
+          "bootstrapBetweenShareMedian": 0.905165,
+          "bootstrapBetweenShareHi": 0.980983
+        },
+        "bootstrap": {
+          "rawB": {
+            "median": 0.1916377314814815,
+            "lo95": 0.12453703703703703,
+            "hi95": 0.240625
+          },
+          "noise": {
+            "median": 0.003298611111111111,
+            "lo95": 0.0006944444444444446,
+            "hi95": 0.006944444444444445
+          },
+          "B": {
+            "median": 0.18819444444444444,
+            "lo95": 0.12013888888888889,
+            "hi95": 0.23935763888888928
+          },
+          "W": {
+            "median": 0.019791666666666666,
+            "lo95": 0.0041666666666666675,
+            "hi95": 0.04166666666666667
+          },
+          "ratio": {
+            "median": 0.9051645484879185,
+            "lo95": 0.7732239436484417,
+            "hi95": 0.9809825673534073
+          },
+          "correctedSD": {
+            "median": 0.43381383616067903,
+            "lo95": 0.346610572384757,
+            "hi95": 0.4892419008275367
+          }
+        }
+      },
+      "rep-d90-s2p": {
+        "point": {
+          "cell": "rep-d90-s2p",
+          "personas": 16,
+          "episodesPerPersona": 6,
+          "poolMean": 0.505208,
+          "rawBetweenVarianceOfEstimatedMeans": 0.19024884,
+          "estimatedMeanMeasurementNoise": 0.00338542,
+          "correctedBetweenVariance": 0.18686343,
+          "rawBetweenSD": 0.436175,
+          "correctedBetweenSD": 0.432277,
+          "averageWithinEpisodeVariance": 0.0203125,
+          "betweenShare": 0.901955,
+          "historicalRhoThresholdSD": 0.2337,
+          "correctedPointMeetsHistoricalThreshold": 1,
+          "observedPointCornerMass": 0.6875,
+          "clusterGateCornerMass": 0.6875,
+          "bootstrapCorrectedSDlo": 0.335841,
+          "bootstrapCorrectedSDmedian": 0.42451,
+          "bootstrapCorrectedSDhi": 0.485436,
+          "bootstrapBetweenShareLo": 0.773608,
+          "bootstrapBetweenShareMedian": 0.918394,
+          "bootstrapBetweenShareHi": 0.988593
+        },
+        "bootstrap": {
+          "rawB": {
+            "median": 0.18307291666666667,
+            "lo95": 0.11712962962962963,
+            "hi95": 0.23723958333333334
+          },
+          "noise": {
+            "median": 0.002604166666666667,
+            "lo95": 0.00043402777777777775,
+            "hi95": 0.006423611111111111
+          },
+          "B": {
+            "median": 0.18020833333333333,
+            "lo95": 0.11278935185185185,
+            "hi95": 0.23564814814814813
+          },
+          "W": {
+            "median": 0.015625,
+            "lo95": 0.0026041666666666665,
+            "hi95": 0.03854166666666667
+          },
+          "ratio": {
+            "median": 0.9183937823834197,
+            "lo95": 0.7736080466469052,
+            "hi95": 0.9885931558935361
+          },
+          "correctedSD": {
+            "median": 0.4245095208983343,
+            "lo95": 0.33584125990094166,
+            "hi95": 0.4854360391937831
+          }
+        }
+      }
+    },
+    "counts": {
+      "engineDb": {
+        "distinctRunIdsAnyEvent": 5540,
+        "completedDistinctRuns_replayObservations": 5505,
+        "invalidatedDistinctRuns": 0,
+        "roundPlayedEvents": 54276,
+        "seatRoundDecisions": 108552,
+        "llmRequestedEvents": 36251,
+        "eventCounts": {
+          "behavior.completed": 29432,
+          "behavior.started": 29553,
+          "decision.parsed": 30397,
+          "infra.gate0.call": 15,
+          "infra.gate0.completed": 4,
+          "infra.gate0.diagnostic": 1,
+          "infra.gate0.started": 4,
+          "infra.phase4.resolution": 3,
+          "llm.requested": 36251,
+          "llm.responded": 36227,
+          "object.created": 59808,
+          "patch.applied": 121,
+          "round.played": 54276,
+          "round.requested": 29553,
+          "run.completed": 5505,
+          "runtime.idle": 606
+        },
+        "llmRequestsByPhaseHeuristic": {
+          "phase4": 19993,
+          "phase5": 10428,
+          "unattributed": 5830
+        },
+        "completedRunsByPhaseHeuristic": {
+          "phase4": 2864,
+          "phase5": 1712,
+          "unattributed": 929
+        }
+      },
+      "budgetDb": {
+        "tables": {
+          "resolutions": {
+            "columns": [
+              "key",
+              "template_id",
+              "ts",
+              "event_run_id",
+              "note"
+            ],
+            "rows": 3
+          },
+          "spend": {
+            "columns": [
+              "id",
+              "ts",
+              "run_id",
+              "arm_id",
+              "block",
+              "cap_group",
+              "model",
+              "calls",
+              "input_tokens",
+              "output_tokens",
+              "note"
+            ],
+            "rows": 30518
+          },
+          "sqlite_sequence": {
+            "columns": [
+              "name",
+              "seq"
+            ],
+            "rows": 1
+          }
+        },
+        "spendTotals": {
+          "calls": 30530,
+          "input_tokens": 13141675,
+          "output_tokens": 45247
+        }
+      },
+      "definitions": {
+        "replayObservation": "one distinct completed run in the public replay contract",
+        "roundPlayedEvent": "one simultaneous move pair",
+        "seatRoundDecision": "one player action; two per round.played event",
+        "llmRequestedEvent": "one archived provider request, including requests within multi-round episodes"
+      }
+    },
+    "episodeExact": {
+      "historical": {
+        "restrictedInterior": 3,
+        "restrictedN": 32,
+        "restrictedFraction": 0.09375,
+        "unrestrictedInterior": 14,
+        "unrestrictedN": 96,
+        "historicalPredicateWouldSupport": true
+      },
+      "episodeExact": {
+        "restrictedInterior": 2,
+        "restrictedN": 32,
+        "restrictedFraction": 0.0625,
+        "unrestrictedInterior": 11,
+        "unrestrictedN": 96,
+        "historicalPredicateWouldSupport": true
+      },
+      "discardedPercentileBootstrap": {
+        "restrictedInterior": 3,
+        "restrictedN": 32,
+        "restrictedFraction": 0.09375,
+        "unrestrictedInterior": 13,
+        "unrestrictedN": 96,
+        "historicalPredicateWouldSupport": true
+      },
+      "dirichletJeffreys": {
+        "restrictedInterior": 5,
+        "restrictedN": 32,
+        "restrictedFraction": 0.15625,
+        "unrestrictedInterior": 19,
+        "unrestrictedN": 96,
+        "historicalPredicateWouldSupport": false
+      }
+    },
+    "p13FamilyFinalExact": {
+      "family": {
+        "registeredEligibleClauseA": 96,
+        "evaluableClauseA": 32,
+        "clauseBAnalyzedSeparately": true
+      },
+      "permutations": 200000,
+      "seed": 20260783,
+      "historicalSeatGate_rawSlopeMax": {
+        "observedTmaxRawSlope": 0.4166666666666667,
+        "argmax": [
+          "p13",
+          "s2a"
+        ],
+        "observedGatePassing": [
+          [
+            "p04",
+            "s2p"
+          ],
+          [
+            "p05",
+            "s2a"
+          ],
+          [
+            "p13",
+            "s2a"
+          ]
+        ],
+        "exceedances": 11845,
+        "pAddOne": 0.05922970385148074,
+        "mcClopperPearson95": [
+          0.05819439838937249,
+          0.06026839976041168
+        ],
+        "nullAnyGateRate": 1.0,
+        "finiteTmaxQuantiles": {
+          "q50": 0.16666666666666669,
+          "q90": 0.3333333333333333,
+          "q95": 0.4166666666666667,
+          "q99": 0.4166666666666667
+        }
+      },
+      "episodeExactCPGate_rawSlopeMax": {
+        "observedTmaxRawSlope": 0.08333333333333337,
+        "argmax": [
+          "p05",
+          "s2a"
+        ],
+        "observedGatePassing": [
+          [
+            "p04",
+            "s2p"
+          ],
+          [
+            "p05",
+            "s2a"
+          ]
+        ],
+        "exceedances": 154641,
+        "pAddOne": 0.7732061339693301,
+        "mcClopperPearson95": [
+          0.771363289663426,
+          0.7750387887190213
+        ],
+        "nullAnyGateRate": 1.0,
+        "finiteTmaxQuantiles": {
+          "q50": 0.08333333333333337,
+          "q90": 0.24999999999999994,
+          "q95": 0.3333333333333333,
+          "q99": 0.3333333333333333
+        }
+      }
+    }
+  }
+}
