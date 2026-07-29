@@ -2,7 +2,9 @@
 """Insert generated submission-analysis results into living paper documents.
 
 The script updates only paper-facing living files. It never edits sealed phase
-records or historical adjudications. Re-running it is idempotent.
+records or historical adjudications. Re-running it is idempotent: sections that
+have already reached their completed form are accepted rather than treated as
+missing pre-integration placeholders.
 """
 from __future__ import annotations
 
@@ -40,6 +42,24 @@ def replace_once(text: str, pattern: str, replacement: str, label: str) -> str:
     if count != 1:
         raise RuntimeError(f"expected one {label}, replaced {count}")
     return text
+
+
+def replace_pending_or_accept_complete(
+    text: str,
+    pattern: str,
+    replacement: str,
+    label: str,
+    complete_markers: tuple[str, ...],
+) -> str:
+    """Replace a pre-integration section, or accept an already-integrated form."""
+    if re.search(pattern, text, flags=re.DOTALL):
+        return replace_once(text, pattern, replacement, label)
+    if any(marker in text for marker in complete_markers):
+        return text
+    raise RuntimeError(
+        f"found neither pending nor completed form for {label}; "
+        f"expected one of {complete_markers}"
+    )
 
 
 def update_paper(rows: list[dict[str, str]]) -> None:
@@ -114,7 +134,7 @@ def update_gate(rows: list[dict[str, str]]) -> None:
         )
     table += [
         "",
-        "All four fixed-panel corrected-SD lower bounds exceed the historical `0.75 × human SD` threshold. Three of four exploratory persona-population lower bounds do. Neither result is a protocol-matched estimate of human latent heterogeneity.",
+        "All four fixed-panel corrected-SD lower bounds exceed the historical `0.75 × published human SD` threshold. Three of four exploratory persona-population lower bounds do. Neither result is a protocol-matched estimate of human latent heterogeneity.",
         "",
         "Artifact: `submission/variance-correction.md`.",
         "",
@@ -126,7 +146,7 @@ def update_gate(rows: list[dict[str, str]]) -> None:
         "gate variance section",
     )
 
-    text = replace_once(
+    text = replace_pending_or_accept_complete(
         text,
         r"### C3\. Retired-language scan — \*\*PENDING FINAL AUTOMATED CHECK\*\*.*?(?=## D\. Counts and reproducibility)",
         """### C3. Retired-language scan — **COMPLETE**
@@ -135,9 +155,10 @@ def update_gate(rows: list[dict[str, str]]) -> None:
 
 """,
         "retired-language status section",
+        ("### C3. Retired-language scan — **COMPLETE**",),
     )
 
-    text = replace_once(
+    text = replace_pending_or_accept_complete(
         text,
         r"### D2\. Reproduction capsule — \*\*COMPLETE FOR SEALED RECORD; FINAL PAPER-LINK CHECK PENDING\*\*.*?(?=## E\. Literature and bibliography)",
         """### D2. Reproduction capsule and sealed boundary — **COMPLETE**
@@ -155,9 +176,10 @@ The living manuscript is not inserted into the immutable historical capsule; the
 
 """,
         "capsule status section",
+        ("### D2. Reproduction capsule and sealed boundary — **COMPLETE**",),
     )
 
-    text = replace_once(
+    text = replace_pending_or_accept_complete(
         text,
         r"### F2\. Public navigation — \*\*MOSTLY COMPLETE; LINK CHECK BLOCKING\*\*.*?(?=## Remaining submission blockers)",
         """### F2. Public navigation and relative links — **COMPLETE**
@@ -166,9 +188,13 @@ README and the analysis index link the paper, novelty map, literature map, propo
 
 """,
         "public-navigation status section",
+        (
+            "### F2. Public navigation and relative links — **COMPLETE**",
+            "### E2. Public navigation — **COMPLETE**",
+        ),
     )
 
-    text = replace_once(
+    text = replace_pending_or_accept_complete(
         text,
         r"## Remaining submission blockers.*\Z",
         """## Remaining submission blockers
@@ -178,6 +204,10 @@ README and the analysis index link the paper, novelty map, literature map, propo
 3. Human author approval of the title, target venue, final attribution statement, and whether any quantitative protocol-nonmatched human comparator remains in the submitted version.
 """,
         "remaining-blockers section",
+        (
+            "## Remaining before formal submission",
+            "## Remaining submission blockers",
+        ),
     )
 
     GATE.write_text(text, encoding="utf-8")
