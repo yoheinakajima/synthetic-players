@@ -1,0 +1,7 @@
+conflictCell,episodes,meanTaskConsistentSeatShare,episodeExactLo,episodeExactHi,episodeExactVerdict
+__pooled__,352,0.127841,0.091753,0.172069,persona-dominant
+cooperative-leaning|rep-d10-s2a,48,0.385417,0.23396,0.555272,mixed
+cooperative-leaning|rep-d90-s2a,48,0.3125,0.176472,0.478861,mixed
+defect-leaning|os-swap,160,0.0,0.0,0.027016,persona-dominant
+defect-leaning|rep-d10-s2p,48,0.09375,0.033069,0.223818,mixed
+defect-leaning|rep-d90-s2p,48,0.145833,0.069981,0.282316,mixed
