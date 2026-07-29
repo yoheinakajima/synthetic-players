@@ -1,0 +1,86 @@
+{
+  "engineDb": {
+    "distinctRunIdsAnyEvent": 5540,
+    "completedDistinctRuns_replayObservations": 5505,
+    "invalidatedDistinctRuns": 0,
+    "roundPlayedEvents": 54276,
+    "seatRoundDecisions": 108552,
+    "llmRequestedEvents": 36251,
+    "eventCounts": {
+      "behavior.completed": 29432,
+      "behavior.started": 29553,
+      "decision.parsed": 30397,
+      "infra.gate0.call": 15,
+      "infra.gate0.completed": 4,
+      "infra.gate0.diagnostic": 1,
+      "infra.gate0.started": 4,
+      "infra.phase4.resolution": 3,
+      "llm.requested": 36251,
+      "llm.responded": 36227,
+      "object.created": 59808,
+      "patch.applied": 121,
+      "round.played": 54276,
+      "round.requested": 29553,
+      "run.completed": 5505,
+      "runtime.idle": 606
+    },
+    "llmRequestsByPhaseHeuristic": {
+      "phase4": 19993,
+      "phase5": 10428,
+      "unattributed": 5830
+    },
+    "completedRunsByPhaseHeuristic": {
+      "phase4": 2864,
+      "phase5": 1712,
+      "unattributed": 929
+    }
+  },
+  "budgetDb": {
+    "tables": {
+      "resolutions": {
+        "columns": [
+          "key",
+          "template_id",
+          "ts",
+          "event_run_id",
+          "note"
+        ],
+        "rows": 3
+      },
+      "spend": {
+        "columns": [
+          "id",
+          "ts",
+          "run_id",
+          "arm_id",
+          "block",
+          "cap_group",
+          "model",
+          "calls",
+          "input_tokens",
+          "output_tokens",
+          "note"
+        ],
+        "rows": 30518
+      },
+      "sqlite_sequence": {
+        "columns": [
+          "name",
+          "seq"
+        ],
+        "rows": 1
+      }
+    },
+    "spendTotals": {
+      "calls": 30530,
+      "input_tokens": 13141675,
+      "output_tokens": 45247
+    }
+  },
+  "definitions": {
+    "replayObservation": "one distinct completed run in the public replay contract",
+    "roundPlayedEvent": "one simultaneous move pair",
+    "seatRoundDecision": "one player action; two per round.played event",
+    "llmRequestedEvent": "one archived provider request, including requests within multi-round episodes"
+  }
+}
