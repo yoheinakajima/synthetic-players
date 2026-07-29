@@ -78,6 +78,8 @@ sed -i "s/at a recorded commit/at commit \`$SRC_COMMIT\`/" capsule/README.md
 cat > capsule/OPERATOR-STEPS.md <<EOF
 # Operator steps — publishing the capsule (~2 minutes)
 
+> **SUPERSEDED (2026-07-29): the main repo is going public with capsule/ committed in-tree — no separate capsule repo is needed; kept for the record.**
+
 The agent's credential proxy cannot create or push external repos, so
 the final publish is manual:
 

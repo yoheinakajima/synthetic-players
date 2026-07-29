@@ -1,5 +1,8 @@
 # Postmortem: What v1 Got Wrong
 
+> **STATUS: WORKING DRAFT — PRE-PUBLICATION, NOT FOR CITATION.**
+
+
 Version 1 of this lab ran 40 experiments, wrote 11 claims, and generated a
 2,149-word paper. Several of its outputs were wrong or unfounded. This document
 is the honest record. The frozen v1 artifacts are in `docs/v1/` — unmodified.

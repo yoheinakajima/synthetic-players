@@ -1,5 +1,8 @@
 # Phase 4 Budget (freeze packet §G) — calls, tokens, dollars, kill-switches
 
+> **STATUS: WORKING DRAFT — PRE-PUBLICATION, NOT FOR CITATION.**
+
+
 Token/cost basis: measured Phase 3 means from the event store (5,830 calls):
 one-shot PD ≈ 172 in / 1 out tok, $0.0052/call · repeated PD ≈ 306–358 in / 1 out,
 $0.0093–0.0108/call · RPS 50-round ≈ 597 in (max 1,103) / 2.35 out, $0.0181/call —

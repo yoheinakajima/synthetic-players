@@ -1,5 +1,7 @@
 # Operator steps — publishing the capsule (~2 minutes)
 
+> **SUPERSEDED (2026-07-29): the main repo is going public with capsule/ committed in-tree — no separate capsule repo is needed; kept for the record.**
+
 The agent's credential proxy cannot create or push external repos, so
 the final publish is manual:
 
@@ -18,4 +20,4 @@ the final publish is manual:
 4. Tell the agent it is public — it will rerun the anonymous-clone
    verification (raw links included) and commit the transcript.
 
-Built from private-repo commit `78467c92375a8602ce4690eca548c074ef28fa05` by scripts/build-capsule.sh.
+Built from private-repo commit `f24f7f6475e580d935eec3a45bec7413c06582a9` by scripts/build-capsule.sh.

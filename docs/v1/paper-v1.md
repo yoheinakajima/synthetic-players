@@ -1,5 +1,8 @@
 # Empirical Deviations from Nash Equilibrium in Classic Game Theory Games: A Computational Study of Iterated Strategy Performance
 
+> **STATUS: WORKING DRAFT — PRE-PUBLICATION, NOT FOR CITATION.**
+
+
 > **FROZEN v1 SNAPSHOT** (July 2026). This paper was generated before mechanical claim adjudication and per-game-class metrics existed. It contains known errors documented in docs/POSTMORTEM.md. Preserved verbatim for the record; superseded by paper v2.
 
 ## Abstract

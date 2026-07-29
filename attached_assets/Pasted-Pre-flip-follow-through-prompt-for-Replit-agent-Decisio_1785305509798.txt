@@ -1,0 +1,17 @@
+Pre-flip follow-through prompt for Replit agent
+
+Decision made: the main repo yoheinakajima/synthetic-players is going PUBLIC. I flip the visibility switch myself in the GitHub UI — your job is everything before and after that click. Zero subject calls; no history rewrites under any circumstances; stop-and-report on any secret hit.
+
+Part 1 — pre-flip clearance (do now, then hold)
+Final secret sweep, tree AND full history (git rev-list --all), since the last scan: key/token/PEM material, provider URLs with embedded credentials, anything matching the AI_INTEGRATIONS_* values. Expected clean; if anything hits, STOP and report — do not remediate unilaterally.
+Banner audit: confirm "WORKING DRAFT — PRE-PUBLICATION, NOT FOR CITATION" renders on every paper-like surface — README front door, every report and doc in docs/, the lab UI Papers/PaperDetail pages via the publicationStatus switch. List any surface missing it and fix.
+PII/persona check: confirm all persona content is synthetic (seeded registry), no real names beyond the generated ones, no human data anywhere.
+Capsule in-repo: confirm capsule/ is committed complete (contents, SHA256SUMS.capsule, verify.sh, OTS proofs) so the flip publishes it with everything else — the separate public-capsule repo and OPERATOR-STEPS are now moot; mark OPERATOR-STEPS.md superseded with one line, don't delete it.
+Commit the externally verified novelty table verbatim as docs/analysis/novelty-relationships.md with its source line, if not already done.
+Push, then reply exactly: "CLEAR TO FLIP" plus the sweep/banner/capsule confirmations. Then hold — nothing else runs until I confirm the flip.
+Part 2 — post-flip verification (runs only after I reply "FLIPPED")
+Anonymous verification, for real: from a clean environment with no credentials and no git identity — anonymous clone of the public repo, raw-URL download spot-checks on release assets, sha256sum -c, then ./verify.sh (or the capsule verifier) to full PASS. Commit the transcript as docs/public-verification.md. The claim "anyone can verify" must now be literally true on the record.
+Finalize the timestamps: run ots upgrade on every .ots stamp, then ots verify; commit the upgraded proofs. This closes the pending Bitcoin-attestation task. If any calendar hasn't aggregated yet, record status and schedule one retry; don't block on it.
+README update: quiescence line updated to public status, one-command verify instructions front and center, and a short "How to check our claims" section linking the seals, the OTS proofs, and the claims ledger.
+Ledger the flip: provenance entry with the flip timestamp, the commit at flip, and a note that visibility change alters no recorded artifact (shas unchanged).
+Reply with: public-verification result, ots statuses, README diff summary. That closes the follow-through; the next work item after this is committing the v2 paper draft when it arrives.

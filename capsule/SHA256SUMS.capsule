@@ -104,7 +104,7 @@ aacb105a1d41454edcfc36de38b2080786181f6b0a102e457eee9b8fc1022c33  ./docs/phase3-
 60dae14556da4b9dda4b9777081940beba3a28b1c5c8f21f13b55397f2241cf1  ./docs/phase3-report.md
 eba6b7f10976598dea719d6ebf7921b1f81d6fc93d4b49e3768753bec1325a62  ./docs/phase4/arms.json
 a076628135cda60412d60532e0644f1be768fd2231cca18fad5a7e10cb3b9d46  ./docs/phase4/budget-amendments.md
-a444526262914573657ec5e9399409a6ec3a89a228e19a2773616fda45f32723  ./docs/phase4/budget.md
+62a8edde6b159381a495553a7441b618d0248404f36016a53d75a0b7aae490f0  ./docs/phase4/budget.md
 b4a80797e236ffe8c1b865a7ef32be96b4c8583b6ad4b34e73373d5e15860f31  ./docs/phase4-close/DATA-SHA256SUMS.txt
 62d82ed275a690c993b22fdc996423d73398b58718d2c8d7c47196f4c12525cf  ./docs/phase4-close/SHA256SUMS.txt
 fa361e97477c9dab6f92413d8dd62f3d2fc9f2e4524632bbbc0e4bcfa5547efd  ./docs/phase4-close/SHA256SUMS.txt.ots
@@ -128,7 +128,7 @@ b1d7af2a8d1bb4f4a52fd677df10062fb490b7ddfc0b4ea56a7ca23fd47f4cb3  ./docs/phase4/
 b734721b59818cb2b75f79d7e5fcb1f735a06335197ef0db5b2bf709bad37c39  ./docs/phase4/f-stabilization.json
 fe95e80154336f6fe9d8e246f86abadc4905283fb83dea239d96894c48546058  ./docs/phase4/f-stabilization.md
 77f992d90210d32ee6a474c791c8498ef3cbdd7846da870f4ec523309042ad77  ./docs/phase4/gate0-report.md
-24de4844c3ac7184ba326a56e7b059471a0d868db308ce9475e243413d4de0b4  ./docs/phase4/gate0-report-round1-claude-FAIL.md
+01c2fec60da9052e9530b08d77c1aa0a8b1c46c324cb3d742df1e0d982457818  ./docs/phase4/gate0-report-round1-claude-FAIL.md
 b5cd06a598736b08232e8cabd7ca2f1f339c13db3400d39918298b8db2223364  ./docs/phase4/predicates.md
 3b027fb7ac2415f470e82550cc14262d6e863b7c1d2aad4360aa12d57a8097b6  ./docs/phase4/provenance-notes.md
 9d1b632432c7c322b971d611b68d75394e973422809689787561d35e45b4920c  ./docs/phase4/provider-packet.md
@@ -180,8 +180,8 @@ a0b1d7b884c62ced4f48b01fe91bfd1490d3c2d9c2ca77ec59409889ef4ec893  ./docs/phase5/
 bd08cacc1283d4d320037924ec49c3145cf9bca59a82dbf26e3793c1df8eb033  ./docs/phase5/process-packet.md
 e45b707bdf2cb377b8d894ec3e1c37f4bf3be20e2e3ed47fd7dd1d2993d68693  ./docs/phase5/seal-record.md
 81a7a9b6aff7458d446d28f5816d28585264f42a9978b39c48154f54933445e4  ./docs/substitution-estimand-preregistration.md
-d0e0c0fd134eeba599c654c026960d28b41e2c3a935b7ab3583ce036de583317  ./OPERATOR-STEPS.md
-79ab8242e61698c2723e45f180c397382186fc404dd710bbf40c121e97ecc25a  ./README.md
+f1d414e340a2493ef363aeb005d40fb7bf92d6ac6bc3f598f1262d5a4b1cbfd2  ./OPERATOR-STEPS.md
+fa59e6023410b5713842e820960352841e456511483c8a1a785560168710dbff  ./README.md
 8456144fd5e5cd64399c5ada18db83761270152e3801fd94d6b184beaac4466b  ./verify.sh
 ec812bc948ba120109a733f0f3b084f94ae114de7fb04d3c5fc017ca80d9ab03  ./verify/SHA256SUMS-final.txt
 d99781985472ad899338fc2115e9f707dac08eb93e2bcb132c3da9c46ffd2d85  ./verify/SHA256SUMS-final.txt.ots
