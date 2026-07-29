@@ -94,7 +94,7 @@ jobs:
           set -euo pipefail
           sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
-            pandoc texlive-xetex texlive-latex-extra \
+            pandoc texlive-xetex texlive-latex-extra lmodern \
             fonts-linuxlibertine fonts-lato poppler-utils
 
       - name: Build and preflight reviewer PDF
