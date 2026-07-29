@@ -1,7 +1,6 @@
 {
   "engineDb": {
     "distinctRunIdsAnyEvent": 5540,
-    "completedDistinctRuns_replayObservations": 5505,
     "invalidatedDistinctRuns": 0,
     "roundPlayedEvents": 54276,
     "seatRoundDecisions": 108552,
@@ -33,7 +32,9 @@
       "phase4": 2864,
       "phase5": 1712,
       "unattributed": 929
-    }
+    },
+    "archivedCompletedDistinctRuns": 5505,
+    "publicPhase4PlusPhase5ReplayContractRuns": 4576
   },
   "budgetDb": {
     "tables": {
@@ -75,10 +76,15 @@
       "calls": 30530,
       "input_tokens": 13141675,
       "output_tokens": 45247
+    },
+    "programPhaseTotals": {
+      "phase4IncludingX2SentinelsAndInfra": 20102,
+      "phase5IncludingEntryAndSentinels": 10428,
+      "phase4PlusPhase5": 30530
     }
   },
   "definitions": {
-    "replayObservation": "one distinct completed run in the public replay contract",
+    "replayObservation": "one completed run in the public Phase 4+5 replay contract; the archived store also contains earlier completed runs outside that contract",
     "roundPlayedEvent": "one simultaneous move pair",
     "seatRoundDecision": "one player action; two per round.played event",
     "llmRequestedEvent": "one archived provider request, including requests within multi-round episodes"

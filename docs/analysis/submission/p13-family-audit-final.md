@@ -12,10 +12,12 @@
 
 ## Results
 
-| gate | observed max slope | argmax | passing candidates | exceedances / B | p | MC 95% interval | null false-fire rate |
+| gate | observed max slope | argmax | passing candidates | exceedances / B | p | MC 95% interval | null 95th percentile of gated max |
 |---|---:|---|---|---:|---:|---|---:|
-| Historical seat CP | +0.4167 | p13/s2a | p04/s2p, p05/s2a, p13/s2a | 11,988/200,000 | 0.059945 | [0.058904, 0.060989] | 94.808% |
-| Episode cluster bootstrap | +0.4167 | p13/s2a | p04/s2p, p05/s2a, p13/s2a | 8,690/200,000 | 0.043455 | [0.042561, 0.044353] | 93.099% |
+| Historical seat CP | +0.4167 | p13/s2a | p04/s2p, p05/s2a, p13/s2a | 11,988/200,000 | 0.059945 | [0.058904, 0.060989] | 0.4167 |
+| Episode cluster bootstrap | +0.4167 | p13/s2a | p04/s2p, p05/s2a, p13/s2a | 8,690/200,000 | 0.043455 | [0.042561, 0.044353] | 0.3333 |
+
+The two defensible gate definitions place the same archived maximum on opposite sides of 0.05. Under the historical seat-level gate, the observed value equals the null 95th percentile and the familywise permutation p-value is about 0.060. Under the episode-cluster gate, the p-value is about 0.043. This gate dependence is itself the correct result to report.
 
 ## Status rule
 

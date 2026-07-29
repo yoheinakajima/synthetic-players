@@ -27,13 +27,13 @@
       0.060989219364291115
     ],
     "nullAnyGateRate": 1.0,
-    "nullFalseFireRate": 0.948085,
     "finiteTmaxQuantiles": {
       "q50": 0.16666666666666669,
       "q90": 0.3333333333333333,
       "q95": 0.4166666666666667,
       "q99": 0.4166666666666667
-    }
+    },
+    "nullAnyPositiveGatedMaximumRate": 0.948085
   },
   "episodeClusterBootstrapGate_rawSlopeMax": {
     "observedTmaxRawSlope": 0.4166666666666667,
@@ -63,13 +63,13 @@
       0.04435261432522352
     ],
     "nullAnyGateRate": 1.0,
-    "nullFalseFireRate": 0.93099,
     "finiteTmaxQuantiles": {
       "q50": 0.16666666666666669,
       "q90": 0.3333333333333333,
       "q95": 0.3333333333333333,
       "q99": 0.4166666666666667
-    }
+    },
+    "nullAnyPositiveGatedMaximumRate": 0.93099
   },
   "family": {
     "registeredEligibleClauseA": 96,
