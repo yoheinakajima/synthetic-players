@@ -60,7 +60,6 @@ A method-of-moments correction subtracts estimated finite-opportunity noise from
 All four fixed-panel corrected-SD lower bounds exceed the historical `0.75 × published human SD` threshold. Three of four exploratory persona-population lower bounds do. Neither result is a protocol-matched estimate of human latent heterogeneity.
 
 Artifact: `submission/variance-correction.md`.
-
 ## B. Human comparator
 
 ### B1. Dal Bó–Fréchette microdata contextualization — **DEFERRED EXTERNAL DATA; NOT BLOCKING**
