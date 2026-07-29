@@ -7,6 +7,7 @@ on:
       - '.github/workflows/submission-gate-analyses.yml'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
+      - 'artifacts/api-server/engine/submission_gate_exact_cluster.py'
       - 'artifacts/api-server/engine/phase5_closeout_adjudicate.py'
       - 'artifacts/api-server/engine/phase4_adjudicate.py'
       - 'docs/phase5/**'
@@ -63,6 +64,7 @@ jobs:
           set -euo pipefail
           python artifacts/api-server/engine/submission_gate_analyses.py | tee /tmp/submission-analysis.log
           python artifacts/api-server/engine/submission_gate_finalize.py | tee -a /tmp/submission-analysis.log
+          python artifacts/api-server/engine/submission_gate_exact_cluster.py | tee -a /tmp/submission-analysis.log
 
       - name: Upload analysis outputs
         uses: actions/upload-artifact@v4
