@@ -21,6 +21,15 @@
 | `ops-meta.md` | Budget-to-the-call, freeze ledger, linter-escape pattern, cost of the integrity layer |
 | `program-synthesis-DRAFT.md` | §4 working-draft synthesis: the v1→P5 arc in one document (no new claims) |
 
+## Post-verdict analyses (`post-verdict/`)
+
+Targeted re-analyses of the recorded data answering the questions the
+Branch-2 verdicts opened (EXPLORATORY; zero new subject calls; generated
+by `engine/gen_post_verdict.py`). Read order in `post-verdict/INDEX.md`:
+clause-(b) confound anatomy · p13 deep-dive · interior-cell census ·
+P5-2 decomposition · entropy-vs-T anomaly. Figure sources under
+`post-verdict/figure-sources/pv-*.csv`.
+
 ## Figure sources (`figure-sources/`)
 
 | csv | figure it feeds |

@@ -1,0 +1,14 @@
+temperature,lane,family,seats,entropyBits
+0.7,bare,rep-δ90,216,0.7806
+0.7,persona,os-community,640,0.9368
+0.7,persona,os-swap,800,0.5111
+0.7,persona,rep-δ10,384,0.9635
+0.7,persona,rep-δ90,712,0.9992
+1.0,bare,os-swap,40,0.1687
+1.0,bare,rep-δ90,40,0.9982
+1.0,persona,os-swap,160,0.2592
+1.0,persona,rep-δ90,96,0.995
+1.3,bare,os-swap,40,0.1687
+1.3,bare,rep-δ90,40,0.971
+1.3,persona,os-swap,160,0.3124
+1.3,persona,rep-δ90,96,0.9972

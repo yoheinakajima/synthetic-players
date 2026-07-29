@@ -71,6 +71,7 @@ def _manifest(**over) -> dict:
         "schedule": ["cell-a"],
         "sealedRules": [],
         "verdictBranches": None,
+        "conflictCells": [],
     }
     base.update(over)
     return base
@@ -160,13 +161,65 @@ def main() -> int:
                     any(f["check"] == "C3-schedule" and "duplicate" in f["message"]
                         for f in r["failures"]), r))
 
+    # A9 — Phase 5 gap 1 (outcome-blind ruling D2): a conflict cell where word
+    # and role dissociate, sealed WITHOUT pinned taskConsistent coding, must
+    # fail the freeze. (Reproduces the swap-cell coding gap that had to be
+    # completed outcome-blind at adjudication.)
+    r = _run(_manifest(conflictCells=[
+        {"id": "os-swap|defect-leaning", "wordRoleDissociate": True,
+         "coding": None}]))
+    results.append(("A9 dissociated conflict cell without pinned coding fails",
+                    not r["pass"] and
+                    any(f["check"] == "C6-conflict-coding" for f in r["failures"]),
+                    r))
+    # A9b — control: pinned coding (and non-dissociated cells) pass.
+    r = _run(_manifest(conflictCells=[
+        {"id": "os-swap|defect-leaning", "wordRoleDissociate": True,
+         "coding": {"taskConsistent": "coop-role"}},
+        {"id": "rep-d90-s2a|cooperative-leaning", "wordRoleDissociate": False}]))
+    results.append(("A9b pinned conflict coding passes", r["pass"], r))
+    # A9c — manifest omitting conflictCells entirely fails closed.
+    m = _manifest()
+    del m["conflictCells"]
+    r = _run(m)
+    results.append(("A9c missing conflictCells section fails closed",
+                    not r["pass"] and
+                    any(f["check"] == "C6-conflict-coding" for f in r["failures"]),
+                    r))
+
+    # A10 — Phase 5 gap 2 (outcome-blind ruling D3): branch selection sealed
+    # without an explicit axis→bearing-predicate enumeration must fail the
+    # freeze. (Reproduces the Axis-A / P5-1b attachment ambiguity.)
+    vb_no_axes = {"docPath": os.path.join(ENGINE, "freeze_lint.py"),
+                  "requiredHeadings": [], "predicates": ["P5-1a", "P5-1b"]}
+    r = _run(_manifest(verdictBranches=vb_no_axes))
+    results.append(("A10 branch axes without bearing-predicate enumeration fail",
+                    not r["pass"] and
+                    any(f["check"] == "C7-axis-predicates" for f in r["failures"]),
+                    r))
+    # A10b — a declared predicate attached to no axis fails (the exact Phase 5
+    # ambiguity: does P5-1b bear on Axis A or not — must be decided at freeze).
+    r = _run(_manifest(verdictBranches={
+        **vb_no_axes,
+        "axes": [{"id": "A", "bearingPredicates": ["P5-1a"]}]}))
+    results.append(("A10b predicate unattached to any axis fails",
+                    not r["pass"] and
+                    any(f["check"] == "C7-axis-predicates" and
+                        "P5-1b" in f["message"] for f in r["failures"]), r))
+    # A10c — control: full enumeration passes.
+    r = _run(_manifest(verdictBranches={
+        **vb_no_axes,
+        "axes": [{"id": "A", "bearingPredicates": ["P5-1a"]},
+                 {"id": "B", "bearingPredicates": ["P5-1b"]}]}))
+    results.append(("A10c fully enumerated axes pass", r["pass"], r))
+
     ok = True
     for name, passed, r in results:
         print(f"{'PASS' if passed else 'FAIL'}  {name}")
         if not passed:
             ok = False
             print(json.dumps(r, indent=2))
-    print(f"\nacceptance: {'PASS 8/8' if ok else 'FAIL'}")
+    print(f"\nacceptance: {'PASS %d/%d' % (len(results), len(results)) if ok else 'FAIL'}")
     return 0 if ok else 1
 
 

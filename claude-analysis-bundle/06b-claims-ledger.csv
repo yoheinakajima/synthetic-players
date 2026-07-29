@@ -1,0 +1,36 @@
+# Machine-readable claims ledger (same content as 06) [CONFIRMATORY] (source: docs/phase*-close records)
+phase,claim,tier,registeredDirection,verdict,keyNumber,record
+v1,Claim 1,primary,TFT >50% coop vs AD,REFUTED,0.02 (margin -0.48),docs/POSTMORTEM.md
+v1,Claims 2-3-8-9,primary,various,SUPPORTED (v2-exact),see postmortem,docs/POSTMORTEM.md
+v1,Claims 4-7,primary,various,INCONCLUSIVE under v2 re-adjudication,sharper than data permits,docs/POSTMORTEM.md
+P3,A1 shadow of future,primary,round-1 coop d90>d10,REFUTED,0.000 both,docs/phase3-report.md
+P3,A2 risk-dominance separation,primary,separation across delta,REFUTED,0.000 vs 0.000,docs/phase3-report.md
+P3,A3 human band,primary,round-1 coop in [0.36 0.63],REFUTED,0.000,docs/phase3-report.md
+P3,A4 isomorph invariance,primary,payoff-equivalent games alike,REFUTED,separation limb fails,docs/phase3-report.md
+P3,B1,primary,registered,SUPPORTED,see report,docs/phase3-report.md
+P3,B3,primary,registered,SUPPORTED,see report,docs/phase3-report.md
+P3,C1 RPS rock band,primary,rock in [0.33 0.40],REFUTED,rock 0.80,docs/phase3-report.md
+P3,C2,primary,registered,SUPPORTED,see report,docs/phase3-report.md
+P3,C3 fo-tracker exploits,primary,tracker advantage >0,REFUTED sign reversed,-0.103 CI all-negative,docs/phase3-report.md
+P3,X1 paraphrase robustness,post-result registration,0.000 corner survives rewording,REFUTED,flips to 1.000,docs/phase3-report.md s6
+P4,X2-1 screening confirmation,primary,confirmed span >0.50,SUPPORTED,+0.925 LB95 +0.708,docs/phase4/x2-confirmation-report.md
+P4,D1 W/WM/WL/ML,primary gpt,presentation main effects,NOT SUPPORTED,grand mean 0.2547 Holm-p>=0.766,docs/phase4/d1-report.md
+P4,D1 W/WL/ML,mirror cvx,presentation main effects,SUPPORTED (mirror only),vendor-divergent,docs/phase4/d1-report.md
+P4,D2-1 role channel,both tiers,role effect >0,SUPPORTED,+0.725 gpt / +0.6375 cvx,docs/phase4/d2-report.md
+P4,D2-2 word channel,primary gpt,word effect >0,NOT SUPPORTED,+0.000,docs/phase4/d2-report.md
+P4,D2-2 word channel,mirror cvx,word effect >0,SUPPORTED,+0.7625,docs/phase4/d2-report.md
+P4,D2-4,both tiers,registered,SUPPORTED,+0.7875 gpt / +0.6125 cvx,docs/phase4/d2-report.md
+P4,D2-3 swap classification,both tiers,descriptive branch,payoff-dominant branch,word-share 0.0 CP [0 0.088],docs/phase4/d2-report.md
+P4,D3-1 labeled-option bias,primary gpt,bias toward first-listed,NOT SUPPORTED sign reversed,-0.1806; P=0.0001,docs/phase4/d3-report.md
+P4,D3-1,mirror cvx,bias toward first-listed,SUPPORTED,+0.2431 LB +0.1389,docs/phase4/d3-report.md
+P4,E-1..4 delta sensitivity,primary,positive delta slope,CORNER-CONFOUNDED (registered branch i),gates at ceiling/floor,docs/phase4/e-report.md
+P4,F-1 conjunction,primary,wsls exploits and profits,ONLY-FIRST registered branch,delta +0.126 LB +0.093; U_wsls LB -0.008,docs/phase4/f-report.md
+P4,F ngram2 secondary,primary,exploitation >0,SUPPORTED,+0.215 Holm m=6,docs/phase4/f-report.md
+P4,F fo-tracker,primary,exploitation >0,SIGNIFICANT NEGATIVE,-0.118 (subject beats tracker),docs/phase4/f-report.md
+P4,F directional shuffled<fo,primary,order carries signal,NOT SUPPORTED nominal sign reversed,delta -0.083 LB -0.116,docs/phase4/f-report.md
+P4,F gemini tier,cross-vendor,replication,DESCRIPTIVE-ONLY (demoted; sentinel alert 6),fo +0.159 sign opposite gpt,docs/phase4/f-report.md
+P5,1a interior fraction,primary confirmatory,restricted fraction < 0.10,SUPPORTED,3/32 = 0.09375 (margin one unit),docs/phase5-close/adjudication-report.md
+P5,1b between-persona SD,confirmatory (not branch-bearing),SD >= 0.75 x human SD,CORNER-MIXTURE-CONSISTENT all 4 rep cells,0.42-0.48 vs 0.23/0.31,docs/phase5-close/adjudication-report.md
+P5,2 surface-cue dominance,confirmatory,task-dominant (CP LB >= 0.80),PERSONA-DOMINANT (prediction failed),share 0.128 CP [0.104 0.155],docs/phase5-close/adjudication-report.md
+P5,3 interior-persona existence,confirmatory,zero of 16 pass,16/16 PASS (prediction failed),p13 via delta-slope LB +0.083; 15 via swap-refusal,docs/phase5-close/adjudication-report.md
+P5,4 temperature refutation,confirmatory,not refuted (variance only),NOT REFUTED,Newcombe LB -0.095; entropy falls with T,docs/phase5-close/adjudication-report.md

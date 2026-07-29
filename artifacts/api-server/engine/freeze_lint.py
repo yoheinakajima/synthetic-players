@@ -222,6 +222,70 @@ def lint(manifest_path: str) -> dict:
                         failures.append(LintFailure(
                             "C5-branches", None,
                             f"verdict combination unmapped in branch table: {row!r}"))
+    # --- C6: conflict-cell coding pinned at freeze wherever word and role
+    # dissociate (Phase 5 outcome-blind ruling D2, landed as a check).
+    cc = m.get("conflictCells")
+    if cc is None:
+        # fail-closed only when any cell declares a dissociation flag is
+        # impossible to know without the section — require it explicitly.
+        failures.append(LintFailure(
+            "C6-conflict-coding", None,
+            "manifest missing 'conflictCells' (empty list must be explicit, "
+            "not absent) — word/role dissociation status must be declared "
+            "per estimand cell at freeze"))
+    else:
+        for c in cc:
+            if "wordRoleDissociate" not in c:
+                failures.append(LintFailure(
+                    "C6-conflict-coding", c.get("id"),
+                    "conflict cell does not declare wordRoleDissociate — "
+                    "dissociation status must be pinned, not inferred"))
+                continue
+            if c["wordRoleDissociate"]:
+                coding = c.get("coding") or {}
+                if coding.get("taskConsistent") not in ("coop-role",
+                                                        "defect-role"):
+                    failures.append(LintFailure(
+                        "C6-conflict-coding", c.get("id"),
+                        "word and role dissociate in this cell but "
+                        "taskConsistent coding is not pinned at freeze — "
+                        "post-hoc coding of a dissociated cell is exactly "
+                        "the discretion the seal forbids"))
+
+    # --- C7: branch-selection axes must enumerate their bearing predicates
+    # explicitly (Phase 5 outcome-blind ruling D3, landed as a check).
+    if vb:
+        axes = vb.get("axes")
+        if axes is None:
+            failures.append(LintFailure(
+                "C7-axis-predicates", None,
+                "verdictBranches missing 'axes' — every selection axis must "
+                "enumerate the predicates that bear on it at freeze; an "
+                "unenumerated axis invites post-hoc predicate attachment"))
+        else:
+            declared = set(vb.get("predicates", []))
+            for ax in axes:
+                bearing = ax.get("bearingPredicates")
+                if not bearing:
+                    failures.append(LintFailure(
+                        "C7-axis-predicates", ax.get("id"),
+                        "axis enumerates no bearing predicates"))
+                    continue
+                unknown_p = [p for p in bearing if p not in declared]
+                if unknown_p:
+                    failures.append(LintFailure(
+                        "C7-axis-predicates", ax.get("id"),
+                        f"axis cites predicates not in the sealed predicate "
+                        f"list: {unknown_p}"))
+            borne = {p for ax in axes for p in ax.get("bearingPredicates", [])}
+            unattached = sorted(declared - borne)
+            if declared and unattached:
+                failures.append(LintFailure(
+                    "C7-axis-predicates", None,
+                    f"sealed predicate(s) bear on no axis: {unattached} — "
+                    f"whether a predicate bears on branch selection must be "
+                    f"decided at freeze, not at adjudication"))
+
     return {"pass": not failures, "packet": m.get("packet"),
             "cells": len(cells), "rules": len(m.get("sealedRules", [])),
             "failures": [f.as_dict() for f in failures]}
