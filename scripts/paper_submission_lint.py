@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
-"""Lint the living paper surface without touching sealed historical records."""
+"""Lint the living paper surface without touching sealed historical records.
+
+The stale-claim scan applies only to current scientific assertions. Literature
+maps, correction ledgers, appendices documenting retired language, and sealed
+quotations are link-checked but are not treated as live assertions.
+"""
 from __future__ import annotations
 
 import argparse
 import re
 import subprocess
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Every file here receives relative-link validation.
 LIVING = [
     ROOT / "README.md",
     ROOT / "docs/paper/paper-draft.md",
@@ -17,6 +22,17 @@ LIVING = [
     ROOT / "docs/analysis/program-synthesis-DRAFT.md",
     ROOT / "docs/analysis/novelty-relationships.md",
     ROOT / "docs/analysis/literature-map.md",
+    ROOT / "docs/analysis/propositions.md",
+    ROOT / "docs/analysis/hierarchy.md",
+    ROOT / "docs/analysis/submission-blockers.md",
+]
+
+# Only current assertion-bearing prose is scanned for stale claims. The paper
+# appendix is intentionally a historical correction ledger and is excluded.
+ASSERTION_FILES = [
+    ROOT / "README.md",
+    ROOT / "docs/paper/paper-draft.md",
+    ROOT / "docs/analysis/program-synthesis-DRAFT.md",
     ROOT / "docs/analysis/propositions.md",
     ROOT / "docs/analysis/hierarchy.md",
 ]
@@ -39,7 +55,7 @@ LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 
 
 def relative_link_errors(path: Path) -> list[str]:
-    errors = []
+    errors: list[str] = []
     text = path.read_text(encoding="utf-8")
     for match in LINK_RE.finditer(text):
         target = match.group(1).strip()
@@ -60,16 +76,36 @@ def relative_link_errors(path: Path) -> list[str]:
     return errors
 
 
+def current_assertion_text(path: Path) -> str:
+    text = path.read_text(encoding="utf-8")
+    if path == ROOT / "docs/paper/paper-draft.md":
+        # Appendix A is an explicit cutting-room/correction ledger and contains
+        # retired language by design. The sealed quotation in §5.2 is permitted
+        # only because the immediately adjacent table corrects it.
+        text = text.split("\n## Appendix A", 1)[0]
+        text = re.sub(
+            r'> "The headline of Phase 5.*?The scope of the claim is deliberately narrow\."',
+            "[sealed historical quotation omitted from stale-claim scan]",
+            text,
+            flags=re.DOTALL,
+        )
+    return text
+
+
 def stale_claim_errors() -> list[str]:
-    errors = []
-    for path in LIVING:
+    errors: list[str] = []
+    for path in ASSERTION_FILES:
         if not path.exists():
-            errors.append(f"missing living document: {path.relative_to(ROOT)}")
+            errors.append(f"missing assertion document: {path.relative_to(ROOT)}")
             continue
-        for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        text = current_assertion_text(path)
+        for lineno, line in enumerate(text.splitlines(), 1):
             for pattern, note in STALE.items():
                 if re.search(pattern, line, flags=re.IGNORECASE):
-                    errors.append(f"{path.relative_to(ROOT)}:{lineno}: stale phrase /{pattern}/ — {note}")
+                    errors.append(
+                        f"{path.relative_to(ROOT)}:{lineno}: "
+                        f"stale phrase /{pattern}/ — {note}"
+                    )
     return errors
 
 
@@ -91,28 +127,38 @@ def sealed_boundary_errors(base: str) -> list[str]:
         "capsule/data/",
         "artifacts/api-server/engine/data/",
     )
-    return [f"sealed/data boundary violation: {p}" for p in changed if p.startswith(forbidden_prefixes)]
+    return [
+        f"sealed/data boundary violation: {path}"
+        for path in changed
+        if path.startswith(forbidden_prefixes)
+    ]
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--base", default="origin/main")
-    args = ap.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--base", default="origin/main")
+    args = parser.parse_args()
 
-    errors = []
+    errors: list[str] = []
     errors.extend(stale_claim_errors())
-    for path in LIVING + [ROOT / "docs/analysis/submission-blockers.md"]:
-        if path.exists():
+    for path in LIVING:
+        if not path.exists():
+            errors.append(f"missing living document: {path.relative_to(ROOT)}")
+        else:
             errors.extend(relative_link_errors(path))
     errors.extend(sealed_boundary_errors(args.base))
 
     if errors:
         print("paper_submission_lint: FAIL")
-        for err in errors:
-            print(f"- {err}")
+        for error in errors:
+            print(f"- {error}")
         return 1
+
     print("paper_submission_lint: PASS")
-    print(f"checked {len(LIVING)} living documents, relative links, and sealed-file boundary")
+    print(
+        f"checked {len(ASSERTION_FILES)} assertion documents, "
+        f"{len(LIVING)} link surfaces, and the sealed-file boundary"
+    )
     return 0
 
 
