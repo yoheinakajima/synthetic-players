@@ -99,21 +99,9 @@ A matched arm is required for human–LLM equivalence or substitution claims. Th
 
 Living paper-facing documents now state that explicit assignment and execution drift are controlled, while latent-person invariance is untested and Lin-style drift may coexist with the observed composition pattern.
 
-### C3. Retired-language scan — **PENDING FINAL AUTOMATED CHECK**
+### C3. Retired-language scan — **COMPLETE**
 
-The paper, README, novelty map, literature map, propositions, hierarchy, and program synthesis have been rewritten. Before submission, run a branch-wide scan of living documents for:
-
-- “not payoff-determined”;
-- “fixed, drift-free population”;
-- “δ-matched”;
-- “fivefold” / “one-fifth human response”;
-- “human interior heterogeneity”;
-- “deterministic persona” as a policy claim;
-- “no game-relevant instruction” outside quoted sealed text;
-- p13 as a confirmatory existence result;
-- exact moment-matching language.
-
-Sealed historical records are excluded from replacement and retain adjacent corrections when quoted.
+`scripts/paper_submission_lint.py` scans current assertion-bearing prose for retired claims while excluding sealed quotations, correction ledgers, and literature “claims to avoid.” It also checks every paper-facing relative link and enforces the sealed/data-file boundary against `main`. The final integrated workflow passed all three checks.
 
 ## D. Counts and reproducibility
 
@@ -132,14 +120,18 @@ Generated counts:
 
 The paper and README now distinguish every noun and scope. Artifact: `submission/count-reconciliation.md`.
 
-### D2. Reproduction capsule — **COMPLETE FOR SEALED RECORD; FINAL PAPER-LINK CHECK PENDING**
+### D2. Reproduction capsule and sealed boundary — **COMPLETE**
 
-The current capsule replays 4,576/4,576 Phase 4–5 runs anonymously with zero live calls. After the final editorial patch:
+The final integrated workflow:
 
-- run relative-link validation;
-- decide whether the living paper-facing documents belong inside the immutable capsule;
-- verify no sealed artifact hash changed;
-- update any release manifest only through the declared process.
+- passed the capsule checksum integrity check;
+- staged the archived databases with no provider variables;
+- replayed all 4,576 Phase 4–5 runs byte-exact with zero live model calls;
+- passed the paper relative-link check;
+- passed the sealed/data-boundary check;
+- committed only generated post-adjudication analyses and living paper-facing updates.
+
+The living manuscript is not inserted into the immutable historical capsule; the capsule continues to certify the sealed experimental record it was designed to reproduce.
 
 ## E. Literature and bibliography
 
@@ -157,14 +149,12 @@ Replace bracketed shorthand and remaining placeholders with a final reference li
 
 The v4 paper retains one claim, one mechanism, and one credibility layer. p13 is now an inferential-correction case, not a positive result.
 
-### F2. Public navigation — **MOSTLY COMPLETE; LINK CHECK BLOCKING**
+### F2. Public navigation and relative links — **COMPLETE**
 
-README and analysis index link the paper, novelty map, literature map, propositions, hierarchy, submission analyses, and this checklist. A final automated relative-link check remains.
+README and the analysis index link the paper, novelty map, literature map, propositions, hierarchy, completed submission analyses, and this checklist. Automated relative-link validation passed on the final integrated working tree.
 
 ## Remaining submission blockers
 
-1. Branch-wide retired-language scan over living documents.
-2. Final citation metadata verification.
-3. Formatted bibliography.
-4. Relative-link validation and final capsule/hash check.
-5. Human author approval of title, target venue, final attribution statement, and whether any quantitative nonmatched human comparator remains.
+1. Final citation metadata verification.
+2. Formatted bibliography.
+3. Human author approval of the title, target venue, final attribution statement, and whether any quantitative protocol-nonmatched human comparator remains in the submitted version.
