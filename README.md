@@ -8,11 +8,13 @@
 
 Current manuscript:
 
-> **Passing Coarse Marginal Checks Can Be Cheap: Persona Mixtures and Weak Observed Incentive Response in LLM Behavioral Simulation**
+> **Passing Coarse Marginal Checks Can Be Cheap: Persona Mixtures and Imprecise Incentive-Response Estimates in an LLM Persona Panel**
 
 [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
 
-The sealed experimental program and the scientific review gate are complete. Exact v2 and v3 manuscript history is public. Remaining formal-submission work is editorial: final citation metadata and bibliography formatting, target-venue formatting, and human sign-off on the title and venue-specific AI-assistance statement. Current status: [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md).
+**Formatted review copy:** [`docs/paper/synthetic-players-review-draft-v6.pdf`](docs/paper/synthetic-players-review-draft-v6.pdf) · [build notes](docs/paper/PDF-README.md)
+
+The sealed experimental program and the scientific review gate are complete. Round 4 independently cloned the repository, passed lint, and replayed all 4,576 runs with zero credentials. Remaining formal-submission work is venue formatting and human sign-off on the final title and venue-specific AI-assistance statement. Current status: [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md).
 
 ## Reproduce the archived record
 
@@ -37,7 +39,7 @@ Synthetic Players is an open experimental laboratory for placing LLM-controlled 
 
 The paper's narrow empirical result is:
 
-> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. Corrected estimates assign approximately 85%–96% of episode-level variation to differences between prompt configurations. The observed aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals too wide to establish equivalence or a null response.
+> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. Corrected estimates assign approximately 85%–96% of episode-level variation to differences between prompt configurations. The observed aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals of approximately [−0.171, +0.330] and [−0.181, +0.330]. These are small point estimates with substantial uncertainty—not evidence of equivalence, a null response, or a narrow upper bound.
 
 This is not a claim of human substitutability. Human references are protocol-nonmatched, the primary evidence comes from one deployment, and the panel consists of sixteen complete prompt bundles rather than independently sampled people.
 
@@ -46,9 +48,10 @@ This is not a claim of human substitutability. Human references are protocol-non
 | artifact | purpose |
 |---|---|
 | [`REVIEW.md`](REVIEW.md) | Canonical review instructions and questions |
-| [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v5 manuscript |
+| [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v6 Markdown manuscript |
+| [`docs/paper/synthetic-players-review-draft-v6.pdf`](docs/paper/synthetic-players-review-draft-v6.pdf) | Line-numbered Explore Science review PDF with five vector figures |
 | [`docs/paper/history/`](docs/paper/history/) | Exact v2 and v3 manuscripts plus history index |
-| [`docs/reviews/`](docs/reviews/) | Methods review, reviewer-role disclosure, and independent verification |
+| [`docs/reviews/`](docs/reviews/) | Round 1–4 review archive, reviewer-role disclosure, and direct outside reproduction |
 | [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json) | Machine-readable generated results |
 | [`docs/analysis/submission/`](docs/analysis/submission/) | Exact-episode sensitivity, variance correction, family audit, and count reconciliation |
 | [`docs/analysis/novelty-relationships.md`](docs/analysis/novelty-relationships.md) | Occupied territory and precise differentiation |

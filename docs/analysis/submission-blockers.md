@@ -92,9 +92,9 @@ Living documents state that explicit assignment and execution are controlled, wh
 
 Automated lint scans assertion-bearing living prose for retired claims, validates paper-facing relative links, and enforces the sealed/data-file boundary against `main`.
 
-### C4. Citation metadata and formatted bibliography — **EDITORIAL, STILL OPEN**
+### C4. Citation metadata and reviewer bibliography — **COMPLETE FOR v6 REVIEW DRAFT**
 
-The literature set and novelty boundary are ready for scientific review. Before formal submission, recent-preprint versions, authors, titles, and venues need one final metadata pass, and shorthand citations must be converted to the selected venue’s bibliography format. This does not block reviewer evaluation of novelty or framing.
+The Explore Science review PDF contains a formatted reference section and re-verifies the current metadata for the most load-bearing recent works, including Li–Ji, Ashokkumar–Hewitt et al., Harry et al., Xiao et al., Georgousis et al., and Mousavi Davoudi et al. Formal submission still requires conversion to the selected venue’s exact style and one final metadata check at the submission date.
 
 ## D. Counts, reproducibility, and chronology
 
@@ -119,19 +119,19 @@ The integrated workflow passed capsule checksums, replayed all 4,576 Phase 4–5
 
 `docs/paper/scope-seal.md` remains byte-identical because its hash is pinned in the Phase 5 seal, even though its pre-seal header says “PROPOSED — UNSEALED.” `docs/paper/scope-seal-status.md` documents the sealing event and operative stopping rule.
 
-### D4. Review chronology — **COMPLETE**
+### D4. Review chronology and outside reproduction — **COMPLETE**
 
-`docs/reviews/` records the round-2 methods review, reviewer role expansion, automated execution/integration boundary, and independent round-3 anonymous-clone verification.
+`docs/reviews/` now records the Round 1 synthesis, Round 2 methods and editorial reviews, reviewer role expansion, Round 3 artifact verification, and Round 4 independent clone/lint/full-capsule reproduction. Round 4 directly replayed 4,576/4,576 runs with zero credentials on an outside machine.
 
 ## E. Paper architecture and public review surface
 
 ### E1. Main-text scope — **COMPLETE**
 
-The v5 paper has three contributions: empirical result, mechanism/identification, and auditability. p13 is an inferential-correction case, not a positive result. Lucas and equifinality are organizing analogies in Discussion rather than novelty claims in the Introduction.
+The v6 paper has three contributions: empirical result, mechanism/identification, and auditability. p13 is an inferential-correction case, not a positive result. Lucas and equifinality are organizing analogies in Discussion rather than novelty claims in the Introduction.
 
-### E2. Public navigation — **COMPLETE**
+### E2. Public navigation and first reviewer PDF — **COMPLETE**
 
-`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the manuscript, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
+`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the v6 Markdown manuscript, the line-numbered reviewer PDF, all five generated figures, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
 
 ### E3. Draft history — **COMPLETE**
 
@@ -139,7 +139,8 @@ Exact v2 and v3 reviewer-circulation manuscripts are committed under `docs/paper
 
 ## Remaining before formal submission
 
-1. Complete the final citation-metadata and bibliography-formatting pass for the selected venue.
-2. Obtain human-author sign-off on the final title, target venue, and venue-specific AI-assistance statement.
+1. Select the target venue and convert the v6 reviewer bibliography/layout to that venue’s exact format.
+2. Obtain human-author sign-off on the final title and venue-specific AI-assistance statement.
+3. Add a `preferred-citation` block to `CITATION.cff` when the paper has a stable venue/preprint identifier.
 
 The optional Dal Bó–Fréchette microdata contextualization remains deferred and nonblocking under the current narrow claim. None of the remaining items prevents full scientific review of the current GitHub surface.

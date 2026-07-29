@@ -7,8 +7,9 @@
 | file | contents |
 |---|---|
 | [`../../REVIEW.md`](../../REVIEW.md) | Canonical review instructions, claim summary, reproduction command, and review questions |
-| [`../paper/paper-draft.md`](../paper/paper-draft.md) | Current v5 manuscript |
-| [`../reviews/`](../reviews/) | Round-2 methods review, role disclosure, and round-3 independent verification |
+| [`../paper/paper-draft.md`](../paper/paper-draft.md) | Current v6 Markdown manuscript |
+| [`../paper/synthetic-players-review-draft-v6.pdf`](../paper/synthetic-players-review-draft-v6.pdf) | Line-numbered Explore Science review PDF with five figures |
+| [`../reviews/`](../reviews/) | Round 1–4 review archive, role disclosure, and Round 4 direct outside reproduction |
 | [`submission-blockers.md`](submission-blockers.md) | Scientific review gate complete; formal-submission and history tasks tracked explicitly |
 | [`novelty-relationships.md`](novelty-relationships.md) | Occupied territory, precise differentiation, and claims to avoid |
 | [`literature-map.md`](literature-map.md) | Synthetic participants, strategic behavior, personas, causal surrogacy, validity, and metascience |
@@ -24,7 +25,7 @@
 | [`submission/p13-family-audit-final.md`](submission/p13-family-audit-final.md) | All computed variants reported: historical gate p=0.059230; retained non-primary percentile-bootstrap p=0.043455; primary exact-episode gate excludes p13 and yields p=0.773206. |
 | [`submission/variance-correction.md`](submission/variance-correction.md) | Corrected between-prompt SD 0.418–0.478; approximately 85%–96% of episode-level variation lies between prompt configurations. |
 | [`submission/count-reconciliation.md`](submission/count-reconciliation.md) | Reconciles 5,505 archived completed runs, 4,576 replay-contract runs, 108,552 seat-round decisions, 36,251 request events, and 30,530 Phase 4–5 ledger calls. |
-| [`submission/submission-analysis-summary.json`](submission/submission-analysis-summary.json) | Machine-readable summary of generated zero-call analyses |
+| [`submission/submission-analysis-summary.json`](submission/submission-analysis-summary.json) | Machine-readable summary, including aggregate and per-prompt continuation-probability contrasts |
 | [`submission/figure-sources/`](submission/figure-sources/) | Cell-level, family-audit, variance, P5-2, clause-(b), and count CSV/JSON outputs |
 | [`../paper/figures/prompt-indexed-delta.svg`](../paper/figures/prompt-indexed-delta.svg) | Prompt-indexed δ-response figure with exact intervals and aggregate uncertainty |
 

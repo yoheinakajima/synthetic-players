@@ -7,7 +7,7 @@ authors:
     given-names: Yohei
 repository-code: "https://github.com/yoheinakajima/synthetic-players"
 license: MIT
-version: "phase5-review-v5"
+version: "phase5-review-v6"
 date-released: "2026-07-29"
 abstract: >-
   An open research program on LLM-controlled agents in strategic games,
@@ -15,8 +15,8 @@ abstract: >-
   mechanical adjudication, behavioral drift monitoring, byte-exact replay,
   and public post-adjudication sensitivity analyses. The current paper studies
   a fixed panel of lightweight persona prompts that passes coarse marginal
-  checks while producing small, imprecisely estimated continuation-probability
-  contrasts. Corrected estimates assign most episode-level variation to
+  checks while producing small continuation-probability point estimates with
+  wide dependence-aware intervals. Corrected estimates assign most episode-level variation to
   differences between prompt configurations. The repository does not claim
   human substitutability, and published human references are protocol-nonmatched.
 keywords:

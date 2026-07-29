@@ -536,6 +536,457 @@
           "q99": 0.3333333333333333
         }
       }
+    },
+    "promptIndexedDelta": {
+      "status": "post-adjudication dependence-aware descriptive analysis",
+      "unit": "complete episode; prompt-indexed coupling, not a person-level effect without latent-person invariance",
+      "aggregate": {
+        "s2a": {
+          "wording": "s2a",
+          "prompt": "aggregate",
+          "n_d10": 96,
+          "n_d90": 96,
+          "mean_d10": 0.348958,
+          "mean_d90": 0.432292,
+          "delta": 0.083333,
+          "simultaneous95": [
+            -0.171118,
+            0.329707
+          ]
+        },
+        "s2p": {
+          "wording": "s2p",
+          "prompt": "aggregate",
+          "n_d10": 96,
+          "n_d90": 96,
+          "mean_d10": 0.427083,
+          "mean_d90": 0.505208,
+          "delta": 0.078125,
+          "simultaneous95": [
+            -0.181043,
+            0.329751
+          ]
+        }
+      },
+      "perPrompt": [
+        {
+          "wording": "s2a",
+          "prompt": "p01",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p02",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p03",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p04",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p05",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.5,
+          "mean_d90": 0.583333,
+          "delta": 0.083333,
+          "simultaneous95": [
+            -0.651222,
+            0.733198
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p06",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p07",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.166667,
+          "mean_d90": 0.583333,
+          "delta": 0.416667,
+          "simultaneous95": [
+            -0.565549,
+            0.91276
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p08",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p09",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p10",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.083333,
+          "mean_d90": 0.166667,
+          "delta": 0.083333,
+          "simultaneous95": [
+            -0.641769,
+            0.708664
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p11",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p12",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p13",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.333333,
+          "mean_d90": 0.75,
+          "delta": 0.416667,
+          "simultaneous95": [
+            -0.580565,
+            0.927776
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p14",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p15",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.5,
+          "mean_d90": 0.833333,
+          "delta": 0.333333,
+          "simultaneous95": [
+            -0.575524,
+            0.855841
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p16",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p01",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p02",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p03",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p04",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.583333,
+          "mean_d90": 0.416667,
+          "delta": -0.166667,
+          "simultaneous95": [
+            -0.790117,
+            0.641247
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p05",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.583333,
+          "delta": 0.583333,
+          "simultaneous95": [
+            -0.355697,
+            0.86686
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p06",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p07",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p08",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p09",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p10",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p11",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p12",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.166667,
+          "mean_d90": 0.25,
+          "delta": 0.083333,
+          "simultaneous95": [
+            -0.673335,
+            0.739058
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p13",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.083333,
+          "mean_d90": 0.333333,
+          "delta": 0.25,
+          "simultaneous95": [
+            -0.576046,
+            0.774387
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p14",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p15",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.5,
+          "delta": 0.5,
+          "simultaneous95": [
+            -0.356219,
+            0.785406
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p16",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        }
+      ],
+      "source": "docs/paper/figures/prompt-indexed-delta.csv"
     }
   }
 }
