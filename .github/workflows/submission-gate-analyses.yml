@@ -7,6 +7,8 @@ on:
       - '.github/workflows/submission-gate-analyses.yml'
       - 'scripts/paper_submission_lint.py'
       - 'scripts/integrate_submission_results.py'
+      - 'scripts/augment_p13_audit_variants.py'
+      - 'scripts/generate_prompt_delta_figure.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
       - 'artifacts/api-server/engine/submission_gate_exact_cluster.py'
@@ -14,7 +16,9 @@ on:
       - 'artifacts/api-server/engine/phase5_closeout_adjudicate.py'
       - 'artifacts/api-server/engine/phase4_adjudicate.py'
       - 'README.md'
+      - 'REVIEW.md'
       - 'docs/paper/**'
+      - 'docs/reviews/**'
       - 'docs/analysis/**'
       - 'docs/phase5/**'
       - 'docs/phase5-close/**'
@@ -71,7 +75,9 @@ jobs:
           python artifacts/api-server/engine/submission_gate_analyses.py | tee /tmp/submission-analysis.log
           python artifacts/api-server/engine/submission_gate_finalize.py | tee -a /tmp/submission-analysis.log
           python artifacts/api-server/engine/submission_gate_exact_cluster.py | tee -a /tmp/submission-analysis.log
+          python scripts/augment_p13_audit_variants.py | tee -a /tmp/submission-analysis.log
           python artifacts/api-server/engine/submission_gate_variance_fixed.py | tee -a /tmp/submission-analysis.log
+          python scripts/generate_prompt_delta_figure.py | tee -a /tmp/submission-analysis.log
           python scripts/integrate_submission_results.py | tee -a /tmp/submission-analysis.log
 
       - name: Lint paper surface and sealed boundary
@@ -86,7 +92,7 @@ jobs:
           name: submission-gate-analysis-results
           path: |
             docs/analysis/submission/
-            docs/paper/paper-draft.md
+            docs/paper/
             docs/analysis/submission-blockers.md
             /tmp/submission-analysis.log
           if-no-files-found: error
@@ -99,7 +105,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/analysis/submission docs/paper/paper-draft.md docs/analysis/submission-blockers.md
+          git add docs/analysis/submission docs/paper docs/analysis/submission-blockers.md
           if git diff --cached --quiet; then
             echo 'No generated changes to commit.'
             exit 0
