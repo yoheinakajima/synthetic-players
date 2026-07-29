@@ -9,6 +9,7 @@ on:
       - 'scripts/integrate_submission_results.py'
       - 'scripts/augment_p13_audit_variants.py'
       - 'scripts/generate_prompt_delta_figure.py'
+      - 'scripts/materialize_draft_history.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
       - 'artifacts/api-server/engine/submission_gate_exact_cluster.py'
@@ -79,6 +80,7 @@ jobs:
           python artifacts/api-server/engine/submission_gate_variance_fixed.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_prompt_delta_figure.py | tee -a /tmp/submission-analysis.log
           python scripts/integrate_submission_results.py | tee -a /tmp/submission-analysis.log
+          python scripts/materialize_draft_history.py | tee -a /tmp/submission-analysis.log
 
       - name: Lint paper surface and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
