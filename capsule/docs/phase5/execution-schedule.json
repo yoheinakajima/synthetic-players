@@ -1,0 +1,8966 @@
+{
+ "scheduleSeed": 20260731,
+ "generatedAt": "2026-07-28T14:32:21Z",
+ "armsManifestSha256": "ab753651b4c0e335f180af1d9c60a37c32c855dfc151b3f6bcf89d412ba5b018",
+ "blocks": [
+  {
+   "block": "P5A-rep",
+   "episodes": [
+    {
+     "armId": "p5-a-p04-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50198,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50400,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50405,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50920,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50151,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50967,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50771,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50329,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50785,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50784,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50839,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50903,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50449,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50523,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50643,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50770,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50014,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50962,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50841,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50023,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50008,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50726,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50085,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50010,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50533,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50849,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50074,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50781,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50279,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50212,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50977,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50834,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50984,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50204,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50521,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50526,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50717,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50728,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50021,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50397,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50711,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50068,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50969,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50964,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50659,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50963,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50786,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50840,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50321,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50139,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50844,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50275,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50915,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50396,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50919,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50328,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50642,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50579,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50975,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50322,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50070,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50647,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50077,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50277,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50145,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50072,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50783,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50020,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50273,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50208,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50385,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50912,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50727,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50012,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50140,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50706,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50260,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50214,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50135,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50069,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50079,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50335,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50344,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50535,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50661,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50404,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50472,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50073,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50009,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50471,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50980,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50645,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50719,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50466,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50271,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50899,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50845,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50264,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50590,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50392,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50075,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50705,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50655,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50918,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50262,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50773,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50464,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50263,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50775,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50337,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50525,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50152,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50911,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50386,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50850,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50086,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50788,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50087,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50662,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50194,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50524,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50641,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50084,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50657,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50146,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50716,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50907,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50593,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50586,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50278,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50462,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50522,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50965,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50211,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50658,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50458,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50261,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50581,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50137,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50597,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50266,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50916,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50200,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50772,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50324,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50715,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50656,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50914,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50721,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50082,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50280,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50197,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50577,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50664,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50207,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50216,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50836,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50906,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50847,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50777,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50083,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50966,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50336,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50517,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50720,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50902,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50460,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50968,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50725,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50007,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50583,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50389,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50833,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50467,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50518,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50592,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50852,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50134,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50270,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50789,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50399,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50724,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50599,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50663,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50587,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50595,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50578,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50342,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50141,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50780,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50463,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50856,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50898,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50529,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50330,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50600,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50650,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50387,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50129,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50712,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50774,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50580,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50406,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50654,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50534,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50709,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50710,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50453,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50973,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50714,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50325,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50269,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50905,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50408,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50071,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50913,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50133,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50407,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50532,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50972,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50787,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50193,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50648,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50776,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50259,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50201,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50451,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50143,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50837,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50718,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50652,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50132,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50450,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50848,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50519,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50513,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50723,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50465,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50018,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50528,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50203,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50081,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50901,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50527,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50855,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50001,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50779,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50195,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50340,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50843,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50470,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50272,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50455,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p12-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50722,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50978,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50589,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50897,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50338,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50339,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50258,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50904,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50080,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50148,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50401,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50461,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50016,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50388,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50854,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50149,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50651,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50257,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50792,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50582,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50144,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50215,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50454,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50456,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50644,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50707,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50006,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50457,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50333,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50530,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50331,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50391,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50019,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50209,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50769,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p13-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50778,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50076,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50205,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50516,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50395,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50002,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50976,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50842,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50013,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50394,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50088,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50514,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50917,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50851,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50649,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50276,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50660,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50584,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50536,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50136,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50598,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50004,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50213,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50199,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50022,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50713,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50452,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50334,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50983,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p09-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50531,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50970,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50594,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50268,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50142,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p11-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50646,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50130,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50596,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50265,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50468,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50196,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50390,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50791,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p08-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50469,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p08-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50459,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50790,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50853,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50202,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50961,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50017,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50900,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p16-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50971,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50403,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50520,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p11-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50653,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50015,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50343,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50981,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50138,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50846,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50150,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50067,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50131,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50332,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50838,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50003,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50065,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p06-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50341,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50024,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p12-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50708,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50982,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p10-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50591,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50206,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p05-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50274,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50327,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50011,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50910,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50326,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50979,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p16-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50974,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p15-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50909,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50585,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p15-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50908,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p13-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50782,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50402,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p02-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50078,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p10-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50588,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p09-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50515,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50210,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p05-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50267,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p14-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50835,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p02-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50066,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p03-rep-d90-s2p",
+     "model": "gpt-4.1",
+     "seed": 50147,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p06-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50323,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p07-rep-d90-s2a",
+     "model": "gpt-4.1",
+     "seed": 50398,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p07-rep-d10-s2p",
+     "model": "gpt-4.1",
+     "seed": 50393,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-rep-d10-s2a",
+     "model": "gpt-4.1",
+     "seed": 50005,
+     "ep": 5
+    }
+   ]
+  },
+  {
+   "block": "P5A-os",
+   "episodes": [
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50765,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50352,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50820,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50566,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50810,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50108,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50384,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50377,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50247,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50808,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50300,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50556,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50309,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50034,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50824,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50412,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50635,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50609,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50760,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50245,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50346,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50864,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50437,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50107,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50876,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50572,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50114,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50422,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50365,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50882,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50433,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50052,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50415,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50823,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51011,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50091,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50886,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50120,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50623,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50243,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50887,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50289,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50736,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50095,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50683,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50125,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50696,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50562,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50997,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50503,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50497,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50240,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50154,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50877,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50957,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50616,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50479,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50298,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50873,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50055,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50619,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50924,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50440,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51017,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50060,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50190,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50958,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50680,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50506,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50478,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50939,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50313,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50828,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50165,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50732,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50678,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50291,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50045,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50738,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51018,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50487,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50821,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50687,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50759,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50608,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50189,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50294,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50869,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50944,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 51001,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50286,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50857,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50501,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50348,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50303,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50167,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50509,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50153,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50241,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50947,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50168,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50794,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50889,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50038,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50363,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50610,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50564,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50670,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50751,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50219,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50953,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50423,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50754,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50163,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50347,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50428,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50492,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50031,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50115,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50249,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50225,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50287,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50733,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50544,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50538,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50934,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50931,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50424,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50795,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50822,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50541,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50498,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50222,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51008,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50488,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50436,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50951,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50184,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50370,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50228,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50242,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51013,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50489,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50353,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50694,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50180,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50444,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50988,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50637,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50612,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50545,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50617,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50026,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50119,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50624,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50182,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50231,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50217,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50865,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50992,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50739,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50746,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50090,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50491,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50737,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50800,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50439,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50128,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50221,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50305,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50432,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50059,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50481,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50932,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50443,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50438,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50811,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50224,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50356,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50367,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50248,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50744,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50890,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50360,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50320,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50880,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50041,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50160,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50164,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50255,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50296,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50496,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50895,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50860,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51007,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50447,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50254,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50674,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50112,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50698,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50749,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50959,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50383,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50693,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50929,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51012,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50690,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50448,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50576,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50226,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50945,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50940,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50764,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50807,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50829,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50796,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50283,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50510,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50499,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50364,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50626,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50511,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50750,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50308,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50246,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50702,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50089,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 51000,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50239,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50554,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50301,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50358,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50996,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50368,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50156,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50033,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50622,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50124,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50482,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50366,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50176,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50162,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50126,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50480,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50185,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50602,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50359,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50288,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50888,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50816,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50508,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50927,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50375,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50700,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50297,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50625,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50747,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50933,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50571,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50250,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50689,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50058,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50803,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 51002,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50558,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50731,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50762,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50866,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50421,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50317,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50547,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50575,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50118,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50473,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50640,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50691,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50629,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50574,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50606,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50859,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50157,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50952,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50103,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50175,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51006,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50755,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50542,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50110,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50043,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50181,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50183,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50413,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50310,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50345,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50948,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50311,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50419,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50735,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50667,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50104,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50812,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50094,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50238,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50349,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50053,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50685,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50417,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50505,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50936,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50872,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50102,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50611,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50639,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50046,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50376,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50098,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50830,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50763,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50374,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50092,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50892,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50861,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50797,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50035,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51022,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50985,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50379,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50474,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50234,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50030,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50229,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50688,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50486,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50990,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50943,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50177,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50315,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50504,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50281,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50798,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51015,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50561,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50557,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50101,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50431,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50187,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50155,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50039,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50543,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50801,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50113,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50935,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50740,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50253,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50675,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50998,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50614,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50671,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50502,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50285,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50734,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50028,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50676,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50500,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50858,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50373,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50047,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50921,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50631,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50565,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50668,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50106,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50040,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50223,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50568,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50618,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50604,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50894,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51005,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50174,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50426,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50605,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50236,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50679,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50032,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50692,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50299,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50923,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50434,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50416,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50742,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50485,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50704,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50550,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50632,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50867,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50809,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51023,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51019,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51009,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50870,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50601,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50178,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50761,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50546,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50555,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50316,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50831,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50121,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50237,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50251,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50885,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 51003,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50227,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50804,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50875,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50232,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50290,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 51004,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50681,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50570,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50930,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50813,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50483,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50307,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50170,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50292,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50752,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50097,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50295,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50607,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50620,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50171,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51010,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50507,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50868,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50357,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50636,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50628,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50475,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50955,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50304,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50701,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50874,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50476,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50105,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50061,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50252,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50116,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50109,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50549,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50354,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50863,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50037,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50411,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50484,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50441,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51014,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50695,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50633,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50729,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50743,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50064,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50766,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50891,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50173,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50793,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50127,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50815,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50512,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50172,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50371,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50682,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50220,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50937,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50819,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50302,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50306,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50477,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50673,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50427,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50161,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50881,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50563,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50672,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50995,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50169,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50832,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50768,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50044,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50991,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50805,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50362,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50814,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50100,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50703,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50425,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50042,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50753,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50826,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50871,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50418,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p08-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50490,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50054,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50159,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50684,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50954,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50946,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50048,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50056,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50745,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50677,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50960,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50756,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50188,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50117,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50896,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50284,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50293,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50922,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50049,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51024,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50638,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50567,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50741,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50256,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51021,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50883,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50926,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50818,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50621,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50560,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50191,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50025,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50669,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50986,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50999,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50111,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50551,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50825,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50878,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50420,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50093,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50382,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50559,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50540,
+     "ep": 4
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50758,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50179,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50989,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50949,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50941,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50603,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50218,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50029,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50378,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p14-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50862,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50537,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51020,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50613,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50699,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50380,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50319,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50634,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50096,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50879,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50027,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50730,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50884,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50230,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50553,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50123,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50361,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50429,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50369,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50062,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50235,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50410,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50925,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50442,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50569,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p12-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50748,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50414,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50987,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50186,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50548,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50494,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50446,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50312,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50799,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p01-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50036,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50318,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50057,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50350,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50351,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50806,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50630,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50166,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p13-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50802,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p09-os-community",
+     "model": "gpt-4.1",
+     "seed": 50573,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p10-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50615,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50697,
+     "ep": 13
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50993,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50665,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p16-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50994,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50827,
+     "ep": 15
+    },
+    {
+     "armId": "p5-a-p10-os-community",
+     "model": "gpt-4.1",
+     "seed": 50627,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50372,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p16-os-community",
+     "model": "gpt-4.1",
+     "seed": 51016,
+     "ep": 12
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50539,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p06-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50355,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50956,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p03-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50158,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50757,
+     "ep": 9
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50050,
+     "ep": 6
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50950,
+     "ep": 10
+    },
+    {
+     "armId": "p5-a-p14-os-community",
+     "model": "gpt-4.1",
+     "seed": 50893,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50435,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p12-os-community",
+     "model": "gpt-4.1",
+     "seed": 50767,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50928,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50495,
+     "ep": 3
+    },
+    {
+     "armId": "p5-a-p02-os-community",
+     "model": "gpt-4.1",
+     "seed": 50122,
+     "ep": 14
+    },
+    {
+     "armId": "p5-a-p15-os-community",
+     "model": "gpt-4.1",
+     "seed": 50942,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50063,
+     "ep": 19
+    },
+    {
+     "armId": "p5-a-p08-os-community",
+     "model": "gpt-4.1",
+     "seed": 50493,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p15-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50938,
+     "ep": 18
+    },
+    {
+     "armId": "p5-a-p06-os-community",
+     "model": "gpt-4.1",
+     "seed": 50381,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p07-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50409,
+     "ep": 1
+    },
+    {
+     "armId": "p5-a-p13-os-community",
+     "model": "gpt-4.1",
+     "seed": 50817,
+     "ep": 5
+    },
+    {
+     "armId": "p5-a-p09-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50552,
+     "ep": 16
+    },
+    {
+     "armId": "p5-a-p03-os-community",
+     "model": "gpt-4.1",
+     "seed": 50192,
+     "ep": 20
+    },
+    {
+     "armId": "p5-a-p04-os-community",
+     "model": "gpt-4.1",
+     "seed": 50244,
+     "ep": 8
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50430,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p11-os-community",
+     "model": "gpt-4.1",
+     "seed": 50686,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p01-os-community",
+     "model": "gpt-4.1",
+     "seed": 50051,
+     "ep": 7
+    },
+    {
+     "armId": "p5-a-p04-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50233,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p11-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50666,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p07-os-community",
+     "model": "gpt-4.1",
+     "seed": 50445,
+     "ep": 17
+    },
+    {
+     "armId": "p5-a-p02-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50099,
+     "ep": 11
+    },
+    {
+     "armId": "p5-a-p05-os-swap",
+     "model": "gpt-4.1",
+     "seed": 50282,
+     "ep": 2
+    },
+    {
+     "armId": "p5-a-p05-os-community",
+     "model": "gpt-4.1",
+     "seed": 50314,
+     "ep": 14
+    }
+   ]
+  },
+  {
+   "block": "P5B-rep",
+   "episodes": [
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51096,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51227,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51061,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51162,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51257,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51260,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51032,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51188,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51092,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51316,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51195,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51093,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51185,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51121,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51124,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51291,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51192,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51194,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51289,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51318,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51193,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51097,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51034,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51063,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51313,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51217,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51224,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51059,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51161,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51191,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51127,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51154,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51095,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51160,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51250,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51290,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51026,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51036,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51159,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51089,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51288,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51284,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51254,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51132,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51091,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51253,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51281,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51035,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51025,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51156,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51228,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51125,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51256,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51066,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51315,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51065,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51190,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51324,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51286,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51067,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51320,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51158,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51317,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51282,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51223,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51030,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51251,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51029,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51128,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51099,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51062,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51155,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51164,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51314,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51259,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51319,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51157,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51153,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51222,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51094,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51163,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51323,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51033,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51031,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51100,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51129,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51221,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51322,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51189,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51122,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51068,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51283,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51060,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51225,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51292,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51126,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51252,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51028,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51090,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51187,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51057,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51287,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51098,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51196,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51285,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51058,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51220,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51226,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-bare-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51321,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51258,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51123,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51218,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51064,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51219,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2p-t13",
+     "model": "gpt-4.1",
+     "seed": 51255,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t10",
+     "model": "gpt-4.1",
+     "seed": 51027,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p11-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51249,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51130,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p15-rep-d90-s2p-t10",
+     "model": "gpt-4.1",
+     "seed": 51131,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p02-rep-d90-s2a-t13",
+     "model": "gpt-4.1",
+     "seed": 51186,
+     "ep": 2
+    }
+   ]
+  },
+  {
+   "block": "P5B-os",
+   "episodes": [
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51141,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51339,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51341,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51305,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51211,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51083,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51117,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51136,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51261,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51242,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51239,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51046,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51044,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51210,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51325,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51053,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51071,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51247,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51298,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51234,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51334,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51335,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51273,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51302,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51280,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51342,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51248,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51078,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51106,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51137,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51085,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51208,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51262,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51184,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51232,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51266,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51297,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51120,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51269,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51209,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51104,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51243,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51048,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51240,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51173,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51237,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51088,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51049,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51303,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51110,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51181,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51139,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51201,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51294,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51332,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51270,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51336,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51143,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51045,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51103,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51145,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51271,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51047,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51326,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51107,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51074,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51312,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51174,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51246,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51169,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51244,
+     "ep": 16
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51081,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51112,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51167,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51310,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51149,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51311,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51268,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51050,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51075,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51080,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51151,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51150,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51082,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51070,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51041,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51343,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51056,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51276,
+     "ep": 16
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51119,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51245,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51264,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51171,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51340,
+     "ep": 16
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51102,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51087,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51309,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51037,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51175,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51152,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51086,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51272,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51079,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51043,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51069,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51179,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51344,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51233,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51054,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51178,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51183,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51077,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51133,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51293,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51084,
+     "ep": 16
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51147,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51277,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51337,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51166,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51205,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51230,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51235,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51231,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51142,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51330,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51202,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51170,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51039,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51038,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51215,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51216,
+     "ep": 20
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51113,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51146,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51300,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51051,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51267,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51105,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51295,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51197,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51134,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51331,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51203,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51333,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51265,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51338,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51118,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51301,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51180,
+     "ep": 16
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51206,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51229,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51198,
+     "ep": 2
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51101,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51109,
+     "ep": 9
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51111,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51177,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51140,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51299,
+     "ep": 7
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51308,
+     "ep": 16
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51204,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51329,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51135,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51207,
+     "ep": 11
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51263,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51212,
+     "ep": 16
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51138,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51274,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51172,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51279,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51148,
+     "ep": 16
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51076,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51108,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51236,
+     "ep": 8
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51176,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51199,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51165,
+     "ep": 1
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51182,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51213,
+     "ep": 17
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51042,
+     "ep": 6
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51073,
+     "ep": 5
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51238,
+     "ep": 10
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51304,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51072,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51144,
+     "ep": 12
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51328,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51114,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-p06-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51241,
+     "ep": 13
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51040,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51307,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51052,
+     "ep": 16
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51055,
+     "ep": 19
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51275,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51296,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51168,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51115,
+     "ep": 15
+    },
+    {
+     "armId": "p5-b-bare-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51327,
+     "ep": 3
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51278,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51214,
+     "ep": 18
+    },
+    {
+     "armId": "p5-b-p15-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51306,
+     "ep": 14
+    },
+    {
+     "armId": "p5-b-p02-os-swap-t13",
+     "model": "gpt-4.1",
+     "seed": 51200,
+     "ep": 4
+    },
+    {
+     "armId": "p5-b-p11-os-swap-t10",
+     "model": "gpt-4.1",
+     "seed": 51116,
+     "ep": 16
+    }
+   ]
+  },
+  {
+   "block": "P5C-rep",
+   "episodes": [
+    {
+     "armId": "p5-c-p01-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51348,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p14-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51459,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p16-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51475,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p13-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51439,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p14-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51456,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p07-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51403,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p07-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51401,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p09-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51424,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p16-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51471,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p01-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51345,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p06-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51386,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p02-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51365,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p02-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51370,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p14-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51453,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p09-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51419,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p14-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51455,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p16-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51476,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p07-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51399,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p01-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51349,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p02-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51363,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p14-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51460,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p02-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51368,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p01-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51350,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p13-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51435,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p06-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51383,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p07-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51402,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p02-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51369,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p06-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51387,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p09-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51417,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p16-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51472,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p13-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51441,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p07-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51400,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p14-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51458,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p09-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51420,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p06-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51384,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p16-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51478,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p13-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51438,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p01-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51351,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p06-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51385,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p09-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51423,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p13-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51436,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p13-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51442,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p16-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51477,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p01-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51346,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p09-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51422,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p07-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51404,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p14-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51457,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p02-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51366,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p02-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51364,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p14-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51454,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p09-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51421,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p01-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51352,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p07-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51405,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p16-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51474,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p01-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51347,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p06-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51382,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p16-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51473,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p02-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51367,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p07-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51406,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p06-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51381,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p09-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51418,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p13-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51440,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p13-rep-d90-s2a",
+     "model": "gemini-2.5-flash",
+     "seed": 51437,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p06-rep-d90-s2p",
+     "model": "gemini-2.5-flash",
+     "seed": 51388,
+     "ep": 4
+    }
+   ]
+  },
+  {
+   "block": "P5C-os",
+   "episodes": [
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51447,
+     "ep": 5
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51410,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51445,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51393,
+     "ep": 5
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51412,
+     "ep": 6
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51378,
+     "ep": 8
+    },
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51452,
+     "ep": 10
+    },
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51449,
+     "ep": 7
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51408,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51469,
+     "ep": 9
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51395,
+     "ep": 7
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51413,
+     "ep": 7
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51362,
+     "ep": 10
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51416,
+     "ep": 10
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51465,
+     "ep": 5
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51398,
+     "ep": 10
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51361,
+     "ep": 9
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51396,
+     "ep": 8
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51425,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51355,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51374,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51448,
+     "ep": 6
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51481,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51392,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51389,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51482,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51479,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51466,
+     "ep": 6
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51468,
+     "ep": 8
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51407,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51486,
+     "ep": 8
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51371,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51394,
+     "ep": 6
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51430,
+     "ep": 6
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51391,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51373,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51427,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51464,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51358,
+     "ep": 6
+    },
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51443,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51451,
+     "ep": 9
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51467,
+     "ep": 7
+    },
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51444,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51462,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51379,
+     "ep": 9
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51487,
+     "ep": 9
+    },
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51446,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51372,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51426,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51415,
+     "ep": 9
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51483,
+     "ep": 5
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51414,
+     "ep": 8
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51488,
+     "ep": 10
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51397,
+     "ep": 9
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51380,
+     "ep": 10
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51376,
+     "ep": 6
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51360,
+     "ep": 8
+    },
+    {
+     "armId": "p5-c-p13-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51450,
+     "ep": 8
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51411,
+     "ep": 5
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51377,
+     "ep": 7
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51356,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51434,
+     "ep": 10
+    },
+    {
+     "armId": "p5-c-p02-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51375,
+     "ep": 5
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51432,
+     "ep": 8
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51428,
+     "ep": 4
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51429,
+     "ep": 5
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51353,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51359,
+     "ep": 7
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51433,
+     "ep": 9
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51485,
+     "ep": 7
+    },
+    {
+     "armId": "p5-c-p07-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51409,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p09-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51431,
+     "ep": 7
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51357,
+     "ep": 5
+    },
+    {
+     "armId": "p5-c-p06-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51390,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p01-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51354,
+     "ep": 2
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51463,
+     "ep": 3
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51461,
+     "ep": 1
+    },
+    {
+     "armId": "p5-c-p14-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51470,
+     "ep": 10
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51484,
+     "ep": 6
+    },
+    {
+     "armId": "p5-c-p16-os-swap",
+     "model": "gemini-2.5-flash",
+     "seed": 51480,
+     "ep": 2
+    }
+   ]
+  }
+ ],
+ "sentinelPlan": "10 checks; check k before/after blocks per driver plan; 4 sentinel arms \u00d7 5 episodes each, seeds 46001+k*10 \u2026 +4 per cell lane"
+}

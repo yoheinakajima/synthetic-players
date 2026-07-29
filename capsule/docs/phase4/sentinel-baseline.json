@@ -1,0 +1,144 @@
+{
+ "definition": "cell = sentinel arm \u00d7 subject model; episode value = seat-1 round-1 action index; modal action = most frequent episode value across the cell's 10 episodes (tie \u2192 lower action index); fingerprint = (modalAction, count of episodes whose value equals it). Rule (c) compares counts: alert iff |count_K \u2212 count_baseline| \u2265 3. Modal-action flips at similar counts are disclosed as observations (the frozen rule is count-based). Seat-2 distributions are archived alongside for context.",
+ "checkIndex": 0,
+ "sealedAt": "2026-07-24T20:29:10Z",
+ "cells": {
+  "p4-sent-v1|gpt-4.1": {
+   "modalAction": 1,
+   "count": 10,
+   "seat1Counts": {
+    "1": 10
+   },
+   "seat2Counts": {
+    "1": 10
+   },
+   "runIds": [
+    "run_1784924802_978a7b43",
+    "run_1784924805_20b20293",
+    "run_1784924806_6fad4678",
+    "run_1784924807_16b534cd",
+    "run_1784924808_ca8b48d5",
+    "run_1784924809_c04499be",
+    "run_1784924810_039472ee",
+    "run_1784924811_f12e0ea4",
+    "run_1784924813_cd4c149e",
+    "run_1784924814_cf4e8a5b"
+   ]
+  },
+  "p4-sent-v1|gemini-2.5-flash": {
+   "modalAction": 1,
+   "count": 8,
+   "seat1Counts": {
+    "1": 8,
+    "0": 2
+   },
+   "seat2Counts": {
+    "0": 7,
+    "1": 3
+   },
+   "runIds": [
+    "run_1784924815_e238cf43",
+    "run_1784924818_64fd6182",
+    "run_1784924819_1c3b6808",
+    "run_1784924821_545e7663",
+    "run_1784924821_0cb2fdc7",
+    "run_1784924823_09b1a3be",
+    "run_1784924824_39cc4375",
+    "run_1784924825_48d9b7d1",
+    "run_1784924826_8a04aafd",
+    "run_1784924827_41989aa2"
+   ]
+  },
+  "p4-sent-v2a|gpt-4.1": {
+   "modalAction": 0,
+   "count": 10,
+   "seat1Counts": {
+    "0": 10
+   },
+   "seat2Counts": {
+    "0": 10
+   },
+   "runIds": [
+    "run_1784924828_6aa5030a",
+    "run_1784924830_e2cdc9eb",
+    "run_1784924831_479ecb87",
+    "run_1784924832_9d52a655",
+    "run_1784924833_5a76db7a",
+    "run_1784924834_1c190a93",
+    "run_1784924835_355b1a02",
+    "run_1784924837_3be2c905",
+    "run_1784924838_977e80eb",
+    "run_1784924839_1b419bc5"
+   ]
+  },
+  "p4-sent-v2a|gemini-2.5-flash": {
+   "modalAction": 0,
+   "count": 10,
+   "seat1Counts": {
+    "0": 10
+   },
+   "seat2Counts": {
+    "0": 6,
+    "1": 4
+   },
+   "runIds": [
+    "run_1784924841_c35ce52c",
+    "run_1784924842_b6f26af2",
+    "run_1784924843_f33539a9",
+    "run_1784924844_e02b4ad3",
+    "run_1784924845_abced8a1",
+    "run_1784924846_dc03b6ad",
+    "run_1784924847_a64f57b7",
+    "run_1784924848_07d139cf",
+    "run_1784924850_5b386d7a",
+    "run_1784924851_f6138428"
+   ]
+  },
+  "p4-sent-fallback|gpt-4.1": {
+   "modalAction": 1,
+   "count": 10,
+   "seat1Counts": {
+    "1": 10
+   },
+   "seat2Counts": {
+    "1": 10
+   },
+   "runIds": [
+    "run_1784924852_04a81252",
+    "run_1784924853_94e9bf4c",
+    "run_1784924854_1c92874e",
+    "run_1784924855_0c20f68e",
+    "run_1784924856_40be3334",
+    "run_1784924858_4f64165d",
+    "run_1784924859_b2344ea1",
+    "run_1784924860_fcd01a56",
+    "run_1784924861_0af362c8",
+    "run_1784924862_5940f914"
+   ]
+  },
+  "p4-sent-fallback|gemini-2.5-flash": {
+   "modalAction": 1,
+   "count": 9,
+   "seat1Counts": {
+    "1": 9,
+    "0": 1
+   },
+   "seat2Counts": {
+    "0": 7,
+    "1": 3
+   },
+   "runIds": [
+    "run_1784924864_e6785a85",
+    "run_1784924865_1c0a2346",
+    "run_1784924866_44c9b8a1",
+    "run_1784924867_7fc2e472",
+    "run_1784924868_0c2e712b",
+    "run_1784924869_fe7aac1d",
+    "run_1784924870_9d1275b2",
+    "run_1784924871_1f33db70",
+    "run_1784924872_479dd0d5",
+    "run_1784924873_dfdd26fb"
+   ]
+  }
+ }
+}

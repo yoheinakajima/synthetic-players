@@ -1,0 +1,12 @@
+arm,perRoundAdvantage
+p4-f-fo-tracker-cvx,0.15899999999999997
+p4-f-fo-tracker-gpt,-0.11800000000000004
+p4-f-ngram2-cvx,0.076
+p4-f-ngram2-gpt,0.215
+p4-f-ngram3-gpt,0.074
+p4-f-shuffled-history-cvx,0.023
+p4-f-shuffled-history-gpt,-0.034999999999999996
+p4-f-switcher-r26-cvx,-0.03200000000000001
+p4-f-switcher-r26-gpt,-0.027000000000000003
+p4-f-wsls-targeter-cvx,-0.09
+p4-f-wsls-targeter-gpt,0.008000000000000002

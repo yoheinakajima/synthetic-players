@@ -1,0 +1,29 @@
+R2 continuation prompt for Replit agent
+
+Resuming the paused R2 round. Same scope rules: zero subject calls, registered record untouched, every output EXPLORATORY- or DOCUMENTATION-labeled, committed scripts, no fabrication — a clearly flagged stub always beats an improvised result.
+
+0. Status first
+
+Before doing anything, output a per-item status table for R2 items 1–10: done (artifact path) / in-progress / stuck (exact blocker in one line). Do not redo completed items.
+
+1. Scope change: item 6 is removed from your queue
+
+Citation verification and the novelty-relationship table are being completed externally (Claude, with direct web access). You will receive a finished table to commit verbatim as docs/analysis/novelty-relationships.md, with a source line "verified externally, 2026-07-28." Do not attempt arXiv fetches for it.
+
+2. Continue in this priority order
+
+1 (p13 family audit) → 7 (claim-dependency audit) → 3 (propositions) → 4 (persona table) → 5 (hierarchy/estimand table) → 8 (cut map) → 2 (DF microdata) → 9 (public capsule). Items 3, 4, 5, 7, 8 have zero external dependencies — nothing may block them.
+
+3. Unblock ladders for the known sticking points
+
+DF microdata (item 2). If the AEA/openICPSR replication package is unreachable from this environment (login wall or egress), do not fabricate and do not scrape questionable mirrors. Ladder: (a) any officially mirrored replication files that are reachable; (b) fall back to published-table values only, scope the reanalysis down to exactly what those tables support, and commit a clearly flagged stub docs/analysis/df-microdata-PENDING.md with precise operator download instructions and a drop-folder path (data/external/df2011/) so the operator can fetch the package manually. Either way, write and selftest the full reanalysis script now against a synthetic fixture with the package's documented schema, so the moment the data lands the analysis is one command.
+
+p13 permutation audit (item 1). If compute-bound, run 2,000 seeded iterations instead of more, and report the Monte Carlo standard error alongside the p-value. If the registered decision-family enumeration is ambiguous anywhere, enumerate both readings and adopt the LARGER family as primary (conservative), the smaller as sensitivity — both disclosed. Publish all 16 per-persona intervals regardless of anything else finishing.
+
+Public capsule (item 9). If repo creation or push is blocked by the credential proxy (the known token-scope limitation), do not wait and do not retry endlessly. Fallder: build the complete capsule as capsule/ in the private repo — full contents, fresh-history git bundle, tarball, SHA256SUMS — plus capsule/OPERATOR-STEPS.md: the exact two-minute manual path for the operator (create public repo synthetic-players-capsule in the GitHub UI, push the bundle, or drag the tarball onto a release). Run the verification from a clean local directory now (restore from tarball, zero credentials, verifier pass, transcript committed); the anonymous-clone verification reruns after the operator flips it public. Batch the operator ask into the final gate, not mid-run.
+
+General rule. Any step that cannot complete honestly gets a flagged stub with (a) what's missing, (b) the exact operator action needed, (c) the committed, selftested script that finishes the job the moment the input exists. Never simulate a blocked step's output.
+
+4. Deliverable gate
+
+Reply with: the updated per-item status table with artifact paths; the p13 audit outcome (family size, permutation p ± MC error, corrected three-layer status) and all 16 intervals; propositions/persona/hierarchy/cut-map/dependency-audit paths; DF status (full, scoped, or pending-with-script); capsule status (public URL, or bundle path + operator steps); and all operator asks batched in one list at the end. Zero subject spend confirmed in the ledger. That closes R2 on your side; the novelty table arrives separately for verbatim commit.

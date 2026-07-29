@@ -1,0 +1,6 @@
+source,episodes,k,n,mean,cpLo,cpHi,interior
+"sent-bare-gpt (pd-rep-w1-neu δ90 T0.7, exact template)",50,0,100,0.0,0.0,0.0362,0
+p4-d2-w1-can-sw-gpt (os-swap exact twin),20,0,40,0.0,0.0,0.0881,0
+p3-community-bare (pd-oneshot-v1 community gpt T0.7),21,7,42,0.1667,0.0697,0.3136,1
+"p4-d1-can-w1-neu-cf-ad-gpt (one-shot wording match, w1-neu)",10,0,20,0.0,0.0,0.1684,0
+"p4-d1-can-w2a-neu-cf-ad-gpt (one-shot wording match, w2a-neu)",10,0,20,0.0,0.0,0.1684,0

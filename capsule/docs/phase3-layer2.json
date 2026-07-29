@@ -1,0 +1,356 @@
+{
+  "layer2Version": "1.0.0",
+  "generatedAt": "2026-07-24T13:47:56.280Z",
+  "codeCommit": "19f571e",
+  "seeds": {
+    "bootstrap": 424242,
+    "permutation": 20260724,
+    "bootReps": 10000,
+    "permReps": 100000
+  },
+  "corpus": {
+    "totalRuns": 340,
+    "labels": {
+      "rock-paper-scissors:pattern-tracker-vs-nash-mixed:t3-baseline": 20,
+      "prisoners-dilemma:llm41-selfplay:d10:t3": 20,
+      "prisoners-dilemma:llm41-selfplay:d50:t3": 20,
+      "prisoners-dilemma:llm41-selfplay:d75:t3": 20,
+      "prisoners-dilemma:llm41-selfplay:d90:t3": 20,
+      "prisoners-dilemma-iso:llm41-selfplay:d10:t3": 20,
+      "prisoners-dilemma-iso:llm41-selfplay:d50:t3": 20,
+      "prisoners-dilemma-iso:llm41-selfplay:d75:t3": 20,
+      "prisoners-dilemma-iso:llm41-selfplay:d90:t3": 20,
+      "prisoners-dilemma:llm41-oneshot:community:t3": 20,
+      "prisoners-dilemma:llm41-oneshot:wallstreet:t3": 20,
+      "prisoners-dilemma:llm41-oneshot:neutral:t3": 20,
+      "rock-paper-scissors:llm41-vs-pattern-tracker:t3": 20,
+      "rock-paper-scissors:llm41-vs-nash-mixed:t3": 20,
+      "rock-paper-scissors:llm41-selfplay:t3": 20,
+      "prisoners-dilemma:llm41-para-v2a:d90:t3x": 20,
+      "prisoners-dilemma:llm41-para-v2b:d90:t3x": 20
+    }
+  },
+  "extremeCells": [
+    {
+      "label": "prisoners-dilemma:llm41-selfplay:d10:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma-iso:llm41-selfplay:d10:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma:llm41-selfplay:d50:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma-iso:llm41-selfplay:d50:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma:llm41-selfplay:d75:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma-iso:llm41-selfplay:d75:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma:llm41-selfplay:d90:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma-iso:llm41-selfplay:d90:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma:llm41-oneshot:wallstreet:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma:llm41-oneshot:neutral:t3",
+      "kind": "all-zero",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.13910834066826516,
+      "runTwoSided95": 0.16843347098308536,
+      "seatOneSided95": 0.0721575245055146,
+      "seatTwoSided95": 0.08809730287880235
+    },
+    {
+      "label": "prisoners-dilemma:llm41-para-v2a:d90:t3x",
+      "kind": "all-one",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.8608916593317348,
+      "runTwoSided95": 0.8315665290169146,
+      "seatOneSided95": 0.9278424754944854,
+      "seatTwoSided95": 0.9119026971211976
+    },
+    {
+      "label": "prisoners-dilemma:llm41-para-v2b:d90:t3x",
+      "kind": "all-one",
+      "runs": 20,
+      "seatDecisions": 40,
+      "runOneSided95": 0.8608916593317348,
+      "runTwoSided95": 0.8315665290169146,
+      "seatOneSided95": 0.9278424754944854,
+      "seatTwoSided95": 0.9119026971211976
+    },
+    {
+      "label": "pooled canonical high-δ (A3 cell)",
+      "kind": "all-zero",
+      "runs": 40,
+      "seatDecisions": 80,
+      "runOneSided95": 0.0721575245055146,
+      "runTwoSided95": 0.08809730287880235,
+      "seatOneSided95": 0.036754197779982345,
+      "seatTwoSided95": 0.0450640350676923
+    }
+  ],
+  "b1": {
+    "runValuesCommunity": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.5,
+      0.5,
+      0.5,
+      0,
+      0.5,
+      0,
+      0.5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.5,
+      0.5
+    ],
+    "obsDiff": 0.175,
+    "permutationPOneSided": 0.004179958200417996,
+    "bootstrapCICommunityMean": [
+      0.075,
+      0.275
+    ]
+  },
+  "c1": {
+    "seatDecisions": 80,
+    "rockShare": 0.8,
+    "clusterBootstrapCI": [
+      0.7349397590361446,
+      0.8701298701298701
+    ]
+  },
+  "c2": {
+    "seatSummaries": 80,
+    "nonNullStaySeats": 61,
+    "nonNullShiftSeats": 61,
+    "pooledTransitions": {
+      "wN": 778,
+      "wS": 682,
+      "lN": 692,
+      "lS": 665
+    },
+    "nullCompositionByArm": {
+      "llm41-vs-pattern-tracker": {
+        "seats": 20,
+        "nullStay": 0,
+        "nullShift": 0
+      },
+      "llm41-vs-nash-mixed": {
+        "seats": 20,
+        "nullStay": 0,
+        "nullShift": 0
+      },
+      "llm41-selfplay": {
+        "seats": 40,
+        "nullStay": 19,
+        "nullShift": 19
+      }
+    },
+    "pooledStay": {
+      "est": 0.8766066838046273,
+      "ci": [
+        0.8331143232588699,
+        0.9132124352331606
+      ]
+    },
+    "pooledShift": {
+      "est": 0.9609826589595376,
+      "ci": [
+        0.936,
+        0.9818731117824774
+      ]
+    },
+    "seatSummaryMeans": {
+      "stay": 0.683404147289861,
+      "shift": 0.9744470058045401
+    }
+  },
+  "c3": {
+    "vsLlmRuns": 20,
+    "baselineRuns": 20,
+    "obsDiff": -0.08000000000000002,
+    "permutationPTwoSided": 0.005029949700502995
+  },
+  "unitOfAnalysis": [
+    {
+      "item": "A1 δ=.90 vs δ=.10",
+      "rawDecisions": 80,
+      "runSeats": 80,
+      "runs": 40,
+      "clusterUsed": "run-seat",
+      "ciMethod": "exact point (sd=0 both arms)",
+      "layer2": "run-level Clopper-Pearson per cell"
+    },
+    {
+      "item": "A2 pooled high vs low δ",
+      "rawDecisions": 160,
+      "runSeats": 160,
+      "runs": 80,
+      "clusterUsed": "run-seat",
+      "ciMethod": "exact point (sd=0)",
+      "layer2": "run-level CP per pooled cell"
+    },
+    {
+      "item": "A3 human-range membership",
+      "rawDecisions": 80,
+      "runSeats": 80,
+      "runs": 40,
+      "clusterUsed": "run-seat",
+      "ciMethod": "point vs interval",
+      "layer2": "run-level CP (0/40 runs)"
+    },
+    {
+      "item": "A4(a)+(b) isomorph",
+      "rawDecisions": 160,
+      "runSeats": 160,
+      "runs": 80,
+      "clusterUsed": "run-seat",
+      "ciMethod": "exact point (sd=0)",
+      "layer2": "run-level CP; (b) flagged non-diagnostic at floor"
+    },
+    {
+      "item": "B1 community − wallstreet",
+      "rawDecisions": 80,
+      "runSeats": 80,
+      "runs": 40,
+      "clusterUsed": "run (Welch on run-seat means)",
+      "ciMethod": "Welch 95% (df 19)",
+      "layer2": "run-level permutation + bootstrap CI"
+    },
+    {
+      "item": "B2 ratio edge rule",
+      "rawDecisions": 80,
+      "runSeats": 80,
+      "runs": 40,
+      "clusterUsed": "run",
+      "ciMethod": "pre-registered point edge rule",
+      "layer2": "unchanged (rule fired as registered)"
+    },
+    {
+      "item": "B3 neutral interior",
+      "rawDecisions": 120,
+      "runSeats": 120,
+      "runs": 60,
+      "clusterUsed": "run",
+      "ciMethod": "point ordering, ties allowed",
+      "layer2": "wallstreet/neutral CP bounds shown"
+    },
+    {
+      "item": "C1 rock share",
+      "rawDecisions": 120,
+      "runSeats": 120,
+      "runs": 60,
+      "clusterUsed": "seat decision (round 1)",
+      "ciMethod": "point vs [0.33,0.40] band",
+      "layer2": "run-level cluster bootstrap CI"
+    },
+    {
+      "item": "C2 P(stay|win), P(shift|lose)",
+      "rawDecisions": 1470,
+      "runSeats": 120,
+      "runs": 60,
+      "clusterUsed": "run-seat summary, null denominators excluded",
+      "ciMethod": "95% normal CI across run-seat values",
+      "layer2": "pooled decisions + run-level cluster bootstrap"
+    },
+    {
+      "item": "C3 tracker per-round diff",
+      "rawDecisions": 40,
+      "runSeats": 80,
+      "runs": 40,
+      "clusterUsed": "run",
+      "ciMethod": "Welch 95% (df 37.4)",
+      "layer2": "run-level permutation (two-sided)"
+    },
+    {
+      "item": "X1 v2a/v2b round-1 coop",
+      "rawDecisions": 80,
+      "runSeats": 80,
+      "runs": 40,
+      "clusterUsed": "run-seat",
+      "ciMethod": "exact point (sd=0)",
+      "layer2": "run-level CP (all-one cells)"
+    }
+  ]
+}

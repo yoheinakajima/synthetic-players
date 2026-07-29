@@ -54,3 +54,4 @@ __pycache__/
 *.pyc
 .venv/
 artifacts/api-server/engine/data/
+data/external/

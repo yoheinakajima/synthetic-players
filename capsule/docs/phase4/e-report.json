@@ -1,0 +1,265 @@
+{
+ "generatedAt": "2026-07-25T04:11:55Z",
+ "status": "adjudicated (interim; finals at step 8 after full replay)",
+ "frozenSpec": "predicates.md \u00a7Family E \u2014 gate (CP on M_ep, open (0.05,0.95)) then slope (BCa one-sided LB; exact fallback); Holm m=3 secondaries; pins in phase4_adjudicate.py (committed pre-dispatch)",
+ "resolution": {
+  "E-dselected": {
+   "templateId": "pd-rep-w2a-sem-cf-ad",
+   "templateSha256": "c17c0087880dd85163c47d1bca926e746e7ddf780cdcdc0cd5cc85e084fbe7f7"
+  }
+ },
+ "nUsable": {
+  "p4-e-community-d10-gpt": 20,
+  "p4-e-community-d10-cvx": 20,
+  "p4-e-community-d90-gpt": 20,
+  "p4-e-community-d90-cvx": 20,
+  "p4-e-dselected-d10-gpt": 20,
+  "p4-e-dselected-d10-cvx": 20,
+  "p4-e-dselected-d90-gpt": 20,
+  "p4-e-dselected-d90-cvx": 20
+ },
+ "excluded": [],
+ "providerFailureAttempts": [
+  {
+   "runId": "run_1784936973_0c12b60d",
+   "armId": "p4-e-community-d90-cvx",
+   "episodeIndex": 5,
+   "seed": 2897
+  },
+  {
+   "runId": "run_1784939744_e18b90c8",
+   "armId": "p4-e-community-d90-cvx",
+   "episodeIndex": 5,
+   "seed": 2897
+  }
+ ],
+ "windowComposition": {
+  "p4-e-community-d10-cvx": {
+   "W(6,7)": 7,
+   "W(7,8)": 13
+  },
+  "p4-e-community-d90-cvx": {
+   "W(7,8)": 12,
+   "W(6,7)": 8
+  },
+  "p4-e-dselected-d10-cvx": {
+   "W(7,8)": 11,
+   "W(6,7)": 9
+  },
+  "p4-e-dselected-d90-cvx": {
+   "W(7,8)": 11,
+   "W(6,7)": 9
+  }
+ },
+ "assays": {
+  "dselected|gpt-4.1": {
+   "gate": {
+    "cells": {
+     "d10": {
+      "kMajority": 19,
+      "n": 20,
+      "cp95": [
+       0.7512672372279722,
+       0.9987349105020502
+      ],
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
+     },
+     "d90": {
+      "kMajority": 20,
+      "n": 20,
+      "cp95": [
+       0.8315665290169146,
+       1.0
+      ],
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
+     }
+    },
+    "valid": false,
+    "sensitivityBCaMeanY": {
+     "d10": {
+      "mean": 0.75,
+      "bca95": [
+       0.575,
+       0.85
+      ]
+     },
+     "d90": {
+      "mean": 1.0,
+      "note": "constant cell \u2014 BCa undefined"
+     }
+    }
+   },
+   "n": {
+    "d10": 20,
+    "d90": 20
+   },
+   "means": {
+    "d10": 0.75,
+    "d90": 1.0
+   },
+   "claim": "P4-E-1 (primary, single)",
+   "interimVerdict": "corner-confounded: assay invalid for slope inference (registered branch i \u2014 explicitly NOT evidence of \u03b4-insensitivity)"
+  },
+  "dselected|gemini-2.5-flash": {
+   "gate": {
+    "cells": {
+     "d10": {
+      "kMajority": 3,
+      "n": 20,
+      "cp95": [
+       0.0320709371854637,
+       0.37892682654531396
+      ],
+      "insideOpen05_95": false,
+      "boundStatus": "floor bound violated (lo \u2264 0.05)"
+     },
+     "d90": {
+      "kMajority": 17,
+      "n": 20,
+      "cp95": [
+       0.621073173454686,
+       0.9679290628145363
+      ],
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
+     }
+    },
+    "valid": false,
+    "sensitivityBCaMeanY": {
+     "d10": {
+      "mean": 0.075,
+      "bca95": [
+       0.0,
+       0.15
+      ]
+     },
+     "d90": {
+      "mean": 0.45,
+      "bca95": [
+       0.325,
+       0.525
+      ]
+     }
+    }
+   },
+   "n": {
+    "d10": 20,
+    "d90": 20
+   },
+   "means": {
+    "d10": 0.075,
+    "d90": 0.45
+   },
+   "claim": "P4-E secondary (Holm m=3)",
+   "pEnteringHolm": 1.0,
+   "holmP": 1.0,
+   "interimVerdict": "corner-confounded: assay invalid for slope inference (registered branch i; enters Holm as p=1 placeholder)"
+  },
+  "community|gpt-4.1": {
+   "gate": {
+    "cells": {
+     "d10": {
+      "kMajority": 20,
+      "n": 20,
+      "cp95": [
+       0.8315665290169146,
+       1.0
+      ],
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
+     },
+     "d90": {
+      "kMajority": 20,
+      "n": 20,
+      "cp95": [
+       0.8315665290169146,
+       1.0
+      ],
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
+     }
+    },
+    "valid": false,
+    "sensitivityBCaMeanY": {
+     "d10": {
+      "mean": 1.0,
+      "note": "constant cell \u2014 BCa undefined"
+     },
+     "d90": {
+      "mean": 1.0,
+      "note": "constant cell \u2014 BCa undefined"
+     }
+    }
+   },
+   "n": {
+    "d10": 20,
+    "d90": 20
+   },
+   "means": {
+    "d10": 1.0,
+    "d90": 1.0
+   },
+   "claim": "P4-E secondary (Holm m=3)",
+   "pEnteringHolm": 1.0,
+   "holmP": 1.0,
+   "interimVerdict": "corner-confounded: assay invalid for slope inference (registered branch i; enters Holm as p=1 placeholder)"
+  },
+  "community|gemini-2.5-flash": {
+   "gate": {
+    "cells": {
+     "d10": {
+      "kMajority": 17,
+      "n": 20,
+      "cp95": [
+       0.621073173454686,
+       0.9679290628145363
+      ],
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
+     },
+     "d90": {
+      "kMajority": 18,
+      "n": 20,
+      "cp95": [
+       0.6830172859809177,
+       0.9876514728297052
+      ],
+      "insideOpen05_95": false,
+      "boundStatus": "ceiling bound violated (hi \u2265 0.95)"
+     }
+    },
+    "valid": false,
+    "sensitivityBCaMeanY": {
+     "d10": {
+      "mean": 0.725,
+      "bca95": [
+       0.5,
+       0.85
+      ]
+     },
+     "d90": {
+      "mean": 0.725,
+      "bca95": [
+       0.525,
+       0.825
+      ]
+     }
+    }
+   },
+   "n": {
+    "d10": 20,
+    "d90": 20
+   },
+   "means": {
+    "d10": 0.725,
+    "d90": 0.725
+   },
+   "claim": "P4-E secondary (Holm m=3)",
+   "pEnteringHolm": 1.0,
+   "holmP": 1.0,
+   "interimVerdict": "corner-confounded: assay invalid for slope inference (registered branch i; enters Holm as p=1 placeholder)"
+  }
+ }
+}

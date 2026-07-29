@@ -1,0 +1,12 @@
+check,n,modalAction,count,regime
+0,10,0,10,sealed baseline
+1,10,0,9,vs sealed baseline
+2,10,0,9,vs sealed baseline
+3,10,0,8,vs sealed baseline
+4,10,0,8,vs sealed baseline
+5,10,0,7,vs sealed baseline
+6,10,0,10,re-baseline read
+7,10,0,6,vs re-baseline@6
+8,10,0,7,vs re-baseline@6
+9,10,0,6,vs re-baseline@6
+10,10,0,7,vs re-baseline@6

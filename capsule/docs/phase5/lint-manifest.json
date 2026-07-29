@@ -1,0 +1,2012 @@
+{
+ "packet": "phase5-v4-seal",
+ "registryPath": "../../artifacts/api-server/prompts/registry.json",
+ "runtimeVars": {
+  "seat": "1",
+  "history": "(none)",
+  "round": "1"
+ },
+ "cells": [
+  {
+   "id": "p5-a-p01-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p01-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p01-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p01-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p01-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p01-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p02-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p02-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p02-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p02-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p02-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p02-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p03-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p03-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p03-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p03-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p03-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p03-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p04-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p04-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p04-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p04-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p04-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p04-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p05-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p05-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p05-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p05-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p05-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p05-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p06-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p06-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p06-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p06-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p06-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p06-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p07-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p07-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p07-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p07-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p07-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p07-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p08-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p08-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p08-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p08-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p08-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p08-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p09-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p09-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p09-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p09-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p09-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p09-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p10-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p10-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p10-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p10-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p10-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p10-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p11-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p11-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p11-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p11-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p11-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p11-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p12-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p12-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p12-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p12-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p12-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p12-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p13-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p13-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p13-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p13-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p13-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p13-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p14-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p14-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p14-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p14-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p14-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p14-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p15-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p15-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p15-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p15-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p15-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p15-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-a-p16-rep-d10-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p16-rep-d10-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "p5-a-p16-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p16-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-a-p16-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-a-p16-os-community",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "This is called the Community Game. "
+   }
+  },
+  {
+   "id": "p5-b-p02-rep-d90-s2a-t10",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p02-rep-d90-s2p-t10",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p02-os-swap-t10",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-b-p06-rep-d90-s2a-t10",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p06-rep-d90-s2p-t10",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p06-os-swap-t10",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-b-p11-rep-d90-s2a-t10",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p11-rep-d90-s2p-t10",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p11-os-swap-t10",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-b-p15-rep-d90-s2a-t10",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p15-rep-d90-s2p-t10",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p15-os-swap-t10",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-b-bare-rep-d90-s2a-t10",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-bare-rep-d90-s2p-t10",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-bare-os-swap-t10",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-b-p02-rep-d90-s2a-t13",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p02-rep-d90-s2p-t13",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p02-os-swap-t13",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-b-p06-rep-d90-s2a-t13",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p06-rep-d90-s2p-t13",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p06-os-swap-t13",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-b-p11-rep-d90-s2a-t13",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p11-rep-d90-s2p-t13",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p11-os-swap-t13",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-b-p15-rep-d90-s2a-t13",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p15-rep-d90-s2p-t13",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-p15-os-swap-t13",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-b-bare-rep-d90-s2a-t13",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-bare-rep-d90-s2p-t13",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-b-bare-os-swap-t13",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-c-p01-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p01-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p01-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-c-p02-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p02-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p02-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-c-p06-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p06-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p06-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-c-p07-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p07-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p07-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-c-p09-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p09-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p09-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-c-p13-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p13-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p13-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-c-p14-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p14-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p14-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-c-p16-rep-d90-s2a",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p16-rep-d90-s2p",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-c-p16-os-swap",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "p5-entry-gpt-t07",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-entry-gpt-t10",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-entry-gpt-t13",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-entry-gem-t07",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-entry-gem-t10",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-entry-gem-t13",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-sent-p01-gpt",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-sent-bare-gpt",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-sent-p01-gem",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "p5-sent-bare-gem",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  }
+ ],
+ "schedule": [
+  "p5-a-p01-rep-d10-s2a",
+  "p5-a-p01-rep-d10-s2p",
+  "p5-a-p01-rep-d90-s2a",
+  "p5-a-p01-rep-d90-s2p",
+  "p5-a-p01-os-swap",
+  "p5-a-p01-os-community",
+  "p5-a-p02-rep-d10-s2a",
+  "p5-a-p02-rep-d10-s2p",
+  "p5-a-p02-rep-d90-s2a",
+  "p5-a-p02-rep-d90-s2p",
+  "p5-a-p02-os-swap",
+  "p5-a-p02-os-community",
+  "p5-a-p03-rep-d10-s2a",
+  "p5-a-p03-rep-d10-s2p",
+  "p5-a-p03-rep-d90-s2a",
+  "p5-a-p03-rep-d90-s2p",
+  "p5-a-p03-os-swap",
+  "p5-a-p03-os-community",
+  "p5-a-p04-rep-d10-s2a",
+  "p5-a-p04-rep-d10-s2p",
+  "p5-a-p04-rep-d90-s2a",
+  "p5-a-p04-rep-d90-s2p",
+  "p5-a-p04-os-swap",
+  "p5-a-p04-os-community",
+  "p5-a-p05-rep-d10-s2a",
+  "p5-a-p05-rep-d10-s2p",
+  "p5-a-p05-rep-d90-s2a",
+  "p5-a-p05-rep-d90-s2p",
+  "p5-a-p05-os-swap",
+  "p5-a-p05-os-community",
+  "p5-a-p06-rep-d10-s2a",
+  "p5-a-p06-rep-d10-s2p",
+  "p5-a-p06-rep-d90-s2a",
+  "p5-a-p06-rep-d90-s2p",
+  "p5-a-p06-os-swap",
+  "p5-a-p06-os-community",
+  "p5-a-p07-rep-d10-s2a",
+  "p5-a-p07-rep-d10-s2p",
+  "p5-a-p07-rep-d90-s2a",
+  "p5-a-p07-rep-d90-s2p",
+  "p5-a-p07-os-swap",
+  "p5-a-p07-os-community",
+  "p5-a-p08-rep-d10-s2a",
+  "p5-a-p08-rep-d10-s2p",
+  "p5-a-p08-rep-d90-s2a",
+  "p5-a-p08-rep-d90-s2p",
+  "p5-a-p08-os-swap",
+  "p5-a-p08-os-community",
+  "p5-a-p09-rep-d10-s2a",
+  "p5-a-p09-rep-d10-s2p",
+  "p5-a-p09-rep-d90-s2a",
+  "p5-a-p09-rep-d90-s2p",
+  "p5-a-p09-os-swap",
+  "p5-a-p09-os-community",
+  "p5-a-p10-rep-d10-s2a",
+  "p5-a-p10-rep-d10-s2p",
+  "p5-a-p10-rep-d90-s2a",
+  "p5-a-p10-rep-d90-s2p",
+  "p5-a-p10-os-swap",
+  "p5-a-p10-os-community",
+  "p5-a-p11-rep-d10-s2a",
+  "p5-a-p11-rep-d10-s2p",
+  "p5-a-p11-rep-d90-s2a",
+  "p5-a-p11-rep-d90-s2p",
+  "p5-a-p11-os-swap",
+  "p5-a-p11-os-community",
+  "p5-a-p12-rep-d10-s2a",
+  "p5-a-p12-rep-d10-s2p",
+  "p5-a-p12-rep-d90-s2a",
+  "p5-a-p12-rep-d90-s2p",
+  "p5-a-p12-os-swap",
+  "p5-a-p12-os-community",
+  "p5-a-p13-rep-d10-s2a",
+  "p5-a-p13-rep-d10-s2p",
+  "p5-a-p13-rep-d90-s2a",
+  "p5-a-p13-rep-d90-s2p",
+  "p5-a-p13-os-swap",
+  "p5-a-p13-os-community",
+  "p5-a-p14-rep-d10-s2a",
+  "p5-a-p14-rep-d10-s2p",
+  "p5-a-p14-rep-d90-s2a",
+  "p5-a-p14-rep-d90-s2p",
+  "p5-a-p14-os-swap",
+  "p5-a-p14-os-community",
+  "p5-a-p15-rep-d10-s2a",
+  "p5-a-p15-rep-d10-s2p",
+  "p5-a-p15-rep-d90-s2a",
+  "p5-a-p15-rep-d90-s2p",
+  "p5-a-p15-os-swap",
+  "p5-a-p15-os-community",
+  "p5-a-p16-rep-d10-s2a",
+  "p5-a-p16-rep-d10-s2p",
+  "p5-a-p16-rep-d90-s2a",
+  "p5-a-p16-rep-d90-s2p",
+  "p5-a-p16-os-swap",
+  "p5-a-p16-os-community",
+  "p5-b-p02-rep-d90-s2a-t10",
+  "p5-b-p02-rep-d90-s2p-t10",
+  "p5-b-p02-os-swap-t10",
+  "p5-b-p06-rep-d90-s2a-t10",
+  "p5-b-p06-rep-d90-s2p-t10",
+  "p5-b-p06-os-swap-t10",
+  "p5-b-p11-rep-d90-s2a-t10",
+  "p5-b-p11-rep-d90-s2p-t10",
+  "p5-b-p11-os-swap-t10",
+  "p5-b-p15-rep-d90-s2a-t10",
+  "p5-b-p15-rep-d90-s2p-t10",
+  "p5-b-p15-os-swap-t10",
+  "p5-b-bare-rep-d90-s2a-t10",
+  "p5-b-bare-rep-d90-s2p-t10",
+  "p5-b-bare-os-swap-t10",
+  "p5-b-p02-rep-d90-s2a-t13",
+  "p5-b-p02-rep-d90-s2p-t13",
+  "p5-b-p02-os-swap-t13",
+  "p5-b-p06-rep-d90-s2a-t13",
+  "p5-b-p06-rep-d90-s2p-t13",
+  "p5-b-p06-os-swap-t13",
+  "p5-b-p11-rep-d90-s2a-t13",
+  "p5-b-p11-rep-d90-s2p-t13",
+  "p5-b-p11-os-swap-t13",
+  "p5-b-p15-rep-d90-s2a-t13",
+  "p5-b-p15-rep-d90-s2p-t13",
+  "p5-b-p15-os-swap-t13",
+  "p5-b-bare-rep-d90-s2a-t13",
+  "p5-b-bare-rep-d90-s2p-t13",
+  "p5-b-bare-os-swap-t13",
+  "p5-c-p01-rep-d90-s2a",
+  "p5-c-p01-rep-d90-s2p",
+  "p5-c-p01-os-swap",
+  "p5-c-p02-rep-d90-s2a",
+  "p5-c-p02-rep-d90-s2p",
+  "p5-c-p02-os-swap",
+  "p5-c-p06-rep-d90-s2a",
+  "p5-c-p06-rep-d90-s2p",
+  "p5-c-p06-os-swap",
+  "p5-c-p07-rep-d90-s2a",
+  "p5-c-p07-rep-d90-s2p",
+  "p5-c-p07-os-swap",
+  "p5-c-p09-rep-d90-s2a",
+  "p5-c-p09-rep-d90-s2p",
+  "p5-c-p09-os-swap",
+  "p5-c-p13-rep-d90-s2a",
+  "p5-c-p13-rep-d90-s2p",
+  "p5-c-p13-os-swap",
+  "p5-c-p14-rep-d90-s2a",
+  "p5-c-p14-rep-d90-s2p",
+  "p5-c-p14-os-swap",
+  "p5-c-p16-rep-d90-s2a",
+  "p5-c-p16-rep-d90-s2p",
+  "p5-c-p16-os-swap",
+  "p5-entry-gpt-t07",
+  "p5-entry-gpt-t10",
+  "p5-entry-gpt-t13",
+  "p5-entry-gem-t07",
+  "p5-entry-gem-t10",
+  "p5-entry-gem-t13",
+  "p5-sent-p01-gpt",
+  "p5-sent-bare-gpt",
+  "p5-sent-p01-gem",
+  "p5-sent-bare-gem"
+ ],
+ "sealedRules": [
+  {
+   "id": "R1-persona-composition",
+   "statement": "persona system = preamble + \"\\n\\n\" + sealed bare system, byte-identical; persona sha pinned in arms manifest and re-verified per request",
+   "layers": {
+    "dispatch": {
+     "file": "../../artifacts/api-server/engine/phase5_runner.py",
+     "pattern": "compose_persona_system\\(llm_cfg\\[\\\"personaPreamble\\\"\\], system\\)"
+    },
+    "enforcement": {
+     "file": "../../artifacts/api-server/engine/phase5.py",
+     "pattern": "R1-persona-composition: arm .* pins persona sha"
+    },
+    "replay": {
+     "file": "../../artifacts/api-server/engine/phase5_runner.py",
+     "pattern": "R1 replay mirror: re-fetch the persona from the SEALED store"
+    }
+   }
+  },
+  {
+   "id": "R2-per-T-echo",
+   "statement": "request body temperature field must equal the arm's pinned temperature on every call, asserted before dispatch",
+   "layers": {
+    "dispatch": {
+     "file": "../../artifacts/api-server/engine/phase5_driver.py",
+     "pattern": "\\\"temperature\\\": float\\(arm\\[\\\"temperature\\\"\\]\\)"
+    },
+    "enforcement": {
+     "file": "../../artifacts/api-server/engine/phase5.py",
+     "pattern": "def assert_temperature_echo\\("
+    },
+    "replay": {
+     "file": "../../artifacts/api-server/engine/phase5_runner.py",
+     "pattern": "R2: recorded temperature"
+    }
+   }
+  },
+  {
+   "id": "R3-revision-pin",
+   "statement": "returned model revision string must equal the registered pin; mismatch aborts (response archived, spend kept)",
+   "layers": {
+    "dispatch": {
+     "file": "../../artifacts/api-server/engine/phase5_runner.py",
+     "pattern": "assert_revision_pin\\(llm_cfg\\[\\\"model\\\"\\], response\\.to_dict\\(\\)\\.get\\(\\\"model\\\"\\)\\)"
+    },
+    "enforcement": {
+     "file": "../../artifacts/api-server/engine/phase5.py",
+     "pattern": "def assert_revision_pin\\("
+    },
+    "replay": {
+     "file": "../../artifacts/api-server/engine/phase5_runner.py",
+     "pattern": "R3: recorded returned model"
+    }
+   }
+  },
+  {
+   "id": "sentinel-attestation-gate",
+   "statement": "dispatch past a sentinel check requires a POSITIVE evaluator attestation; absence of evaluation fail-closes",
+   "layers": {
+    "dispatch": {
+     "file": "../../artifacts/api-server/engine/phase5_driver.py",
+     "pattern": "block dispatch requires evaluator attestation"
+    },
+    "enforcement": {
+     "file": "../../artifacts/api-server/engine/phase5_adjudicate.py",
+     "pattern": "ATTESTATION REFUSED"
+    },
+    "replay": {
+     "file": "../../artifacts/api-server/engine/phase5_adjudicate.py",
+     "pattern": "S1 completeness"
+    }
+   }
+  },
+  {
+   "id": "registered-shedding-only",
+   "statement": "cap-binding projections freeze the driver; shedding applies the registered order (whole arms, disclosed) \u2014 no discretionary mid-data call",
+   "layers": {
+    "dispatch": {
+     "file": "../../artifacts/api-server/engine/phase5_driver.py",
+     "pattern": "preflight projection binds"
+    },
+    "enforcement": {
+     "file": "../../artifacts/api-server/engine/phase5.py",
+     "pattern": "Phase 5 kill-switch at cap for group"
+    },
+    "replay": {
+     "file": "freeze-packet-draft.md",
+     "pattern": "shed"
+    }
+   }
+  }
+ ],
+ "verdictBranches": {
+  "docPath": "../paper/discussion-branches.md",
+  "requiredHeadings": [
+   "## Branch 1 \u2014 corners everywhere",
+   "## Branch 2 \u2014 an interior persona exists",
+   "## Branch 3 \u2014 temperature-graded",
+   "## Branch 4 \u2014 mixed"
+  ],
+  "combinationTable": {
+   "requiredRows": [
+    "| supported | zero | no | Branch 1",
+    "| supported | zero | yes | Branch 3",
+    "| supported | at-least-one | no | Branch 2",
+    "| supported | at-least-one | yes | Branch 2",
+    "| not-supported | zero | no | Branch 4",
+    "| not-supported | zero | yes | Branch 3",
+    "| not-supported | at-least-one | no | Branch 2",
+    "| not-supported | at-least-one | yes | Branch 2"
+   ]
+  }
+ }
+}

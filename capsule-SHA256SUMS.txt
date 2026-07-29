@@ -1,0 +1,2 @@
+ffca7bbe57e735b60ff781c48179cae6c17c4c3ab5b9a6e47dcab452734fa5c7  capsule.bundle
+4a5610acc6d1e383b51adf258acdbb091a71373a2d83d9d5556036fa87781751  capsule.tar.gz

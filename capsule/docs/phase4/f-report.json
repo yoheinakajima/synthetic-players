@@ -1,0 +1,480 @@
+{
+ "generatedAt": "2026-07-28T05:40:32Z",
+ "status": "adjudicated (interim; finals at step 8 after full replay)",
+ "frozenSpec": "predicates.md \u00a7Family F (50 rounds, switcher r26, sign convention: \u016a_X = adversary per-round mean, positive = exploits subject); opponent semantics: f-opponent-specs.md",
+ "registration": {
+  "original": "2026-07-24 (freeze packet; predicates.md \u00a7Family F; f-stabilization gate \u2192 50-round reversion)",
+  "completionAmendment": "2026-07-28 (f-opponent-specs.md \u00a79.1, operator sign-off; outcome-blind, zero-spend; fixtures = selftests)",
+  "perArmConfirmatoryStatus": {
+   "fo-tracker": "CONFIRMATORY (sealed-complete alias)",
+   "wsls-targeter": "CONFIRMATORY (sealed-complete, operational pins only)",
+   "ngram2": "CONFIRMATORY UNDER COMPLETION AMENDMENT",
+   "ngram3": "CONFIRMATORY UNDER COMPLETION AMENDMENT",
+   "switcher-r26": "CONFIRMATORY UNDER COMPLETION AMENDMENT",
+   "shuffled-history": "CONFIRMATORY UNDER COMPLETION AMENDMENT"
+  }
+ },
+ "nUsable": {
+  "p4-f-fo-tracker-gpt": 20,
+  "p4-f-fo-tracker-cvx": 20,
+  "p4-f-ngram2-gpt": 20,
+  "p4-f-ngram2-cvx": 20,
+  "p4-f-ngram3-gpt": 20,
+  "p4-f-wsls-targeter-gpt": 20,
+  "p4-f-wsls-targeter-cvx": 20,
+  "p4-f-switcher-r26-gpt": 20,
+  "p4-f-switcher-r26-cvx": 20,
+  "p4-f-shuffled-history-gpt": 20,
+  "p4-f-shuffled-history-cvx": 20
+ },
+ "means": {
+  "p4-f-fo-tracker-gpt": -0.11800000000000004,
+  "p4-f-fo-tracker-cvx": 0.15899999999999997,
+  "p4-f-ngram2-gpt": 0.215,
+  "p4-f-ngram2-cvx": 0.076,
+  "p4-f-ngram3-gpt": 0.074,
+  "p4-f-wsls-targeter-gpt": 0.008000000000000002,
+  "p4-f-wsls-targeter-cvx": -0.09,
+  "p4-f-switcher-r26-gpt": -0.027000000000000003,
+  "p4-f-switcher-r26-cvx": -0.03200000000000001,
+  "p4-f-shuffled-history-gpt": -0.034999999999999996,
+  "p4-f-shuffled-history-cvx": 0.023
+ },
+ "excluded": [],
+ "engineCommits": [
+  "3b786932c7621d3df574be7b023c14f34acfd998",
+  "5e1de92f1ca3ee89fd1656b8c8ee2507bb894abb",
+  "7590ad8b8d25f8d4bd306799309343aaf4c04bfd",
+  "e5d0508cad9d5f706fab9075e04734c39b31bf0a"
+ ],
+ "admissibilityDisclosure": "F h2 was dispatched after sentinel check 9 without the registered rule-(c) evaluator having been run; run late, that check FIRED. Operator ruling 2026-07-28: h2 ADMITTED WITH DISCLOSURE (subject cells are independent of sentinel cells); the cross-vendor gemini tier is separately demoted to descriptive-only. sentinel-alert-6-memo.md \u00a7Decision.",
+ "providerFailureAttempts": [
+  {
+   "runId": "run_1785197810_ce96bdb0",
+   "armId": "p4-f-switcher-r26-cvx",
+   "episodeIndex": 9,
+   "seed": 3061,
+   "roundsPlayed": 0
+  },
+  {
+   "runId": "run_1785198107_39264278",
+   "armId": "p4-f-switcher-r26-cvx",
+   "episodeIndex": 4,
+   "seed": 3056,
+   "roundsPlayed": 4
+  },
+  {
+   "runId": "run_1785198346_443ff1da",
+   "armId": "p4-f-ngram2-cvx",
+   "episodeIndex": 20,
+   "seed": 3012,
+   "roundsPlayed": 12
+  },
+  {
+   "runId": "run_1785199909_59bed841",
+   "armId": "p4-f-wsls-targeter-cvx",
+   "episodeIndex": 4,
+   "seed": 3036,
+   "roundsPlayed": 13
+  },
+  {
+   "runId": "run_1785200271_beb7dc20",
+   "armId": "p4-f-shuffled-history-cvx",
+   "episodeIndex": 6,
+   "seed": 3078,
+   "roundsPlayed": 1
+  },
+  {
+   "runId": "run_1785200747_28fe72eb",
+   "armId": "p4-f-wsls-targeter-cvx",
+   "episodeIndex": 1,
+   "seed": 3033,
+   "roundsPlayed": 7
+  },
+  {
+   "runId": "run_1785201232_2e9c7129",
+   "armId": "p4-f-shuffled-history-cvx",
+   "episodeIndex": 14,
+   "seed": 3086,
+   "roundsPlayed": 1
+  },
+  {
+   "runId": "run_1785201706_38b91ebf",
+   "armId": "p4-f-wsls-targeter-cvx",
+   "episodeIndex": 13,
+   "seed": 3045,
+   "roundsPlayed": 5
+  },
+  {
+   "runId": "run_1785202062_96af36c3",
+   "armId": "p4-f-shuffled-history-cvx",
+   "episodeIndex": 4,
+   "seed": 3076,
+   "roundsPlayed": 14
+  },
+  {
+   "runId": "run_1785202305_41e6865a",
+   "armId": "p4-f-ngram2-cvx",
+   "episodeIndex": 17,
+   "seed": 3009,
+   "roundsPlayed": 10
+  },
+  {
+   "runId": "run_1785202545_f8279225",
+   "armId": "p4-f-wsls-targeter-cvx",
+   "episodeIndex": 2,
+   "seed": 3034,
+   "roundsPlayed": 9
+  },
+  {
+   "runId": "run_1785202785_4aab6b8f",
+   "armId": "p4-f-shuffled-history-cvx",
+   "episodeIndex": 13,
+   "seed": 3085,
+   "roundsPlayed": 12
+  },
+  {
+   "runId": "run_1785202976_2a00ea3f",
+   "armId": "p4-f-fo-tracker-cvx",
+   "episodeIndex": 20,
+   "seed": 2992,
+   "roundsPlayed": 3
+  },
+  {
+   "runId": "run_1785205134_fe92ab1b",
+   "armId": "p4-f-ngram2-cvx",
+   "episodeIndex": 5,
+   "seed": 2997,
+   "roundsPlayed": 0
+  },
+  {
+   "runId": "run_1785206260_44cee688",
+   "armId": "p4-f-fo-tracker-cvx",
+   "episodeIndex": 8,
+   "seed": 2980,
+   "roundsPlayed": 30
+  },
+  {
+   "runId": "run_1785206547_0c9d6ebe",
+   "armId": "p4-f-shuffled-history-cvx",
+   "episodeIndex": 8,
+   "seed": 3080,
+   "roundsPlayed": 49
+  },
+  {
+   "runId": "run_1785206871_f85ebb39",
+   "armId": "p4-f-wsls-targeter-cvx",
+   "episodeIndex": 16,
+   "seed": 3048,
+   "roundsPlayed": 3
+  },
+  {
+   "runId": "run_1785208122_5454bcc1",
+   "armId": "p4-f-ngram2-cvx",
+   "episodeIndex": 19,
+   "seed": 3011,
+   "roundsPlayed": 22
+  },
+  {
+   "runId": "run_1785210046_81fa69ba",
+   "armId": "p4-f-switcher-r26-cvx",
+   "episodeIndex": 7,
+   "seed": 3059,
+   "roundsPlayed": 18
+  },
+  {
+   "runId": "run_1785210651_ff83abe3",
+   "armId": "p4-f-ngram2-cvx",
+   "episodeIndex": 1,
+   "seed": 2993,
+   "roundsPlayed": 0
+  },
+  {
+   "runId": "run_1785210888_0bec5103",
+   "armId": "p4-f-ngram2-cvx",
+   "episodeIndex": 7,
+   "seed": 2999,
+   "roundsPlayed": 5
+  },
+  {
+   "runId": "run_1785211315_03f6220a",
+   "armId": "p4-f-shuffled-history-cvx",
+   "episodeIndex": 1,
+   "seed": 3073,
+   "roundsPlayed": 0
+  }
+ ],
+ "sentinelTrajectoryV2aGemini": [
+  {
+   "check": 0,
+   "n": 10,
+   "modalAction": 0,
+   "count": 10,
+   "regime": "sealed baseline"
+  },
+  {
+   "check": 1,
+   "n": 10,
+   "modalAction": 0,
+   "count": 9,
+   "regime": "vs sealed baseline"
+  },
+  {
+   "check": 2,
+   "n": 10,
+   "modalAction": 0,
+   "count": 9,
+   "regime": "vs sealed baseline"
+  },
+  {
+   "check": 3,
+   "n": 10,
+   "modalAction": 0,
+   "count": 8,
+   "regime": "vs sealed baseline"
+  },
+  {
+   "check": 4,
+   "n": 10,
+   "modalAction": 0,
+   "count": 8,
+   "regime": "vs sealed baseline"
+  },
+  {
+   "check": 5,
+   "n": 10,
+   "modalAction": 0,
+   "count": 7,
+   "regime": "vs sealed baseline",
+   "ruleC": "FIRED"
+  },
+  {
+   "check": 6,
+   "n": 10,
+   "modalAction": 0,
+   "count": 10,
+   "regime": "re-baseline read"
+  },
+  {
+   "check": 7,
+   "n": 10,
+   "modalAction": 0,
+   "count": 6,
+   "regime": "vs re-baseline@6",
+   "ruleC": "FIRED"
+  },
+  {
+   "check": 8,
+   "n": 10,
+   "modalAction": 0,
+   "count": 7,
+   "regime": "vs re-baseline@6",
+   "ruleC": "FIRED"
+  },
+  {
+   "check": 9,
+   "n": 10,
+   "modalAction": 0,
+   "count": 6,
+   "regime": "vs re-baseline@6",
+   "ruleC": "FIRED"
+  },
+  {
+   "check": 10,
+   "n": 10,
+   "modalAction": 0,
+   "count": 7,
+   "regime": "vs re-baseline@6",
+   "ruleC": "FIRED"
+  }
+ ],
+ "claims": {
+  "primary": {
+   "deltaWslsMinusFo": {
+    "method": "BCa(20260801), 10000 resamples",
+    "estimate": 0.12600000000000003,
+    "lowerBound95": 0.09300000000000005,
+    "pOneSided": 9.999000099990002e-05
+   },
+   "uWslsVsZero": {
+    "method": "BCa(20260801), 10000 resamples",
+    "estimate": 0.008000000000000002,
+    "ci95": [
+     -0.011999999999999997,
+     0.029000000000000005
+    ],
+    "lowerBound95": -0.008,
+    "pOneSided": 0.19834086090367103
+   },
+   "interimVerdict": "only-first (\u0394 LB > 0; \u016a_wsls LB \u2264 0) \u2014 registered branch",
+   "claim": "P4-F-1 (primary, conjunction, single)"
+  },
+  "secondaryHolmM6": {
+   "fo-tracker": {
+    "method": "BCa(20260801), 10000 resamples",
+    "estimate": -0.11800000000000004,
+    "ci95": [
+     -0.13700000000000007,
+     -0.083
+    ],
+    "lowerBound95": -0.13500000000000004,
+    "p": 9.999000099990002e-05,
+    "holmP": 0.0005999400059994001,
+    "interimVerdict": "supported (Holm-adjusted two-sided p < 0.05)"
+   },
+   "ngram2": {
+    "method": "BCa(20260801), 10000 resamples",
+    "estimate": 0.215,
+    "ci95": [
+     0.18300000000000005,
+     0.253
+    ],
+    "lowerBound95": 0.188,
+    "p": 9.999000099990002e-05,
+    "holmP": 0.0005999400059994001,
+    "interimVerdict": "supported (Holm-adjusted two-sided p < 0.05)"
+   },
+   "ngram3": {
+    "method": "BCa(20260801), 10000 resamples",
+    "estimate": 0.074,
+    "ci95": [
+     0.007999999999999997,
+     0.147
+    ],
+    "lowerBound95": 0.016999999999999998,
+    "p": 0.026977344976466915,
+    "holmP": 0.08093203492940074,
+    "interimVerdict": "not significant under Holm"
+   },
+   "wsls-targeter": {
+    "method": "BCa(20260801), 10000 resamples",
+    "estimate": 0.008000000000000002,
+    "ci95": [
+     -0.011999999999999997,
+     0.029000000000000005
+    ],
+    "lowerBound95": -0.008,
+    "p": 0.39668172180734207,
+    "holmP": 0.39668172180734207,
+    "interimVerdict": "not significant under Holm"
+   },
+   "switcher-r26": {
+    "method": "BCa(20260801), 10000 resamples",
+    "estimate": -0.027000000000000003,
+    "ci95": [
+     -0.05800000000000001,
+     0.006000000000000001
+    ],
+    "lowerBound95": -0.053000000000000005,
+    "p": 0.10902524318152741,
+    "holmP": 0.21805048636305482,
+    "interimVerdict": "not significant under Holm"
+   },
+   "shuffled-history": {
+    "method": "BCa(20260801), 10000 resamples",
+    "estimate": -0.034999999999999996,
+    "ci95": [
+     -0.075,
+     -0.005000000000000002
+    ],
+    "lowerBound95": -0.06799999999999998,
+    "p": 0.017193943987631525,
+    "holmP": 0.0687757759505261,
+    "interimVerdict": "not significant under Holm"
+   }
+  },
+  "secondaryDirectional": {
+   "method": "BCa(20260801), 10000 resamples",
+   "estimate": -0.08300000000000005,
+   "lowerBound95": -0.116,
+   "pOneSided": 0.9992129930229323,
+   "claim": "secondary directional: \u016a_shuffled-history < \u016a_fo-tracker",
+   "interimVerdict": "not supported (LB \u2264 0)"
+  },
+  "crossVendor": {
+   "tierStatus": "DESCRIPTIVE-ONLY \u2014 demoted from secondary replication tier per sentinel alert 6 disposition (rule (c) fired at checks 9 and 10 on p4-sent-v2a \u00d7 gemini-2.5-flash; operator ruling 2026-07-28, Option A; sentinel-alert-6-memo.md \u00a7Decision)",
+   "conjunctionMirror": {
+    "deltaWslsMinusFo": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": -0.24899999999999997,
+     "lowerBound95": -0.30999999999999994,
+     "pOneSided": 1.0
+    },
+    "uWslsVsZero": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": -0.09,
+     "ci95": [
+      -0.157,
+      -0.052000000000000005
+     ],
+     "lowerBound95": -0.14300000000000002,
+     "pOneSided": 1.0
+    },
+    "interimVerdict": "neither \u2014 registered branch",
+    "claim": "cross-vendor conjunction mirror \u2014 DESCRIPTIVE-ONLY (sentinel alert 6 disposition, operator ruling 2026-07-28)"
+   },
+   "profileHolmM5": {
+    "fo-tracker": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": 0.15899999999999997,
+     "ci95": [
+      0.09100000000000001,
+      0.20500000000000002
+     ],
+     "lowerBound95": 0.10400000000000001,
+     "p": 9.999000099990002e-05,
+     "holmP": 0.0004999500049995,
+     "interimVerdict": "replicated-direction (Holm-adjusted two-sided p < 0.05)"
+    },
+    "ngram2": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": 0.076,
+     "ci95": [
+      0.019,
+      0.11600000000000003
+     ],
+     "lowerBound95": 0.029000000000000005,
+     "p": 0.011842387161331932,
+     "holmP": 0.035527161483995796,
+     "interimVerdict": "replicated-direction (Holm-adjusted two-sided p < 0.05)"
+    },
+    "wsls-targeter": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": -0.09,
+     "ci95": [
+      -0.157,
+      -0.052000000000000005
+     ],
+     "lowerBound95": -0.14300000000000002,
+     "p": 9.999000099990002e-05,
+     "holmP": 0.0004999500049995,
+     "interimVerdict": "replicated-direction (Holm-adjusted two-sided p < 0.05)"
+    },
+    "switcher-r26": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": -0.03200000000000001,
+     "ci95": [
+      -0.08099999999999999,
+      0.009999999999999998
+     ],
+     "lowerBound95": -0.073,
+     "p": 0.13621479027564623,
+     "holmP": 0.27242958055129246,
+     "interimVerdict": "not significant under Holm"
+    },
+    "shuffled-history": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": 0.023,
+     "ci95": [
+      -0.030000000000000006,
+      0.069
+     ],
+     "lowerBound95": -0.022000000000000002,
+     "p": 0.4213109774234346,
+     "holmP": 0.4213109774234346,
+     "interimVerdict": "not significant under Holm"
+    }
+   }
+  }
+ }
+}

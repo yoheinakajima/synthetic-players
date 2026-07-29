@@ -1,0 +1,221 @@
+{
+ "packet": "phase5-draft",
+ "registryPath": "../../artifacts/api-server/prompts/registry.json",
+ "runtimeVars": {
+  "seat": "1",
+  "history": "(none)",
+  "round": "1"
+ },
+ "cells": [
+  {
+   "id": "rep-d10-s2a-bare",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "rep-d10-s2p-bare",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   }
+  },
+  {
+   "id": "rep-d90-s2a-bare",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "rep-d90-s2p-bare",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "os-swap-bare",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   }
+  },
+  {
+   "id": "os-community-bare",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "You are taking part in the Community Study.\n"
+   }
+  },
+  {
+   "id": "rep-d10-s2a-persona",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   },
+   "systemPrefix": "You are Arden, a 31-year-old bus driver. People who know you describe you as agreeable, patient, and risk-averse."
+  },
+  {
+   "id": "rep-d10-s2p-persona",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "10"
+   },
+   "systemPrefix": "You are Arden, a 31-year-old bus driver. People who know you describe you as agreeable, patient, and risk-averse."
+  },
+  {
+   "id": "rep-d90-s2a-persona",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   },
+   "systemPrefix": "You are Arden, a 31-year-old bus driver. People who know you describe you as agreeable, patient, and risk-averse."
+  },
+  {
+   "id": "rep-d90-s2p-persona",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   },
+   "systemPrefix": "You are Arden, a 31-year-old bus driver. People who know you describe you as agreeable, patient, and risk-averse."
+  },
+  {
+   "id": "os-swap-persona",
+   "templateId": "pd-os-w1-sem-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1"
+   },
+   "systemPrefix": "You are Arden, a 31-year-old bus driver. People who know you describe you as agreeable, patient, and risk-averse."
+  },
+  {
+   "id": "os-community-persona",
+   "templateId": "pd-oneshot-v1",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "framingLine": "You are taking part in the Community Study.\n"
+   },
+   "systemPrefix": "You are Arden, a 31-year-old bus driver. People who know you describe you as agreeable, patient, and risk-averse."
+  },
+  {
+   "id": "sentinel-persona",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   },
+   "systemPrefix": "You are Arden, a 31-year-old bus driver. People who know you describe you as agreeable, patient, and risk-averse."
+  },
+  {
+   "id": "sentinel-bare",
+   "templateId": "pd-rep-w1-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   }
+  },
+  {
+   "id": "sentinel-switched",
+   "templateId": "pd-rep-w2a-neu-cf-ad",
+   "params": {
+    "rr": "3",
+    "rs": "0",
+    "rt": "5",
+    "rp": "1",
+    "deltaPct": "90"
+   },
+   "conditionalOn": "re-baseline switch (alert-5 class); deltaPct donor pinned = 90"
+  }
+ ],
+ "schedule": [
+  "rep-d10-s2a-bare",
+  "rep-d10-s2p-bare",
+  "rep-d90-s2a-bare",
+  "rep-d90-s2p-bare",
+  "os-swap-bare",
+  "os-community-bare",
+  "rep-d10-s2a-persona",
+  "rep-d10-s2p-persona",
+  "rep-d90-s2a-persona",
+  "rep-d90-s2p-persona",
+  "os-swap-persona",
+  "os-community-persona",
+  "sentinel-persona",
+  "sentinel-bare",
+  "sentinel-switched"
+ ],
+ "sealedRules": [],
+ "verdictBranches": {
+  "docPath": "../paper/discussion-branches.md",
+  "requiredHeadings": [
+   "## Branch 1 \u2014 corners everywhere",
+   "## Branch 2 \u2014 an interior persona exists",
+   "## Branch 3 \u2014 temperature-graded",
+   "## Branch 4 \u2014 mixed"
+  ],
+  "combinationTable": {
+   "requiredRows": [
+    "| supported | zero | no | Branch 1",
+    "| supported | zero | yes | Branch 3",
+    "| supported | at-least-one | no | Branch 2",
+    "| supported | at-least-one | yes | Branch 2",
+    "| not-supported | zero | no | Branch 4",
+    "| not-supported | zero | yes | Branch 3",
+    "| not-supported | at-least-one | no | Branch 2",
+    "| not-supported | at-least-one | yes | Branch 2"
+   ]
+  }
+ }
+}

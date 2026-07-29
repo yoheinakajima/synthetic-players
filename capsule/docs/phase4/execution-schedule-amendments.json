@@ -1,0 +1,293 @@
+{
+ "note": "Amendment: X2-confirmation block omitted by the schedule generator (conditional on screening). Derived mechanically from arms.json only; sealed execution-schedule.json is byte-identical to its seal-record sha. See provenance-notes.md, packaging gap #2.",
+ "amendsScheduleSha256": "139c1b6d514487ea2412d2ad0fa8bda36f79dffed59f4955b0180452239fa444",
+ "generatedBy": "engine/phase4_amend_schedule_x2conf.py",
+ "blocks": [
+  {
+   "block": "X2-confirmation",
+   "note": "20 eps/side, seeds 2953-2972 per side (matched pairs), gpt-4.1 self-play, horizons drawn by runner (geometric, delta=.90, cap-120 truncation excluded per X1 rule)",
+   "episodes": [
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2953,
+     "ep": 1
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2954,
+     "ep": 2
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2955,
+     "ep": 3
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2956,
+     "ep": 4
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2957,
+     "ep": 5
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2958,
+     "ep": 6
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2959,
+     "ep": 7
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2960,
+     "ep": 8
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2961,
+     "ep": 9
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2962,
+     "ep": 10
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2963,
+     "ep": 11
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2964,
+     "ep": 12
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2965,
+     "ep": 13
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2966,
+     "ep": 14
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2967,
+     "ep": 15
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2968,
+     "ep": 16
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2969,
+     "ep": 17
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2970,
+     "ep": 18
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2971,
+     "ep": 19
+    },
+    {
+     "armId": "p4-x2-conf-lo",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2972,
+     "ep": 20
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2953,
+     "ep": 1
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2954,
+     "ep": 2
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2955,
+     "ep": 3
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2956,
+     "ep": 4
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2957,
+     "ep": 5
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2958,
+     "ep": 6
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2959,
+     "ep": 7
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2960,
+     "ep": 8
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2961,
+     "ep": 9
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2962,
+     "ep": 10
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2963,
+     "ep": 11
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2964,
+     "ep": 12
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2965,
+     "ep": 13
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2966,
+     "ep": 14
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2967,
+     "ep": 15
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2968,
+     "ep": 16
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2969,
+     "ep": 17
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2970,
+     "ep": 18
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2971,
+     "ep": 19
+    },
+    {
+     "armId": "p4-x2-conf-hi",
+     "block": "X2-confirmation",
+     "model": "gpt-4.1",
+     "seed": 2972,
+     "ep": 20
+    }
+   ]
+  }
+ ]
+}

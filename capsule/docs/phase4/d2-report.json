@@ -1,0 +1,178 @@
+{
+ "generatedAt": "2026-07-24T21:55:53Z",
+ "frozenSpec": "predicates.md \u00a7Family D2; BCa(20260801) 10k; exact fallback on constant cells; Holm m=4 over the three CI claims (pinned pre-data)",
+ "families": {
+  "gpt": {
+   "role": "primary",
+   "episodes": 160,
+   "invalidOrIncomplete": [],
+   "status": "adjudicated",
+   "claims": {
+    "P4-D2-1": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": 0.725,
+     "ci95": [
+      0.6,
+      0.8
+     ],
+     "p": 9.999000099990002e-05,
+     "holmP": 0.00029997000299970003,
+     "interimVerdict": "supported"
+    },
+    "P4-D2-2": {
+     "method": "exact fallback (constant cell): exact diff + CP-conservative interval (seat-level trials)",
+     "estimate": 0.0,
+     "ci95": [
+      -0.05330218411592169,
+      0.05330218411592169
+     ],
+     "cellCP95": {
+      "hi": [
+       0.9549359649323077,
+       1.0
+      ],
+      "lo": [
+       0.9549359649323077,
+       1.0
+      ]
+     },
+     "constantCells": {
+      "hi": true,
+      "lo": true
+     },
+     "p": 1.0,
+     "holmP": 1.0,
+     "interimVerdict": "not supported"
+    },
+    "P4-D2-4": {
+     "method": "exact fallback (constant cell): exact diff + CP-conservative interval (seat-level trials)",
+     "estimate": 0.7875,
+     "ci95": [
+      0.6131943191131541,
+      0.8806150089838363
+     ],
+     "cellCP95": {
+      "hi": [
+       0.6817141914403442,
+       0.8710635049024182
+      ],
+      "lo": [
+       0.0,
+       0.045064035067692285
+      ]
+     },
+     "constantCells": {
+      "hi": false,
+      "lo": true
+     },
+     "p": 1.0000000008672752e-09,
+     "holmP": 4.000000003469101e-09,
+     "interimVerdict": "supported"
+    }
+   },
+   "P4-D2-3": {
+    "bothCoopWordEpisodes": 0,
+    "n": 40,
+    "pointEstimate": 0.0,
+    "cp95": [
+     0.0,
+     0.08809730287880237
+    ],
+    "classification": "payoff-dominant"
+   },
+   "cellMeans": {
+    "role": {
+     "can-al": 0.0625,
+     "can-sw": 1.0,
+     "cfd-al": 0.7875,
+     "cfd-sw": 1.0
+    },
+    "word": {
+     "can-al": 0.0625,
+     "can-sw": 0.0,
+     "cfd-al": 0.7875,
+     "cfd-sw": 0.0
+    }
+   }
+  },
+  "cvx": {
+   "role": "secondary (cross-vendor mirror)",
+   "episodes": 160,
+   "invalidOrIncomplete": [],
+   "status": "adjudicated",
+   "claims": {
+    "P4-D2-1": {
+     "method": "exact fallback (constant cell): exact diff + CP-conservative interval (seat-level trials)",
+     "estimate": 0.6375,
+     "ci95": [
+      0.4533003782293092,
+      0.7551901117682995
+     ],
+     "cellCP95": {
+      "hi": [
+       0.5223872787351915,
+       0.742105104628382
+      ],
+      "lo": [
+       0.0,
+       0.045064035067692285
+      ]
+     },
+     "constantCells": {
+      "hi": false,
+      "lo": true
+     },
+     "p": 1.0000000008672752e-09,
+     "holmP": 4.000000003469101e-09,
+     "interimVerdict": "supported"
+    },
+    "P4-D2-2": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": 0.7625,
+     "ci95": [
+      0.6499999999999999,
+      0.8374999999999999
+     ],
+     "p": 9.999000099990002e-05,
+     "holmP": 0.00029997000299970003,
+     "interimVerdict": "supported"
+    },
+    "P4-D2-4": {
+     "method": "BCa(20260801), 10000 resamples",
+     "estimate": 0.6124999999999999,
+     "ci95": [
+      0.48750000000000004,
+      0.7000000000000001
+     ],
+     "p": 9.999000099990002e-05,
+     "holmP": 0.00029997000299970003,
+     "interimVerdict": "supported"
+    }
+   },
+   "P4-D2-3": {
+    "bothCoopWordEpisodes": 0,
+    "n": 40,
+    "pointEstimate": 0.0,
+    "cp95": [
+     0.0,
+     0.08809730287880237
+    ],
+    "classification": "payoff-dominant"
+   },
+   "cellMeans": {
+    "role": {
+     "can-al": 0.0,
+     "can-sw": 0.2125,
+     "cfd-al": 0.6375,
+     "cfd-sw": 0.975
+    },
+    "word": {
+     "can-al": 0.0,
+     "can-sw": 0.7875,
+     "cfd-al": 0.6375,
+     "cfd-sw": 0.025
+    }
+   }
+  }
+ }
+}

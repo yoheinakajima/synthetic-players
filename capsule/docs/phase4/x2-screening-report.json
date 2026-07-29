@@ -1,0 +1,396 @@
+{
+ "generatedAt": "2026-07-24T20:57:49Z",
+ "rule": "candidate iff some adjacent |\u0394| \u2265 0.50; largest |\u0394|; ties \u2192 lowest span index; forward before reverse (frozen, predicates.md)",
+ "endpointSource": {
+  "v1": "pd-repeated-v1",
+  "v2a": "pd-repeated-v2a",
+  "method": "re-derived from the event store alone via game-object attributes (promptId, deltaPct=90, gpt-4.1, llm-subject self-play, seeds 1\u201310); the store carries no batch labels",
+  "matchedHorizons": {
+   "1": 1,
+   "2": 2,
+   "3": 15,
+   "4": 25,
+   "5": 12,
+   "6": 3,
+   "7": 5,
+   "8": 10,
+   "9": 7,
+   "10": 10
+  },
+  "duplicateEndpointRuns": {
+   "v1": {
+    "1": [
+     "run_1784875363_e3cd56da",
+     "run_1784875686_4f6de881"
+    ],
+    "2": [
+     "run_1784875364_ab5e6bd4",
+     "run_1784875687_de4cbc6f"
+    ],
+    "3": [
+     "run_1784875366_e65af638",
+     "run_1784875688_99eff4d7"
+    ],
+    "4": [
+     "run_1784875386_28402529",
+     "run_1784875701_ac324280"
+    ],
+    "5": [
+     "run_1784875413_9f607bc9",
+     "run_1784875730_97e18c2e"
+    ],
+    "6": [
+     "run_1784875426_bb8a956b",
+     "run_1784875750_c1fe0c21"
+    ],
+    "7": [
+     "run_1784875429_c3fa0c5e",
+     "run_1784875753_4d96e466"
+    ],
+    "8": [
+     "run_1784875441_b2505cf4",
+     "run_1784875757_93f7a345"
+    ],
+    "9": [
+     "run_1784875452_e34e9136",
+     "run_1784875767_6582a28c"
+    ],
+    "10": [
+     "run_1784875460_0f1502ba",
+     "run_1784875774_502c3efe"
+    ]
+   },
+   "v2a": {},
+   "rule": "duplicates accepted only on exact agreement of horizon + round-1 actions; any disagreement refuses adjudication"
+  }
+ },
+ "perSeed": {
+  "v1": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0,
+   "8": 0.0,
+   "9": 0.0,
+   "10": 0.0
+  },
+  "v2a": {
+   "1": 1.0,
+   "2": 1.0,
+   "3": 1.0,
+   "4": 1.0,
+   "5": 1.0,
+   "6": 1.0,
+   "7": 1.0,
+   "8": 1.0,
+   "9": 1.0,
+   "10": 1.0
+  },
+  "p4-x2-f1": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0,
+   "8": 0.0,
+   "9": 0.0,
+   "10": 0.0
+  },
+  "p4-x2-f2": {
+   "1": 1.0,
+   "2": 0.5,
+   "3": 1.0,
+   "4": 1.0,
+   "5": 0.5,
+   "6": 1.0,
+   "7": 1.0,
+   "8": 1.0,
+   "9": 0.5,
+   "10": 1.0
+  },
+  "p4-x2-f3": {
+   "1": 0.5,
+   "2": 1.0,
+   "3": 1.0,
+   "4": 0.5,
+   "5": 0.5,
+   "6": 1.0,
+   "7": 0.5,
+   "8": 0.5,
+   "9": 0.5,
+   "10": 1.0
+  },
+  "p4-x2-f4": {
+   "1": 1.0,
+   "2": 1.0,
+   "3": 1.0,
+   "4": 1.0,
+   "5": 1.0,
+   "6": 1.0,
+   "7": 1.0,
+   "8": 1.0,
+   "9": 1.0,
+   "10": 1.0
+  },
+  "p4-x2-f5": {
+   "1": 1.0,
+   "2": 1.0,
+   "3": 1.0,
+   "4": 1.0,
+   "5": 1.0,
+   "6": 1.0,
+   "7": 1.0,
+   "8": 1.0,
+   "9": 1.0,
+   "10": 1.0
+  },
+  "p4-x2-r1": {
+   "1": 0.5,
+   "2": 0.5,
+   "3": 0.5,
+   "4": 0.5,
+   "5": 0.5,
+   "6": 0.5,
+   "7": 0.5,
+   "8": 0.0,
+   "9": 0.5,
+   "10": 0.5
+  },
+  "p4-x2-r2": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0,
+   "8": 0.0,
+   "9": 0.0,
+   "10": 0.0
+  },
+  "p4-x2-r3": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0,
+   "8": 0.0,
+   "9": 0.0,
+   "10": 0.0
+  },
+  "p4-x2-r4": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0,
+   "8": 0.0,
+   "9": 0.0,
+   "10": 0.0
+  },
+  "p4-x2-r5": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0,
+   "8": 0.0,
+   "9": 0.0,
+   "10": 0.0
+  }
+ },
+ "rungMeans": {
+  "v1": 0.0,
+  "v2a": 1.0,
+  "p4-x2-f1": 0.0,
+  "p4-x2-f2": 0.85,
+  "p4-x2-f3": 0.7,
+  "p4-x2-f4": 1.0,
+  "p4-x2-f5": 1.0,
+  "p4-x2-r1": 0.45,
+  "p4-x2-r2": 0.0,
+  "p4-x2-r3": 0.0,
+  "p4-x2-r4": 0.0,
+  "p4-x2-r5": 0.0
+ },
+ "rungN": {
+  "v1": 10,
+  "v2a": 10,
+  "p4-x2-f1": 10,
+  "p4-x2-f2": 10,
+  "p4-x2-f3": 10,
+  "p4-x2-f4": 10,
+  "p4-x2-f5": 10,
+  "p4-x2-r1": 10,
+  "p4-x2-r2": 10,
+  "p4-x2-r3": 10,
+  "p4-x2-r4": 10,
+  "p4-x2-r5": 10
+ },
+ "gaps": [
+  {
+   "ladder": "forward",
+   "position": 1,
+   "spanIndex": 1,
+   "pair": [
+    "v1",
+    "p4-x2-f1"
+   ],
+   "delta": 0.0,
+   "absDelta": 0.0
+  },
+  {
+   "ladder": "forward",
+   "position": 2,
+   "spanIndex": 2,
+   "pair": [
+    "p4-x2-f1",
+    "p4-x2-f2"
+   ],
+   "delta": 0.85,
+   "absDelta": 0.85
+  },
+  {
+   "ladder": "forward",
+   "position": 3,
+   "spanIndex": 3,
+   "pair": [
+    "p4-x2-f2",
+    "p4-x2-f3"
+   ],
+   "delta": -0.15,
+   "absDelta": 0.15
+  },
+  {
+   "ladder": "forward",
+   "position": 4,
+   "spanIndex": 4,
+   "pair": [
+    "p4-x2-f3",
+    "p4-x2-f4"
+   ],
+   "delta": 0.3,
+   "absDelta": 0.3
+  },
+  {
+   "ladder": "forward",
+   "position": 5,
+   "spanIndex": 5,
+   "pair": [
+    "p4-x2-f4",
+    "p4-x2-f5"
+   ],
+   "delta": 0.0,
+   "absDelta": 0.0
+  },
+  {
+   "ladder": "forward",
+   "position": 6,
+   "spanIndex": 6,
+   "pair": [
+    "p4-x2-f5",
+    "v2a"
+   ],
+   "delta": 0.0,
+   "absDelta": 0.0
+  },
+  {
+   "ladder": "reverse",
+   "position": 1,
+   "spanIndex": 1,
+   "pair": [
+    "v2a",
+    "p4-x2-r1"
+   ],
+   "delta": -0.55,
+   "absDelta": 0.55
+  },
+  {
+   "ladder": "reverse",
+   "position": 2,
+   "spanIndex": 2,
+   "pair": [
+    "p4-x2-r1",
+    "p4-x2-r2"
+   ],
+   "delta": -0.45,
+   "absDelta": 0.45
+  },
+  {
+   "ladder": "reverse",
+   "position": 3,
+   "spanIndex": 3,
+   "pair": [
+    "p4-x2-r2",
+    "p4-x2-r3"
+   ],
+   "delta": 0.0,
+   "absDelta": 0.0
+  },
+  {
+   "ladder": "reverse",
+   "position": 4,
+   "spanIndex": 4,
+   "pair": [
+    "p4-x2-r3",
+    "p4-x2-r4"
+   ],
+   "delta": 0.0,
+   "absDelta": 0.0
+  },
+  {
+   "ladder": "reverse",
+   "position": 5,
+   "spanIndex": 5,
+   "pair": [
+    "p4-x2-r4",
+    "p4-x2-r5"
+   ],
+   "delta": 0.0,
+   "absDelta": 0.0
+  },
+  {
+   "ladder": "reverse",
+   "position": 6,
+   "spanIndex": 6,
+   "pair": [
+    "p4-x2-r5",
+    "v1"
+   ],
+   "delta": 0.0,
+   "absDelta": 0.0
+  }
+ ],
+ "excludedEpisodes": [],
+ "candidate": true,
+ "selection": {
+  "gap": {
+   "ladder": "forward",
+   "position": 2,
+   "spanIndex": 2,
+   "pair": [
+    "p4-x2-f1",
+    "p4-x2-f2"
+   ],
+   "delta": 0.85,
+   "absDelta": 0.85
+  },
+  "confLoTemplate": "pd-x2-f1",
+  "confHiTemplate": "pd-x2-f2",
+  "orientation": "positive",
+  "screenedDirection": "E[Y|p4-x2-f2] - E[Y|p4-x2-f1] > 0",
+  "amendmentRequiredForResolution": false
+ },
+ "registeredNoCandidateOutcome": null
+}

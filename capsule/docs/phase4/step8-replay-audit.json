@@ -1,0 +1,22 @@
+{
+ "generatedAt": "2026-07-28T05:40:50Z",
+ "engine": "http://127.0.0.1:8090",
+ "liveCalls": 0,
+ "totals": {
+  "runs": 2888,
+  "replayedObservations": 2864,
+  "invalidTrialsVerified": 0,
+  "partialsSkippedBySignature": 24,
+  "fRngProfilesChecked": 220
+ },
+ "fRngProfileSpec": {
+  "fo-tracker": "0 every round",
+  "ngram2": "0 every round",
+  "ngram3": "0 every round",
+  "wsls-targeter": "1 draw at r1, else 0",
+  "switcher-r26": "0 every round",
+  "shuffled-history": "0 for r<=10, n-2 for r>=11"
+ },
+ "failures": [],
+ "verdict": "CLEAN"
+}

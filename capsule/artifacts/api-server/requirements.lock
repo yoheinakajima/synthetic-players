@@ -1,0 +1,5 @@
+# exact versions used by the working environment (uv run --with ...)
+numpy==2.4.6
+scipy==1.17.1
+pandas==3.0.5
+# python 3.11.14

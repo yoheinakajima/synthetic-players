@@ -1,0 +1,50 @@
+{
+ "generatedAt": "2026-07-24T22:41:53Z",
+ "frozenSpec": "predicates.md \u00a7Family D3; BCa(20260801) one-sided 95% lower bound (\u03b1=.05 endpoint); exact sign-test fallback if constant; support-only Dirichlet(1) posterior (never confirmatory); penalized multinomial logit deferred to step 8 (disclosed)",
+ "families": {
+  "gpt": {
+   "role": "primary",
+   "episodes": 72,
+   "invalidOrIncomplete": [],
+   "P4-D3-1": {
+    "method": "BCa(20260801) one-sided 95% lower bound",
+    "estimate": -0.18055555555555555,
+    "lowerBound95": -0.2777777777777778,
+    "verdict": "not supported"
+   },
+   "supportOnly": {
+    "seatCategoryCounts": {
+     "firstOnly": 12,
+     "rockOnly": 38,
+     "both": 5,
+     "neither": 89
+    },
+    "dirichletPosteriorP_firstOnly_gt_rockOnly": 0.0001,
+    "penalizedLogit": "deferred to step 8 (support-only, disclosed)"
+   },
+   "status": "adjudicated"
+  },
+  "cvx": {
+   "role": "secondary (cross-vendor mirror)",
+   "episodes": 72,
+   "invalidOrIncomplete": [],
+   "P4-D3-1": {
+    "method": "BCa(20260801) one-sided 95% lower bound",
+    "estimate": 0.24305555555555555,
+    "lowerBound95": 0.1388888888888889,
+    "verdict": "supported"
+   },
+   "supportOnly": {
+    "seatCategoryCounts": {
+     "firstOnly": 53,
+     "rockOnly": 18,
+     "both": 24,
+     "neither": 49
+    },
+    "dirichletPosteriorP_firstOnly_gt_rockOnly": 0.99999,
+    "penalizedLogit": "deferred to step 8 (support-only, disclosed)"
+   },
+   "status": "adjudicated"
+  }
+ }
+}
