@@ -1,78 +1,208 @@
-# Propositions — what the study demonstrates, and what nothing here identifies
+# Identification propositions — what coarse checks and aggregate moments do not establish
 
-> **STATUS: DOCUMENTATION — R2 item 3, 2026-07-29. Conceptual layer;
-> no new data, zero subject calls. Notation is defined here and used in
-> `hierarchy.md` and the paper draft.**
+> **STATUS: PAPER-FACING CONCEPTUAL NOTE — NOT VERDICT-BEARING.** Updated 2026-07-29 after external review. No new data and zero subject calls. The notation describes the fixed panel of sixteen explicit persona prompts; interpreting a prompt-indexed contrast as a stable synthetic person’s treatment effect additionally requires latent-person invariance across conditions.
 
-Setup. Binary round-1 outcome Y ∈ {0,1}; condition d ∈ {0,1} (e.g.
-δ=.10 vs δ=.90). Personas i = 1…16 with condition-specific means
-p_i(d) = E[Y | persona i, d]. Decompose the population moments:
+## Setup
 
-- pool mean **μ(d)** = (1/16) Σᵢ p_i(d)
-- between-persona variance **B(d)** = Var_i(p_i(d))
-- within-persona variance **W(d)** = (1/16) Σᵢ p_i(d)(1 − p_i(d))
-- persona-level response **Δᵢ** = p_i(1) − p_i(0)
+Let the binary round-one outcome be
 
-Total variance at condition d is B(d) + W(d); the pool response is
-Δ̄ = μ(1) − μ(0) = (1/16) Σᵢ Δᵢ.
+\[
+Y_{ijd} \in \{0,1\},
+\]
 
-## Proposition A — coarse marginal validation does not identify aggregate treatment response
+where:
 
-**Claim.** Validation criteria of the kind used in practice — broad
-bands on μ(d), pooled or separate-condition tolerances on B(d) + W(d),
-each condition checked in isolation — can all pass while Δ̄ takes any
-value in a wide interval, including the wrong sign.
+- \(i \in \{1,\ldots,16\}\) indexes the complete explicit persona prompt;
+- \(j\) indexes repeated episodes or draws under that prompt;
+- \(d \in \{0,1\}\) indexes an experimental condition, such as \(\delta=.10\) versus \(\delta=.90\).
 
-**Why.** The criteria constrain each marginal distribution of Y | d
-only up to a band. Δ̄ = μ(1) − μ(0) is a *difference of the two
-marginals' means*; if each mean is only pinned to a band of width w,
-Δ̄ is only pinned to a band of width 2w around the human difference —
-and corner-mixture populations (this study's pools: bimodal by
-leaning, 9–10 of 16 personas pure-corner in every cell) can sit
-anywhere in that band while matching level and variance bands exactly.
-Empirically here: levels within ~0.15 of the published values, SDs
-inside the published bands, and a pool δ-response of −0.08 against the
-published human −0.42 (nonmatched comparator).
+Define the prompt-indexed condition mean
 
-**The identity that makes "coarse" the operative word.** Since
-Δ̄ = μ(1) − μ(0) exactly, *exact* condition-specific mean matching
-would force the correct aggregate effect by identity. Coarse criteria
-are therefore precisely the ones that are cheat-able: the failure mode
-lives entirely in the slack of the bands, which is why our validation
-criteria must be described as **coarse marginal checks** — the study's
-demonstration is that populations passing them can carry essentially
-no incentive economics.
+\[
+p_i(d)=E[Y_{ijd}\mid i,d].
+\]
 
-## Proposition B — even exact aggregate moments do not identify the individual structure
+For the fixed prompt panel, define:
 
-**Claim.** Suppose μ(d), B(d), W(d) are matched *exactly* at every
-condition — not bands, equalities. This still does not identify:
+\[
+\mu(d)=\frac{1}{16}\sum_i p_i(d)
+\]
 
-1. **the between/within allocation at the response level** — how Δ̄
-   distributes across personas: sixteen personas each with Δᵢ = Δ̄, or
-   one persona with Δᵢ = 16·Δ̄ and fifteen with Δᵢ = 0, generate
-   identical per-condition moments whenever the p_i(d) multisets
-   match;
-2. **the corner concentration** — whether mass at p ≈ 0/1 is the same
-   individuals at both conditions or different ones (the permutation
-   of persona identities across conditions is invisible to every
-   per-condition moment);
-3. **the joint coupling of potential outcomes — the Δᵢ
-   distribution.** Per-condition moments are functionals of the two
-   marginal distributions of {p_i(0)} and {p_i(1)} separately. The Δᵢ
-   distribution is a functional of the *joint* distribution
-   (coupling), which is unconstrained by the marginals beyond
-   Fréchet–Hoeffding bounds. Identifying it requires repeated
-   measurements of the same unit under both conditions (a within-unit
-   design — available for synthetic personas, structurally absent
-   from between-session human data such as DF2011) or structural
-   assumptions (e.g. rank invariance, a parametric random-effects
-   model) that must then be declared and defended.
+as the pool mean,
 
-**Consequence for this study's comparisons.** Our within-persona Δᵢ is
-measurable because the persona is re-runnable; the published human
-comparator observes only μ(d) across different sessions. The two
-estimands live on different sides of Proposition B — which is exactly
-why every DF-derived pin in this project is labeled *published,
-nonmatched comparator*, and why no analysis here claims a human Δᵢ
-distribution to compare against.
+\[
+B(d)=\operatorname{Var}_i\{p_i(d)\}
+\]
+
+as between-prompt dispersion, and
+
+\[
+W(d)=\frac{1}{16}\sum_i p_i(d)\{1-p_i(d)\}
+\]
+
+as average within-prompt Bernoulli variation.
+
+For a randomly selected prompt from the fixed panel,
+
+\[
+\operatorname{Var}(Y_d)=B(d)+W(d).
+\]
+
+Define the prompt-indexed response
+
+\[
+\Delta_i^{\text{prompt}}=p_i(1)-p_i(0)
+\]
+
+and the aggregate response
+
+\[
+\bar\Delta=\mu(1)-\mu(0)=\frac{1}{16}\sum_i\Delta_i^{\text{prompt}}.
+\]
+
+The superscript is load-bearing: pairing the same explicit prompt across conditions does not by itself prove that the model instantiated the same latent synthetic individual in both conditions.
+
+## Proposition A — broad marginal bands only partially identify the aggregate response
+
+Suppose a validation protocol accepts the synthetic condition means whenever
+
+\[
+\mu^S(0)\in[\ell_0,u_0]
+\quad\text{and}\quad
+\mu^S(1)\in[\ell_1,u_1].
+\]
+
+Then the synthetic aggregate response is constrained only to
+
+\[
+\Delta^S
+=
+\mu^S(1)-\mu^S(0)
+\in
+[\ell_1-u_0,\;u_1-\ell_0].
+\]
+
+Equivalently, if each synthetic condition mean is within a tolerance \(\epsilon_d\) of a human reference mean,
+
+\[
+|\mu^S(d)-\mu^H(d)|\le \epsilon_d,
+\]
+
+then
+
+\[
+|\Delta^S-\Delta^H|
+\le
+\epsilon_0+\epsilon_1.
+\]
+
+### Consequence
+
+Broad condition-level bands may leave the aggregate comparative static only weakly constrained. Their identified interval can contain:
+
+- zero;
+- a materially attenuated effect;
+- the wrong sign.
+
+The qualifier **coarse** is essential. Exact condition-specific mean matching would force exact aggregate-effect matching by the identity
+
+\[
+\Delta=\mu(1)-\mu(0).
+\]
+
+The empirical result in this project is therefore not that exact moment matching failed. It is that the registered broad-band checks passed while leaving enough slack for a small internal continuation-probability contrast.
+
+Variance checks do not repair this logical gap unless they impose additional cross-condition structural restrictions.
+
+## Proposition B1 — mean and total variance do not identify the between/within decomposition or shape
+
+Knowing only
+
+\[
+\mu(d)
+\quad\text{and}\quad
+\operatorname{Var}(Y_d)
+\]
+
+at a condition does not identify:
+
+- \(B(d)\), the amount of dispersion between prompt configurations;
+- \(W(d)\), the amount of variation within a prompt configuration;
+- the distribution \(F_d(p)\) of prompt-specific propensities;
+- the amount of mass near \(p=0\) or \(p=1\);
+- modality, skewness, or other shape features.
+
+The same mean and total variance can arise from sharply different mixtures of stable prompt types and within-prompt stochasticity.
+
+## Proposition B2 — even exact variance components do not identify the full propensity distribution
+
+Suppose \(\mu(d)\), \(B(d)\), and \(W(d)\) are known exactly. Their numerical allocation is then known by definition, but the full distribution of \(p_i(d)\) is still not identified. Multiple propensity distributions can share the same first moments and variance components while differing in:
+
+- endpoint concentration;
+- modality;
+- tail mass;
+- which explicit prompts occupy which regions.
+
+Therefore the empirical corner census contains information not recoverable from a mean and variance comparison alone.
+
+## Proposition B3 — condition-specific marginals do not identify cross-condition coupling
+
+Even knowing the complete marginal distributions
+
+\[
+F_0(p)
+\quad\text{and}\quad
+F_1(p)
+\]
+
+does not identify the joint coupling
+
+\[
+F_{01}(p_0,p_1)
+\]
+
+and therefore does not identify the distribution of
+
+\[
+\Delta_i^{\text{prompt}}=p_i(1)-p_i(0).
+\]
+
+For example, identical condition-specific multisets of propensities can be paired across prompt identities in multiple ways, yielding different response distributions while preserving every within-condition statistic. Fréchet–Hoeffding bounds constrain possible couplings but do not select one.
+
+Repeated measurements of the same explicit prompt under both conditions provide one observed prompt-indexed coupling. Interpreting that as a stable synthetic individual’s potential-outcome coupling requires an additional assumption:
+
+> **Latent-person invariance:** changing the intervention does not change the unobserved attributes of the synthetic person instantiated by the model.
+
+Recent work on intervention-induced user drift shows that this assumption may fail even when the explicit persona text is unchanged. This project does not test latent-person invariance, so its \(\Delta_i\) quantities should be called **prompt-indexed responses**, not individual human-like treatment effects.
+
+## Empirical mapping for this study
+
+The recorded panel supports direct description of:
+
+- the fixed-panel pool means under each registered condition;
+- observed between-prompt dispersion;
+- observed within-prompt variation and corner classifications under the historical registered rule;
+- prompt-indexed condition contrasts for the same explicit persona strings.
+
+It does **not** by itself identify:
+
+- a population-level estimand for all possible personas;
+- human microstructure or a human \(\Delta_i\) distribution;
+- stable latent synthetic individuals across interventions;
+- human–LLM treatment-effect equivalence.
+
+The Dal Bó–Fréchette human comparator is between-session and protocol-nonmatched. It contextualizes the manipulation but cannot supply a matched distribution of individual responses.
+
+## Statistical-estimation caveat
+
+The observed variance of estimated persona means contains finite-opportunity measurement noise:
+
+\[
+\operatorname{Var}_i(\widehat p_i)
+\approx
+\operatorname{Var}_i(p_i)
++
+E_i\!\left[\frac{p_i(1-p_i)}{n_i}\right].
+\]
+
+Accordingly, raw cross-persona standard deviations should not be interpreted as latent between-prompt heterogeneity without a hierarchical or bias-corrected sensitivity analysis. The strong observed corner concentration makes the qualitative pattern plausible, but the corrected variance comparison remains a submission requirement.
