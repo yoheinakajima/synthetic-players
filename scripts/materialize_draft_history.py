@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""Materialize exact historical manuscript files from temporary base64 parts.
+"""Materialize exact historical manuscript files from temporary encoded parts.
 
 The parts exist only because the GitHub connector writes text files. A manifest
 is committed last; until then this script is a no-op. Once every part exists,
 the script verifies SHA-256, writes the exact markdown history, and removes the
 temporary materialization directory so only reviewer-facing manuscripts remain.
+
+The manifest may specify ``compression: gzip`` to keep connector payloads small.
 """
 from __future__ import annotations
 
 import base64
+import gzip
 import hashlib
 import json
 import shutil
@@ -32,7 +35,14 @@ def main() -> int:
             print(f"materialize_draft_history: waiting for parts: {missing}")
             return 0
         encoded = "".join(p.read_text(encoding="utf-8").strip() for p in parts)
-        data = base64.b64decode(encoded, validate=True)
+        payload = base64.b64decode(encoded, validate=True)
+        compression = rec.get("compression")
+        if compression is None:
+            data = payload
+        elif compression == "gzip":
+            data = gzip.decompress(payload)
+        else:
+            raise RuntimeError(f"unsupported history compression: {compression}")
         digest = hashlib.sha256(data).hexdigest()
         if digest != rec["sha256"]:
             raise RuntimeError(
