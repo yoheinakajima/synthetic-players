@@ -1,6 +1,6 @@
 # Paper review and submission gate — current status
 
-> **STATUS: READY FOR FULL SCIENTIFIC REVIEW, 2026-07-29.** The sealed experimental program remains closed. All executable zero-subject-call analyses required by the statistical review are complete and committed. Remaining work is editorial/submission work or explicitly deferred external-data contextualization.
+> **STATUS: READY FOR FULL SCIENTIFIC REVIEW, 2026-07-29.** The sealed experimental program remains closed. All executable zero-subject-call analyses required by the statistical review are complete and committed. Remaining work is editorial/venue work or explicitly deferred external-data contextualization.
 
 ## Gate rule
 
@@ -60,6 +60,7 @@ A method-of-moments correction subtracts estimated finite-opportunity noise from
 All four fixed-panel corrected-SD lower bounds exceed the historical `0.75 × published human SD` threshold. Three of four exploratory persona-population lower bounds do. Neither result is a protocol-matched estimate of human latent heterogeneity.
 
 Artifact: `submission/variance-correction.md`.
+
 ## B. Human comparator
 
 ### B1. Dal Bó–Fréchette microdata contextualization — **DEFERRED EXTERNAL DATA; NOT BLOCKING**
@@ -94,7 +95,7 @@ Automated lint scans assertion-bearing living prose for retired claims, validate
 
 ### C4. Citation metadata and formatted bibliography — **EDITORIAL, STILL OPEN**
 
-The literature set and novelty boundary are ready for scientific review. Before formal submission, recent-preprint versions, authors, titles, and venues must receive a final metadata pass and the shorthand citations must be converted to the target venue's bibliography format. This does not block reviewer evaluation of novelty or framing.
+The literature set and novelty boundary are ready for scientific review. Before formal submission, recent-preprint versions, authors, titles, and venues need one final metadata pass, and shorthand citations must be converted to the selected venue’s bibliography format. This does not block reviewer evaluation of novelty or framing.
 
 ## D. Counts, reproducibility, and chronology
 
@@ -133,14 +134,13 @@ The v5 paper has three contributions: empirical result, mechanism/identification
 
 `REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the manuscript, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
 
-### E3. Draft history — **INTEGRATION TASK**
+### E3. Draft history — **COMPLETE**
 
-Draft v2 and v3 were supplied as exact manuscripts and should be committed under `docs/paper/history/` so correction-ledger version references resolve to public files. This task is editorial provenance, not scientific analysis.
+Exact v2 and v3 reviewer-circulation manuscripts are committed under `docs/paper/history/`, with a reviewer-facing index and pinned SHA verification. Earlier v1 material remains under `docs/v1/`.
 
 ## Remaining before formal submission
 
-1. Commit the exact v2/v3 manuscripts under `docs/paper/history/`.
-2. Complete the final metadata/bibliography pass for the chosen venue.
-3. Human author sign-off on final title, target venue, and venue-specific AI-assistance statement.
+1. Complete the final citation-metadata and bibliography-formatting pass for the selected venue.
+2. Obtain human-author sign-off on the final title, target venue, and venue-specific AI-assistance statement.
 
-None of these prevents full scientific review of the current GitHub surface.
+The optional Dal Bó–Fréchette microdata contextualization remains deferred and nonblocking under the current narrow claim. None of the remaining items prevents full scientific review of the current GitHub surface.
