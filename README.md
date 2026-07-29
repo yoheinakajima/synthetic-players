@@ -1,9 +1,22 @@
 # Synthetic Players
 
-> **STATUS: WORKING RESEARCH RELEASE — PRE-PUBLICATION, NOT FOR CITATION.**
-> The sealed experimental program is complete through Phase 5. The current manuscript is [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md); the remaining editorial submission gate is tracked in [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md).
+> **STATUS: READY FOR FULL SCIENTIFIC REVIEW — WORKING DRAFT, NOT FOR CITATION.**
 
-**Replay the public Phase 4–5 record in one command** — anonymous clone, zero credentials, zero live model calls:
+## Reviewing the paper?
+
+**Start at [`REVIEW.md`](REVIEW.md).** It links the current manuscript, independent verification memo, machine-readable analyses, novelty map, reproduction command, and highest-value review questions.
+
+Current manuscript:
+
+> **Passing Coarse Marginal Checks Can Be Cheap: Persona Mixtures and Weak Observed Incentive Response in LLM Behavioral Simulation**
+
+[`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
+
+The sealed experimental program is complete through Phase 5. The scientific review gate is complete; remaining formal-submission work is citation formatting, exact draft-history import, and human venue/title/AI-disclosure sign-off. Current status: [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md).
+
+## Reproduce the archived record
+
+Anonymous clone, zero credentials, zero live model calls:
 
 ```bash
 git clone https://github.com/yoheinakajima/synthetic-players
@@ -17,27 +30,31 @@ Expected result: **4,576/4,576 completed Phase 4–5 runs replay byte-exact.**
 
 Synthetic Players is an open experimental laboratory for placing LLM-controlled agents into formally specified strategic games. It studies:
 
-- how behavior changes across wording, labels, payoff structures, opponents, personas, temperature, provider routes, and time;
+- how behavior changes across wording, labels, payoffs, opponents, personas, temperature, provider routes, and time;
 - which findings belong only to one model–prompt–deployment configuration;
 - whether persona-conditioned panels preserve response to an experimental lever rather than merely broad aggregate resemblance;
-- how preregistration, event sourcing, mechanical adjudication, exact replay, and post-adjudication correction can make machine-speed research auditable.
+- how preregistration, event sourcing, mechanical adjudication, exact replay, drift monitoring, and post-adjudication correction can make machine-speed research auditable.
 
-The current paper’s narrow empirical claim is:
+The paper's narrow empirical result is:
 
-> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks** while showing a small continuation-probability comparative static. Corrected variance estimates place approximately 85%–96% of episode-level variation between prompt configurations; the exact binary corner count is interval-method-sensitive.
+> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. Corrected estimates assign approximately 85%–96% of episode-level variation to differences between prompt configurations. The observed aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals too wide to establish equivalence or a null response.
 
-This is not a claim of human substitutability. Published human references are protocol-nonmatched, the primary results come from one deployment, and the panel contains sixteen complete prompt bundles rather than independently sampled people.
+This is not a claim of human substitutability. Human references are protocol-nonmatched, the primary evidence comes from one deployment, and the panel consists of sixteen complete prompt bundles rather than independently sampled people.
 
-## Current paper and analysis materials
+## Reviewer map
 
-- **Paper draft v4:** [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
-- **Submission status:** [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md)
-- **Completed zero-call analyses:** [`docs/analysis/submission/`](docs/analysis/submission/)
-- **Novelty relationships:** [`docs/analysis/novelty-relationships.md`](docs/analysis/novelty-relationships.md)
-- **Literature map:** [`docs/analysis/literature-map.md`](docs/analysis/literature-map.md)
-- **Identification propositions:** [`docs/analysis/propositions.md`](docs/analysis/propositions.md)
-- **Sample hierarchy and estimands:** [`docs/analysis/hierarchy.md`](docs/analysis/hierarchy.md)
-- **Analysis index:** [`docs/analysis/INDEX.md`](docs/analysis/INDEX.md)
+| artifact | purpose |
+|---|---|
+| [`REVIEW.md`](REVIEW.md) | Canonical review instructions and review questions |
+| [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v5 manuscript |
+| [`docs/reviews/`](docs/reviews/) | Round-2 methods review, role disclosure, and round-3 independent verification |
+| [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json) | Machine-readable generated results |
+| [`docs/analysis/submission/`](docs/analysis/submission/) | Exact-episode sensitivity, variance correction, family audit, and count reconciliation |
+| [`docs/analysis/novelty-relationships.md`](docs/analysis/novelty-relationships.md) | Occupied territory and precise differentiation |
+| [`docs/analysis/literature-map.md`](docs/analysis/literature-map.md) | Broader literature map |
+| [`docs/analysis/propositions.md`](docs/analysis/propositions.md) | Partial-identification, microstructure, and coupling statements |
+| [`docs/analysis/hierarchy.md`](docs/analysis/hierarchy.md) | Units, clusters, and estimands |
+| [`docs/paper/scope-seal-status.md`](docs/paper/scope-seal-status.md) | Why the original scope-seal header is preserved and how the stopping rule was sealed |
 
 ## Main empirical arc
 
@@ -57,45 +74,46 @@ Two formally game-equivalent paraphrases moved observed first-round cooperation 
 
 ### Phase 4: representation and incentive channels interact
 
-Semantic labels could override payoff dominance in direct conflict, while payoff changes moved behavior when labels did not oppose them. Continuation-probability assays were corner-confounded at the tested surfaces. Adversary behavior was opponent-contingent, and the cross-vendor lane was demoted to descriptive status after sentinel-detected endpoint instability.
+Semantic labels could override payoff dominance in direct conflict, while payoff changes moved behavior when labels did not oppose them. Continuation-probability assays were boundary-confounded at tested surfaces. Adversary behavior was opponent-contingent, and the cross-vendor lane was demoted to descriptive status after sentinel-detected endpoint instability.
 
 - Freeze packet: [`docs/phase4/freeze-packet.md`](docs/phase4/freeze-packet.md)
 - Predicates: [`docs/phase4/predicates.md`](docs/phase4/predicates.md)
 - Final report: [`docs/phase4/final-report.md`](docs/phase4/final-report.md)
 
-### Phase 5: persona conditioning and the post-adjudication correction
+### Phase 5: persona conditioning and post-adjudication correction
 
-Sixteen sealed one-sentence personas were crossed with the existing instruments. Historical verdicts remain intact, but the completed submission analyses materially change their scientific interpretation:
+Sixteen sealed one-sentence personas were crossed with the existing instruments. Historical mechanical verdicts remain intact; the completed submission analyses change their scientific interpretation:
 
-| Claim | Historical mechanical result | Completed paper-facing analysis |
+| claim | historical result | current interpretation |
 |---|---|---|
-| P5-1a corner-mixture predicate | 3/32 restricted cells interior under seat-level CP; supported below θ=0.10 | Exact episode interval: 2/32; Dirichlet–Jeffreys sensitivity: 5/32. The binary verdict is method-sensitive; continuous composition is primary. |
-| P5-1b dispersion comparison | Raw cross-persona SD 0.424–0.480 | Finite-opportunity-corrected SD 0.418–0.478; approximately 85%–96% of episode-level variation lies between prompt configurations. |
-| P5-2 surface-cue dominance | Pooled persona-dominant result | Pooled exact interval remains persona-dominant, but every repeated conflict subcell is mixed; the confounded swap cell carries the pooled classification. |
-| P5-3 existence predicate | Fired historically; p13 passed the frozen per-candidate slope rule | Historical gate familywise p=0.0592. Exact episode gate excludes p13; largest surviving slope +0.0833, p=0.7732. No unconfounded existence result survives. |
-| P5-3 clause (b) | All personas pass a refusal threshold | All 24 evaluable lanes survive simultaneous exact episode-level family bounds; minimum lower bound 0.462. Choice result is strong, mechanism remains word/payoff-confounded. |
-| P5-4 temperature | Registered refutation did not fire | Temperature/entropy observation remains secondary and mechanism-free. |
+| P5-1a boundary-mixture predicate | 3/32 restricted cells interior under seat-level CP; supported below θ=0.10 | Exact episode 2/32; Dirichlet–Jeffreys 5/32. The binary verdict is method-sensitive; continuous composition is primary. |
+| P5-1b dispersion comparison | Raw cross-persona SD 0.424–0.480 | Corrected SD 0.418–0.478; approximately 85%–96% of episode-level variation lies between prompt configurations. |
+| P5-2 surface-cue dominance | Pooled persona-dominant | Pooled result survives exact inference, but every repeated conflict subcell is mixed; the word/payoff-confounded swap cell carries the classification. |
+| P5-3 clause (a) | p13 passed the frozen per-candidate rule | Post-review variants: historical gate p=0.059230; retained non-primary percentile-bootstrap p=0.043455; primary exact-episode gate excludes p13 and yields p=0.773206. None was registered at freeze; p13 is a replication target. |
+| P5-3 clause (b) | All personas pass refusal threshold | All 24 lanes survive simultaneous exact family bounds; minimum lower bound 0.462. Choice result strong, mechanism word/payoff-confounded. |
+| P5-4 temperature | Registered refutation did not fire | Temperature/entropy observation remains supplementary and mechanism-free. |
 
-- Historical final report: [`docs/phase5/final-report.md`](docs/phase5/final-report.md)
+- Historical report: [`docs/phase5/final-report.md`](docs/phase5/final-report.md)
 - Historical adjudication: [`docs/phase5-close/adjudication-report.md`](docs/phase5-close/adjudication-report.md)
 - Exact episode sensitivity: [`docs/analysis/submission/episode-cluster-sensitivity.md`](docs/analysis/submission/episode-cluster-sensitivity.md)
-- Final p13 family audit: [`docs/analysis/submission/p13-family-audit-final.md`](docs/analysis/submission/p13-family-audit-final.md)
+- Final family audit: [`docs/analysis/submission/p13-family-audit-final.md`](docs/analysis/submission/p13-family-audit-final.md)
 - Variance correction: [`docs/analysis/submission/variance-correction.md`](docs/analysis/submission/variance-correction.md)
-- Clause-(b) mechanism anatomy: [`docs/analysis/post-verdict/clause-b-anatomy.md`](docs/analysis/post-verdict/clause-b-anatomy.md)
+- Mechanism anatomy: [`docs/analysis/post-verdict/clause-b-anatomy.md`](docs/analysis/post-verdict/clause-b-anatomy.md)
 
-Sealed historical records are never rewritten. Living documents carry corrections beside any quoted historical interpretation.
+Sealed historical records are never rewritten. Living documents carry corrections beside quoted historical interpretation.
 
 ## Research-integrity contract
 
 The repository records:
 
 - prompt registries and per-arm hashes;
-- externally anchored preregistrations and amendments;
+- externally anchored registrations, amendments, and discussion branches;
 - every archived request, completion, seed, round, and adjudication input in an append-only event store;
-- budget accounting that includes failed and retried calls;
+- budget accounting including failed and retried calls;
 - exact zero-call replay and metric recomputation;
 - twelve registered predictions refuted by data;
 - one post-adjudication inferential downgrade identified through external review;
+- reviewer role changes and independent verification passes;
 - process failures and the rules each failure produced.
 
 The central boundary is explicit:
@@ -112,13 +130,13 @@ Counts are reconciled in [`docs/analysis/submission/count-reconciliation.md`](do
 - **4,576 Phase 4–5 replay-contract runs**;
 - **54,276 round events**;
 - **108,552 seat-round decisions**;
-- **36,251 archived provider-request events** across the full store;
-- **30,530 Phase 4–5 calls** in the transactional budget ledger;
+- **36,251 provider-request events** across the full store;
+- **30,530 Phase 4–5 calls** in the transactional ledger;
 - **13,141,675 input tokens** and **45,247 output tokens** in that ledger.
 
-## Reproducing the submission analyses
+## Reproduce the post-adjudication analyses
 
-The post-adjudication analyses make no provider calls and run against the archived databases:
+The submission analyses make no provider calls and run against the archived databases:
 
 ```bash
 mkdir -p artifacts/api-server/engine/data
@@ -128,23 +146,16 @@ python -m pip install numpy scipy
 python artifacts/api-server/engine/submission_gate_analyses.py
 python artifacts/api-server/engine/submission_gate_finalize.py
 python artifacts/api-server/engine/submission_gate_exact_cluster.py
+python scripts/augment_p13_audit_variants.py
+python artifacts/api-server/engine/submission_gate_variance_fixed.py
+python scripts/generate_prompt_delta_figure.py
 ```
 
-The same sequence is executed by [`.github/workflows/submission-gate-analyses.yml`](.github/workflows/submission-gate-analyses.yml). Generated outputs are committed under `docs/analysis/submission/`.
-
-## Phase map
-
-| Phase | Purpose | Registration and report |
-|---|---|---|
-| v1→v2 | Naive harness and mechanical re-adjudication | [`docs/POSTMORTEM.md`](docs/POSTMORTEM.md), [`docs/v1/`](docs/v1/) |
-| Phase 3 | Bare configuration: cooperation, framing, RPS | [`docs/phase3-preregistration.md`](docs/phase3-preregistration.md), [`docs/phase3-report.md`](docs/phase3-report.md) |
-| X1/X2 | Paraphrase fragility and switch localization | [`docs/phase4/freeze-packet.md`](docs/phase4/freeze-packet.md), [`docs/phase4/x2-confirmation-report.md`](docs/phase4/x2-confirmation-report.md) |
-| Phase 4 | Representation, counterfactuals, δ assays, adversaries, sentinels | [`docs/phase4/final-report.md`](docs/phase4/final-report.md) |
-| Phase 5 | Persona panel, surface conflicts, temperature, precommitted discussion | [`docs/phase5/process-packet.md`](docs/phase5/process-packet.md), [`docs/phase5/final-report.md`](docs/phase5/final-report.md) |
+The same sequence is executed by [`.github/workflows/submission-gate-analyses.yml`](.github/workflows/submission-gate-analyses.yml). Generated outputs are committed under `docs/analysis/submission/` and `docs/paper/figures/`.
 
 ## Status and scope
 
-The repository became public on 2026-07-29. The sealed experimental program is closed; no new dispatch is authorized without a new registration. Paper-facing analysis can continue without modifying sealed artifacts or historical verdicts.
+The repository became public on 2026-07-29. The sealed experimental program is closed; no new dispatch is authorized without a new registration. Paper-facing analysis and review may continue without modifying sealed artifacts or historical verdicts.
 
 ## License and citation
 
