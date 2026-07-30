@@ -1,0 +1,167 @@
+name: preprint-v12
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/preprint-v12.yml'
+      - 'scripts/**'
+      - 'artifacts/api-server/engine/**'
+      - 'capsule/**'
+      - 'docs/paper/**'
+      - 'docs/analysis/**'
+      - 'docs/reviews/**'
+      - 'README.md'
+      - 'REVIEW.md'
+      - 'CITATION.cff'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: preprint-v12-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install analysis dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib uv
+
+      - name: Stage archived databases
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/engine/data
+          xz -dkc capsule/data/engine.db.xz > artifacts/api-server/engine/data/engine.db
+          xz -dkc capsule/data/budget.db.xz > artifacts/api-server/engine/data/budget.db
+          cp capsule/data/phase4-driver-plan.json capsule/data/phase4-driver-state.json \
+             capsule/data/phase5-driver-plan.json capsule/data/phase5-driver-state.json \
+             artifacts/api-server/engine/data/ 2>/dev/null || true
+
+      - name: Regenerate zero-call analyses and integrate v12
+        env:
+          SUBMISSION_DIRICHLET_DRAWS: '200000'
+          SUBMISSION_FAMILY_PERMUTATIONS: '200000'
+          SUBMISSION_FAMILY_BATCH: '5000'
+          SUBMISSION_VARIANCE_BOOTSTRAPS: '50000'
+          ROUND5_ATTAINABILITY_PERMUTATIONS: '200000'
+          ROUND5_ATTAINABILITY_BATCH: '5000'
+          ROUND5_POWER_REPS: '10000'
+          ROUND5_POWER_BATCH: '1000'
+          V11_LATENT_DRAWS: '100000'
+          V12_BOOTSTRAP_REPS: '250000'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python artifacts/api-server/engine/submission_gate_analyses.py | tee /tmp/preprint-v12.log
+          python artifacts/api-server/engine/submission_gate_finalize.py | tee -a /tmp/preprint-v12.log
+          python artifacts/api-server/engine/submission_gate_exact_cluster.py | tee -a /tmp/preprint-v12.log
+          python scripts/augment_p13_audit_variants.py | tee -a /tmp/preprint-v12.log
+          python artifacts/api-server/engine/submission_gate_variance_fixed.py | tee -a /tmp/preprint-v12.log
+          python scripts/generate_prompt_delta_figure.py | tee -a /tmp/preprint-v12.log
+          python artifacts/api-server/engine/round5_review_audit.py | tee -a /tmp/preprint-v12.log
+          python scripts/explore_v11_variance.py | tee -a /tmp/preprint-v12.log
+          python scripts/v12_audits.py | tee -a /tmp/preprint-v12.log
+          (cd artifacts/api-server && uv run --with numpy --with scipy python engine/phase3_replay_audit.py) | tee -a /tmp/preprint-v12.log
+          python scripts/repair_apply_preprint_v12.py
+          python scripts/apply_preprint_v12.py | tee -a /tmp/preprint-v12.log
+          python scripts/generate_review_figures_v11.py | tee -a /tmp/preprint-v12.log
+          cp artifacts/api-server/engine/phase3_replay_audit.py capsule/artifacts/api-server/engine/phase3_replay_audit.py
+          python scripts/polish_repo_v12.py
+          python scripts/update_capsule_manifest_v12.py
+          python -m py_compile \
+            scripts/apply_preprint_v12.py scripts/v12_audits.py \
+            artifacts/api-server/engine/phase3_replay_audit.py
+
+      - name: Install preprint PDF dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+            pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern \
+            fonts-linuxlibertine fonts-lato poppler-utils
+
+      - name: Build and preflight near-arXiv PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/build_preprint_pdf_v12.py
+          pdf='docs/paper/synthetic-players-preprint-v12.pdf'
+          pages="$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')"
+          test "$pages" -ge 16
+          test "$pages" -le 28
+          pdftotext "$pdf" /tmp/preprint-v12.txt
+          grep -Fq 'Abstract' /tmp/preprint-v12.txt
+          grep -Fq '63%–71%' docs/paper/paper-draft.md
+          grep -Fq '4,916' docs/paper/paper-draft.md
+          grep -Fq 'switch-bearing' docs/paper/paper-draft.md
+          grep -Fq 'game-theoretic association' docs/paper/paper-draft.md
+          grep -Fq 'Phase 3 zero-call replay audit' docs/analysis/submission/v12/phase3-replay-audit.md
+          grep -Fq 'verified independent recomputation' docs/analysis/submission/v12/v12-audits.json
+          ! grep -Fqi 'not for citation' /tmp/preprint-v12.txt
+          ! grep -Fqi 'review revision' /tmp/preprint-v12.txt
+          test -s docs/paper/synthetic-players-preprint-v12.sha256
+          test -s docs/paper/synthetic-players-preprint-v12-artifact.json
+
+      - name: Lint living assertions, links, and sealed boundary
+        run: python scripts/paper_submission_lint.py --base origin/main
+
+      - name: Verify complete confirmatory capsule
+        run: bash capsule/verify.sh
+
+      - name: Upload near-arXiv review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-players-preprint-v12
+          path: |
+            README.md
+            REVIEW.md
+            CITATION.cff
+            docs/paper/paper-draft.md
+            docs/paper/synthetic-players-preprint-v12.pdf
+            docs/paper/synthetic-players-preprint-v12.sha256
+            docs/paper/synthetic-players-preprint-v12-artifact.json
+            docs/paper/figures/
+            docs/analysis/submission/v12/
+            docs/analysis/submission/submission-analysis-summary.json
+            docs/reviews/round-10-explore-science-v11-review.md
+            docs/reviews/round-10-disposition-matrix.md
+            /tmp/preprint-v12.log
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit generated preprint and audit outputs
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- \
+            README.md REVIEW.md CITATION.cff \
+            capsule capsule-README.md \
+            docs/analysis docs/paper docs/reviews \
+            scripts/apply_preprint_v12.py
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+            exit 0
+          fi
+          git commit -m 'build and validate near-arXiv preprint v12 [skip ci]'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
