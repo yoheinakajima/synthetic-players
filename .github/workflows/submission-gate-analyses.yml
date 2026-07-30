@@ -14,6 +14,7 @@ on:
       - 'scripts/apply_round4_v6.py'
       - 'scripts/apply_round5_v7.py'
       - 'scripts/finalize_round5_v7.py'
+      - 'scripts/polish_v7_outputs.py'
       - 'scripts/materialize_draft_history.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
@@ -97,6 +98,7 @@ jobs:
           python scripts/apply_round5_v7.py | tee -a /tmp/submission-analysis.log
           python scripts/finalize_round5_v7.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_review_figures.py | tee -a /tmp/submission-analysis.log
+          python scripts/polish_v7_outputs.py | tee -a /tmp/submission-analysis.log
 
       - name: Install reviewer-PDF dependencies
         shell: bash
@@ -119,6 +121,8 @@ jobs:
           pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'Sequential architecture and registration status'
           pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'dynamically reapplied within every permutation'
           pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'p13 is ineligible'
+          ! pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'does not survive primary episode-level inference'
+          ! pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'degenerates at exact corners'
 
       - name: Lint paper surface and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
