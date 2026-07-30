@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+"""Build the clean v11 post-freeze review PDF."""
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+import re
+import shutil
+import subprocess
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+PAPER_DIR = ROOT / "docs/paper"
+SOURCE = PAPER_DIR / "paper-draft.md"
+HEADER = PAPER_DIR / "review-v11-header.tex"
+OUTPUT = PAPER_DIR / "synthetic-players-review-v11.pdf"
+SHA_FILE = PAPER_DIR / "synthetic-players-review-v11.sha256"
+MANIFEST = PAPER_DIR / "synthetic-players-review-v11-artifact.json"
+BUILD_DIR = ROOT / ".review-pdf-build"
+BUILD_MD = BUILD_DIR / "synthetic-players-review-v11.md"
+FIGURES = (
+    "prompt-indexed-delta",
+    "condition-means",
+    "between-prompt-share",
+    "representation-effects",
+    "p13-audit",
+)
+
+
+def require(program: str) -> None:
+    if shutil.which(program) is None:
+        raise RuntimeError(f"required program not found: {program}")
+
+
+def git_text(*args: str) -> str:
+    return subprocess.check_output(["git", *args], cwd=ROOT, text=True).strip()
+
+
+def artifact_identity() -> dict[str, str]:
+    branch = (
+        os.environ.get("GITHUB_HEAD_REF")
+        or os.environ.get("GITHUB_REF_NAME")
+        or git_text("branch", "--show-current")
+    )
+    run_id = os.environ.get("GITHUB_RUN_ID", "local")
+    return {
+        "repository": "yoheinakajima/synthetic-players",
+        "branch": branch,
+        "source_commit": git_text("rev-parse", "HEAD"),
+        "workflow_run": run_id,
+        "manuscript": "docs/paper/paper-draft.md",
+        "base_freeze": "paper-text-freeze-v10",
+    }
+
+
+def prepare_markdown(identity: dict[str, str]) -> str:
+    source = SOURCE.read_text(encoding="utf-8")
+    lines = source.splitlines()
+    if not lines or not lines[0].startswith("# "):
+        raise RuntimeError("paper source must begin with a level-1 title")
+    title = lines[0][2:].strip().replace('"', '\\"')
+    body = "\n".join(lines[1:]).lstrip()
+    for figure in FIGURES:
+        pattern = rf"!\[[^\]]*\]\(figures/{re.escape(figure)}\.svg\)"
+        body, count = re.subn(
+            pattern,
+            f"![](figures/{figure}.pdf){{width=95%}}",
+            body,
+            count=1,
+        )
+        if count != 1:
+            raise RuntimeError(f"expected one Markdown image for {figure}, found {count}")
+    body = re.sub(
+        r"\n\*End of post-freeze review revision v11\.\*\s*$",
+        "",
+        body,
+    )
+    if "\n## References\n" not in body:
+        raise RuntimeError("formatted reviewer PDF requires a References section")
+    body = body.replace(
+        "\n## References\n",
+        "\n## References\n\n\\begingroup\n\\small\n\\setlength{\\parskip}{0.35em}\n",
+        1,
+    )
+    body = body.rstrip() + "\n\n\\endgroup\n"
+    identity_block = (
+        "> **Review artifact identity.** Repository `"
+        + identity["repository"]
+        + "`; branch `"
+        + identity["branch"]
+        + "`; source commit `"
+        + identity["source_commit"]
+        + "`; source `"
+        + identity["manuscript"]
+        + "`; base scientific freeze `"
+        + identity["base_freeze"]
+        + "`. The PDF checksum is committed beside the generated file.\n\n"
+    )
+    return f'''---
+title: "{title}"
+author: "Yohei Nakajima"
+date: "July 30, 2026"
+lang: en-US
+documentclass: article
+classoption:
+  - 11pt
+  - letterpaper
+geometry:
+  - top=0.78in
+  - bottom=0.82in
+  - left=0.92in
+  - right=0.92in
+fontsize: 11pt
+linestretch: 1.10
+colorlinks: true
+linkcolor: "1F4E79"
+urlcolor: "1F4E79"
+---
+
+{identity_block}{body}'''
+
+
+def main() -> int:
+    for program in ("pandoc", "xelatex", "pdfinfo"):
+        require(program)
+    for figure in FIGURES:
+        if not (PAPER_DIR / "figures" / f"{figure}.pdf").exists():
+            raise RuntimeError(f"missing figure PDF: {figure}")
+    identity = artifact_identity()
+    BUILD_DIR.mkdir(parents=True, exist_ok=True)
+    BUILD_MD.write_text(prepare_markdown(identity), encoding="utf-8")
+    subprocess.run(
+        [
+            "pandoc",
+            str(BUILD_MD),
+            "--from=markdown+tex_math_dollars+tex_math_single_backslash+raw_tex",
+            "--standalone",
+            "--pdf-engine=xelatex",
+            f"--include-in-header={HEADER}",
+            f"--resource-path={PAPER_DIR}:{ROOT}",
+            f"--output={OUTPUT}",
+        ],
+        cwd=ROOT,
+        check=True,
+    )
+    info = subprocess.check_output(["pdfinfo", str(OUTPUT)], cwd=ROOT, text=True)
+    pages = int(
+        next(
+            line.split(":", 1)[1].strip()
+            for line in info.splitlines()
+            if line.startswith("Pages:")
+        )
+    )
+    digest = hashlib.sha256(OUTPUT.read_bytes()).hexdigest()
+    SHA_FILE.write_text(f"{digest}  {OUTPUT.name}\n", encoding="utf-8")
+    MANIFEST.write_text(
+        json.dumps(
+            {
+                **identity,
+                "pdf": str(OUTPUT.relative_to(ROOT)),
+                "pdf_sha256": digest,
+                "pages": pages,
+                "status": "post-v10 external-review revision; not for citation",
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    print(info)
+    print(f"build_review_pdf_v11: sha256={digest}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

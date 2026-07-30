@@ -1,0 +1,12 @@
+{
+  "repository": "yoheinakajima/synthetic-players",
+  "branch": "paper/explore-v11-reporting",
+  "source_commit": "e61555a1094d5e563e4310bb3eb9a7b00f3eaddd",
+  "workflow_run": "30564465784",
+  "manuscript": "docs/paper/paper-draft.md",
+  "base_freeze": "paper-text-freeze-v10",
+  "pdf": "docs/paper/synthetic-players-review-v11.pdf",
+  "pdf_sha256": "4e515aacde7ad06f81b1ce23aae76c7c4f673f5655907165d89ec57316804283",
+  "pages": 22,
+  "status": "post-v10 external-review revision; not for citation"
+}

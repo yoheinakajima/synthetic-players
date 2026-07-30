@@ -6,8 +6,8 @@ Thank you for reviewing **Synthetic Players**. Everything needed to evaluate the
 
 ## Start here
 
-1. **Formatted review PDF:** [`docs/paper/synthetic-players-review-v10.pdf`](docs/paper/synthetic-players-review-v10.pdf)
-2. **Current v10 frozen Markdown manuscript:** [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
+1. **Formatted review PDF:** [`docs/paper/synthetic-players-review-v11.pdf`](docs/paper/synthetic-players-review-v11.pdf)
+2. **Current v11 review-revision Markdown manuscript:** [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
 3. **Round 4 direct reproduction and review:** [`docs/reviews/round-4-independent-review.md`](docs/reviews/round-4-independent-review.md)
 4. **Round 3 artifact verification:** [`docs/reviews/round-3-independent-verification.md`](docs/reviews/round-3-independent-verification.md)
 5. **Machine-readable submission-analysis summary:** [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json)
@@ -20,16 +20,17 @@ Thank you for reviewing **Synthetic Players**. Everything needed to evaluate the
 
 ## What the paper claims
 
-A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. Corrected variance estimates attribute approximately 85%–96% of episode-level variation to differences between prompt configurations. The two observed aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals of approximately [−0.171, +0.330] and [−0.181, +0.330]. The point estimates are small, but the intervals remain compatible with materially larger positive and negative effects; the paper does **not** claim equivalence, a null response, incentive insensitivity, or human substitutability.
+A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. Finite-opportunity-corrected plug-in estimates assign 85%–96% of observed episode-level variation between prompts; a fixed-panel latent-propensity sensitivity yields posterior median shares of 63%–71% with 95% intervals spanning 49%–81%. The two observed aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals [−0.171, +0.330] and [−0.181, +0.330] (rounded to three decimals). The point estimates are small, but the intervals remain compatible with materially larger positive and negative effects; the paper does **not** claim equivalence, a null response, incentive insensitivity, or human substitutability.
 
 The central mechanism-level claim is bounded:
 
-> Coarse marginal checks can be satisfied largely through composition across prompt-conditioned policies that are highly concentrated within recorded cells, while the observed response to the experimental lever has small point estimates and remains imprecisely estimated.
+> Coarse marginal checks can be satisfied through substantial between-prompt composition without requiring the represented-treatment response to be estimated; plug-in concentration estimates are reduced and widened when latent boundary-policy uncertainty is propagated.
 
 The paper does not claim that this is the only failure mechanism, that it generalizes to all persona generators, that paired explicit prompts instantiate stable latent people, or that the published human comparator is protocol-matched.
 
 ## Corrections reviewers should know before reading
 
+- **Explore Science review of v10:** [`docs/reviews/round-9-explore-science-v10-review.md`](docs/reviews/round-9-explore-science-v10-review.md) identifies reporting-completeness and boundary-uncertainty issues addressed in v11; the scientific change is declared in [`docs/paper/v11-addendum.md`](docs/paper/v11-addendum.md).
 - **Claude v9 freeze review:** [`docs/reviews/round-8-claude-v9-freeze-review.md`](docs/reviews/round-8-claude-v9-freeze-review.md) mechanically verifies the v8→v9 delta, closes two citation checks, and recommends freezing scientific text after three micro-fixes integrated into v10.
 - **Claude v7 repository review:** [`docs/reviews/round-6-claude-v7-review.md`](docs/reviews/round-6-claude-v7-review.md) verifies the Round 5 audit and motivates the final v8 registration, power, construct, and figure polish.
 - **Round 5 audit:** [`docs/analysis/submission/round5/round5-review-audit.md`](docs/analysis/submission/round5/round5-review-audit.md) documents dynamic gate reapplication, exact-gate power, and the completion-provenance boundary.
@@ -60,7 +61,7 @@ Please attack these first:
 1. **Novelty and framing:** Is the mechanism-level differentiation from Li–Ji, causal-surrogacy work, Lin-style latent drift, persona collapse, state blindness, and direct strategic-game work sufficiently sharp?
 2. **Inferential target:** Does the manuscript correctly distinguish fixed-panel, persona-generator, prompt-indexed, and human-substitution estimands?
 3. **Response interpretation:** Does Figure 1 make clear that +0.083/+0.078 are small but imprecise point estimates, not equivalence results, null findings, or identified upper bounds?
-4. **Composition claim:** Is the corrected between-prompt share an appropriate primary description given the interval sensitivity of the binary boundary census?
+4. **Composition claim:** Is the three-view uncertainty presentation—plug-in/conditional bootstrap, fixed-panel latent-propensity posterior, and persona-generator bootstrap—appropriately matched to its estimands?
 5. **Audit status:** Are all three post-review p13 variants characterized fairly, including the favorable percentile-bootstrap `p=0.043455` sensitivity and the absence of pre-compute sealing?
 6. **Scope and cuts:** What should leave the main paper, and what important result has been over-demoted?
 7. **Contrary evidence:** What existing paper most directly weakens or duplicates the claimed mechanism-level novelty?

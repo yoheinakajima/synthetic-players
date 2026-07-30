@@ -18,6 +18,8 @@
 | [`round-7-claude-v8-review.md`](round-7-claude-v8-review.md) | Independent review of commit-pinned v8 | Requested the archived-record versus latent-propensity distinction, the evidentiary meaning of “cheap,” composition-first gate reporting, Monte Carlo precision, and count reconciliation integrated into v9. |
 | [`round-8-claude-v9-freeze-review.md`](round-8-claude-v9-freeze-review.md) | Mechanical freeze-integrity and citation review of v9 | Confirmed the v8→v9 diff, closed two citation checks, requested three micro-fixes, and recommended freezing scientific text after v10. |
 
+| [`round-9-explore-science-v10-review.md`](round-9-explore-science-v10-review.md) / [`round-9-disposition-matrix.md`](round-9-disposition-matrix.md) | Explore Science review of frozen v10 and v11 response | 97/100, 0 major and 20 minor issues; numerical anchors, latent-policy uncertainty, figures, and construct qualifiers addressed in v11. |
+
 ## Role disclosure
 
 The Round 2 methods-review role expanded after critique:

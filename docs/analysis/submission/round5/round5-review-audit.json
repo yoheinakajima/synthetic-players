@@ -225,23 +225,13 @@
     },
     "archiveHashManifests": [
       {
-        "path": "capsule/SHA256SUMS.capsule",
-        "mentionsEngineDb": true,
-        "lineCount": 193
-      },
-      {
-        "path": "docs/phase4-close/SHA256SUMS.txt",
-        "mentionsEngineDb": true,
-        "lineCount": 30
-      },
-      {
         "path": "docs/phase5-close/SHA256SUMS.txt",
         "mentionsEngineDb": false,
         "lineCount": 24
       }
     ],
-    "engineSnapshotCoveredByManifest": true,
-    "openTimestampsProofCount": 10,
+    "engineSnapshotCoveredByManifest": false,
+    "openTimestampsProofCount": 11,
     "openTimestampsProofs": [
       "capsule/docs/phase4-close/SHA256SUMS.txt.ots",
       "capsule/docs/phase4/SHA256SUMS.txt.ots",
@@ -249,6 +239,7 @@
       "capsule/docs/phase5-close/SHA256SUMS.txt.ots",
       "capsule/verify/SHA256SUMS-final.txt.ots",
       "capsule/verify/SHA256SUMS.txt.ots",
+      "docs/paper/synthetic-players-review-v10.sha256.ots",
       "docs/phase4-close/SHA256SUMS.txt.ots",
       "docs/phase4/SHA256SUMS.txt.ots",
       "docs/phase5-close/SHA256SUMS-final.txt.ots",
