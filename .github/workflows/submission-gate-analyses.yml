@@ -11,7 +11,6 @@ on:
       - 'scripts/generate_prompt_delta_figure.py'
       - 'scripts/generate_review_figures.py'
       - 'scripts/build_review_pdf.py'
-      - 'scripts/apply_round5_v7.py'
       - 'scripts/finalize_round5_v7.py'
       - 'scripts/polish_v7_outputs.py'
       - 'scripts/materialize_draft_history.py'
@@ -71,7 +70,7 @@ jobs:
              capsule/data/phase5-driver-plan.json capsule/data/phase5-driver-state.json \
              artifacts/api-server/engine/data/ 2>/dev/null || true
 
-      - name: Run zero-call analyses and integrate Round 5
+      - name: Run zero-call analyses and validate Round 5
         env:
           SUBMISSION_DIRICHLET_DRAWS: '200000'
           SUBMISSION_FAMILY_PERMUTATIONS: '200000'
@@ -93,7 +92,6 @@ jobs:
           python scripts/integrate_submission_results.py | tee -a /tmp/submission-analysis.log
           python scripts/materialize_draft_history.py | tee -a /tmp/submission-analysis.log
           python artifacts/api-server/engine/round5_review_audit.py | tee -a /tmp/submission-analysis.log
-          python scripts/apply_round5_v7.py | tee -a /tmp/submission-analysis.log
           python scripts/finalize_round5_v7.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_review_figures.py | tee -a /tmp/submission-analysis.log
           python scripts/polish_v7_outputs.py | tee -a /tmp/submission-analysis.log
