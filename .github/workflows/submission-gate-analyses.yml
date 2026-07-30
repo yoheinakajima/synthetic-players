@@ -111,19 +111,37 @@ jobs:
           test "$pages" -ge 18
           test "$pages" -le 26
           pdftotext docs/paper/synthetic-players-review-v11.pdf /tmp/v11-paper.txt
-          grep -Fq 'REVIEW REVISION v11' docs/paper/paper-draft.md
-          grep -Fq 'Dirichlet(0.5, 0.5, 0.5)' docs/paper/paper-draft.md
-          grep -Fq '0.4122 for their δ=.50 panel' docs/paper/paper-draft.md
-          grep -Fq 'rep-d90-s2a` and `os-swap' docs/paper/paper-draft.md
-          grep -Fq '90 of 704 seat decisions across 352 independent episodes' docs/paper/paper-draft.md
-          grep -Fq '16+4+4=24' docs/paper/paper-draft.md
-          grep -Fq 'posterior median between shares of 63%–71%' docs/paper/paper-draft.md
-          grep -Fq 'After every round there is a {deltaPct}% chance' docs/paper/paper-draft.md
-          grep -Fq 'p = 0.05' scripts/generate_review_figures_v11.py
-          ! grep -Fq 'pay- 40 off' /tmp/v11-paper.txt
-          test -s docs/paper/synthetic-players-review-v11.sha256
-          test -s docs/paper/synthetic-players-review-v11-artifact.json
-          test -s docs/analysis/submission/variance-uncertainty-v11.json
+          python - <<'PY'
+          from pathlib import Path
+          paper = Path('docs/paper/paper-draft.md').read_text(encoding='utf-8')
+          required = [
+              'REVIEW REVISION v11',
+              'Dirichlet(0.5, 0.5, 0.5)',
+              '0.4122 for their δ=.50 panel',
+              'rep-d90-s2a` and `os-swap',
+              '90 of 704 seat decisions across 352 independent episodes',
+              '16+4+4=24',
+              'posterior median between shares of 63%–71%',
+              'After every round there is a {deltaPct}% chance',
+          ]
+          missing = [marker for marker in required if marker not in paper]
+          if missing:
+              raise SystemExit(f'missing manuscript markers: {missing}')
+          figure_source = Path('scripts/generate_review_figures_v11.py').read_text(encoding='utf-8')
+          if 'p = 0.05' not in figure_source:
+              raise SystemExit('Figure 5 p=.05 label missing from generator')
+          extracted = Path('/tmp/v11-paper.txt').read_text(encoding='utf-8')
+          if 'pay- 40 off' in extracted:
+              raise SystemExit('line-number extraction artifact remains in PDF text')
+          for path in [
+              'docs/paper/synthetic-players-review-v11.sha256',
+              'docs/paper/synthetic-players-review-v11-artifact.json',
+              'docs/analysis/submission/figure-sources/variance-uncertainty-v11.json',
+          ]:
+              if not Path(path).is_file() or Path(path).stat().st_size == 0:
+                  raise SystemExit(f'missing generated artifact: {path}')
+          print('v11 preflight markers: PASS')
+          PY
 
       - name: Lint paper surface and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
