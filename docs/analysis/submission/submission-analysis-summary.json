@@ -536,6 +536,667 @@
           "q99": 0.3333333333333333
         }
       }
+    },
+    "round5ReviewAudit": {
+      "dynamicGate": {
+        "status": "pass",
+        "candidateCount": 32,
+        "episodeCountsPerArm": [
+          6
+        ],
+        "lookupDirectParityCases": 56,
+        "lookupDirectParityFailures": 0,
+        "precomputedIntervalGateEvaluations": 56,
+        "dynamicGateLookupApplicationsAtB200000": 25600000,
+        "witness": {
+          "candidate": [
+            "p07",
+            "s2a"
+          ],
+          "observedMask": false,
+          "permutedDynamicMask": true,
+          "permutedD90Counts": [
+            2,
+            4,
+            0
+          ],
+          "permutedD10Counts": [
+            3,
+            1,
+            2
+          ]
+        },
+        "dynamicVsStaticRegressionReps": 5000,
+        "dynamicVsStaticDifferent": 718,
+        "dynamicVsStaticDifferentRate": 0.1436
+      },
+      "exactGateN6": {
+        "passingMeans": [
+          0.333333333333,
+          0.416666666667,
+          0.5,
+          0.583333333333,
+          0.666666666667
+        ],
+        "maxAttainableSlope": 0.333333333334,
+        "archivedFamilyTailAtMaxAttainableSlope": {
+          "permutations": 200000,
+          "threshold": 0.333333333334,
+          "exceedances": 15007,
+          "pAddOne": 0.075039624801876,
+          "anyGateRate": 1.0,
+          "seed": 20260792
+        }
+      },
+      "prospectivePowerSource": "docs/analysis/submission/round5/figure-sources/prospective-power.csv",
+      "provenance": {
+        "eventTable": "events",
+        "eventTableColumns": [
+          "seq",
+          "id",
+          "type",
+          "actor",
+          "payload",
+          "frame_id",
+          "caused_by",
+          "timestamp",
+          "run_id"
+        ],
+        "requestedCoverage": {
+          "legacy-phase3": {
+            "bundleSha256": 0,
+            "engineCommit": 0,
+            "events": 5830,
+            "promptHash": 5830,
+            "providerRoute": 0,
+            "requestBodySha256": 0,
+            "systemPresent": 5830,
+            "userPresent": 5830
+          },
+          "phase4-5": {
+            "bundleSha256": 30421,
+            "engineCommit": 30421,
+            "events": 30421,
+            "promptHash": 30421,
+            "providerRoute": 30421,
+            "requestBodySha256": 30421,
+            "systemPresent": 30421,
+            "userPresent": 30421
+          }
+        },
+        "respondedCoverage": {
+          "legacy-phase3": {
+            "events": 5830,
+            "providerCreatedTimestamp": 0,
+            "providerMetaPresent": 0,
+            "rawTextNonempty": 5830,
+            "rawTextPresent": 5830,
+            "requestBodySha256": 0,
+            "responseId": 0,
+            "returnedModel": 5830,
+            "systemFingerprint": 0
+          },
+          "phase4-5": {
+            "events": 30397,
+            "providerCreatedTimestamp": 20390,
+            "providerMetaPresent": 30397,
+            "rawTextNonempty": 30397,
+            "rawTextPresent": 30397,
+            "requestBodySha256": 30397,
+            "responseId": 30397,
+            "returnedModel": 30397,
+            "systemFingerprint": 20390
+          }
+        },
+        "responsePayloadHashLikeFields": {
+          "provider_meta.request_body_sha256": 30397
+        },
+        "archiveHashManifests": [
+          {
+            "path": "capsule/SHA256SUMS.capsule",
+            "mentionsEngineDb": true,
+            "lineCount": 193
+          },
+          {
+            "path": "docs/phase4-close/SHA256SUMS.txt",
+            "mentionsEngineDb": true,
+            "lineCount": 30
+          },
+          {
+            "path": "docs/phase5-close/SHA256SUMS.txt",
+            "mentionsEngineDb": false,
+            "lineCount": 24
+          }
+        ],
+        "engineSnapshotCoveredByManifest": true,
+        "openTimestampsProofCount": 10,
+        "openTimestampsProofs": [
+          "capsule/docs/phase4-close/SHA256SUMS.txt.ots",
+          "capsule/docs/phase4/SHA256SUMS.txt.ots",
+          "capsule/docs/phase5-close/SHA256SUMS-final.txt.ots",
+          "capsule/docs/phase5-close/SHA256SUMS.txt.ots",
+          "capsule/verify/SHA256SUMS-final.txt.ots",
+          "capsule/verify/SHA256SUMS.txt.ots",
+          "docs/phase4-close/SHA256SUMS.txt.ots",
+          "docs/phase4/SHA256SUMS.txt.ots",
+          "docs/phase5-close/SHA256SUMS-final.txt.ots",
+          "docs/phase5-close/SHA256SUMS.txt.ots"
+        ],
+        "findings": {
+          "requestSide": "Phase 4–5 records store the complete rendered system/user bundle, a bundle SHA-256, a deterministic request-body SHA-256, engine commit, provider route, and requested model. The live runner asserts the provider adapter's request-body SHA equals the recorded mirror.",
+          "responseSide": "The archive stores raw completion text and, for Phase 4–5 provider adapters, response IDs and selected provider metadata. It does not store a provider-signed response object or a separate receipt-time hash of each raw completion payload.",
+          "archiveSide": "Published archive snapshots are covered by checksum manifests and external timestamp proofs. This detects changes relative to the released snapshot but does not prove that no edit occurred between provider receipt and snapshot sealing."
+        }
+      }
+    },
+    "promptIndexedDelta": {
+      "status": "post-adjudication dependence-aware descriptive analysis",
+      "unit": "complete episode; prompt-indexed coupling, not a person-level effect without latent-person invariance",
+      "aggregate": {
+        "s2a": {
+          "wording": "s2a",
+          "prompt": "aggregate",
+          "n_d10": 96,
+          "n_d90": 96,
+          "mean_d10": 0.348958,
+          "mean_d90": 0.432292,
+          "delta": 0.083333,
+          "simultaneous95": [
+            -0.171118,
+            0.329707
+          ]
+        },
+        "s2p": {
+          "wording": "s2p",
+          "prompt": "aggregate",
+          "n_d10": 96,
+          "n_d90": 96,
+          "mean_d10": 0.427083,
+          "mean_d90": 0.505208,
+          "delta": 0.078125,
+          "simultaneous95": [
+            -0.181043,
+            0.329751
+          ]
+        }
+      },
+      "perPrompt": [
+        {
+          "wording": "s2a",
+          "prompt": "p01",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p02",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p03",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p04",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p05",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.5,
+          "mean_d90": 0.583333,
+          "delta": 0.083333,
+          "simultaneous95": [
+            -0.651222,
+            0.733198
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p06",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p07",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.166667,
+          "mean_d90": 0.583333,
+          "delta": 0.416667,
+          "simultaneous95": [
+            -0.565549,
+            0.91276
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p08",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p09",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p10",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.083333,
+          "mean_d90": 0.166667,
+          "delta": 0.083333,
+          "simultaneous95": [
+            -0.641769,
+            0.708664
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p11",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p12",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p13",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.333333,
+          "mean_d90": 0.75,
+          "delta": 0.416667,
+          "simultaneous95": [
+            -0.580565,
+            0.927776
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p14",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p15",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.5,
+          "mean_d90": 0.833333,
+          "delta": 0.333333,
+          "simultaneous95": [
+            -0.575524,
+            0.855841
+          ]
+        },
+        {
+          "wording": "s2a",
+          "prompt": "p16",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p01",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p02",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p03",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p04",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.583333,
+          "mean_d90": 0.416667,
+          "delta": -0.166667,
+          "simultaneous95": [
+            -0.790117,
+            0.641247
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p05",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.583333,
+          "delta": 0.583333,
+          "simultaneous95": [
+            -0.355697,
+            0.86686
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p06",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p07",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p08",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p09",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p10",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p11",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 1.0,
+          "mean_d90": 1.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p12",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.166667,
+          "mean_d90": 0.25,
+          "delta": 0.083333,
+          "simultaneous95": [
+            -0.673335,
+            0.739058
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p13",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.083333,
+          "mean_d90": 0.333333,
+          "delta": 0.25,
+          "simultaneous95": [
+            -0.576046,
+            0.774387
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p14",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p15",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.5,
+          "delta": 0.5,
+          "simultaneous95": [
+            -0.356219,
+            0.785406
+          ]
+        },
+        {
+          "wording": "s2p",
+          "prompt": "p16",
+          "n_d10": 6,
+          "n_d90": 6,
+          "mean_d10": 0.0,
+          "mean_d90": 0.0,
+          "delta": 0.0,
+          "simultaneous95": [
+            -0.570813,
+            0.570813
+          ]
+        }
+      ],
+      "source": "docs/paper/figures/prompt-indexed-delta.csv"
+    },
+    "conditionMeansExact": {
+      "status": "post-adjudication conservative exact condition intervals",
+      "unit": "complete episode",
+      "records": [
+        {
+          "wording": "s2a",
+          "delta": 0.1,
+          "n": 96,
+          "mean": 0.348958,
+          "simultaneous95": [
+            0.23324039058366036,
+            0.4792976390283552
+          ]
+        },
+        {
+          "wording": "s2a",
+          "delta": 0.9,
+          "n": 96,
+          "mean": 0.432292,
+          "simultaneous95": [
+            0.30817968043644656,
+            0.5629474746045714
+          ]
+        },
+        {
+          "wording": "s2p",
+          "delta": 0.1,
+          "n": 96,
+          "mean": 0.427083,
+          "simultaneous95": [
+            0.3022911284481524,
+            0.5589140888287041
+          ]
+        },
+        {
+          "wording": "s2p",
+          "delta": 0.9,
+          "n": 96,
+          "mean": 0.505208,
+          "simultaneous95": [
+            0.3778709627483917,
+            0.6320417043035391
+          ]
+        }
+      ],
+      "source": "docs/analysis/submission/figure-sources/episode-cluster-cells.csv"
     }
+  },
+  "textFreeze": {
+    "version": "v10",
+    "status": "scientific text frozen for external review",
+    "sourceCommit": "0922133094cc79bdff892fe1e31ff1fecd501ebb",
+    "freezeTag": "paper-text-freeze-v10",
+    "sourceSha256": "c8b6f177ab8ca2e2c61574d73d821b5ff441609bbb2899cd7a22f9b6cc26593b",
+    "pdf": "docs/paper/synthetic-players-review-v10.pdf",
+    "pdfSha256": "ff29bf60f654a7f7439f2b56869eb15dad7d3b85531bf53650b1d4dcb7d33b67",
+    "pages": 21,
+    "scope": "docs/paper/text-freeze-v10.md"
   }
 }

@@ -1,0 +1,19 @@
+{
+  "version": "v10",
+  "status": "scientific text freeze for external review",
+  "source_commit": "0922133094cc79bdff892fe1e31ff1fecd501ebb",
+  "source_path": "docs/paper/paper-draft.md",
+  "freeze_scope_path": "docs/paper/text-freeze-v10.md",
+  "intended_tag": "paper-text-freeze-v10",
+  "pdf_path": "docs/paper/synthetic-players-review-v10.pdf",
+  "checksum_path": "docs/paper/synthetic-players-review-v10.sha256",
+  "ots_path": "docs/paper/synthetic-players-review-v10.sha256.ots",
+  "scientific_changes_after_freeze": "require a new version and explicit addendum",
+  "venue_only_changes_allowed": true,
+  "pdf_sha256": "ff29bf60f654a7f7439f2b56869eb15dad7d3b85531bf53650b1d4dcb7d33b67",
+  "source_sha256": "c8b6f177ab8ca2e2c61574d73d821b5ff441609bbb2899cd7a22f9b6cc26593b",
+  "pages": 21,
+  "artifact_manifest": "docs/paper/synthetic-players-review-v10-artifact.json",
+  "build_commit": "aa9a8495129794d73b5342ee4b71d6ee2e31bfe4",
+  "workflow_run": "30548701456"
+}

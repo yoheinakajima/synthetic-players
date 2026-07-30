@@ -1,0 +1,18 @@
+{
+  "repository": "yoheinakajima/synthetic-players",
+  "branch": "agent/round4-review-pdf-v6",
+  "source_commit": "0922133094cc79bdff892fe1e31ff1fecd501ebb",
+  "freeze_tag": "paper-text-freeze-v10",
+  "workflow_run": "30548701456",
+  "workflow_url": "https://github.com/yoheinakajima/synthetic-players/actions/runs/30548701456",
+  "build_commit": "aa9a8495129794d73b5342ee4b71d6ee2e31bfe4",
+  "manuscript": "docs/paper/paper-draft.md",
+  "freeze_scope": "docs/paper/text-freeze-v10.md",
+  "pdf": "docs/paper/synthetic-players-review-v10.pdf",
+  "pdf_sha256": "ff29bf60f654a7f7439f2b56869eb15dad7d3b85531bf53650b1d4dcb7d33b67",
+  "source_sha256": "c8b6f177ab8ca2e2c61574d73d821b5ff441609bbb2899cd7a22f9b6cc26593b",
+  "pages": 21,
+  "build_markdown": ".review-pdf-build/synthetic-players-review-v10.md",
+  "status": "text-frozen external-review copy; not for citation",
+  "ots_proof": "docs/paper/synthetic-players-review-v10.sha256.ots"
+}

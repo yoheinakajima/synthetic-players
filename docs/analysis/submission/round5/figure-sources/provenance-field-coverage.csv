@@ -1,0 +1,5 @@
+event,phase,bundleSha256,engineCommit,events,promptHash,providerRoute,requestBodySha256,systemPresent,userPresent,providerCreatedTimestamp,providerMetaPresent,rawTextNonempty,rawTextPresent,responseId,returnedModel,systemFingerprint
+llm.requested,legacy-phase3,0,0,5830,5830,0,0,5830,5830,,,,,,,
+llm.requested,phase4-5,30421,30421,30421,30421,30421,30421,30421,30421,,,,,,,
+llm.responded,legacy-phase3,,,5830,,,0,,,0,0,5830,5830,0,5830,0
+llm.responded,phase4-5,,,30397,,,30397,,,20390,30397,30397,30397,30397,30397,20390

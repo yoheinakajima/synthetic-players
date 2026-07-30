@@ -6,7 +6,7 @@
 
 The broad claim that realistic-looking LLM simulations need not recover human intervention effects is already occupied. The paper’s strongest territory is narrower:
 
-> A fixed panel of lightweight persona prompts can pass **coarse marginal checks** largely through between-prompt composition of empirically corner-concentrated policies, while showing weak response to a registered incentive manipulation.
+> A fixed panel of lightweight persona prompts can pass **coarse marginal checks** largely through between-prompt composition of empirically corner-concentrated policies, while producing small but imprecisely estimated point differences under a registered incentive manipulation.
 
 The design’s auditability makes that mechanism unusually credible, but auditability is a credibility layer rather than the empirical novelty itself.
 
@@ -14,7 +14,8 @@ The design’s auditability makes that mechanism unusually credible, but auditab
 
 ### 1.1 Statistical realism versus effect accuracy
 
-- **Li & Ji (2026), arXiv:2604.02458.** Three LLM families, 11 interventions, 59,508 participants in 62 countries, plus two replication datasets. Descriptive/statistical realism is only weakly related to treatment-effect accuracy, and prompt refinements selected for realism can worsen effect estimates. **Implication:** do not claim the first levels-versus-response demonstration; differentiate on mechanism, strategic interaction, and prospective registration.
+- **Li & Ji (2026), arXiv:2604.02458.** Three LLM families, 11 interventions, 59,508 participants in 62 countries, plus two replication datasets. Descriptive/statistical realism is only weakly related to treatment-effect accuracy, prompt refinements selected for realism can worsen effect estimates, and the expanded analysis traces errors to intervention logic, outcome structure, and excessive attitude–behavior coupling. **Implication:** neither the divergence nor mechanism analysis in general is new; differentiate on the specific fixed-panel composition pattern, strategic minimal pairs, and public inferential correction.
+- **Ashokkumar, Hewitt, Ghezae & Willer (2026), Nature, DOI 10.1038/s41586-026-10742-x.** Study descriptions predict 469 effects from 70 preregistered survey experiments with strong correlations, though effect sizes are systematically overestimated and performance weakens in a megastudy archive. **Implication:** this is the strongest positive counterexample to blanket pessimism. It forecasts study-level effects rather than simulating subject-level response surfaces, so it is compatible with the present composition failure and sharpens the estimand distinction.
 - **Xie et al. (2026), PNAS, DOI 10.1073/pnas.2538145123.** SSDataBench evaluates 15 LLMs across cross-sectional and longitudinal social-science datasets. Sparse conditioning often compresses heterogeneity into typological structures, exaggerates associations, and fails to reproduce life-event distributions. **Implication:** use as the strongest population-statistics foil and an adjacent empirical account of distributional collapse.
 - **Bisbee et al. (2024), Political Analysis.** Synthetic survey averages can look plausible while variation, regression relationships, and temporal stability fail. **Implication:** close empirical ally; our study extends the concern to incentive-bearing strategic interaction and prompt-indexed response surfaces.
 
@@ -107,7 +108,7 @@ The design’s auditability makes that mechanism unusually credible, but auditab
 
 ## 6. The paper’s defensible novelty triangle
 
-1. **Empirical claim:** a fixed panel of lightweight persona prompts passes preregistered coarse marginal checks while the continuation-probability response remains small.
+1. **Empirical claim:** a fixed panel of lightweight persona prompts passes preregistered coarse marginal checks while the continuation-probability point estimates remain small and imprecise.
 2. **Mechanism-level pattern:** observed dispersion is carried largely by between-prompt composition of empirically corner-concentrated policies, with low observed within-prompt variation in many cells.
 3. **Credibility layer:** prospective registration, exact prompt provenance, event-sourced replay, mechanical adjudication, and public post-adjudication correction.
 
@@ -146,11 +147,10 @@ Do not include the p13 slope as a corner of the novelty triangle. Its current st
 - “not payoff-determined” (use semantic cues can override payoff dominance in conflict cells)
 - trait causality from the sixteen complete persona sentences
 
-## 8. Must-resolve before submission
+## 8. Reviewer-draft verification status
 
-1. Replace every citation placeholder with verified metadata and a formatted reference.
-2. Recheck all 2026 preprint versions and venue status.
-3. Attribute empirical distribution-collapse evidence to the primary empirical paper, not secondhand through a surrogacy paper.
-4. Keep Li–Ji, Persson, Lin, Xie et al., Harry et al., persona-collapse work, Pal et al., Georgousis et al., and Same Game/Different Story in the explicit collision section.
-5. Keep the human comparator labeled nonmatched even after microdata reanalysis.
-6. Ensure no related-work sentence implies that matched explicit prompts establish latent-person invariance.
+1. The v6 reviewer PDF includes a formatted bibliography and re-verifies the load-bearing current metadata, including Li–Ji, Ashokkumar–Hewitt et al., Harry et al., Xiao et al., Georgousis et al., and Same Game, Different Story.
+2. A final metadata and style pass remains necessary at the actual venue-submission date.
+3. Empirical distribution-collapse claims should continue to point to primary empirical sources.
+4. Keep the human comparator labeled protocol-nonmatched even after any future microdata reanalysis.
+5. No related-work sentence should imply that matched explicit prompts establish latent-person invariance.

@@ -1,0 +1,62 @@
+\usepackage{fontspec}
+\setmainfont{Linux Libertine O}
+\setsansfont{Lato}
+\setmonofont{DejaVu Sans Mono}[Scale=0.85]
+\setmathfont{latinmodern-math.otf}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{xcolor}
+\definecolor{reviewblue}{HTML}{1F4E79}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize Synthetic Players}
+\fancyhead[R]{\sffamily\footnotesize Text Freeze v10 - Review Copy}
+\fancyfoot[C]{\sffamily\footnotesize Page \thepage\ of \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+\usepackage{lineno}
+\renewcommand\linenumberfont{\normalfont\tiny\sffamily\color{gray}}
+\linenumbers
+\modulolinenumbers[5]
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=*}
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.58em}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily\color{reviewblue}}{}{0pt}{}
+\titleformat{\subsection}{\large\bfseries\sffamily}{}{0pt}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.15em}{0.45em}
+\titlespacing*{\subsection}{0pt}{0.95em}{0.35em}
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\small}
+\preto\figure{\nolinenumbers}
+\appto\endfigure{\linenumbers}
+\newcommand{\reviewsubtitle}{Text Freeze v10 - Explore Science Review Copy - Not for Citation}
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{center}
+  {\sffamily\bfseries\Large\color{reviewblue}\@title\par}
+  \vspace{0.55em}
+  {\sffamily\large\@author\par}
+  \vspace{0.25em}
+  {\sffamily\small\@date\par}
+  \vspace{0.45em}
+  {\sffamily\small\color{gray}\reviewsubtitle\par}
+  \end{center}
+  \vspace{0.6em}
+  \hrule
+  \vspace{0.8em}
+}
+\makeatother

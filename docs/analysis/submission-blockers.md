@@ -15,13 +15,13 @@ Historical predicates counted seat-level binary trials even though two seats sha
 Results:
 
 - historical P5-1a restricted count: 3/32 = 0.0938;
-- primary exact-episode count: 2/32 = 0.0625;
+- conservative exact-episode count: 2/32 = 0.0625;
 - historical all-cell count: 14/96;
-- primary exact-episode count: 11/96;
+- conservative exact-episode count: 11/96;
 - Dirichlet–Jeffreys sensitivity: 5/32 and 19/96, which would fail the historical restricted threshold;
 - three cells change classification between the historical and exact-episode rules.
 
-The percentile cluster bootstrap is retained in the audit trail but rejected as the primary interval because it becomes degenerate when every observed episode agrees. Disagreement among the methods is reported as method sensitivity rather than resolved by selecting the favorable verdict.
+The exact Clopper–Pearson projection is the conservative finite-sample coverage reference. The percentile cluster bootstrap is retained as a post-adjudication sensitivity but has no comparable small-sample coverage guarantee at six discrete episodes per arm. Disagreement among the methods is reported as method sensitivity rather than resolved by selecting the favorable verdict.
 
 P5-2 and clause (b) were also recomputed at the episode level:
 
@@ -39,8 +39,8 @@ A 200,000-permutation audit applies a maximum raw-slope statistic over all 32 ev
 | gate construction | maximum | familywise p | MC 95% interval | interpretation |
 |---|---:|---:|---|---|
 | Historical seat-level CP | p13, +0.4167 | 0.059230 | [0.058194, 0.060268] | Reproduces the frozen gate structure but adds post hoc family control. |
-| Episode-cluster percentile bootstrap | p13, +0.4167 | 0.043455 | [0.042561, 0.044353] | Reported because computed; non-primary because percentile intervals degenerate at exact corners. |
-| Conservative exact-episode CP (**primary sensitivity**) | p05/s2a, +0.0833 | 0.773206 | [0.771363, 0.775039] | p13 fails the episode-level interiority gate; only p04/s2p and p05/s2a survive. |
+| Episode-cluster percentile bootstrap sensitivity | p13, +0.4167 | 0.043455 | [0.042561, 0.044353] | Reported because computed; no comparable finite-sample coverage guarantee at n=6. |
+| Conservative exact-episode CP sensitivity | p05/s2a, +0.0833 | 0.773206 | [0.771363, 0.775039] | p13 is gate-ineligible; at n=6 the family procedure is not powered for conventional rejection. |
 
 Chronology is load-bearing: no familywise variant was registered at the original freeze, and no seal-before-compute record exists for the post-adjudication analyses. They were specified and executed after external review, run in GitHub Actions against archived databases with fixed seeds, and committed regardless of direction. The favorable `p=0.043455` construction therefore cannot rescue the claim. p13 remains a replication target under every variant.
 
@@ -60,6 +60,16 @@ A method-of-moments correction subtracts estimated finite-opportunity noise from
 All four fixed-panel corrected-SD lower bounds exceed the historical `0.75 × published human SD` threshold. Three of four exploratory persona-population lower bounds do. Neither result is a protocol-matched estimate of human latent heterogeneity.
 
 Artifact: `submission/variance-correction.md`.
+
+### A4. Explore Science Round 5 audits — **COMPLETE**
+
+- the complete data-dependent gate is dynamically reapplied within every permutation; lookup/direct parity and a static-mask regression pass;
+- at six episodes per arm, exact-gate-eligible means span only 0.333–0.667, the maximum eligible slope is 0.333, and its archived-family null tail is 0.075040;
+- p13 is therefore neither prospectively confirmed nor decisively disconfirmed by an adequately powered conservative family procedure;
+- completion provenance, receipt-time hashing limits, protocol definitions, representation confounds, and Figures 1/5 are corrected in v7.
+
+Artifacts: `submission/round5/round5-review-audit.{md,json}` and `docs/reviews/round-5-disposition-matrix.md`.
+
 ## B. Human comparator
 
 ### B1. Dal Bó–Fréchette microdata contextualization — **DEFERRED EXTERNAL DATA; NOT BLOCKING**
@@ -92,9 +102,9 @@ Living documents state that explicit assignment and execution are controlled, wh
 
 Automated lint scans assertion-bearing living prose for retired claims, validates paper-facing relative links, and enforces the sealed/data-file boundary against `main`.
 
-### C4. Citation metadata and formatted bibliography — **EDITORIAL, STILL OPEN**
+### C4. Citation metadata and reviewer bibliography — **COMPLETE FOR v7 REVIEW DRAFT**
 
-The literature set and novelty boundary are ready for scientific review. Before formal submission, recent-preprint versions, authors, titles, and venues need one final metadata pass, and shorthand citations must be converted to the selected venue’s bibliography format. This does not block reviewer evaluation of novelty or framing.
+The Explore Science review PDF contains a formatted reference section and re-verifies the current metadata for the most load-bearing recent works, including Li–Ji, Ashokkumar–Hewitt et al., Harry et al., Xiao et al., Georgousis et al., and Mousavi Davoudi et al. Formal submission still requires conversion to the selected venue’s exact style and one final metadata check at the submission date.
 
 ## D. Counts, reproducibility, and chronology
 
@@ -119,19 +129,19 @@ The integrated workflow passed capsule checksums, replayed all 4,576 Phase 4–5
 
 `docs/paper/scope-seal.md` remains byte-identical because its hash is pinned in the Phase 5 seal, even though its pre-seal header says “PROPOSED — UNSEALED.” `docs/paper/scope-seal-status.md` documents the sealing event and operative stopping rule.
 
-### D4. Review chronology — **COMPLETE**
+### D4. Review chronology and outside reproduction — **COMPLETE**
 
-`docs/reviews/` records the round-2 methods review, reviewer role expansion, automated execution/integration boundary, and independent round-3 anonymous-clone verification.
+`docs/reviews/` now records the Round 1 synthesis, Round 2 methods and editorial reviews, reviewer role expansion, Round 3 artifact verification, and Round 4 independent clone/lint/full-capsule reproduction. Round 4 directly replayed 4,576/4,576 runs with zero credentials on an outside machine.
 
 ## E. Paper architecture and public review surface
 
 ### E1. Main-text scope — **COMPLETE**
 
-The v5 paper has three contributions: empirical result, mechanism/identification, and auditability. p13 is an inferential-correction case, not a positive result. Lucas and equifinality are organizing analogies in Discussion rather than novelty claims in the Introduction.
+The v10 frozen paper has three contributions: empirical result, mechanism/identification, and auditability. p13 is an inferential-correction case, not a positive result. Lucas and equifinality are organizing analogies in Discussion rather than novelty claims in the Introduction.
 
-### E2. Public navigation — **COMPLETE**
+### E2. Public navigation and first reviewer PDF — **COMPLETE**
 
-`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the manuscript, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
+`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the v10 frozen Markdown manuscript, the line-numbered reviewer PDF, all five generated figures, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
 
 ### E3. Draft history — **COMPLETE**
 
@@ -139,7 +149,8 @@ Exact v2 and v3 reviewer-circulation manuscripts are committed under `docs/paper
 
 ## Remaining before formal submission
 
-1. Complete the final citation-metadata and bibliography-formatting pass for the selected venue.
-2. Obtain human-author sign-off on the final title, target venue, and venue-specific AI-assistance statement.
+1. Select the target venue and convert the v7 reviewer bibliography/layout to that venue’s exact format.
+2. Obtain human-author sign-off on the final title and venue-specific AI-assistance statement.
+3. Add a `preferred-citation` block to `CITATION.cff` when the paper has a stable venue/preprint identifier.
 
 The optional Dal Bó–Fréchette microdata contextualization remains deferred and nonblocking under the current narrow claim. None of the remaining items prevents full scientific review of the current GitHub surface.

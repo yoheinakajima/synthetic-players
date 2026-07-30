@@ -1,0 +1,263 @@
+{
+  "status": "post-adjudication zero-call audit",
+  "dynamicGate": {
+    "status": "pass",
+    "candidateCount": 32,
+    "episodeCountsPerArm": [
+      6
+    ],
+    "lookupDirectParityCases": 56,
+    "lookupDirectParityFailures": 0,
+    "precomputedIntervalGateEvaluations": 56,
+    "dynamicGateLookupApplicationsAtB200000": 25600000,
+    "witness": {
+      "candidate": [
+        "p07",
+        "s2a"
+      ],
+      "observedMask": false,
+      "permutedDynamicMask": true,
+      "permutedD90Counts": [
+        2,
+        4,
+        0
+      ],
+      "permutedD10Counts": [
+        3,
+        1,
+        2
+      ]
+    },
+    "dynamicVsStaticRegressionReps": 5000,
+    "dynamicVsStaticDifferent": 718,
+    "dynamicVsStaticDifferentRate": 0.1436
+  },
+  "exactGateAttainability": {
+    "n6": {
+      "n": 6,
+      "passingCompositionCount": 12,
+      "passingMeans": [
+        0.333333333333,
+        0.416666666667,
+        0.5,
+        0.583333333333,
+        0.666666666667
+      ],
+      "minPassingMean": 0.333333333333,
+      "maxPassingMean": 0.666666666667,
+      "maxAttainableSlope": 0.333333333334,
+      "compositions": [
+        {
+          "c0": 0,
+          "cHalf": 4,
+          "c1": 2,
+          "mean": 0.6666666666666666,
+          "lo": 0.2559007916450678,
+          "hi": 0.9080397043490663
+        },
+        {
+          "c0": 0,
+          "cHalf": 5,
+          "c1": 1,
+          "mean": 0.5833333333333334,
+          "lo": 0.24192025482776366,
+          "hi": 0.845632207887832
+        },
+        {
+          "c0": 0,
+          "cHalf": 6,
+          "c1": 0,
+          "mean": 0.5,
+          "lo": 0.24087312099974903,
+          "hi": 0.7591268790002511
+        },
+        {
+          "c0": 1,
+          "cHalf": 3,
+          "c1": 2,
+          "mean": 0.5833333333333334,
+          "lo": 0.1693954627574869,
+          "hi": 0.9069925705210518
+        },
+        {
+          "c0": 1,
+          "cHalf": 4,
+          "c1": 1,
+          "mean": 0.5,
+          "lo": 0.15541492594018275,
+          "hi": 0.8445850740598173
+        },
+        {
+          "c0": 1,
+          "cHalf": 5,
+          "c1": 0,
+          "mean": 0.4166666666666667,
+          "lo": 0.1543677921121681,
+          "hi": 0.7580797451722365
+        },
+        {
+          "c0": 2,
+          "cHalf": 1,
+          "c1": 3,
+          "mean": 0.5833333333333334,
+          "lo": 0.13785329527940648,
+          "hi": 0.9390793297262086
+        },
+        {
+          "c0": 2,
+          "cHalf": 2,
+          "c1": 2,
+          "mean": 0.5,
+          "lo": 0.10698796629625254,
+          "hi": 0.8930120337037476
+        },
+        {
+          "c0": 2,
+          "cHalf": 3,
+          "c1": 1,
+          "mean": 0.4166666666666667,
+          "lo": 0.09300742947894838,
+          "hi": 0.8306045372425133
+        },
+        {
+          "c0": 2,
+          "cHalf": 4,
+          "c1": 0,
+          "mean": 0.3333333333333333,
+          "lo": 0.09196029565093375,
+          "hi": 0.7440992083549324
+        },
+        {
+          "c0": 3,
+          "cHalf": 0,
+          "c1": 3,
+          "mean": 0.5,
+          "lo": 0.09178599925694546,
+          "hi": 0.9082140007430547
+        },
+        {
+          "c0": 3,
+          "cHalf": 1,
+          "c1": 2,
+          "mean": 0.4166666666666667,
+          "lo": 0.06092067027379152,
+          "hi": 0.8621467047205937
+        }
+      ]
+    },
+    "currentFamilyTailAtMaxAttainableSlope": {
+      "permutations": 200000,
+      "threshold": 0.333333333334,
+      "exceedances": 15007,
+      "pAddOne": 0.075039624801876,
+      "anyGateRate": 1.0,
+      "seed": 20260792
+    },
+    "gridSource": "figure-sources/exact-gate-attainability.csv"
+  },
+  "prospectivePower": {
+    "status": "illustrative model-dependent planning simulation",
+    "seed": 20260793,
+    "repsPerConfiguration": 10000,
+    "source": "figure-sources/prospective-power.csv"
+  },
+  "provenance": {
+    "eventTable": "events",
+    "eventTableColumns": [
+      "seq",
+      "id",
+      "type",
+      "actor",
+      "payload",
+      "frame_id",
+      "caused_by",
+      "timestamp",
+      "run_id"
+    ],
+    "requestedCoverage": {
+      "legacy-phase3": {
+        "bundleSha256": 0,
+        "engineCommit": 0,
+        "events": 5830,
+        "promptHash": 5830,
+        "providerRoute": 0,
+        "requestBodySha256": 0,
+        "systemPresent": 5830,
+        "userPresent": 5830
+      },
+      "phase4-5": {
+        "bundleSha256": 30421,
+        "engineCommit": 30421,
+        "events": 30421,
+        "promptHash": 30421,
+        "providerRoute": 30421,
+        "requestBodySha256": 30421,
+        "systemPresent": 30421,
+        "userPresent": 30421
+      }
+    },
+    "respondedCoverage": {
+      "legacy-phase3": {
+        "events": 5830,
+        "providerCreatedTimestamp": 0,
+        "providerMetaPresent": 0,
+        "rawTextNonempty": 5830,
+        "rawTextPresent": 5830,
+        "requestBodySha256": 0,
+        "responseId": 0,
+        "returnedModel": 5830,
+        "systemFingerprint": 0
+      },
+      "phase4-5": {
+        "events": 30397,
+        "providerCreatedTimestamp": 20390,
+        "providerMetaPresent": 30397,
+        "rawTextNonempty": 30397,
+        "rawTextPresent": 30397,
+        "requestBodySha256": 30397,
+        "responseId": 30397,
+        "returnedModel": 30397,
+        "systemFingerprint": 20390
+      }
+    },
+    "responsePayloadHashLikeFields": {
+      "provider_meta.request_body_sha256": 30397
+    },
+    "archiveHashManifests": [
+      {
+        "path": "capsule/SHA256SUMS.capsule",
+        "mentionsEngineDb": true,
+        "lineCount": 193
+      },
+      {
+        "path": "docs/phase4-close/SHA256SUMS.txt",
+        "mentionsEngineDb": true,
+        "lineCount": 30
+      },
+      {
+        "path": "docs/phase5-close/SHA256SUMS.txt",
+        "mentionsEngineDb": false,
+        "lineCount": 24
+      }
+    ],
+    "engineSnapshotCoveredByManifest": true,
+    "openTimestampsProofCount": 10,
+    "openTimestampsProofs": [
+      "capsule/docs/phase4-close/SHA256SUMS.txt.ots",
+      "capsule/docs/phase4/SHA256SUMS.txt.ots",
+      "capsule/docs/phase5-close/SHA256SUMS-final.txt.ots",
+      "capsule/docs/phase5-close/SHA256SUMS.txt.ots",
+      "capsule/verify/SHA256SUMS-final.txt.ots",
+      "capsule/verify/SHA256SUMS.txt.ots",
+      "docs/phase4-close/SHA256SUMS.txt.ots",
+      "docs/phase4/SHA256SUMS.txt.ots",
+      "docs/phase5-close/SHA256SUMS-final.txt.ots",
+      "docs/phase5-close/SHA256SUMS.txt.ots"
+    ],
+    "findings": {
+      "requestSide": "Phase 4–5 records store the complete rendered system/user bundle, a bundle SHA-256, a deterministic request-body SHA-256, engine commit, provider route, and requested model. The live runner asserts the provider adapter's request-body SHA equals the recorded mirror.",
+      "responseSide": "The archive stores raw completion text and, for Phase 4–5 provider adapters, response IDs and selected provider metadata. It does not store a provider-signed response object or a separate receipt-time hash of each raw completion payload.",
+      "archiveSide": "Published archive snapshots are covered by checksum manifests and external timestamp proofs. This detects changes relative to the released snapshot but does not prove that no edit occurred between provider receipt and snapshot sealing."
+    }
+  }
+}
