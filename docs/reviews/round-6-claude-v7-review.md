@@ -36,6 +36,10 @@ The reviewer graded all 13 Explore Science issues as addressed, with residual ed
 10. Map “clause (a)/(b)” explicitly onto `P5-3(a)/(b)`, deduplicate repeated p-value anatomy and format-confound prose, and remove venue-specific questions from the manuscript.
 11. Add review-artifact identity metadata to the generated PDF/package.
 
+## v8 disposition
+
+All eleven recommendations were integrated into the v8 review package generated from source commit `42ffa2883a811e244bb3b29871391733b29e0827` by workflow run `30514850905`. The generated PDF is 20 pages with SHA-256 `7ac5deb26345e26538ab65199af4d5f91b7253fb01cedb409a67ff7670c5b893`. The full pipeline regenerated zero-call analyses and figures, passed manuscript/link/sealed-boundary lint, and replayed all 4,576 Phase 4–5 runs byte-exact with no live provider calls.
+
 ## Interpretation boundary
 
 The review does not change any sealed verdict. Its main effect is to make the living manuscript’s surface match the precision of the underlying audit: the archived data neither prospectively confirm nor decisively disconfirm p13, and the exact-gate familywise result is constrained by an archived-design-specific attainability boundary.
