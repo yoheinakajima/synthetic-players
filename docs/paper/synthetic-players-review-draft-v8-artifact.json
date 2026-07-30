@@ -1,0 +1,13 @@
+{
+  "repository": "yoheinakajima/synthetic-players",
+  "branch": "agent/round4-review-pdf-v6",
+  "source_commit": "74bc4589267b1723f707e634cec158510a510017",
+  "workflow_run": "30514452808",
+  "workflow_url": "https://github.com/yoheinakajima/synthetic-players/actions/runs/30514452808",
+  "manuscript": "docs/paper/paper-draft.md",
+  "pdf": "docs/paper/synthetic-players-review-draft-v8.pdf",
+  "pdf_sha256": "0e364eaab78614b0e816102bef32fc559578aefdd1dc3735ec5431464d2ee8ed",
+  "pages": 20,
+  "build_markdown": ".review-pdf-build/synthetic-players-review-draft-v8.md",
+  "status": "independent repository review draft; not for citation"
+}

@@ -4,7 +4,7 @@
 
 The current formatted reviewer PDF is:
 
-- [`synthetic-players-review-draft-v7.pdf`](synthetic-players-review-draft-v7.pdf)
+- [`synthetic-players-review-draft-v8.pdf`](synthetic-players-review-draft-v8.pdf)
 
 It is generated from [`paper-draft.md`](paper-draft.md) plus the vector figures under [`figures/`](figures/) by:
 

@@ -1139,6 +1139,53 @@
         }
       ],
       "source": "docs/paper/figures/prompt-indexed-delta.csv"
+    },
+    "conditionMeansExact": {
+      "status": "post-adjudication conservative exact condition intervals",
+      "unit": "complete episode",
+      "records": [
+        {
+          "wording": "s2a",
+          "delta": 0.1,
+          "n": 96,
+          "mean": 0.348958,
+          "simultaneous95": [
+            0.23324039058366036,
+            0.4792976390283552
+          ]
+        },
+        {
+          "wording": "s2a",
+          "delta": 0.9,
+          "n": 96,
+          "mean": 0.432292,
+          "simultaneous95": [
+            0.30817968043644656,
+            0.5629474746045714
+          ]
+        },
+        {
+          "wording": "s2p",
+          "delta": 0.1,
+          "n": 96,
+          "mean": 0.427083,
+          "simultaneous95": [
+            0.3022911284481524,
+            0.5589140888287041
+          ]
+        },
+        {
+          "wording": "s2p",
+          "delta": 0.9,
+          "n": 96,
+          "mean": 0.505208,
+          "simultaneous95": [
+            0.3778709627483917,
+            0.6320417043035391
+          ]
+        }
+      ],
+      "source": "docs/analysis/submission/figure-sources/episode-cluster-cells.csv"
     }
   }
 }

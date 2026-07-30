@@ -6,8 +6,8 @@ Thank you for reviewing **Synthetic Players**. Everything needed to evaluate the
 
 ## Start here
 
-1. **Formatted review PDF:** [`docs/paper/synthetic-players-review-draft-v7.pdf`](docs/paper/synthetic-players-review-draft-v7.pdf)
-2. **Current v7 Markdown manuscript:** [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
+1. **Formatted review PDF:** [`docs/paper/synthetic-players-review-draft-v8.pdf`](docs/paper/synthetic-players-review-draft-v8.pdf)
+2. **Current v8 Markdown manuscript:** [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
 3. **Round 4 direct reproduction and review:** [`docs/reviews/round-4-independent-review.md`](docs/reviews/round-4-independent-review.md)
 4. **Round 3 artifact verification:** [`docs/reviews/round-3-independent-verification.md`](docs/reviews/round-3-independent-verification.md)
 5. **Machine-readable submission-analysis summary:** [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json)
@@ -30,6 +30,7 @@ The paper does not claim that this is the only failure mechanism, that it genera
 
 ## Corrections reviewers should know before reading
 
+- **Claude v7 repository review:** [`docs/reviews/round-6-claude-v7-review.md`](docs/reviews/round-6-claude-v7-review.md) verifies the Round 5 audit and motivates the final v8 registration, power, construct, and figure polish.
 - **Round 5 audit:** [`docs/analysis/submission/round5/round5-review-audit.md`](docs/analysis/submission/round5/round5-review-audit.md) documents dynamic gate reapplication, exact-gate power, and the completion-provenance boundary.
 - The broad realism-versus-effect divergence is occupied by prior work; novelty is positioned around the strategic-interaction decomposition, representation experiments, and audit architecture.
 - Strong positive contrary evidence is addressed explicitly: Ashokkumar, Hewitt, Ghezae, and Willer (Nature 2026) predict study-level treatment effects well, a forecasting estimand distinct from subject-level response-surface simulation.
