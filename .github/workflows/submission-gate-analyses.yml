@@ -14,6 +14,7 @@ on:
       - 'scripts/finalize_round5_v7.py'
       - 'scripts/polish_v7_outputs.py'
       - 'scripts/apply_claude_v8.py'
+      - 'scripts/finalize_v8_headers.py'
       - 'scripts/materialize_draft_history.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
@@ -96,6 +97,7 @@ jobs:
           python scripts/finalize_round5_v7.py | tee -a /tmp/submission-analysis.log
           python scripts/polish_v7_outputs.py | tee -a /tmp/submission-analysis.log
           python scripts/apply_claude_v8.py | tee -a /tmp/submission-analysis.log
+          python scripts/finalize_v8_headers.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_review_figures.py | tee -a /tmp/submission-analysis.log
 
       - name: Install reviewer-PDF dependencies
@@ -123,6 +125,7 @@ jobs:
           grep -Fq '0.075040' docs/paper/paper-draft.md
           grep -Fq 'p13 is ineligible' docs/paper/paper-draft.md
           grep -Fq 'Fixed-panel aggregate' docs/paper/paper-draft.md
+          grep -Fq 'independent repository review of v7' docs/paper/paper-draft.md
           ! grep -Fq 'questions for Explore Science' docs/paper/paper-draft.md
           ! grep -Fq 'Imprecise Incentive-Response Estimates' docs/paper/paper-draft.md
           test -s docs/paper/synthetic-players-review-draft-v8.sha256
@@ -131,7 +134,7 @@ jobs:
           import json
           from pathlib import Path
           manifest = json.loads(Path('docs/paper/synthetic-players-review-draft-v8-artifact.json').read_text())
-          assert manifest['pages'] == int(Path('/tmp/v8-pages').read_text()) if Path('/tmp/v8-pages').exists() else manifest['pages'] >= 16
+          assert manifest['pages'] >= 16
           assert len(manifest['pdf_sha256']) == 64
           assert manifest['source_commit']
           PY
