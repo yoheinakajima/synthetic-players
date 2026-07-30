@@ -1187,5 +1187,16 @@
       ],
       "source": "docs/analysis/submission/figure-sources/episode-cluster-cells.csv"
     }
+  },
+  "textFreeze": {
+    "version": "v10",
+    "status": "scientific text frozen for external review",
+    "sourceCommit": "0922133094cc79bdff892fe1e31ff1fecd501ebb",
+    "freezeTag": "paper-text-freeze-v10",
+    "sourceSha256": "c8b6f177ab8ca2e2c61574d73d821b5ff441609bbb2899cd7a22f9b6cc26593b",
+    "pdf": "docs/paper/synthetic-players-review-v10.pdf",
+    "pdfSha256": "ff29bf60f654a7f7439f2b56869eb15dad7d3b85531bf53650b1d4dcb7d33b67",
+    "pages": 21,
+    "scope": "docs/paper/text-freeze-v10.md"
   }
 }

@@ -47,4 +47,4 @@ Detailed block × model counts: `figure-sources/count-reconciliation-by-block.cs
 
 ## Reporting rule
 
-Use `episodes/runs`, `round events`, `seat-round decisions`, `provider requests`, `response events`, `provider-failure partials`, `transactional ledger calls`, and `replay observations` only with their exact definitions and scope. In particular, 5,505 archived completed runs are not the same quantity as the 4,576-run Phase 4+5 public replay contract, 36,251 archived request events are not the same scope as the 30,421 Phase 4+5 request events, and the 30,530-call transactional ledger is not row-identical to either the request or response event stream.
+Use `episodes/runs`, `round events`, `seat-round decisions`, `provider requests`, `response events`, `provider-failure partials`, `transactional ledger calls`, and `replay observations` only with their exact definitions and scope. In particular, 5,505 archived completed runs are not the same quantity as the 4,576-run Phase 4+5 public replay contract, and 36,251 archived request events are not the same scope as the 30,530-call Phase 4+5 transactional ledger.

@@ -137,11 +137,11 @@ The integrated workflow passed capsule checksums, replayed all 4,576 Phase 4–5
 
 ### E1. Main-text scope — **COMPLETE**
 
-The v8 paper has three contributions: empirical result, mechanism/identification, and auditability. p13 is an inferential-correction case, not a positive result. Lucas and equifinality are organizing analogies in Discussion rather than novelty claims in the Introduction.
+The v10 frozen paper has three contributions: empirical result, mechanism/identification, and auditability. p13 is an inferential-correction case, not a positive result. Lucas and equifinality are organizing analogies in Discussion rather than novelty claims in the Introduction.
 
 ### E2. Public navigation and first reviewer PDF — **COMPLETE**
 
-`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the v8 Markdown manuscript, the line-numbered reviewer PDF, all five generated figures, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
+`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the v10 frozen Markdown manuscript, the line-numbered reviewer PDF, all five generated figures, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
 
 ### E3. Draft history — **COMPLETE**
 

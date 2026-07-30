@@ -6,8 +6,8 @@ Thank you for reviewing **Synthetic Players**. Everything needed to evaluate the
 
 ## Start here
 
-1. **Formatted review PDF:** [`docs/paper/synthetic-players-review-draft-v8.pdf`](docs/paper/synthetic-players-review-draft-v8.pdf)
-2. **Current v8 Markdown manuscript:** [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
+1. **Formatted review PDF:** [`docs/paper/synthetic-players-review-v10.pdf`](docs/paper/synthetic-players-review-v10.pdf)
+2. **Current v10 frozen Markdown manuscript:** [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
 3. **Round 4 direct reproduction and review:** [`docs/reviews/round-4-independent-review.md`](docs/reviews/round-4-independent-review.md)
 4. **Round 3 artifact verification:** [`docs/reviews/round-3-independent-verification.md`](docs/reviews/round-3-independent-verification.md)
 5. **Machine-readable submission-analysis summary:** [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json)
@@ -30,6 +30,7 @@ The paper does not claim that this is the only failure mechanism, that it genera
 
 ## Corrections reviewers should know before reading
 
+- **Claude v9 freeze review:** [`docs/reviews/round-8-claude-v9-freeze-review.md`](docs/reviews/round-8-claude-v9-freeze-review.md) mechanically verifies the v8→v9 delta, closes two citation checks, and recommends freezing scientific text after three micro-fixes integrated into v10.
 - **Claude v7 repository review:** [`docs/reviews/round-6-claude-v7-review.md`](docs/reviews/round-6-claude-v7-review.md) verifies the Round 5 audit and motivates the final v8 registration, power, construct, and figure polish.
 - **Round 5 audit:** [`docs/analysis/submission/round5/round5-review-audit.md`](docs/analysis/submission/round5/round5-review-audit.md) documents dynamic gate reapplication, exact-gate power, and the completion-provenance boundary.
 - The broad realism-versus-effect divergence is occupied by prior work; novelty is positioned around the strategic-interaction decomposition, representation experiments, and audit architecture.
@@ -48,7 +49,7 @@ cd synthetic-players/capsule
 bash verify.sh
 ```
 
-Expected result: **4,576/4,576 Phase 4–5 runs replay byte-exact with zero credentials and zero live model calls.** Round 4 reproduced this end-to-end on an outside machine rather than relying only on Actions evidence. Round 4 reproduced this end-to-end on an outside machine rather than relying only on Actions evidence.
+Expected result: **4,576/4,576 Phase 4–5 runs replay byte-exact with zero credentials and zero live model calls.** Round 4 reproduced this end-to-end on an outside machine rather than relying only on Actions evidence.
 
 The zero-call submission analyses are generated from the archived databases by [`.github/workflows/submission-gate-analyses.yml`](.github/workflows/submission-gate-analyses.yml). Their outputs are under [`docs/analysis/submission/`](docs/analysis/submission/), and the current paper figure is under [`docs/paper/figures/`](docs/paper/figures/).
 
