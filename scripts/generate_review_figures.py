@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the v6 reviewer figures and enrich the machine-readable summary.
+"""Generate reviewer figures and enrich the machine-readable summary.
 
 All inputs are already committed post-adjudication analysis artifacts. This
 script makes no provider calls and does not change historical verdicts.
@@ -47,19 +47,33 @@ def prompt_delta_figure() -> list[dict[str, str]]:
         ("s2p", "s", +0.17, "S2 present"),
     ):
         by_persona = {r["persona"]: r for r in per if r["level"] == level}
-        series = [by_persona[p] for p in personas[:-1]] + [aggregate[level]]
+        series = [by_persona[p] for p in personas[:-1]]
         delta = np.array([float(r["delta"]) for r in series])
         lo = np.array([float(r["lo95"]) for r in series])
         hi = np.array([float(r["hi95"]) for r in series])
         ax.errorbar(
             delta,
-            y + offset,
+            y[:-1] + offset,
             xerr=[delta - lo, hi - delta],
             fmt=marker,
             markersize=4.8,
             capsize=2.0,
             elinewidth=0.85,
             label=label,
+        )
+        # The aggregate row is intentionally a diamond for caption/plot parity.
+        agg = aggregate[level]
+        point = float(agg["delta"])
+        agg_lo = float(agg["lo95"])
+        agg_hi = float(agg["hi95"])
+        ax.errorbar(
+            [point],
+            [y[-1] + offset],
+            xerr=[[point - agg_lo], [agg_hi - point]],
+            fmt="D",
+            markersize=6.3,
+            capsize=2.5,
+            elinewidth=1.25,
         )
     ax.axvline(0, linewidth=0.9)
     ax.axhline(15.5, linewidth=0.7)
@@ -117,7 +131,7 @@ def condition_mean_figure(variance: list[dict[str, str]]) -> None:
     ax.set_ylabel("Round-one cooperation")
     ax.set_xlabel("Continuation probability")
     ax.set_title(
-        "Fixed-panel cooperation levels across the incentive lever",
+        "Fixed-panel cooperation levels across the represented treatment",
         loc="left",
         fontweight="bold",
     )
@@ -207,9 +221,9 @@ def representation_figure() -> None:
 
 def p13_figure() -> None:
     labels = [
-        "Historical seat-level gate",
-        "Percentile cluster-bootstrap gate\n(retained, non-primary)",
-        "Conservative exact-episode gate\n(primary sensitivity)",
+        "Historical seat gate\np13/s2a max",
+        "Percentile-bootstrap gate\np13/s2a max",
+        "Exact episode gate\np13 ineligible; p05/s2a max",
     ]
     p_values = np.array([0.059230, 0.043455, 0.773206])
     intervals = np.array(
@@ -219,29 +233,32 @@ def p13_figure() -> None:
             [0.771363, 0.775039],
         ]
     )
+    markers = ("o", "o", "^")
     y = np.arange(3)
     fig, ax = plt.subplots(figsize=(7.2, 4.25))
-    ax.errorbar(
-        p_values,
-        y,
-        xerr=[p_values - intervals[:, 0], intervals[:, 1] - p_values],
-        fmt="o",
-        markersize=6.5,
-        capsize=4,
-        linewidth=1.4,
-    )
+    for idx, (value, interval, marker) in enumerate(zip(p_values, intervals, markers)):
+        ax.errorbar(
+            [value],
+            [idx],
+            xerr=[[value - interval[0]], [interval[1] - value]],
+            fmt=marker,
+            markersize=6.5,
+            capsize=4,
+            linewidth=1.4,
+        )
     ax.axvline(0.05, linestyle="--", linewidth=1)
     ax.set_yticks(y, labels)
     ax.invert_yaxis()
     ax.set_xlim(0, 0.82)
     ax.set_xlabel("Familywise permutation p-value (200,000 permutations)")
-    ax.set_title("Post-adjudication p13 audit is gate-dependent", loc="left", fontweight="bold")
+    ax.set_title("Post-adjudication family-audit constructions", loc="left", fontweight="bold")
     ax.grid(axis="x", alpha=0.20)
     for idx, value in enumerate(p_values):
         offset = 0.012 if value < 0.70 else -0.010
         ha = "left" if value < 0.70 else "right"
         ax.text(value + offset, idx, f"{value:.3f}", va="center", ha=ha, fontsize=8)
-    fig.subplots_adjust(left=0.31, right=0.98, top=0.88, bottom=0.16)
+    ax.text(0.98, 0.02, "Triangle: p13 fails gate; p-value belongs to p05/s2a", transform=ax.transAxes, ha="right", va="bottom", fontsize=7)
+    fig.subplots_adjust(left=0.36, right=0.98, top=0.88, bottom=0.16)
     save(fig, "p13-audit")
 
 
@@ -283,7 +300,7 @@ def main() -> int:
     representation_figure()
     p13_figure()
     update_summary(delta_rows)
-    print("generate_review_figures: wrote five figure sets and promptIndexedDelta summary")
+    print("generate_review_figures: wrote corrected figure sets and promptIndexedDelta summary")
     return 0
 
 
