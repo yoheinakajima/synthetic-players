@@ -7,7 +7,7 @@ authors:
     given-names: Yohei
 repository-code: "https://github.com/yoheinakajima/synthetic-players"
 license: MIT
-version: "phase5-review-v6"
+version: "phase5-review-v7"
 date-released: "2026-07-29"
 abstract: >-
   An open research program on LLM-controlled agents in strategic games,

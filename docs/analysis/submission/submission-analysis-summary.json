@@ -537,6 +537,158 @@
         }
       }
     },
+    "round5ReviewAudit": {
+      "dynamicGate": {
+        "status": "pass",
+        "candidateCount": 32,
+        "episodeCountsPerArm": [
+          6
+        ],
+        "lookupDirectParityCases": 56,
+        "lookupDirectParityFailures": 0,
+        "precomputedIntervalGateEvaluations": 56,
+        "dynamicGateLookupApplicationsAtB200000": 25600000,
+        "witness": {
+          "candidate": [
+            "p07",
+            "s2a"
+          ],
+          "observedMask": false,
+          "permutedDynamicMask": true,
+          "permutedD90Counts": [
+            2,
+            4,
+            0
+          ],
+          "permutedD10Counts": [
+            3,
+            1,
+            2
+          ]
+        },
+        "dynamicVsStaticRegressionReps": 5000,
+        "dynamicVsStaticDifferent": 718,
+        "dynamicVsStaticDifferentRate": 0.1436
+      },
+      "exactGateN6": {
+        "passingMeans": [
+          0.333333333333,
+          0.416666666667,
+          0.5,
+          0.583333333333,
+          0.666666666667
+        ],
+        "maxAttainableSlope": 0.333333333334,
+        "archivedFamilyTailAtMaxAttainableSlope": {
+          "permutations": 200000,
+          "threshold": 0.333333333334,
+          "exceedances": 15007,
+          "pAddOne": 0.075039624801876,
+          "anyGateRate": 1.0,
+          "seed": 20260792
+        }
+      },
+      "prospectivePowerSource": "docs/analysis/submission/round5/figure-sources/prospective-power.csv",
+      "provenance": {
+        "eventTable": "events",
+        "eventTableColumns": [
+          "seq",
+          "id",
+          "type",
+          "actor",
+          "payload",
+          "frame_id",
+          "caused_by",
+          "timestamp",
+          "run_id"
+        ],
+        "requestedCoverage": {
+          "legacy-phase3": {
+            "bundleSha256": 0,
+            "engineCommit": 0,
+            "events": 5830,
+            "promptHash": 5830,
+            "providerRoute": 0,
+            "requestBodySha256": 0,
+            "systemPresent": 5830,
+            "userPresent": 5830
+          },
+          "phase4-5": {
+            "bundleSha256": 30421,
+            "engineCommit": 30421,
+            "events": 30421,
+            "promptHash": 30421,
+            "providerRoute": 30421,
+            "requestBodySha256": 30421,
+            "systemPresent": 30421,
+            "userPresent": 30421
+          }
+        },
+        "respondedCoverage": {
+          "legacy-phase3": {
+            "events": 5830,
+            "providerCreatedTimestamp": 0,
+            "providerMetaPresent": 0,
+            "rawTextNonempty": 5830,
+            "rawTextPresent": 5830,
+            "requestBodySha256": 0,
+            "responseId": 0,
+            "returnedModel": 5830,
+            "systemFingerprint": 0
+          },
+          "phase4-5": {
+            "events": 30397,
+            "providerCreatedTimestamp": 20390,
+            "providerMetaPresent": 30397,
+            "rawTextNonempty": 30397,
+            "rawTextPresent": 30397,
+            "requestBodySha256": 30397,
+            "responseId": 30397,
+            "returnedModel": 30397,
+            "systemFingerprint": 20390
+          }
+        },
+        "responsePayloadHashLikeFields": {
+          "provider_meta.request_body_sha256": 30397
+        },
+        "archiveHashManifests": [
+          {
+            "path": "capsule/SHA256SUMS.capsule",
+            "mentionsEngineDb": true,
+            "lineCount": 193
+          },
+          {
+            "path": "docs/phase4-close/SHA256SUMS.txt",
+            "mentionsEngineDb": true,
+            "lineCount": 30
+          },
+          {
+            "path": "docs/phase5-close/SHA256SUMS.txt",
+            "mentionsEngineDb": false,
+            "lineCount": 24
+          }
+        ],
+        "engineSnapshotCoveredByManifest": true,
+        "openTimestampsProofCount": 10,
+        "openTimestampsProofs": [
+          "capsule/docs/phase4-close/SHA256SUMS.txt.ots",
+          "capsule/docs/phase4/SHA256SUMS.txt.ots",
+          "capsule/docs/phase5-close/SHA256SUMS-final.txt.ots",
+          "capsule/docs/phase5-close/SHA256SUMS.txt.ots",
+          "capsule/verify/SHA256SUMS-final.txt.ots",
+          "capsule/verify/SHA256SUMS.txt.ots",
+          "docs/phase4-close/SHA256SUMS.txt.ots",
+          "docs/phase4/SHA256SUMS.txt.ots",
+          "docs/phase5-close/SHA256SUMS-final.txt.ots",
+          "docs/phase5-close/SHA256SUMS.txt.ots"
+        ],
+        "findings": {
+          "requestSide": "Phase 4–5 records store the complete rendered system/user bundle, a bundle SHA-256, a deterministic request-body SHA-256, engine commit, provider route, and requested model. The live runner asserts the provider adapter's request-body SHA equals the recorded mirror.",
+          "responseSide": "The archive stores raw completion text and, for Phase 4–5 provider adapters, response IDs and selected provider metadata. It does not store a provider-signed response object or a separate receipt-time hash of each raw completion payload.",
+          "archiveSide": "Published archive snapshots are covered by checksum manifests and external timestamp proofs. This detects changes relative to the released snapshot but does not prove that no edit occurred between provider receipt and snapshot sealing."
+        }
+      }
+    },
     "promptIndexedDelta": {
       "status": "post-adjudication dependence-aware descriptive analysis",
       "unit": "complete episode; prompt-indexed coupling, not a person-level effect without latent-person invariance",

@@ -21,7 +21,7 @@ Results:
 - Dirichlet–Jeffreys sensitivity: 5/32 and 19/96, which would fail the historical restricted threshold;
 - three cells change classification between the historical and exact-episode rules.
 
-The percentile cluster bootstrap is retained in the audit trail but rejected as the primary interval because it becomes degenerate when every observed episode agrees. Disagreement among the methods is reported as method sensitivity rather than resolved by selecting the favorable verdict.
+The exact Clopper–Pearson projection is the conservative finite-sample coverage reference. The percentile cluster bootstrap is retained as a post-adjudication sensitivity but has no comparable small-sample coverage guarantee at six discrete episodes per arm. Disagreement among the methods is reported as method sensitivity rather than resolved by selecting the favorable verdict.
 
 P5-2 and clause (b) were also recomputed at the episode level:
 
@@ -39,8 +39,8 @@ A 200,000-permutation audit applies a maximum raw-slope statistic over all 32 ev
 | gate construction | maximum | familywise p | MC 95% interval | interpretation |
 |---|---:|---:|---|---|
 | Historical seat-level CP | p13, +0.4167 | 0.059230 | [0.058194, 0.060268] | Reproduces the frozen gate structure but adds post hoc family control. |
-| Episode-cluster percentile bootstrap | p13, +0.4167 | 0.043455 | [0.042561, 0.044353] | Reported because computed; non-primary because percentile intervals degenerate at exact corners. |
-| Conservative exact-episode CP (**primary sensitivity**) | p05/s2a, +0.0833 | 0.773206 | [0.771363, 0.775039] | p13 fails the episode-level interiority gate; only p04/s2p and p05/s2a survive. |
+| Episode-cluster percentile bootstrap sensitivity | p13, +0.4167 | 0.043455 | [0.042561, 0.044353] | Reported because computed; no comparable finite-sample coverage guarantee at n=6. |
+| Conservative exact-episode CP sensitivity | p05/s2a, +0.0833 | 0.773206 | [0.771363, 0.775039] | p13 is gate-ineligible; at n=6 the family procedure is not powered for conventional rejection. |
 
 Chronology is load-bearing: no familywise variant was registered at the original freeze, and no seal-before-compute record exists for the post-adjudication analyses. They were specified and executed after external review, run in GitHub Actions against archived databases with fixed seeds, and committed regardless of direction. The favorable `p=0.043455` construction therefore cannot rescue the claim. p13 remains a replication target under every variant.
 
@@ -60,6 +60,16 @@ A method-of-moments correction subtracts estimated finite-opportunity noise from
 All four fixed-panel corrected-SD lower bounds exceed the historical `0.75 × published human SD` threshold. Three of four exploratory persona-population lower bounds do. Neither result is a protocol-matched estimate of human latent heterogeneity.
 
 Artifact: `submission/variance-correction.md`.
+
+### A4. Explore Science Round 5 audits — **COMPLETE**
+
+- the complete data-dependent gate is dynamically reapplied within every permutation; lookup/direct parity and a static-mask regression pass;
+- at six episodes per arm, exact-gate-eligible means span only 0.333–0.667, the maximum eligible slope is 0.333, and its archived-family null tail is 0.075040;
+- p13 is therefore neither prospectively confirmed nor decisively disconfirmed by an adequately powered conservative family procedure;
+- completion provenance, receipt-time hashing limits, protocol definitions, representation confounds, and Figures 1/5 are corrected in v7.
+
+Artifacts: `submission/round5/round5-review-audit.{md,json}` and `docs/reviews/round-5-disposition-matrix.md`.
+
 ## B. Human comparator
 
 ### B1. Dal Bó–Fréchette microdata contextualization — **DEFERRED EXTERNAL DATA; NOT BLOCKING**
@@ -127,11 +137,11 @@ The integrated workflow passed capsule checksums, replayed all 4,576 Phase 4–5
 
 ### E1. Main-text scope — **COMPLETE**
 
-The v6 paper has three contributions: empirical result, mechanism/identification, and auditability. p13 is an inferential-correction case, not a positive result. Lucas and equifinality are organizing analogies in Discussion rather than novelty claims in the Introduction.
+The v7 paper has three contributions: empirical result, mechanism/identification, and auditability. p13 is an inferential-correction case, not a positive result. Lucas and equifinality are organizing analogies in Discussion rather than novelty claims in the Introduction.
 
 ### E2. Public navigation and first reviewer PDF — **COMPLETE**
 
-`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the v6 Markdown manuscript, the line-numbered reviewer PDF, all five generated figures, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
+`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the v7 Markdown manuscript, the line-numbered reviewer PDF, all five generated figures, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
 
 ### E3. Draft history — **COMPLETE**
 
@@ -139,7 +149,7 @@ Exact v2 and v3 reviewer-circulation manuscripts are committed under `docs/paper
 
 ## Remaining before formal submission
 
-1. Select the target venue and convert the v6 reviewer bibliography/layout to that venue’s exact format.
+1. Select the target venue and convert the v7 reviewer bibliography/layout to that venue’s exact format.
 2. Obtain human-author sign-off on the final title and venue-specific AI-assistance statement.
 3. Add a `preferred-citation` block to `CITATION.cff` when the paper has a stable venue/preprint identifier.
 

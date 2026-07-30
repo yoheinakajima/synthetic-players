@@ -109,7 +109,7 @@
   "postAdjudicationStatus": {
     "registeredAtOriginalFreeze": false,
     "specifiedAfterExternalReview": true,
-    "reportingRule": "Report all computed gate variants. The exact-episode gate is primary because it remains non-degenerate at exact corners; no post hoc variant can create prospective confirmation.",
+    "reportingRule": "Report all computed gate variants. The exact-episode projection is the conservative finite-sample coverage reference; the percentile bootstrap is retained as a small-sample sensitivity. No post hoc variant can create prospective confirmation.",
     "bootstrapSourceSeed": 20260782
   }
 }

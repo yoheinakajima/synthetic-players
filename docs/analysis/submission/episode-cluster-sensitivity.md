@@ -2,9 +2,9 @@
 
 > **STATUS: POST-ADJUDICATION SENSITIVITY — ZERO SUBJECT CALLS.** Historical registered verdicts are unchanged. The primary episode-level interval is an exact conservative projection: for the three-valued episode outcome Y∈{0,.5,1}, write Y=(1[Y≥.5]+1[Y=1])/2, construct simultaneous Clopper–Pearson intervals for both binary components, and project them onto E[Y].
 
-## Why the initially generated percentile bootstrap is not primary
+## Why the exact projection is the conservative reference sensitivity
 
-An ordinary nonparametric percentile bootstrap becomes degenerate when every sampled episode has the same outcome. It therefore does not quantify policy uncertainty at the exact corners and was rejected before integration into the paper. Its output is retained in the table as an audit trail, not used as the submission inference.
+The exact Clopper–Pearson projection supplies finite-sample coverage for the discrete episode mean and is therefore the conservative reference sensitivity. The percentile cluster bootstrap is retained because it was computed, but with six discrete episodes per arm it has no comparable finite-sample coverage guarantee and can understate uncertainty. Exact-corner degeneracy is not itself a false-positive mechanism for the strict interiority gate.
 
 ## P5-1a census
 
@@ -12,7 +12,7 @@ An ordinary nonparametric percentile bootstrap becomes degenerate when every sam
 |---|---:|---:|---|---:|
 | Historical seat-level CP | 3/32 | 0.0938 | yes | 14/96 |
 | Episode exact CP projection | 2/32 | 0.0625 | yes | 11/96 |
-| Percentile cluster bootstrap (discarded as primary) | 3/32 | 0.0938 | yes | 13/96 |
+| Percentile cluster bootstrap sensitivity | 3/32 | 0.0938 | yes | 13/96 |
 | Episode Dirichlet–Jeffreys sensitivity | 5/32 | 0.1562 | no | 19/96 |
 
 Cells changing classification between the historical seat-level rule and the exact episode interval: **3**. Complete cell table: `figure-sources/episode-cluster-cells.csv`.
