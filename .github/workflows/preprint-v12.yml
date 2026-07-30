@@ -87,7 +87,7 @@ jobs:
           python scripts/polish_repo_v12.py
           python scripts/update_capsule_manifest_v12.py
           python -m py_compile \
-            scripts/apply_preprint_v12.py scripts/v12_audits.py \
+            scripts/apply_preprint_v12.py scripts/v12_audits.py scripts/v12_entropy_audit.py \
             artifacts/api-server/engine/phase3_replay_audit.py
 
       - name: Install preprint PDF dependencies
@@ -109,17 +109,44 @@ jobs:
           test "$pages" -ge 16
           test "$pages" -le 28
           pdftotext "$pdf" /tmp/preprint-v12.txt
-          grep -Fq 'Abstract' /tmp/preprint-v12.txt
-          grep -Fq '63%–71%' docs/paper/paper-draft.md
-          grep -Fq '4,916' docs/paper/paper-draft.md
-          grep -Fq 'switch-bearing' docs/paper/paper-draft.md
-          grep -Fq 'game-theoretic association' docs/paper/paper-draft.md
-          grep -Fq 'Phase 3 zero-call replay audit' docs/analysis/submission/v12/phase3-replay-audit.md
-          grep -Fq 'verified independent recomputation' docs/analysis/submission/v12/v12-audits.json
-          ! grep -Fqi 'not for citation' /tmp/preprint-v12.txt
-          ! grep -Fqi 'review revision' /tmp/preprint-v12.txt
-          test -s docs/paper/synthetic-players-preprint-v12.sha256
-          test -s docs/paper/synthetic-players-preprint-v12-artifact.json
+          python - <<'PY'
+          from pathlib import Path
+          manuscript = Path('docs/paper/paper-draft.md').read_text(encoding='utf-8')
+          extracted = Path('/tmp/preprint-v12.txt').read_text(encoding='utf-8')
+          required_manuscript = [
+              '63%–71%',
+              '4,916',
+              'switch-bearing',
+              'game-theoretic association',
+          ]
+          required_files = {
+              'docs/analysis/submission/v12/phase3-replay-audit.md': 'Phase 3 zero-call replay audit',
+              'docs/analysis/submission/v12/v12-audits.json': 'verified independent recomputation',
+          }
+          errors = []
+          if 'Abstract' not in extracted:
+              errors.append('PDF text missing Abstract')
+          for marker in required_manuscript:
+              if marker not in manuscript:
+                  errors.append(f'manuscript missing {marker!r}')
+          for path, marker in required_files.items():
+              text = Path(path).read_text(encoding='utf-8')
+              if marker not in text:
+                  errors.append(f'{path} missing {marker!r}')
+          for phrase in ('not for citation', 'review revision'):
+              if phrase in extracted.lower():
+                  hits = [line for line in extracted.splitlines() if phrase in line.lower()][:5]
+                  errors.append(f'PDF contains reviewer-only phrase {phrase!r}: {hits}')
+          for path in (
+              'docs/paper/synthetic-players-preprint-v12.sha256',
+              'docs/paper/synthetic-players-preprint-v12-artifact.json',
+          ):
+              if not Path(path).is_file() or Path(path).stat().st_size == 0:
+                  errors.append(f'missing generated artifact {path}')
+          if errors:
+              raise SystemExit('preflight failed:\n- ' + '\n- '.join(errors))
+          print(f'preprint v12 preflight: PASS ({len(extracted.splitlines())} extracted lines)')
+          PY
 
       - name: Lint living assertions, links, and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
