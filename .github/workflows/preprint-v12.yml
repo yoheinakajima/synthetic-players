@@ -182,6 +182,9 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f \
+            capsule/artifacts/api-server/engine/data/engine.db \
+            capsule/artifacts/api-server/engine/data/budget.db
           git add -A -- \
             README.md REVIEW.md CITATION.cff \
             capsule capsule-README.md \
