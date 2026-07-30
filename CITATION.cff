@@ -16,8 +16,9 @@ abstract: >-
   and public post-adjudication sensitivity analyses. The current paper studies
   a fixed panel of lightweight persona prompts that passes coarse marginal
   checks while producing small continuation-probability point estimates with
-  wide dependence-aware intervals. Corrected estimates assign most episode-level variation to
-  differences between prompt configurations. The repository does not claim
+  wide dependence-aware intervals. Plug-in estimates assign most observed variation
+  between prompts, while a fixed-panel latent-propensity sensitivity lowers and widens
+  that composition estimate. The repository does not claim
   human substitutability, and published human references are protocol-nonmatched.
 keywords:
   - behavioral game theory

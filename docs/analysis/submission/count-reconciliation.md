@@ -14,6 +14,17 @@
 | seat-round decisions | 108,552 | two player actions per round event |
 | archived provider-request events | 36,251 | all `llm.requested` events in the full store |
 
+## Phase 4+5 request, response, and spending counts
+
+| unit | count | definition |
+|---|---:|---|
+| Phase 4+5 normal request events | 30,421 | `llm.requested` events assigned to Phase 4 or Phase 5 in the event store |
+| Phase 4+5 response events | 30,397 | `llm.responded` events with archived raw completion text and provider response IDs |
+| provider-failure partials | 24 | request events without a normal response event; disclosed and excluded from completed-run replay |
+| Phase 4+5 transactional ledger calls | 30,530 | spending-accounting call attempts, including Phase 4 infrastructure entries outside the standard request-event stream |
+
+These totals answer different questions. Request and response events describe the event stream; ledger calls describe budget accounting. They are related but not row-identical.
+
 ## Phase 4+5 transactional budget ledger
 
 | scope | calls |
@@ -36,4 +47,4 @@ Detailed block × model counts: `figure-sources/count-reconciliation-by-block.cs
 
 ## Reporting rule
 
-Use `episodes/runs`, `round events`, `seat-round decisions`, `provider requests`, `transactional ledger calls`, and `replay observations` only with their exact definitions and scope. In particular, 5,505 archived completed runs are not the same quantity as the 4,576-run Phase 4+5 public replay contract, and 36,251 archived request events are not the same scope as the 30,530-call Phase 4+5 transactional ledger.
+Use `episodes/runs`, `round events`, `seat-round decisions`, `provider requests`, `response events`, `provider-failure partials`, `transactional ledger calls`, and `replay observations` only with their exact definitions and scope. In particular, 5,505 archived completed runs are not the same quantity as the 4,576-run Phase 4+5 public replay contract, and 36,251 archived request events are not the same scope as the 30,530-call Phase 4+5 transactional ledger.

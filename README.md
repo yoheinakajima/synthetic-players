@@ -14,7 +14,7 @@ Current manuscript:
 
 **Formatted review copy:** [`docs/paper/synthetic-players-review-v11.pdf`](docs/paper/synthetic-players-review-v11.pdf) · [build notes](docs/paper/PDF-README.md)
 
-The sealed experimental program and the scientific review gate are complete. Round 4 independently cloned the repository, passed lint, and replayed all 4,576 runs with zero credentials. Remaining formal-submission work is venue formatting and human sign-off on the final title and venue-specific AI-assistance statement. Current status: [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md).
+The sealed experimental program is complete. v11 is an explicit post-v10 review addendum; its zero-call analyses, figures, PDF, lint, and 4,576-run replay are generated in GitHub Actions. Current status: [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md).
 
 ## Reproduce the archived record
 
@@ -39,7 +39,7 @@ Synthetic Players is an open experimental laboratory for placing LLM-controlled 
 
 The paper's narrow empirical result is:
 
-> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. Corrected estimates assign approximately 85%–96% of episode-level variation to differences between prompt configurations. The observed aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals of approximately [−0.171, +0.330] and [−0.181, +0.330]. These are small point estimates with substantial uncertainty—not evidence of equivalence, a null response, or a narrow upper bound.
+> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. Finite-opportunity-corrected plug-in estimates assign 85%–96% of observed episode-level variation between prompts; a fixed-panel latent-propensity sensitivity yields posterior median shares of 63%–71% with 95% intervals spanning 49%–81%. The observed aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals [−0.171, +0.330] and [−0.181, +0.330] (rounded to three decimals). These are small point estimates with substantial uncertainty—not evidence of equivalence, a null response, or a narrow upper bound.
 
 This is not a claim of human substitutability. Human references are protocol-nonmatched, the primary evidence comes from one deployment, and the panel consists of sixteen complete prompt bundles rather than independently sampled people.
 
@@ -49,7 +49,7 @@ This is not a claim of human substitutability. Human references are protocol-non
 |---|---|
 | [`REVIEW.md`](REVIEW.md) | Canonical review instructions and questions |
 | [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v11 review-revision Markdown manuscript |
-| [`docs/paper/synthetic-players-review-v11.pdf`](docs/paper/synthetic-players-review-v11.pdf) | Line-numbered Explore Science review PDF with five vector figures |
+| [`docs/paper/synthetic-players-review-v11.pdf`](docs/paper/synthetic-players-review-v11.pdf) | Clean review PDF with five vector figures |
 | [`docs/paper/history/`](docs/paper/history/) | Exact v2 and v3 manuscripts plus history index |
 | [`docs/reviews/`](docs/reviews/) | Round 1–4 review archive, reviewer-role disclosure, and direct outside reproduction |
 | [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json) | Machine-readable generated results |

@@ -141,7 +141,7 @@ The v10 frozen paper has three contributions: empirical result, mechanism/identi
 
 ### E2. Public navigation and first reviewer PDF — **COMPLETE**
 
-`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the v11 review-revision Markdown manuscript, the line-numbered reviewer PDF, all five generated figures, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
+`REVIEW.md` is the canonical reviewer entry point. README and the analysis index link the v11 review-revision Markdown manuscript, the clean reviewer PDF, all five generated figures, review records, novelty map, literature map, propositions, completed analyses, reproduction instructions, and this status file.
 
 ### E3. Draft history — **COMPLETE**
 
