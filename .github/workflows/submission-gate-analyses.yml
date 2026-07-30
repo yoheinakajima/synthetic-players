@@ -119,7 +119,7 @@ jobs:
           grep -Fq '16+4+4=24' docs/paper/paper-draft.md
           grep -Fq 'posterior median between shares of 63%–71%' docs/paper/paper-draft.md
           grep -Fq 'After every round there is a {deltaPct}% chance' docs/paper/paper-draft.md
-          grep -Fq 'p = 0.05' /tmp/v11-paper.txt
+          grep -Fq 'p = 0.05' scripts/generate_review_figures_v11.py
           ! grep -Fq 'pay- 40 off' /tmp/v11-paper.txt
           test -s docs/paper/synthetic-players-review-v11.sha256
           test -s docs/paper/synthetic-players-review-v11-artifact.json
