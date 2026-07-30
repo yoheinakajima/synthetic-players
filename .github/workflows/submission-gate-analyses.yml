@@ -40,7 +40,10 @@ concurrency:
 
 jobs:
   analyze:
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    # v12 and later preprint branches have their own end-to-end workflow. Keeping
+    # the historical v11 workflow off those branches prevents stale transforms
+    # from overwriting the current manuscript or capsule surface.
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref != 'paper/preprint-v12')
     runs-on: ubuntu-latest
     timeout-minutes: 75
     steps:
