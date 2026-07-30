@@ -1,0 +1,13 @@
+{
+  "version": "v10",
+  "status": "scientific text freeze for external review",
+  "source_commit": "0922133094cc79bdff892fe1e31ff1fecd501ebb",
+  "source_path": "docs/paper/paper-draft.md",
+  "freeze_scope_path": "docs/paper/text-freeze-v10.md",
+  "intended_tag": "paper-text-freeze-v10",
+  "pdf_path": "docs/paper/synthetic-players-review-v10.pdf",
+  "checksum_path": "docs/paper/synthetic-players-review-v10.sha256",
+  "ots_path": "docs/paper/synthetic-players-review-v10.sha256.ots",
+  "scientific_changes_after_freeze": "require a new version and explicit addendum",
+  "venue_only_changes_allowed": true
+}
