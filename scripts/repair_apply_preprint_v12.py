@@ -2,9 +2,10 @@
 """One-time textual repairs for the generated v12 manuscript integrator.
 
 The initial source arrived as an unexecuted construction script. This repair
-normalizes quote delimiters, registered-run accounting, and one interpretation
-whose composition-matched audit contradicted the historical pooled statistic.
-It is idempotent and the repaired source is committed by the workflow.
+normalizes quote delimiters, makes regex replacements literal-safe, corrects
+registered-run accounting, and aligns the entropy interpretation with the
+composition-matched audit. It is idempotent; the repaired source is committed by
+the workflow.
 """
 from pathlib import Path
 
@@ -13,6 +14,14 @@ text = path.read_text(encoding="utf-8")
 text = text.replace("response bound.\\n\\n',", "response bound.\\n\\n\",")
 text = text.replace("paper-draft.md`.\\n',", "paper-draft.md`.\\n\",")
 text = text.replace("formatting only.\\n',", "formatting only.\\n\",")
+text = text.replace(
+    'new, count = re.subn(pattern, replacement.rstrip() + "\\n\\n", text, count=1, flags=re.DOTALL)',
+    'new, count = re.subn(pattern, lambda _m: replacement.rstrip() + "\\n\\n", text, count=1, flags=re.DOTALL)',
+)
+text = text.replace(
+    'new, count = re.subn(pattern, replacement.rstrip(), text, count=1, flags=re.DOTALL)',
+    'new, count = re.subn(pattern, lambda _m: replacement.rstrip(), text, count=1, flags=re.DOTALL)',
+)
 text = text.replace(
     'total_confirmatory = p3_totals["llmRuns"] + p3_totals["baselineRuns"] + 2864 + 1712\n    total_llm_replayed = p3_totals["llmRuns"] + 2864 + 1712',
     'registered_phase3_llm = sum(p3["expectedPromptCounts"].values())\n    total_confirmatory = registered_phase3_llm + p3_totals["baselineRuns"] + 2864 + 1712\n    total_llm_replayed = registered_phase3_llm + 2864 + 1712',
@@ -27,4 +36,4 @@ text = text.replace(
 )
 path.write_text(text, encoding="utf-8")
 compile(text, str(path), "exec")
-print("repair_apply_preprint_v12: syntax, registered-run accounting, and entropy interpretation verified")
+print("repair_apply_preprint_v12: syntax, literal-safe replacement, accounting, and entropy interpretation verified")
