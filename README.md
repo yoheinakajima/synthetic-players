@@ -93,7 +93,7 @@ Sixteen sealed one-sentence personas were crossed with the existing instruments.
 | P5-1a boundary-mixture predicate | 3/32 restricted cells interior under seat-level CP | Exact episode 2/32; Dirichlet–Jeffreys 5/32. The binary verdict is method-sensitive; continuous composition is primary. |
 | P5-1b dispersion comparison | Raw cross-persona SD 0.424–0.480 | Corrected SD 0.418–0.478; approximately 85%–96% of episode-level variation lies between prompt configurations. |
 | P5-2 surface-cue dominance | Pooled persona-dominant result | Pooled exact result survives, but the word/payoff-confounded swap cell carries the classification. |
-| P5-3 persona-level existence | p13 passed the frozen per-candidate rule | All three post-review family variants are disclosed; the primary exact-episode gate excludes p13. It is a replication target, not a finding. |
+| P5-3 persona-level existence | p13 passed the frozen per-candidate rule | All three post-review family variants are disclosed. The conservative exact sensitivity makes p13 gate-ineligible but is underpowered at n=6; p13 is neither prospectively confirmed nor decisively disconfirmed and remains a replication target. |
 | P5-3 clause (b) | All personas passed refusal threshold | All 24 lanes survive simultaneous exact family bounds; choice result is strong, mechanism remains confounded. |
 
 - [`docs/phase5/final-report.md`](docs/phase5/final-report.md)

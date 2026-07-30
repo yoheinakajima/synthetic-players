@@ -48,7 +48,7 @@ The present paper’s main empirical decomposition is Phase 5, interpreted using
 
 The full event store contains 5,505 completed runs, 54,276 round events, 108,552 seat-round decisions, and 36,251 archived provider-request events. The public Phase 4–5 replay contract covers 4,576 completed runs. A separate transactional ledger records 30,530 Phase 4–5 calls, 13,141,675 input tokens, and 45,247 output tokens; it excludes earlier phases and therefore must not be conflated with the full event-store request count. Counts and definitions are reconciled in `docs/analysis/submission/count-reconciliation.md`.
 
-Confirmatory claims were registered before the data that adjudicated them and were mechanically evaluated in a fixed vocabulary. The historical two-sided interiority rule used Clopper–Pearson bounds on seat-level round-one trials. Because two seats share an episode, the submission analysis additionally treats the complete episode as the independence unit. For an episode outcome \(Y\in\{0,0.5,1\}\), the primary exact sensitivity writes
+Confirmatory claims were registered before the data that adjudicated them and were mechanically evaluated in a fixed vocabulary. The historical two-sided interiority rule used Clopper–Pearson bounds on seat-level round-one trials. Because two seats share an episode, the submission analysis additionally treats the complete episode as the independence unit. For an episode outcome \(Y\in\{0,0.5,1\}\), the conservative exact sensitivity writes
 
 \[
 Y=\tfrac12\{\mathbf 1(Y\ge0.5)+\mathbf 1(Y=1)\},
@@ -90,7 +90,7 @@ The registered Gemini tier was descriptive only and is excluded from these estim
 
 *Figure 3. Finite-opportunity-corrected share of episode-level variation assigned to differences between prompt configurations in each repeated-game cell. Error bars are fixed-panel episode-bootstrap 95% intervals. The separate prompt-resampling analysis is wider and remains exploratory for persona-generator inference.*
 
-The historical seat-level interiority rule classified 14/96 persona–condition cells as interior and 3/32 in the restricted P5-1a set, just below the registered 0.10 threshold. The primary exact episode-level interval classifies 11/96 and 2/32. A Dirichlet–Jeffreys sensitivity classifies 19/96 and 5/32, which would fail the historical threshold. Thus the binary verdict is not invariant to interval construction. The more stable result is continuous: the corrected decomposition assigns a large majority of observed episode-level variation to differences between prompt configurations, while the observed aggregate continuation-probability point differences remain small and imprecisely estimated.
+The historical seat-level interiority rule classified 14/96 persona–condition cells as interior and 3/32 in the restricted P5-1a set, just below the registered 0.10 threshold. The conservative exact episode-level interval classifies 11/96 and 2/32. A Dirichlet–Jeffreys sensitivity classifies 19/96 and 5/32, which would fail the historical threshold. Thus the binary verdict is not invariant to interval construction. The more stable result is continuous: the corrected decomposition assigns a large majority of observed episode-level variation to differences between prompt configurations, while the observed aggregate continuation-probability point differences remain small and imprecisely estimated.
 
 ### 4.2 What the marginal checks cannot identify
 
@@ -120,7 +120,7 @@ For the bare configuration, round-one cooperation was 0.000 at every registered 
 
 In the label-swap conflict cell, canonical payoffs were held fixed while the displayed words “Cooperate” and “Defect” were attached to opposite strategic roles. The bare configuration selected the cooperation-worded option 0/40 times, choosing the strictly dominated role whenever it carried the word “Defect,” while responding strongly to payoff changes when semantic labels did not oppose them. The supported statement is conditional: **semantic labels can override payoff dominance in direct conflict; payoff sensitivity is representation-dependent, not absent.**
 
-Adding the registered persona-format prefix and varying among the complete persona prompts produce two observed contrasts, but they are not fully factorially separable. Differences among prompts produce the 0.5–0.7 leaning gaps. Adding any tested persona string reverses the bare swap-cell choice: all sixteen personas overwhelmingly select the cooperation-worded/payoff-dominant option. Because no length-, punctuation-, and position-matched non-semantic prefix was run, this prefix contrast cannot isolate semantic persona presence from generic sequence-length or displacement effects. The choice result is statistically strong but mechanism-confounded because word and payoff point to the same action. Under episode-exact analysis, all 24 evaluable persona × temperature lanes retain a simultaneous familywise lower bound above the registered 0.20 threshold; the minimum is 0.462. This establishes the choice pattern, not whether incentives or lexical attraction caused it.
+Adding the registered persona-format prefix and varying among the complete persona prompts produce two observed contrasts, but they are not fully factorially separable. Differences among prompts produce the 0.5–0.7 leaning gaps. Adding any tested persona string reverses the bare swap-cell choice: all sixteen personas overwhelmingly select the cooperation-worded/payoff-dominant option. Because no non-semantic prefix matched for length, punctuation, and position was run, this prefix contrast cannot isolate semantic persona presence from generic sequence-length or displacement effects. The choice result is statistically strong but mechanism-confounded because word and payoff point to the same action. Under episode-exact analysis, all 24 evaluable persona × temperature lanes retain a simultaneous familywise lower bound above the registered 0.20 threshold; the minimum is 0.462. This establishes the choice pattern, not whether incentives or lexical attraction caused it.
 
 The pooled P5-2 task-consistent share is 0.128 with an exact episode-level 95% interval [0.092, 0.172], retaining the historical persona-dominant classification. Every repeated-game conflict subcell is mixed under the exact episode interval. Only the swap cell is individually persona-dominant, with a task-consistent share of 0 and interval [0, 0.027]. The pooled verdict is therefore carried entirely by the word/payoff-confounded cell. We describe these findings as **control-channel interactions**, not a fixed hierarchy.
 
@@ -217,7 +217,7 @@ The role of one round-2 reviewer subsequently expanded from critique to specific
 
 - “Level-Matching Is Cheap” and “Moment Matching Is Cheap” were retired because exact condition-specific mean matching would recover the aggregate contrast by identity.
 - “Corner Mixtures” was removed from the title because the binary corner census is interval-method-sensitive. The less brittle load-bearing construct is the persona-mixture composition and corrected between-prompt share.
-- Discovery-forward “One Persona in Sixteen” was rejected because p13 does not survive primary episode-level inference.
+- Discovery-forward “One Persona in Sixteen” was rejected because the frozen rule lacked prospective family control and the conservative post-adjudication procedure is too underpowered for decisive confirmation or disconfirmation.
 - Metascience-first, safety-first, prompt-stack, and temperature-anomaly papers remain possible spin-outs.
 
 ### A.3 Analyses not run
@@ -241,11 +241,11 @@ A Phase 6 replication should not inherit the full 32-candidate search by default
 | Change | Source | Category |
 |---|---|---|
 | p13 confirmatory → replication target | External review of family error | Inference |
-| All three 200,000-permutation variants reported: historical seat gate \(p=0.059230\); retained percentile cluster-bootstrap gate \(p=0.043455\); primary exact-episode gate excludes p13 and yields max \(p=0.773206\) | Independent verification + zero-call submission analyses | Inference transparency |
+| All three 200,000-permutation variants reported: historical seat gate \(p=0.059230\); percentile-bootstrap sensitivity \(p=0.043455\); conservative exact-episode sensitivity makes p13 ineligible and attributes the maximum eligible result to p05/s2a, \(p=0.773206\); none was prospectively family-controlled | Independent verification + zero-call submission analyses | Inference transparency |
 | Post-adjudication variants explicitly labeled unregistered at the original freeze; fixed-seed Actions execution and complete output retention documented | Independent verification | Chronology and discretion |
 | Seat-level historical gate supplemented by exact episode-level CP projection | External dependence critique + zero-call analysis | Statistical unit |
 | P5-1a historical 3/32; exact episode 2/32; Dirichlet sensitivity 5/32 | Zero-call submission analysis | Robustness |
-| Percentile cluster bootstrap retained but rejected as primary because it degenerates at exact corners | Statistical audit | Statistical validity |
+| Percentile cluster bootstrap retained as a sensitivity; exact projection used as the conservative finite-sample coverage reference | Statistical audit | Statistical validity |
 | Raw SDs corrected for finite episode counts; corrected SD 0.418–0.478 and between share 85%–96% | Zero-call variance analysis | Variance interpretation |
 | Prompt-indexed \(\Delta_i\) figure added with exact non-degenerate intervals, aggregate intervals, and latent-coupling caveat | Independent review recommendation | Interpretability |
 | P5-2 pooled result survives, but exact episode analysis makes every repeated conflict subcell mixed; swap alone carries dominance | Zero-call submission analysis | Construct interpretation |

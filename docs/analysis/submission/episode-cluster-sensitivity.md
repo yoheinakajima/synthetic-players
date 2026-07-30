@@ -1,6 +1,6 @@
 # Episode-clustered sensitivity for Phase 5 round-one claims
 
-> **STATUS: POST-ADJUDICATION SENSITIVITY — ZERO SUBJECT CALLS.** Historical registered verdicts are unchanged. The primary episode-level interval is an exact conservative projection: for the three-valued episode outcome Y∈{0,.5,1}, write Y=(1[Y≥.5]+1[Y=1])/2, construct simultaneous Clopper–Pearson intervals for both binary components, and project them onto E[Y].
+> **STATUS: POST-ADJUDICATION SENSITIVITY — ZERO SUBJECT CALLS.** Historical registered verdicts are unchanged. The conservative reference episode-level interval is an exact projection: for the three-valued episode outcome Y∈{0,.5,1}, write Y=(1[Y≥.5]+1[Y=1])/2, construct simultaneous Clopper–Pearson intervals for both binary components, and project them onto E[Y].
 
 ## Why the exact projection is the conservative reference sensitivity
 

@@ -15,9 +15,9 @@ Historical predicates counted seat-level binary trials even though two seats sha
 Results:
 
 - historical P5-1a restricted count: 3/32 = 0.0938;
-- primary exact-episode count: 2/32 = 0.0625;
+- conservative exact-episode count: 2/32 = 0.0625;
 - historical all-cell count: 14/96;
-- primary exact-episode count: 11/96;
+- conservative exact-episode count: 11/96;
 - Dirichlet–Jeffreys sensitivity: 5/32 and 19/96, which would fail the historical restricted threshold;
 - three cells change classification between the historical and exact-episode rules.
 
@@ -102,7 +102,7 @@ Living documents state that explicit assignment and execution are controlled, wh
 
 Automated lint scans assertion-bearing living prose for retired claims, validates paper-facing relative links, and enforces the sealed/data-file boundary against `main`.
 
-### C4. Citation metadata and reviewer bibliography — **COMPLETE FOR v6 REVIEW DRAFT**
+### C4. Citation metadata and reviewer bibliography — **COMPLETE FOR v7 REVIEW DRAFT**
 
 The Explore Science review PDF contains a formatted reference section and re-verifies the current metadata for the most load-bearing recent works, including Li–Ji, Ashokkumar–Hewitt et al., Harry et al., Xiao et al., Georgousis et al., and Mousavi Davoudi et al. Formal submission still requires conversion to the selected venue’s exact style and one final metadata check at the submission date.
 

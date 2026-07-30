@@ -34,8 +34,8 @@ The paper does not claim that this is the only failure mechanism, that it genera
 - The broad realism-versus-effect divergence is occupied by prior work; novelty is positioned around the strategic-interaction decomposition, representation experiments, and audit architecture.
 - Strong positive contrary evidence is addressed explicitly: Ashokkumar, Hewitt, Ghezae, and Willer (Nature 2026) predict study-level treatment effects well, a forecasting estimand distinct from subject-level response-surface simulation.
 - The Dal Bó–Fréchette comparison is protocol-nonmatched and contextual, not an effect-size benchmark.
-- The historical P5-1a binary verdict is interval-method-sensitive: restricted counts are 3/32 under the frozen seat rule, 2/32 under the primary exact-episode sensitivity, and 5/32 under a Dirichlet–Jeffreys sensitivity.
-- The favored p13 interpretation is withdrawn. Three post-review familywise variants are disclosed: `p=0.059230`, retained non-primary percentile-bootstrap `p=0.043455`, and primary exact-episode `p=0.773206` after p13 is excluded by the gate. None was registered at the original freeze; p13 remains only a replication target.
+- The historical P5-1a binary verdict is interval-method-sensitive: restricted counts are 3/32 under the frozen seat rule, 2/32 under the conservative exact-episode sensitivity, and 5/32 under a Dirichlet–Jeffreys sensitivity.
+- The favored p13 interpretation is withdrawn. Three post-review familywise variants are disclosed: historical-gate `p=0.059230`, percentile-bootstrap sensitivity `p=0.043455`, and conservative exact sensitivity `p=0.773206` for p05/s2a after p13 becomes gate-ineligible. None was registered at the original freeze, and the exact n=6 family is underpowered; p13 is neither prospectively confirmed nor decisively disconfirmed and remains a replication target.
 - The original scope-seal file retains a pre-seal “PROPOSED” header because that exact byte sequence was later hash-sealed. See [`docs/paper/scope-seal-status.md`](docs/paper/scope-seal-status.md).
 - Reviewers first diagnosed several defects, then one reviewer helped specify post-adjudication analyses; GitHub Actions executed them against the archived databases, and a later reviewer independently checked the branch. The role transition is disclosed in [`docs/reviews/README.md`](docs/reviews/README.md).
 
@@ -59,7 +59,7 @@ Please attack these first:
 2. **Inferential target:** Does the manuscript correctly distinguish fixed-panel, persona-generator, prompt-indexed, and human-substitution estimands?
 3. **Response interpretation:** Does Figure 1 make clear that +0.083/+0.078 are small but imprecise point estimates, not equivalence results, null findings, or identified upper bounds?
 4. **Composition claim:** Is the corrected between-prompt share an appropriate primary description given the interval sensitivity of the binary boundary census?
-5. **Audit status:** Are all three post-review p13 variants characterized fairly, including the favorable but non-primary `p=0.043455` result and the absence of pre-compute sealing?
+5. **Audit status:** Are all three post-review p13 variants characterized fairly, including the favorable percentile-bootstrap `p=0.043455` sensitivity and the absence of pre-compute sealing?
 6. **Scope and cuts:** What should leave the main paper, and what important result has been over-demoted?
 7. **Contrary evidence:** What existing paper most directly weakens or duplicates the claimed mechanism-level novelty?
 
