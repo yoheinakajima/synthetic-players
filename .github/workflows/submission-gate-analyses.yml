@@ -11,7 +11,6 @@ on:
       - 'scripts/generate_prompt_delta_figure.py'
       - 'scripts/generate_review_figures.py'
       - 'scripts/build_review_pdf.py'
-      - 'scripts/apply_round4_v6.py'
       - 'scripts/apply_round5_v7.py'
       - 'scripts/finalize_round5_v7.py'
       - 'scripts/polish_v7_outputs.py'
@@ -93,7 +92,6 @@ jobs:
           python scripts/generate_prompt_delta_figure.py | tee -a /tmp/submission-analysis.log
           python scripts/integrate_submission_results.py | tee -a /tmp/submission-analysis.log
           python scripts/materialize_draft_history.py | tee -a /tmp/submission-analysis.log
-          python scripts/apply_round4_v6.py | tee -a /tmp/submission-analysis.log
           python artifacts/api-server/engine/round5_review_audit.py | tee -a /tmp/submission-analysis.log
           python scripts/apply_round5_v7.py | tee -a /tmp/submission-analysis.log
           python scripts/finalize_round5_v7.py | tee -a /tmp/submission-analysis.log
