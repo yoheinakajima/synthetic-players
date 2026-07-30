@@ -121,7 +121,7 @@ def update_status(audit: dict) -> None:
 - p13 is therefore neither prospectively confirmed nor decisively disconfirmed by an adequately powered conservative family procedure;
 - completion provenance, receipt-time hashing limits, protocol definitions, representation confounds, and Figures 1/5 are corrected in v7.
 
-Artifacts: `submission/round5/round5-review-audit.{md,json}` and `docs/reviews/round-5-disposition-matrix.md`.
+Artifacts: `submission/round5/round5-review-audit.{{md,json}}` and `docs/reviews/round-5-disposition-matrix.md`.
 """
     if "### A4. Explore Science Round 5 audits" not in text:
         text = text.replace("## B. Human comparator", round5 + "\n## B. Human comparator")
