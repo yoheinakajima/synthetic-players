@@ -1,12 +1,12 @@
 {
   "repository": "yoheinakajima/synthetic-players",
   "branch": "agent/round4-review-pdf-v6",
-  "source_commit": "42ffa2883a811e244bb3b29871391733b29e0827",
-  "workflow_run": "30514850905",
-  "workflow_url": "https://github.com/yoheinakajima/synthetic-players/actions/runs/30514850905",
+  "source_commit": "eff3df966d27e44b959af2f12ee21f32fc0b2c99",
+  "workflow_run": "30515216807",
+  "workflow_url": "https://github.com/yoheinakajima/synthetic-players/actions/runs/30515216807",
   "manuscript": "docs/paper/paper-draft.md",
   "pdf": "docs/paper/synthetic-players-review-draft-v8.pdf",
-  "pdf_sha256": "7ac5deb26345e26538ab65199af4d5f91b7253fb01cedb409a67ff7670c5b893",
+  "pdf_sha256": "0797905282627e0dd6d1f402db2db53490c82572c08c14c14257b5dd45b793b3",
   "pages": 20,
   "build_markdown": ".review-pdf-build/synthetic-players-review-draft-v8.md",
   "status": "independent repository review draft; not for citation"
