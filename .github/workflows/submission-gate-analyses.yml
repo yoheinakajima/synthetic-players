@@ -115,16 +115,18 @@ jobs:
           pages="$(pdfinfo docs/paper/synthetic-players-review-draft-v8.pdf | awk '/^Pages:/ {print $2}')"
           test "$pages" -ge 16
           test "$pages" -le 24
-          text="$(pdftotext docs/paper/synthetic-players-review-draft-v8.pdf -)"
-          grep -q 'References' <<<"$text"
-          grep -q 'Confirmatory claims from Phases 3–5' <<<"$text"
-          grep -q 'sequentially registered, result-informed extension' <<<"$text"
-          grep -q '718 of 5,000 null draws' <<<"$text"
-          grep -q '0.075040' <<<"$text"
-          grep -q 'p13 is ineligible' <<<"$text"
-          grep -q 'Fixed-panel aggregate' <<<"$text"
-          ! grep -q 'questions for Explore Science' <<<"$text"
-          ! grep -q 'Imprecise Incentive-Response Estimates' <<<"$text"
+          pdftotext docs/paper/synthetic-players-review-draft-v8.pdf /tmp/v8-paper.txt
+          grep -Fq 'References' /tmp/v8-paper.txt
+          grep -Fq 'Imprecise Treatment-Response Estimates' /tmp/v8-paper.txt
+          grep -Fq 'Review artifact identity' /tmp/v8-paper.txt
+          grep -Fq 'Confirmatory claims from Phases 3–5' docs/paper/paper-draft.md
+          grep -Fq 'sequentially registered, result-informed extension' docs/paper/paper-draft.md
+          grep -Fq '718 of 5,000 null draws' docs/paper/paper-draft.md
+          grep -Fq '0.075040' docs/paper/paper-draft.md
+          grep -Fq 'p13 is ineligible' docs/paper/paper-draft.md
+          grep -Fq 'Fixed-panel aggregate' docs/paper/paper-draft.md
+          ! grep -Fq 'questions for Explore Science' docs/paper/paper-draft.md
+          ! grep -Fq 'Imprecise Incentive-Response Estimates' docs/paper/paper-draft.md
           test -s docs/paper/synthetic-players-review-draft-v8.sha256
           test -s docs/paper/synthetic-players-review-draft-v8-artifact.json
 
