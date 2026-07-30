@@ -4,8 +4,8 @@
 The initial source arrived as an unexecuted construction script. This repair
 normalizes quote delimiters, makes regex replacements literal-safe, corrects
 registered-run accounting, distinguishes the three legacy diagnostics, and
-aligns the entropy interpretation with the composition-matched audit. It is
-idempotent; the repaired source is committed by the workflow.
+aligns the entropy interpretation with the exact event-store matched-lattice
+audit. It is idempotent; the repaired source is committed by the workflow.
 """
 from pathlib import Path
 
@@ -32,12 +32,12 @@ text = text.replace(
 )
 text = text.replace(
     'The pooled decline survives matching; mean within-unit entropy is reported because pooled entropy can be high even when individual prompt-cell policies are concentrated at opposite boundaries. Neither statistic identifies why temperature and downstream strategic actions interact.',
-    'The historical pooled decline does not survive composition matching: on the identical sweep lattice, both pooled entropy and mean within-unit entropy rise with temperature. The earlier inverse pattern was therefore composition-sensitive and is not used to attribute boundary concentration to temperature or persona conditioning.',
+    'The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Mean within-unit entropy is reported separately because pooled entropy can remain high when different prompt-cell units occupy opposite boundaries. Neither statistic identifies a temperature mechanism.',
 )
 text = text.replace(
     'The pooled decline survives matching, but pooled and within-unit entropy capture different phenomena and neither identifies a mechanism.',
-    'The historical pooled decline does not survive matching; both pooled and mean within-unit entropy increase on the identical sweep lattice. The original inverse pattern is retained only as a composition-confounded historical secondary.',
+    'The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Pooled and mean within-unit entropy capture different objects, and neither identifies a mechanism.',
 )
 path.write_text(text, encoding="utf-8")
 compile(text, str(path), "exec")
-print("repair_apply_preprint_v12: syntax, literal-safe replacement, accounting, diagnostics, and entropy interpretation verified")
+print("repair_apply_preprint_v12: syntax, literal-safe replacement, accounting, diagnostics, and exact entropy interpretation verified")
