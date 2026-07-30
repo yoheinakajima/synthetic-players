@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-"""Build the line-numbered v7 reviewer PDF from the living Markdown source."""
+"""Build the line-numbered v8 reviewer PDF from the living Markdown source."""
 from __future__ import annotations
 
+import hashlib
+import json
+import os
 import re
 import shutil
 import subprocess
@@ -11,9 +14,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PAPER_DIR = ROOT / "docs/paper"
 SOURCE = PAPER_DIR / "paper-draft.md"
 HEADER = PAPER_DIR / "review-draft-header.tex"
-OUTPUT = PAPER_DIR / "synthetic-players-review-draft-v7.pdf"
+OUTPUT = PAPER_DIR / "synthetic-players-review-draft-v8.pdf"
+SHA_FILE = PAPER_DIR / "synthetic-players-review-draft-v8.sha256"
+MANIFEST = PAPER_DIR / "synthetic-players-review-draft-v8-artifact.json"
 BUILD_DIR = ROOT / ".review-pdf-build"
-BUILD_MD = BUILD_DIR / "synthetic-players-review-draft-v7.md"
+BUILD_MD = BUILD_DIR / "synthetic-players-review-draft-v8.md"
 
 TITLE_PREFIX = "# "
 FIGURES = (
@@ -30,7 +35,30 @@ def require(program: str) -> None:
         raise RuntimeError(f"required program not found: {program}")
 
 
-def prepare_markdown() -> str:
+def git_text(*args: str) -> str:
+    return subprocess.check_output(["git", *args], cwd=ROOT, text=True).strip()
+
+
+def artifact_identity() -> dict[str, str]:
+    commit = git_text("rev-parse", "HEAD")
+    branch = os.environ.get("GITHUB_HEAD_REF") or os.environ.get("GITHUB_REF_NAME") or git_text("branch", "--show-current")
+    run_id = os.environ.get("GITHUB_RUN_ID", "local")
+    run_url = (
+        f"https://github.com/yoheinakajima/synthetic-players/actions/runs/{run_id}"
+        if run_id.isdigit()
+        else "local build"
+    )
+    return {
+        "repository": "yoheinakajima/synthetic-players",
+        "branch": branch,
+        "source_commit": commit,
+        "workflow_run": run_id,
+        "workflow_url": run_url,
+        "manuscript": "docs/paper/paper-draft.md",
+    }
+
+
+def prepare_markdown(identity: dict[str, str]) -> str:
     source = SOURCE.read_text(encoding="utf-8")
     lines = source.splitlines()
     if not lines or not lines[0].startswith(TITLE_PREFIX):
@@ -45,7 +73,7 @@ def prepare_markdown() -> str:
         if count != 1:
             raise RuntimeError(f"expected one Markdown image for {figure}, found {count}")
 
-    body = re.sub(r"\n\*End of working draft v7\.\*\s*$", "", body)
+    body = re.sub(r"\n\*End of working draft v8\.\*\s*$", "", body)
     if "\n## References\n" not in body:
         raise RuntimeError("formatted reviewer PDF requires a References section")
     body = body.replace(
@@ -54,6 +82,20 @@ def prepare_markdown() -> str:
         1,
     )
     body = body.rstrip() + "\n\n\\endgroup\n"
+
+    identity_block = (
+        "> **Review artifact identity.** Repository `"
+        + identity["repository"]
+        + "`; branch `"
+        + identity["branch"]
+        + "`; source commit `"
+        + identity["source_commit"]
+        + "`; workflow run `"
+        + identity["workflow_run"]
+        + "`; source `"
+        + identity["manuscript"]
+        + "`. The PDF checksum is published beside the generated file.\n\n"
+    )
 
     return f'''---
 title: "{title}"
@@ -76,7 +118,7 @@ linkcolor: "1F4E79"
 urlcolor: "1F4E79"
 ---
 
-{body}'''
+{identity_block}{body}'''
 
 
 def main() -> int:
@@ -87,8 +129,9 @@ def main() -> int:
         if not figure_pdf.exists():
             raise RuntimeError(f"missing generated figure PDF: {figure_pdf}")
 
+    identity = artifact_identity()
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
-    BUILD_MD.write_text(prepare_markdown(), encoding="utf-8")
+    BUILD_MD.write_text(prepare_markdown(identity), encoding="utf-8")
 
     cmd = [
         "pandoc",
@@ -101,8 +144,25 @@ def main() -> int:
         f"--output={OUTPUT}",
     ]
     subprocess.run(cmd, cwd=ROOT, check=True)
-    subprocess.run(["pdfinfo", str(OUTPUT)], cwd=ROOT, check=True)
-    print(f"build_review_pdf: wrote {OUTPUT.relative_to(ROOT)}")
+    info = subprocess.check_output(["pdfinfo", str(OUTPUT)], cwd=ROOT, text=True)
+    pages = next((int(line.split(":", 1)[1].strip()) for line in info.splitlines() if line.startswith("Pages:")), None)
+    if pages is None:
+        raise RuntimeError("could not parse PDF page count")
+
+    digest = hashlib.sha256(OUTPUT.read_bytes()).hexdigest()
+    SHA_FILE.write_text(f"{digest}  {OUTPUT.name}\n", encoding="utf-8")
+    manifest = {
+        **identity,
+        "pdf": str(OUTPUT.relative_to(ROOT)),
+        "pdf_sha256": digest,
+        "pages": pages,
+        "build_markdown": str(BUILD_MD.relative_to(ROOT)),
+        "status": "independent repository review draft; not for citation",
+    }
+    MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+    print(info)
+    print(f"build_review_pdf: wrote {OUTPUT.relative_to(ROOT)} ({pages} pages, sha256={digest})")
     return 0
 
 
