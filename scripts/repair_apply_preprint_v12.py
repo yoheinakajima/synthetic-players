@@ -24,6 +24,10 @@ text = text.replace(
     'new, count = re.subn(pattern, lambda _m: replacement.rstrip(), text, count=1, flags=re.DOTALL)',
 )
 text = text.replace(
+    'r"^\\*\\*STATUS:.*?\\*\\*.*?\\n\\n",',
+    'r"^\\s*\\*\\*STATUS:.*?\\n\\n",',
+)
+text = text.replace(
     'total_confirmatory = p3_totals["llmRuns"] + p3_totals["baselineRuns"] + 2864 + 1712\n    total_llm_replayed = p3_totals["llmRuns"] + 2864 + 1712',
     'registered_phase3_llm = sum(p3["expectedPromptCounts"].values())\n    total_confirmatory = registered_phase3_llm + p3_totals["baselineRuns"] + 2864 + 1712\n    total_llm_replayed = registered_phase3_llm + 2864 + 1712',
 )
@@ -48,4 +52,4 @@ cleanup = '''    manuscript = manuscript.replace("*End of post-freeze review rev
 text = text.replace(needle, cleanup)
 path.write_text(text, encoding="utf-8")
 compile(text, str(path), "exec")
-print("repair_apply_preprint_v12: syntax, literal-safe replacement, accounting, diagnostics, entropy, switch-bearing, and preprint cleanup verified")
+print("repair_apply_preprint_v12: syntax, literal-safe replacement, clean status, accounting, diagnostics, entropy, switch-bearing, and preprint cleanup verified")
