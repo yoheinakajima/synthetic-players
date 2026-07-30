@@ -25,7 +25,7 @@ for v in $(env | grep -oE '^AI_INTEGRATIONS[A-Z_]*' || true); do unset "$v"; don
 unset OPENAI_API_KEY ANTHROPIC_API_KEY GEMINI_API_KEY 2>/dev/null || true
 echo "OK (no provider variables set for the audits below)"
 
-echo "== 4/5 Phase 3 replay audit (320 LLM runs + 20 deterministic baselines)"
+echo "== 4/5 Phase 3 replay audit (323 archived LLM runs + 20 deterministic baselines)"
 cd artifacts/api-server
 uv run --with numpy --with scipy python engine/phase3_replay_audit.py
 
@@ -48,4 +48,4 @@ uv run --with fastapi --with uvicorn --with pydantic --with numpy --with scipy \
 kill $SRV 2>/dev/null || true
 trap - EXIT
 
-echo "CAPSULE VERIFICATION PASS — 4,916 Phase 3-5 runs verified"
+echo "CAPSULE VERIFICATION PASS — 4,919 archived Phase 3-5 runs verified (4,916 confirmatory + 3 legacy diagnostics)"
