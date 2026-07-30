@@ -12,11 +12,13 @@ on:
       - 'scripts/generate_review_figures.py'
       - 'scripts/build_review_pdf.py'
       - 'scripts/apply_round4_v6.py'
+      - 'scripts/apply_round5_v7.py'
       - 'scripts/materialize_draft_history.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
       - 'artifacts/api-server/engine/submission_gate_exact_cluster.py'
       - 'artifacts/api-server/engine/submission_gate_variance_fixed.py'
+      - 'artifacts/api-server/engine/round5_review_audit.py'
       - 'artifacts/api-server/engine/phase5_closeout_adjudicate.py'
       - 'artifacts/api-server/engine/phase4_adjudicate.py'
       - 'README.md'
@@ -41,7 +43,7 @@ jobs:
   analyze:
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 70
     steps:
       - name: Check out PR head
         uses: actions/checkout@v4
@@ -68,12 +70,16 @@ jobs:
              capsule/data/phase5-driver-plan.json capsule/data/phase5-driver-state.json \
              artifacts/api-server/engine/data/ 2>/dev/null || true
 
-      - name: Run zero-call submission analyses and integrate Round 4
+      - name: Run zero-call analyses and integrate Round 5
         env:
           SUBMISSION_DIRICHLET_DRAWS: '200000'
           SUBMISSION_FAMILY_PERMUTATIONS: '200000'
           SUBMISSION_FAMILY_BATCH: '5000'
           SUBMISSION_VARIANCE_BOOTSTRAPS: '50000'
+          ROUND5_ATTAINABILITY_PERMUTATIONS: '200000'
+          ROUND5_ATTAINABILITY_BATCH: '5000'
+          ROUND5_POWER_REPS: '10000'
+          ROUND5_POWER_BATCH: '1000'
         shell: bash
         run: |
           set -euo pipefail
@@ -86,6 +92,8 @@ jobs:
           python scripts/integrate_submission_results.py | tee -a /tmp/submission-analysis.log
           python scripts/materialize_draft_history.py | tee -a /tmp/submission-analysis.log
           python scripts/apply_round4_v6.py | tee -a /tmp/submission-analysis.log
+          python artifacts/api-server/engine/round5_review_audit.py | tee -a /tmp/submission-analysis.log
+          python scripts/apply_round5_v7.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_review_figures.py | tee -a /tmp/submission-analysis.log
 
       - name: Install reviewer-PDF dependencies
@@ -102,8 +110,12 @@ jobs:
         run: |
           set -euo pipefail
           python scripts/build_review_pdf.py
-          test "$(pdfinfo docs/paper/synthetic-players-review-draft-v6.pdf | awk '/^Pages:/ {print $2}')" = "16"
-          pdftotext docs/paper/synthetic-players-review-draft-v6.pdf - | grep -q 'References'
+          pages="$(pdfinfo docs/paper/synthetic-players-review-draft-v7.pdf | awk '/^Pages:/ {print $2}')"
+          test "$pages" -ge 16
+          test "$pages" -le 24
+          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'References'
+          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'Sequential architecture and registration status'
+          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'Dynamic gate reapplication'
 
       - name: Lint paper surface and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
@@ -114,7 +126,7 @@ jobs:
       - name: Upload review package
         uses: actions/upload-artifact@v4
         with:
-          name: synthetic-players-review-v6
+          name: synthetic-players-review-v7
           path: |
             README.md
             REVIEW.md
@@ -139,5 +151,5 @@ jobs:
             echo 'No generated changes to commit.'
             exit 0
           fi
-          git commit -m 'integrate Round 4 review and v6 PDF'
+          git commit -m 'integrate Explore Science Round 5 and v7 PDF'
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
