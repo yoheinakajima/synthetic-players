@@ -1,6 +1,6 @@
 # Round 5 response plan — Explore Science review
 
-> **STATUS: PROPOSED RESPONSE PLAN, 2026-07-29.** This plan governs revisions to the living manuscript and post-adjudication analyses. It does not reopen the sealed experimental program, authorize new model calls, or modify historical mechanical verdicts.
+> **STATUS: IMPLEMENTED AND VALIDATED, 2026-07-30.** All thirteen Explore Science minor issues have a recorded disposition. The zero-call analyses, v7 manuscript, figures, PDF, lint, sealed-boundary check, and 4,576-run replay have passed. This plan did not reopen the sealed experimental program, authorize new model calls, or modify historical mechanical verdicts. Final validation: [`round-5-validation-record.md`](round-5-validation-record.md).
 
 ## Response principles
 
@@ -13,179 +13,129 @@
 ## Priority 0 — complete the review record
 
 - [x] Archive a faithful Round 5 synthesis and the source PDF hash.
-- [ ] Obtain the three online-only Explore Science issues omitted from the standard PDF.
-- [ ] Append those issues and dispositions to the Round 5 review record.
-- [ ] Add Round 5 to `docs/reviews/README.md` and the canonical reviewer entry point.
+- [x] Obtain the three online-only Explore Science issues omitted from the standard PDF: B8, B9, C2.
+- [x] Append all thirteen issues and dispositions to the response matrix.
+- [x] Add Round 5 to `docs/reviews/README.md` and the canonical reviewer entry point.
 
 ## Priority 1 — analytical corrections before v7
 
 ### 1. Dynamic permutation gate documentation — B1
 
-**Current evidence:** `submission_gate_exact_cluster.py` dynamically recomputes the gate for each candidate inside every permutation. It precomputes the gate decision for every possible episode-count triple and then applies the appropriate lookup to both permuted conditions on every iteration.
+**Verified result:** the complete gate is dynamically reapplied to each candidate in each permutation. The implementation precomputes gate outcomes for all possible three-valued episode compositions and applies the corresponding lookup independently to both permuted conditions.
 
-**Actions**
+- [x] State this explicitly in §4.4.
+- [x] Report 25,600,000 condition-gate lookup applications at B=200,000 across 32 candidates, two conditions, and two gate constructions.
+- [x] Add lookup/direct parity checks: 56 cases, zero failures.
+- [x] Add a dynamic-vs-intentionally-static regression: 718/5,000 draws differ.
+- [x] Publish code and machine-readable output under `docs/analysis/submission/round5/`.
 
-- [ ] Add one explicit sentence in §4.4: both condition gates are reapplied for every candidate within each of the 200,000 permutations; no observed-data candidate mask is reused.
-- [ ] State the implementation: lookup tables cover every possible `(count_0, count_0.5, count_1)` composition; the Monte Carlo loop performs approximately `32 × 200,000 × 2 conditions × 2 gate constructions = 25.6 million` gate lookups, after finite precomputation of exact bounds.
-- [ ] Add a unit/regression test that contrasts dynamic filtering against a deliberately static mask on a small fixture.
-- [ ] Link the exact code lines and generated JSON from the family-audit methods note.
-
-**Expected disposition:** resolved by documentation and test; no new statistical result.
+**Disposition:** resolved by documentation and test; no statistical result changed.
 
 ### 2. Exact-gate attainability and power audit — B3
 
-**Problem:** The manuscript currently gives the conservative exact gate a quasi-disconfirmatory role even though six episodes per condition produce very coarse, highly conservative intervals.
+- [x] Enumerate every possible n=6 three-valued episode composition.
+- [x] Report gate-passing means and the maximum eligible slope.
+- [x] Estimate the archived 32-candidate null tail at the maximum eligible slope.
+- [x] Simulate illustrative prospective power over episode counts and family sizes.
+- [x] Replace disconfirmatory p13 language.
 
-**Actions**
+**Verified result:** at n=6, exact-gate-eligible cell means range from 0.333 to 0.667 and the maximum eligible slope is 0.333. Under the archived family, that maximum has estimated null tail probability 0.075040 (15,007/200,000). The conservative exact procedure therefore cannot achieve conventional familywise rejection in the archived n=6 design.
 
-- [ ] Add a zero-call script, e.g. `scripts/audit_exact_gate_power.py`, that:
-  - enumerates every possible three-valued episode-outcome composition at `n=6`;
-  - reports all gate-passing means and the maximum possible gate-passing slope;
-  - verifies whether any outcome configuration can produce familywise rejection under the archived 32-candidate permutation structure;
-  - simulates power for prospective designs over `n ∈ {6, 12, 20, 40, 80, 160}` and family sizes `m ∈ {1, 4, 16, 32}` under declared response surfaces;
-  - writes machine-readable JSON/CSV and a short methods note.
-- [ ] Replace “does not survive dependence-aware inference” with:
-
-  > The frozen rule did not prospectively establish p13 after valid family and dependence control. The conservative post-adjudication gate is too underpowered at the archived sample size to confirm or refute a persona-level response; p13 remains a replication target.
-
-- [ ] Distinguish three claims:
-  1. the historical mechanical verdict fired;
-  2. prospective family-controlled confirmation was absent;
-  3. the current archive is not powerful enough for a decisive conservative re-test.
-- [ ] Link the prospective Phase 6 sizing section directly from §4.4.
-
-**Expected disposition:** substantial interpretive correction; core paper claim unaffected.
+**Disposition:** p13 was not prospectively family-confirmed and is not decisively disconfirmed by the underpowered conservative post-adjudication procedure; it remains a replication target.
 
 ### 3. Bootstrap rationale correction — B5
 
-**Problem:** The current text incorrectly implies that an exact-corner percentile interval can falsely pass the `(0.05,0.95)` interiority gate.
+- [x] Remove the incorrect claim that a degenerate exact-corner percentile interval can falsely pass the strict interiority gate.
+- [x] Use the correct rationale: the exact projection supplies finite-sample coverage for the discrete episode mean; the percentile bootstrap is retained as a small-sample sensitivity without a comparable coverage guarantee at n=6.
+- [x] Continue to report `p=0.043455` symmetrically.
+- [x] Use “conservative exact sensitivity” and “percentile-bootstrap sensitivity” rather than implying prospective primary-method selection.
 
-**Actions**
-
-- [ ] Remove that claim from the manuscript, audit report, generated figure caption, summary JSON status text, and any scripts that regenerate it.
-- [ ] Use the technically defensible rationale:
-
-  > The exact projection is the conservative reference sensitivity because it has finite-sample coverage guarantees for the episode-level mean. The percentile cluster bootstrap is retained as a post hoc sensitivity but, at `n=6` with a discrete outcome and boundary mass, has no comparable coverage guarantee and can understate uncertainty.
-
-- [ ] Continue to report the bootstrap `p=0.043455` symmetrically.
-- [ ] Consider dropping the labels “primary” and “non-primary” in favor of “conservative exact sensitivity” and “percentile-bootstrap sensitivity,” since neither was registered at the original freeze. The paper may state which is used for conservative interpretation without implying prospective selection.
-
-**Expected disposition:** accept and correct; no numerical recomputation necessarily required unless the new power audit changes labels.
+**Disposition:** accepted and corrected; numerical results unchanged.
 
 ## Priority 2 — construct and provenance boundaries
 
 ### 4. Persona-prefix format confound — B2
 
-**Actions**
+- [x] Replace semantic “persona presence” language with the observed effect of adding the registered persona-format prefix.
+- [x] State that the contrast bundles semantic content, length, position, punctuation, and generic token-sequence changes.
+- [x] Clarify that leaning differences remain contrasts among complete prompt bundles rather than trait-causal estimates.
+- [x] Add a limitation and prospective neutral-prefix control.
 
-- [ ] Replace “personas add separable presence and direction effects” with:
-
-  > Adding any registered persona-format prefix reverses the bare swap-cell choice, while differences among persona prompts covary with the registered leaning classification.
-
-- [ ] State that the bare-versus-prefix contrast bundles semantic identity content, prompt length, position, and token-sequence disruption.
-- [ ] Clarify that the leaning-group contrast is format-matched at the template level but still aliases names, ages, occupations, and trait words.
-- [ ] Add a limitation and a Phase 6 control: a length-, position-, punctuation-, and register-matched non-semantic filler prefix plus multiple neutral-prefix variants.
-
-**Expected disposition:** qualify the construct; do not add a post-seal cell.
+**Disposition:** construct qualified; no post-seal cell added.
 
 ### 5. Continuation treatment mixes incentive and representation — B7
 
-**Actions**
+- [x] Use “represented continuation-probability treatment.”
+- [x] State that the treatment changes both the environment and the text used to communicate it.
+- [x] Interpret `+0.083/+0.078` as undecomposed represented-treatment contrasts.
+- [x] Add a prospective continuation-probability × wording factorial.
 
-- [ ] Prefer “continuation-probability treatment” or “continuation treatment under a specified wording” over unqualified “economic lever” or “incentive response.”
-- [ ] State that changing `10%` to `90%` changes the environment's continuation process and the text used to disclose it; round-one behavior responds to the complete represented treatment.
-- [ ] Interpret `+0.083/+0.078` as undecomposed treatment contrasts, not pure payoff/incentive sensitivity.
-- [ ] Add a prospective factorial crossing continuation probability with alternative parameter-only and semantic wordings.
-
-**Expected disposition:** terminology and construct-validity correction; core point estimates unchanged.
+**Disposition:** terminology and construct-validity correction; point estimates unchanged.
 
 ### 6. Raw completion tamper-evidence boundary — A2
 
-**Actions**
+- [x] Audit request hashes, response IDs, raw text, event-store schema, snapshot manifests, and timestamp proofs.
+- [x] Publish a provenance matrix and field-coverage CSV.
+- [x] State the boundary plainly: replay verifies the released snapshot, not receipt-time provider authenticity.
+- [x] Add future receipt-time response hashing/provider attestation as a protocol improvement.
 
-- [ ] Audit the event schema and release manifests for:
-  - provider response IDs;
-  - raw provider JSON retention;
-  - per-event or per-payload SHA-256 fields;
-  - database/capsule snapshot hashes;
-  - timing of OpenTimestamps anchors.
-- [ ] Write a provenance matrix distinguishing:
-  1. registration/freeze chronology;
-  2. event-store replayability;
-  3. batch archive integrity after a sealed release;
-  4. receipt-time payload hashing;
-  5. provider-side attestation/TLS provenance.
-- [ ] If payloads were not hashed at receipt, say so plainly. Do not imply that byte-exact replay authenticates the provider's original response.
-- [ ] Add receipt-time hash chaining and provider response-ID capture as a future protocol requirement.
+**Verified coverage:** 30,421/30,421 Phase 4–5 requests contain rendered prompts, bundle/request hashes, engine commit, and provider route. 30,397/30,397 response events contain raw completion text and provider response IDs. Individual response payloads were not separately hash-chained or provider-attested at receipt. `capsule/SHA256SUMS.capsule` covers `data/engine.db.xz`.
 
-**Expected disposition:** evidence audit followed by precise narrowing or documentation of existing hashes.
+**Disposition:** evidence guarantee narrowed precisely.
 
 ## Priority 3 — self-contained reporting
 
 ### 7. Phase architecture table — A1
 
-Add a compact table in §3 with columns:
-
-| stage | primary question | configuration/unit | registration status | role in paper |
-|---|---|---|---|---|
-| v1/v2 instrument development | Can claims be mechanically replayed/adjudicated? | archived run corpus | historical/postmortem | motivates pipeline |
-| Phase 3 | How does the bare configuration behave in PD, framing, and RPS? | bare GPT-4.1 episodes | prospectively registered claims | baseline behavior |
-| X1/X2 extensions | Is the Phase 3 corner representation-dependent, and where is the switch? | formally equivalent wording variants; held-out minimal pair | result-informed but registered before extension data | representation mechanism |
-| Phase 4 | How do wording, labels, payoffs, opponents, and provider routes interact? | bare configurations and adversaries | frozen before block data | robustness map |
-| Phase 5 | What does lightweight persona conditioning change? | fixed 16-prompt persona panel | confirmatory predicates registered before adjudicating data | main composition analysis |
-
-Audit the program's own phase naming before finalizing the labels so that “five-phase” matches the repository chronology exactly.
+- [x] Add a five-stage table in §3 with primary question, unit, registration status, and role.
+- [x] Distinguish Phase 4 representation/robustness work from Phase 5 persona-panel work.
 
 ### 8. Protocol glossary — B4
 
-Define at first use and collect in a compact box/table:
-
-- `S2-absent`: original repeated-game wording without the switch-bearing continuation sentence;
-- `S2-present`: wording with that sentence;
-- `P5-1a`: restricted boundary/interiority census;
-- `P5-1b`: dispersion criterion;
-- `P5-2`: task-text versus persona-consistent choice coding in conflict cells;
-- `P5-3(a)`: gated persona-level continuation-treatment slope existence clause;
-- `P5-3(b)`: swap-cell refusal/choice threshold clause;
-- historical verdict versus post-adjudication sensitivity.
+- [x] Define `S2-absent`, `S2-present`, `P5-1a`, `P5-1b`, `P5-2`, `P5-3(a)`, `P5-3(b)`, and historical verdict versus post-adjudication sensitivity.
 
 ### 9. Span ladder definition — B6
 
-Add a self-contained description in §4.3:
+- [x] Define the mechanical six-span decomposition, forward/reverse ladders, ten screening rungs, `|Δ|≥0.50` selection rule, deterministic tie-break, and held-out confirmation.
+- [x] State 20 fresh episodes per side, seeds 2953–2972, temperature 0.7, with 0/40 versus 37/40 held-out decisions.
+- [x] Avoid claiming that all positional/context interactions were eliminated.
 
-- mechanical six-span decomposition of v1 and v2a;
-- complete sentence/block replacements, not arbitrary token deletion;
-- forward and reverse ladders, ten new rungs;
-- exploratory screening with ten episodes per rung;
-- frozen adjacent-gap threshold `|Δ| ≥ 0.50` and deterministic tie-break;
-- selected S2 minimal pair;
-- 20 fresh episodes per side, seeds 2953–2972, GPT-4.1 at temperature 0.7;
-- held-out result 0/40 versus 37/40 decisions.
+### 10. Gemini pointer — B8
 
-Avoid claiming that this rules out all positional/context interactions; it identifies the switch-bearing registered span under the tested ladder.
+- [x] Add one descriptive-results sentence and direct repository pointer.
+- [x] Preserve exclusion from confirmatory inference because of endpoint non-stationarity.
+
+### 11. Probability grounding — B9
+
+- [x] Ground Proposition B in the law of total variance and classical Fréchet–Hoeffding/Sklar coupling results.
+- [x] Limit novelty to the LLM-validation application and empirical decomposition.
 
 ## Priority 4 — figure and machine-readable corrections
 
-### 10. Figure 5 attribution — C1
+### 12. Figure 5 attribution — C1
 
-- [ ] Retitle the figure **Post-adjudication family-audit constructions**.
-- [ ] Historical and percentile bars: label `p13/s2a`, observed max slope `+0.4167`.
-- [ ] Exact bar: show `p13 excluded by interiority gate`; separately label the maximum eligible candidate `p05/s2a`, slope `+0.0833`, familywise `p=0.773206`.
-- [ ] Update the caption so no visual element attributes `p=0.773206` to p13.
-- [ ] Add a “candidate” field to the figure-source CSV/JSON if not already present.
+- [x] Retitle Figure 5 as **Post-adjudication family-audit constructions**.
+- [x] Attribute historical and percentile points to p13/s2a.
+- [x] Mark p13 gate-ineligible under the exact construction and attribute `p=0.773206` to p05/s2a.
+- [x] Correct the caption and source figure.
+
+### 13. Figure 1 aggregate marker — C2
+
+- [x] Render fixed-panel aggregate estimates as diamonds, consistent with the caption.
 
 ## Priority 5 — v7 package and response matrix
 
-- [ ] Create a point-by-point response table with columns: reviewer issue, agree/disagree, evidence, manuscript change, analysis change, future-work change.
-- [ ] Regenerate Markdown, figures, machine-readable summary, and line-numbered PDF as v7.
-- [ ] Run paper lint, link checks, sealed-boundary check, zero-call analyses, and full capsule replay.
-- [ ] Ask one independent reviewer to verify the B1 dynamic-gate statement, B3 power audit, B5 corrected rationale, and C1 figure attribution specifically.
+- [x] Create the point-by-point disposition matrix.
+- [x] Regenerate Markdown, figures, machine-readable summary, and line-numbered PDF as v7.
+- [x] Run paper lint, link checks, sealed-boundary checks, all zero-call analyses, and the full capsule replay.
+- [x] Render all 19 PDF pages and visually inspect the complete document plus every figure/table-heavy page.
+- [x] Publish `round-5-validation-record.md`.
 
-## Proposed claim language after Round 5
+## Final claim language after Round 5
 
 ### Core result
 
-> In this fixed sixteen-prompt panel, broad marginal criteria coexist with corrected estimates assigning most episode-level variation to differences among prompt configurations. The observed continuation-treatment point contrasts are small on the unit scale but too imprecise to establish equivalence, a null response, or a narrow upper bound.
+> In this fixed sixteen-prompt panel, broad marginal criteria coexist with corrected estimates assigning most episode-level variation to differences among prompt configurations. The observed represented continuation-treatment point contrasts are small on the unit scale but too imprecise to establish equivalence, a null response, or a narrow upper bound.
 
 ### p13
 
@@ -193,34 +143,26 @@ Avoid claiming that this rules out all positional/context interactions; it ident
 
 ### Persona-prefix effect
 
-> Adding a persona-format prefix reverses the bare swap-cell choice, but the contrast is not semantically isolated from length, position, and token-sequence changes. Differences among persona prompts remain substantial under a common template.
+> Adding a persona-format prefix reverses the bare swap-cell choice, but the contrast is not semantically isolated from length, position, punctuation, and token-sequence changes. Differences among persona prompts remain substantial under a common template.
 
 ### Continuation treatment
 
 > The registered contrast is a response to a represented continuation-probability treatment, combining the formal environment parameter with the wording used to communicate it.
 
-## Scope and sequencing
+## Future prospectively registered work
 
-### Can be completed now with zero model calls
-
-- A1, A2 evidence audit, B1, B3 enumeration/simulation, B4, B5, B6, B7, C1;
-- review archive and response matrix;
-- v7 PDF and reproducibility checks.
-
-### Requires a new prospectively registered phase
-
-- format-matched filler persona-prefix control;
+- format-matched filler persona-prefix controls;
 - numeric continuation probability × wording factorial;
 - p13 or small-family replication with adequate episode-level power;
-- receipt-time payload hash chain if added prospectively to new provider calls.
+- receipt-time payload hash chain/provider attestation for new calls.
 
-## Release gate
+## Release gate — passed
 
-Do not merge the Round 5 response until:
+- [x] all thirteen issues have a documented disposition;
+- [x] all three online-only issues are archived;
+- [x] the exact-gate power audit is reproducible;
+- [x] bootstrap rationale and p13 language agree across paper, figures, review docs, and generated summaries;
+- [x] Figure 5 correctly attributes the exact-gate result;
+- [x] the v7 PDF build, lint, sealed-boundary check, and 4,576-run replay pass.
 
-1. all ten detailed issues have a documented disposition;
-2. the three online-only issues have been obtained or explicitly marked unavailable;
-3. the exact-gate power audit is reproducible;
-4. the bootstrap rationale and p13 language are corrected consistently across paper, figures, review docs, and generated summaries;
-5. Figure 5 no longer attributes the exact-gate result to p13;
-6. the full v7 build and capsule replay pass.
+No known scientific-review blocker remains. Venue-specific formatting and a fresh independent review of v7 are appropriate next steps, not prerequisites for preserving or evaluating this response package.
