@@ -1,6 +1,6 @@
 # Round 5 validation record — v7 reviewer package
 
-> **STATUS: VALIDATED REVIEW PACKAGE, 2026-07-30.** This record documents the tests applied after integrating all thirteen Explore Science minor issues. It is a living review artifact, not sealed experimental evidence, and it changes no historical mechanical verdict.
+> **STATUS: VALIDATED REVIEW PACKAGE, 2026-07-30.** This record documents the tests applied after integrating all thirteen Explore Science minor issues. It is a living review artifact, not sealed experimental evidence, and it changes no historical mechanical verdict. Source review: [`round-5-explore-science-review.md`](round-5-explore-science-review.md).
 
 ## Scope
 
