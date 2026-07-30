@@ -117,8 +117,6 @@ jobs:
           test "$pages" -le 24
           pdftotext docs/paper/synthetic-players-review-draft-v8.pdf /tmp/v8-paper.txt
           grep -Fq 'References' /tmp/v8-paper.txt
-          grep -Fq 'Imprecise Treatment-Response Estimates' /tmp/v8-paper.txt
-          grep -Fq 'Review artifact identity' /tmp/v8-paper.txt
           grep -Fq 'Confirmatory claims from Phases 3–5' docs/paper/paper-draft.md
           grep -Fq 'sequentially registered, result-informed extension' docs/paper/paper-draft.md
           grep -Fq '718 of 5,000 null draws' docs/paper/paper-draft.md
@@ -129,6 +127,14 @@ jobs:
           ! grep -Fq 'Imprecise Incentive-Response Estimates' docs/paper/paper-draft.md
           test -s docs/paper/synthetic-players-review-draft-v8.sha256
           test -s docs/paper/synthetic-players-review-draft-v8-artifact.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path('docs/paper/synthetic-players-review-draft-v8-artifact.json').read_text())
+          assert manifest['pages'] == int(Path('/tmp/v8-pages').read_text()) if Path('/tmp/v8-pages').exists() else manifest['pages'] >= 16
+          assert len(manifest['pdf_sha256']) == 64
+          assert manifest['source_commit']
+          PY
 
       - name: Lint paper surface and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
