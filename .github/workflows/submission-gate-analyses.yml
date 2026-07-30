@@ -16,6 +16,7 @@ on:
       - 'scripts/apply_claude_v8.py'
       - 'scripts/finalize_v8_headers.py'
       - 'scripts/apply_round8_v10.py'
+      - 'scripts/verify_text_freeze_v10.py'
       - 'scripts/materialize_draft_history.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
@@ -100,6 +101,7 @@ jobs:
           python scripts/apply_claude_v8.py | tee -a /tmp/submission-analysis.log
           python scripts/finalize_v8_headers.py | tee -a /tmp/submission-analysis.log
           python scripts/apply_round8_v10.py | tee -a /tmp/submission-analysis.log
+          python scripts/verify_text_freeze_v10.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_review_figures.py | tee -a /tmp/submission-analysis.log
 
       - name: Install reviewer-PDF dependencies
