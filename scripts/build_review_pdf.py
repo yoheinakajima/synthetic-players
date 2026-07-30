@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the line-numbered v6 reviewer PDF from the living Markdown source."""
+"""Build the line-numbered v7 reviewer PDF from the living Markdown source."""
 from __future__ import annotations
 
 import re
@@ -11,9 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 PAPER_DIR = ROOT / "docs/paper"
 SOURCE = PAPER_DIR / "paper-draft.md"
 HEADER = PAPER_DIR / "review-draft-header.tex"
-OUTPUT = PAPER_DIR / "synthetic-players-review-draft-v6.pdf"
+OUTPUT = PAPER_DIR / "synthetic-players-review-draft-v7.pdf"
 BUILD_DIR = ROOT / ".review-pdf-build"
-BUILD_MD = BUILD_DIR / "synthetic-players-review-draft-v6.md"
+BUILD_MD = BUILD_DIR / "synthetic-players-review-draft-v7.md"
 
 TITLE_PREFIX = "# "
 FIGURES = (
@@ -45,7 +45,7 @@ def prepare_markdown() -> str:
         if count != 1:
             raise RuntimeError(f"expected one Markdown image for {figure}, found {count}")
 
-    body = re.sub(r"\n\*End of working draft v6\.\*\s*$", "", body)
+    body = re.sub(r"\n\*End of working draft v7\.\*\s*$", "", body)
     if "\n## References\n" not in body:
         raise RuntimeError("formatted reviewer PDF requires a References section")
     body = body.replace(
