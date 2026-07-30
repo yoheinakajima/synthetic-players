@@ -39,6 +39,7 @@ text = text.replace(
     'The pooled decline survives matching, but pooled and within-unit entropy capture different phenomena and neither identifies a mechanism.',
     'The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Pooled and mean within-unit entropy capture different objects, and neither identifies a mechanism.',
 )
+text = text.replace("**Switch-bearing** means", "**switch-bearing** means")
 needle = '    PAPER.write_text(manuscript, encoding="utf-8")'
 cleanup = '''    manuscript = manuscript.replace("*End of post-freeze review revision v11.*", "")
     manuscript = re.sub(r"(?i)review revision v11", "post-adjudication revision", manuscript)
@@ -47,4 +48,4 @@ cleanup = '''    manuscript = manuscript.replace("*End of post-freeze review rev
 text = text.replace(needle, cleanup)
 path.write_text(text, encoding="utf-8")
 compile(text, str(path), "exec")
-print("repair_apply_preprint_v12: syntax, literal-safe replacement, accounting, diagnostics, entropy, and preprint cleanup verified")
+print("repair_apply_preprint_v12: syntax, literal-safe replacement, accounting, diagnostics, entropy, switch-bearing, and preprint cleanup verified")
