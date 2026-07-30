@@ -13,6 +13,7 @@ on:
       - 'scripts/build_review_pdf.py'
       - 'scripts/finalize_round5_v7.py'
       - 'scripts/polish_v7_outputs.py'
+      - 'scripts/apply_claude_v8.py'
       - 'scripts/materialize_draft_history.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
@@ -70,7 +71,7 @@ jobs:
              capsule/data/phase5-driver-plan.json capsule/data/phase5-driver-state.json \
              artifacts/api-server/engine/data/ 2>/dev/null || true
 
-      - name: Run zero-call analyses and validate Round 5
+      - name: Run zero-call analyses and integrate v8 review polish
         env:
           SUBMISSION_DIRICHLET_DRAWS: '200000'
           SUBMISSION_FAMILY_PERMUTATIONS: '200000'
@@ -93,8 +94,9 @@ jobs:
           python scripts/materialize_draft_history.py | tee -a /tmp/submission-analysis.log
           python artifacts/api-server/engine/round5_review_audit.py | tee -a /tmp/submission-analysis.log
           python scripts/finalize_round5_v7.py | tee -a /tmp/submission-analysis.log
-          python scripts/generate_review_figures.py | tee -a /tmp/submission-analysis.log
           python scripts/polish_v7_outputs.py | tee -a /tmp/submission-analysis.log
+          python scripts/apply_claude_v8.py | tee -a /tmp/submission-analysis.log
+          python scripts/generate_review_figures.py | tee -a /tmp/submission-analysis.log
 
       - name: Install reviewer-PDF dependencies
         shell: bash
@@ -110,15 +112,21 @@ jobs:
         run: |
           set -euo pipefail
           python scripts/build_review_pdf.py
-          pages="$(pdfinfo docs/paper/synthetic-players-review-draft-v7.pdf | awk '/^Pages:/ {print $2}')"
+          pages="$(pdfinfo docs/paper/synthetic-players-review-draft-v8.pdf | awk '/^Pages:/ {print $2}')"
           test "$pages" -ge 16
           test "$pages" -le 24
-          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'References'
-          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'Sequential architecture and registration status'
-          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'dynamically reapplied within every permutation'
-          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'p13 is ineligible'
-          ! pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'does not survive primary episode-level inference'
-          ! pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'degenerates at exact corners'
+          text="$(pdftotext docs/paper/synthetic-players-review-draft-v8.pdf -)"
+          grep -q 'References' <<<"$text"
+          grep -q 'Confirmatory claims from Phases 3–5' <<<"$text"
+          grep -q 'sequentially registered, result-informed extension' <<<"$text"
+          grep -q '718 of 5,000 null draws' <<<"$text"
+          grep -q '0.075040' <<<"$text"
+          grep -q 'p13 is ineligible' <<<"$text"
+          grep -q 'Fixed-panel aggregate' <<<"$text"
+          ! grep -q 'questions for Explore Science' <<<"$text"
+          ! grep -q 'Imprecise Incentive-Response Estimates' <<<"$text"
+          test -s docs/paper/synthetic-players-review-draft-v8.sha256
+          test -s docs/paper/synthetic-players-review-draft-v8-artifact.json
 
       - name: Lint paper surface and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
@@ -129,7 +137,7 @@ jobs:
       - name: Upload review package
         uses: actions/upload-artifact@v4
         with:
-          name: synthetic-players-review-v7
+          name: synthetic-players-review-v8
           path: |
             README.md
             REVIEW.md
@@ -154,5 +162,5 @@ jobs:
             echo 'No generated changes to commit.'
             exit 0
           fi
-          git commit -m 'integrate Explore Science Round 5 and v7 PDF'
+          git commit -m 'integrate independent review and v8 PDF'
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
