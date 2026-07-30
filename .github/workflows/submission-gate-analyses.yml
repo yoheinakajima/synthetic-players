@@ -6,19 +6,12 @@ on:
     paths:
       - '.github/workflows/submission-gate-analyses.yml'
       - 'scripts/paper_submission_lint.py'
-      - 'scripts/integrate_submission_results.py'
       - 'scripts/augment_p13_audit_variants.py'
       - 'scripts/generate_prompt_delta_figure.py'
-      - 'scripts/finalize_round5_v7.py'
-      - 'scripts/polish_v7_outputs.py'
-      - 'scripts/apply_claude_v8.py'
-      - 'scripts/finalize_v8_headers.py'
-      - 'scripts/apply_round8_v10.py'
       - 'scripts/explore_v11_variance.py'
       - 'scripts/apply_explore_v11.py'
       - 'scripts/generate_review_figures_v11.py'
       - 'scripts/build_review_pdf_v11.py'
-      - 'scripts/materialize_draft_history.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
       - 'artifacts/api-server/engine/submission_gate_exact_cluster.py'
@@ -95,14 +88,7 @@ jobs:
           python scripts/augment_p13_audit_variants.py | tee -a /tmp/submission-analysis.log
           python artifacts/api-server/engine/submission_gate_variance_fixed.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_prompt_delta_figure.py | tee -a /tmp/submission-analysis.log
-          python scripts/integrate_submission_results.py | tee -a /tmp/submission-analysis.log
-          python scripts/materialize_draft_history.py | tee -a /tmp/submission-analysis.log
           python artifacts/api-server/engine/round5_review_audit.py | tee -a /tmp/submission-analysis.log
-          python scripts/finalize_round5_v7.py | tee -a /tmp/submission-analysis.log
-          python scripts/polish_v7_outputs.py | tee -a /tmp/submission-analysis.log
-          python scripts/apply_claude_v8.py | tee -a /tmp/submission-analysis.log
-          python scripts/finalize_v8_headers.py | tee -a /tmp/submission-analysis.log
-          python scripts/apply_round8_v10.py | tee -a /tmp/submission-analysis.log
           python scripts/explore_v11_variance.py | tee -a /tmp/submission-analysis.log
           python scripts/apply_explore_v11.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_review_figures_v11.py | tee -a /tmp/submission-analysis.log
