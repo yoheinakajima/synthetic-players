@@ -3,9 +3,10 @@
 
 The initial source arrived as an unexecuted construction script. This repair
 normalizes quote delimiters, makes regex replacements literal-safe, corrects
-registered-run accounting, distinguishes the three legacy diagnostics, and
-aligns the entropy interpretation with the exact event-store matched-lattice
-audit. It is idempotent; the repaired source is committed by the workflow.
+registered-run accounting, distinguishes the three legacy diagnostics, aligns
+the entropy interpretation with the exact event-store audit, and strips
+review-only status residue from the preprint surface. It is idempotent; the
+repaired source is committed by the workflow.
 """
 from pathlib import Path
 
@@ -38,6 +39,12 @@ text = text.replace(
     'The pooled decline survives matching, but pooled and within-unit entropy capture different phenomena and neither identifies a mechanism.',
     'The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Pooled and mean within-unit entropy capture different objects, and neither identifies a mechanism.',
 )
+needle = '    PAPER.write_text(manuscript, encoding="utf-8")'
+cleanup = '''    manuscript = manuscript.replace("*End of post-freeze review revision v11.*", "")
+    manuscript = re.sub(r"(?i)review revision v11", "post-adjudication revision", manuscript)
+    manuscript = re.sub(r"(?i)not for citation", "", manuscript)
+    PAPER.write_text(manuscript, encoding="utf-8")'''
+text = text.replace(needle, cleanup)
 path.write_text(text, encoding="utf-8")
 compile(text, str(path), "exec")
-print("repair_apply_preprint_v12: syntax, literal-safe replacement, accounting, diagnostics, and exact entropy interpretation verified")
+print("repair_apply_preprint_v12: syntax, literal-safe replacement, accounting, diagnostics, entropy, and preprint cleanup verified")
