@@ -13,6 +13,7 @@ on:
       - 'scripts/build_review_pdf.py'
       - 'scripts/apply_round4_v6.py'
       - 'scripts/apply_round5_v7.py'
+      - 'scripts/finalize_round5_v7.py'
       - 'scripts/materialize_draft_history.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
       - 'artifacts/api-server/engine/submission_gate_finalize.py'
@@ -94,6 +95,7 @@ jobs:
           python scripts/apply_round4_v6.py | tee -a /tmp/submission-analysis.log
           python artifacts/api-server/engine/round5_review_audit.py | tee -a /tmp/submission-analysis.log
           python scripts/apply_round5_v7.py | tee -a /tmp/submission-analysis.log
+          python scripts/finalize_round5_v7.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_review_figures.py | tee -a /tmp/submission-analysis.log
 
       - name: Install reviewer-PDF dependencies
@@ -115,7 +117,8 @@ jobs:
           test "$pages" -le 24
           pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'References'
           pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'Sequential architecture and registration status'
-          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'Dynamic gate reapplication'
+          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'dynamically reapplied within every permutation'
+          pdftotext docs/paper/synthetic-players-review-draft-v7.pdf - | grep -q 'p13 is ineligible'
 
       - name: Lint paper surface and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
