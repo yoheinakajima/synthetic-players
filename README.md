@@ -12,7 +12,7 @@ Current manuscript:
 
 [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
 
-**Formatted review copy:** [`docs/paper/synthetic-players-review-v10.pdf`](docs/paper/synthetic-players-review-v10.pdf) · [build notes](docs/paper/PDF-README.md)
+**Formatted review copy:** [`docs/paper/synthetic-players-review-v11.pdf`](docs/paper/synthetic-players-review-v11.pdf) · [build notes](docs/paper/PDF-README.md)
 
 The sealed experimental program and the scientific review gate are complete. Round 4 independently cloned the repository, passed lint, and replayed all 4,576 runs with zero credentials. Remaining formal-submission work is venue formatting and human sign-off on the final title and venue-specific AI-assistance statement. Current status: [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md).
 
@@ -48,8 +48,8 @@ This is not a claim of human substitutability. Human references are protocol-non
 | artifact | purpose |
 |---|---|
 | [`REVIEW.md`](REVIEW.md) | Canonical review instructions and questions |
-| [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v10 frozen Markdown manuscript |
-| [`docs/paper/synthetic-players-review-v10.pdf`](docs/paper/synthetic-players-review-v10.pdf) | Line-numbered Explore Science review PDF with five vector figures |
+| [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v11 review-revision Markdown manuscript |
+| [`docs/paper/synthetic-players-review-v11.pdf`](docs/paper/synthetic-players-review-v11.pdf) | Line-numbered Explore Science review PDF with five vector figures |
 | [`docs/paper/history/`](docs/paper/history/) | Exact v2 and v3 manuscripts plus history index |
 | [`docs/reviews/`](docs/reviews/) | Round 1–4 review archive, reviewer-role disclosure, and direct outside reproduction |
 | [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json) | Machine-readable generated results |

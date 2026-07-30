@@ -7,8 +7,8 @@
 | file | contents |
 |---|---|
 | [`../../REVIEW.md`](../../REVIEW.md) | Canonical review instructions, claim summary, reproduction command, and review questions |
-| [`../paper/paper-draft.md`](../paper/paper-draft.md) | Current v10 frozen Markdown manuscript |
-| [`../paper/synthetic-players-review-v10.pdf`](../paper/synthetic-players-review-v10.pdf) | Line-numbered Explore Science review PDF with five figures |
+| [`../paper/paper-draft.md`](../paper/paper-draft.md) | Current v11 review-revision Markdown manuscript |
+| [`../paper/synthetic-players-review-v11.pdf`](../paper/synthetic-players-review-v11.pdf) | Line-numbered Explore Science review PDF with five figures |
 | [`../reviews/`](../reviews/) | Round 1–4 review archive, role disclosure, and Round 4 direct outside reproduction |
 | [`submission-blockers.md`](submission-blockers.md) | Scientific review gate complete; formal-submission and history tasks tracked explicitly |
 | [`novelty-relationships.md`](novelty-relationships.md) | Occupied territory, precise differentiation, and claims to avoid |

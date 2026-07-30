@@ -39,10 +39,12 @@ Complete family-size and sample-size grid: `figure-sources/prospective-power.csv
 
 ## A2 — completion provenance and tamper-evidence boundary
 
-For Phase 4–5, the event store contains complete rendered system and user text for **30,421/30,421** requests, bundle SHA-256 and deterministic request-body SHA-256 values, engine commit, provider route, and requested model. The live adapter independently hashed the deterministic fields it actually sent and aborted unless that value equaled the recorded mirror.
+Phase 4–5 records store the complete rendered system/user bundle, a bundle SHA-256, a deterministic request-body SHA-256, engine commit, provider route, and requested model. The live runner asserts the provider adapter's request-body SHA equals the recorded mirror.
 
-The corresponding response records contain raw completion text for **30,397/30,397** events and provider response IDs for **30,397/30,397** events. They do not contain a provider-signed response object or a separately chained receipt-time hash of the raw completion payload.
+The archive stores raw completion text and, for Phase 4–5 provider adapters, response IDs and selected provider metadata. It does not store a provider-signed response object or a separate receipt-time hash of each raw completion payload.
 
-The released capsule’s `SHA256SUMS.capsule` includes `data/engine.db.xz`, and release/checksum artifacts have external timestamp proofs. That makes the published database snapshot tamper-evident relative to the released snapshot. Byte-exact replay proves reproducibility from that snapshot; neither mechanism independently proves that no alteration occurred between provider receipt and snapshot sealing.
+Published archive snapshots are covered by checksum manifests and external timestamp proofs. This detects changes relative to the released snapshot but does not prove that no edit occurred between provider receipt and snapshot sealing.
+
+Accordingly, byte-exact replay proves reproducibility from the released archive. The checksum and timestamp record makes the released archive tamper-evident relative to its published snapshot. It is **not** provider attestation and does not independently prove immutability of every completion from the instant of receipt.
 
 Machine-readable audit: `round5-review-audit.json`. Field coverage: `figure-sources/provenance-field-coverage.csv`.
