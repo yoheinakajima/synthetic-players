@@ -191,6 +191,7 @@ README and the analysis index link the paper, novelty map, literature map, propo
         (
             "### F2. Public navigation and relative links — **COMPLETE**",
             "### E2. Public navigation — **COMPLETE**",
+            "### E2. Public navigation and first reviewer PDF — **COMPLETE**",
         ),
     )
 
