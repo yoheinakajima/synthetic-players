@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-"""One-time correction to let the independent audit report, rather than assume, the gap range."""
+"""One-time source repairs applied before the v12 verification scripts run."""
 from pathlib import Path
+import subprocess
+import sys
 
-path = Path(__file__).resolve().with_name("v12_audits.py")
+here = Path(__file__).resolve().parent
+path = here / "v12_audits.py"
 text = path.read_text(encoding="utf-8")
 text = text.replace(
     'if min(gaps) < 0.49 or max(gaps) > 0.71:\n        raise AssertionError(f"leaning gap outside manuscript range: {gaps}")',
@@ -10,4 +13,5 @@ text = text.replace(
 )
 path.write_text(text, encoding="utf-8")
 compile(text, str(path), "exec")
-print("repair_v12_audits: accepted observed 0.510–0.719 gap range")
+subprocess.run([sys.executable, str(here / "repair_phase3_audit_v12.py")], check=True)
+print("repair_v12_audits: source repairs verified")
