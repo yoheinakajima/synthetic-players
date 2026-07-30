@@ -184,7 +184,9 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           rm -f \
             capsule/artifacts/api-server/engine/data/engine.db \
-            capsule/artifacts/api-server/engine/data/budget.db
+            capsule/artifacts/api-server/engine/data/budget.db \
+            capsule/artifacts/api-server/engine/data/engine.db-shm \
+            capsule/artifacts/api-server/engine/data/engine.db-wal
           git add -A -- \
             README.md REVIEW.md CITATION.cff \
             capsule capsule-README.md \
