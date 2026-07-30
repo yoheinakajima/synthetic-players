@@ -1,0 +1,9 @@
+{"actions": [
+ "preflight", "dry-all", "entry-battery",
+ "sentinel:0",
+ "block:P5A-rep:h1", "sentinel:1", "block:P5A-rep:h2", "sentinel:2",
+ "block:P5A-os:h1",  "sentinel:3", "block:P5A-os:h2",  "sentinel:4",
+ "block:P5B-rep",    "sentinel:5", "block:P5B-os",     "sentinel:6",
+ "block:P5C-rep",    "sentinel:7", "block:P5C-os",     "sentinel:8",
+ "sentinel:9"
+]}

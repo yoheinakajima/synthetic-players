@@ -1,0 +1,10 @@
+{
+  "repository": "yoheinakajima/synthetic-players",
+  "source_commit": "77ede1ec99056be7dcf6b350d84353bf24422585",
+  "source": "docs/paper/paper-draft.md",
+  "pdf": "docs/paper/synthetic-players-preprint-v12.pdf",
+  "pdf_sha256": "3730e78018e0ab0aafb87126aae3a0beb3060a83be4d9b5c9c6dfbbd1de10053",
+  "pages": 18,
+  "workflow_run": "30588745153",
+  "status": "near-arXiv preprint candidate v12"
+}

@@ -1,13 +1,13 @@
 # Reviewer entry point
 
-> **CURRENT REVIEW SURFACE:** this repository, beginning with this file and [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md). The manuscript is ready for full scientific review, but remains a working draft and should not be cited.
+> **CURRENT PREPRINT SURFACE:** begin with this file, the v12 PDF, and `docs/paper/paper-draft.md`.
 
 Thank you for reviewing **Synthetic Players**. Everything needed to evaluate the manuscript, analyses, chronology, corrections, and reproduction claims is public here. No private bundle or outside explanation is required.
 
 ## Start here
 
-1. **Formatted review PDF:** [`docs/paper/synthetic-players-review-v11.pdf`](docs/paper/synthetic-players-review-v11.pdf)
-2. **Current v11 review-revision Markdown manuscript:** [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
+1. **Formatted review PDF:** [`docs/paper/synthetic-players-preprint-v12.pdf`](docs/paper/synthetic-players-preprint-v12.pdf)
+2. **Current v12 preprint Markdown manuscript:** [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
 3. **Round 4 direct reproduction and review:** [`docs/reviews/round-4-independent-review.md`](docs/reviews/round-4-independent-review.md)
 4. **Round 3 artifact verification:** [`docs/reviews/round-3-independent-verification.md`](docs/reviews/round-3-independent-verification.md)
 5. **Machine-readable submission-analysis summary:** [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json)
@@ -50,7 +50,7 @@ cd synthetic-players/capsule
 bash verify.sh
 ```
 
-Expected result: **4,576/4,576 Phase 4–5 runs replay byte-exact with zero credentials and zero live model calls.** Round 4 reproduced this end-to-end on an outside machine rather than relying only on Actions evidence.
+Expected result: **4,916/4,916 Phase 3–5 runs replay byte-exact with zero credentials and zero live model calls.** Round 4 reproduced this end-to-end on an outside machine rather than relying only on Actions evidence.
 
 The zero-call submission analyses are generated from the archived databases by [`.github/workflows/submission-gate-analyses.yml`](.github/workflows/submission-gate-analyses.yml). Their outputs are under [`docs/analysis/submission/`](docs/analysis/submission/), and the current paper figure is under [`docs/paper/figures/`](docs/paper/figures/).
 

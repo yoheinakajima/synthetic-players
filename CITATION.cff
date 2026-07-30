@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "This repository and its released research artifacts are citable; the current manuscript is a working draft and should not yet be cited as a final paper."
+message: "Please cite the preprint and software record below."
 title: "Synthetic Players: auditable strategic experiments with LLM-controlled agents"
 type: software
 authors:
@@ -7,7 +7,7 @@ authors:
     given-names: Yohei
 repository-code: "https://github.com/yoheinakajima/synthetic-players"
 license: MIT
-version: "phase5-review-v11"
+version: "preprint-v12"
 date-released: "2026-07-29"
 abstract: >-
   An open research program on LLM-controlled agents in strategic games,
@@ -30,3 +30,12 @@ keywords:
   - computational reproducibility
   - mechanical adjudication
   - causal validation
+
+preferred-citation:
+  type: article
+  title: "Passing Coarse Marginal Checks Can Be Cheap: Persona Mixtures and Imprecise Treatment-Response Estimates in an LLM Persona Panel"
+  authors:
+    - family-names: Nakajima
+      given-names: Yohei
+  year: 2026
+  url: "https://github.com/yoheinakajima/synthetic-players"

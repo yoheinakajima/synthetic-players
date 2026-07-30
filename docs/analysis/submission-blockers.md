@@ -1,6 +1,6 @@
-# Paper review and submission gate — current status
+# Preprint v12 status — scientific revision complete
 
-> **STATUS: READY FOR FULL SCIENTIFIC REVIEW, 2026-07-29.** The sealed experimental program remains closed. All executable zero-subject-call analyses required by the statistical review are complete and committed. Remaining work is editorial/venue work or explicitly deferred external-data contextualization.
+> **STATUS: COMPLETE FOR NEAR-ARXIV REVIEW.** The v11 issues are verified and dispositioned; remaining changes are venue metadata and formatting only.
 
 ## Gate rule
 

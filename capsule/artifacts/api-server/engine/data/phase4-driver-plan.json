@@ -1,0 +1,12 @@
+{
+ "note": "F staging per F-SPEC-1 \u00a79.1 + memo cadence: preflight, mechanical shed projection + dry-F, F first half, gemini-only mid-F check 9 (rider 2), F second half, full post-F check 10, hold",
+ "actions": [
+  "preflight",
+  "preflight-f",
+  "block:F:h1",
+  "sentinelg:9",
+  "block:F:h2",
+  "sentinel:10",
+  "hold"
+ ]
+}
