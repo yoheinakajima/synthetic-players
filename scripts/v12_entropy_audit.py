@@ -72,17 +72,26 @@ def main() -> int:
             counts = unit_counts[(temperature, unit)]
             matched_counts.update(counts)
             matched_unit_entropies.append(h(counts))
+        matched_pooled = h(matched_counts)
+        matched_mean = sum(matched_unit_entropies) / len(matched_unit_entropies)
+        matched_median = sorted(matched_unit_entropies)[len(matched_unit_entropies) // 2]
         records.append(
             {
                 "temperature": temperature,
+                "scope": "matched-sweep-units",
+                "units": len(matched_units),
+                "seats": sum(matched_counts.values()),
+                "pooledShannonBits": matched_pooled,
+                "meanUnitShannonBits": matched_mean,
+                "medianUnitShannonBits": matched_median,
                 "allUnits": len(units_by_t[temperature]),
                 "allSeats": sum(all_counts[temperature].values()),
                 "allPooledShannonBits": h(all_counts[temperature]),
                 "matchedUnits": len(matched_units),
                 "matchedSeats": sum(matched_counts.values()),
-                "matchedPooledShannonBits": h(matched_counts),
-                "matchedMeanUnitShannonBits": sum(matched_unit_entropies) / len(matched_unit_entropies),
-                "matchedMedianUnitShannonBits": sorted(matched_unit_entropies)[len(matched_unit_entropies) // 2],
+                "matchedPooledShannonBits": matched_pooled,
+                "matchedMeanUnitShannonBits": matched_mean,
+                "matchedMedianUnitShannonBits": matched_median,
             }
         )
 
@@ -130,7 +139,8 @@ def main() -> int:
     summary.setdefault("results", {}).setdefault("v12IndependentAudits", {})["entropy"] = result
     SUMMARY.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
 
-    lines = AUDIT_MD.read_text(encoding="utf-8").split("## Temperature and choice entropy", 1)[0]
+    before_entropy = AUDIT_MD.read_text(encoding="utf-8").split("## Temperature and choice entropy", 1)[0]
+    decoding = audit.get("decoding", {})
     table = [
         "## Temperature and choice entropy",
         "",
@@ -146,7 +156,14 @@ def main() -> int:
             f"{row['matchedMeanUnitShannonBits']:.4f} |"
         )
     table += ["", result["interpretation"], ""]
-    AUDIT_MD.write_text(lines.rstrip() + "\n\n" + "\n".join(table), encoding="utf-8")
+    if decoding:
+        table += [
+            "## Decoding-parameter audit",
+            "",
+            f"Inspected {decoding.get('requestEventsInspected', 0):,} archived `llm.requested` payloads. Temperature and maxTokens are archived on every request. On the primary OpenAI-compatible path, temperature and max_tokens were supplied explicitly; top_p=1.0 was assembled and intentionally omitted from the wire at 1.0; presence_penalty, frequency_penalty, and logit_bias were not supplied and therefore inherited provider defaults.",
+            "",
+        ]
+    AUDIT_MD.write_text(before_entropy.rstrip() + "\n\n" + "\n".join(table), encoding="utf-8")
     print(json.dumps(result, indent=2))
     return 0
 
