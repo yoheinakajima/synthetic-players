@@ -10,6 +10,7 @@ on:
       - 'scripts/generate_prompt_delta_figure.py'
       - 'scripts/explore_v11_variance.py'
       - 'scripts/apply_explore_v11.py'
+      - 'scripts/finalize_explore_v11.py'
       - 'scripts/generate_review_figures_v11.py'
       - 'scripts/build_review_pdf_v11.py'
       - 'artifacts/api-server/engine/submission_gate_analyses.py'
@@ -91,6 +92,7 @@ jobs:
           python artifacts/api-server/engine/round5_review_audit.py | tee -a /tmp/submission-analysis.log
           python scripts/explore_v11_variance.py | tee -a /tmp/submission-analysis.log
           python scripts/apply_explore_v11.py | tee -a /tmp/submission-analysis.log
+          python scripts/finalize_explore_v11.py | tee -a /tmp/submission-analysis.log
           python scripts/generate_review_figures_v11.py | tee -a /tmp/submission-analysis.log
 
       - name: Install reviewer-PDF dependencies
@@ -112,6 +114,7 @@ jobs:
           test "$pages" -le 26
           pdftotext docs/paper/synthetic-players-review-v11.pdf /tmp/v11-paper.txt
           python - <<'PY'
+          import json
           from pathlib import Path
           paper = Path('docs/paper/paper-draft.md').read_text(encoding='utf-8')
           required = [
@@ -140,6 +143,15 @@ jobs:
           ]:
               if not Path(path).is_file() or Path(path).stat().st_size == 0:
                   raise SystemExit(f'missing generated artifact: {path}')
+          count = Path('docs/analysis/submission/count-reconciliation.md').read_text(encoding='utf-8')
+          if 'Phase 4+5 response events | 30,397' not in count:
+              raise SystemExit('request/response count reconciliation missing')
+          episode = Path('docs/analysis/submission/episode-cluster-sensitivity.md').read_text(encoding='utf-8')
+          if 'exact-corner degeneracy is **not** itself a false-positive mechanism' not in episode:
+              raise SystemExit('bootstrap rationale regression')
+          summary = json.loads(Path('docs/analysis/submission/submission-analysis-summary.json').read_text(encoding='utf-8'))
+          if 'v11VarianceUncertainty' not in summary:
+              raise SystemExit('machine-readable v11 uncertainty section missing')
           print('v11 preflight markers: PASS')
           PY
 
