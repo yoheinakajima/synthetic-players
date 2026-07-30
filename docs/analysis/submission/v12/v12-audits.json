@@ -1,0 +1,257 @@
+{
+  "status": "complete",
+  "bootstrapCoincidence": {
+    "status": "verified independent recomputation",
+    "cell": "rep-d10-s2a",
+    "dataShape": [
+      16,
+      6
+    ],
+    "point": {
+      "rawBetweenVariance": 0.17983217592592593,
+      "measurementNoise": 0.004947916666666667,
+      "correctedBetweenVariance": 0.17488425925925927,
+      "correctedSD": 0.41819165374174944,
+      "averageWithinVariance": 0.029687500000000006,
+      "betweenShare": 0.8548797736916549
+    },
+    "storedLowerBound": 0.412198,
+    "independentRuns": [
+      {
+        "seed": 20260812,
+        "reps": 250000,
+        "lo025": 0.4121280590266053,
+        "median": 0.42341753318374453,
+        "hi975": 0.43905148183749904,
+        "minimum": 0.4039016886249352,
+        "uniqueRounded6": 758
+      },
+      {
+        "seed": 20260813,
+        "reps": 250000,
+        "lo025": 0.4121280590266053,
+        "median": 0.42341753318374453,
+        "hi975": 0.43905148183749904,
+        "minimum": 0.40433129522248995,
+        "uniqueRounded6": 743
+      },
+      {
+        "seed": 20260814,
+        "reps": 250000,
+        "lo025": 0.4121280590266053,
+        "median": 0.42341753318374453,
+        "hi975": 0.43905148183749904,
+        "minimum": 0.4040449415780562,
+        "uniqueRounded6": 746
+      }
+    ],
+    "meanIndependentLowerBound": 0.41212805902660526,
+    "rangeAcrossSeeds": 0.0,
+    "displayedCoincidences": [],
+    "interpretation": "The stored lower bound is independently reproduced. The apparent 0.4122 match is a rounding coincidence: the stored value is 0.412198, whereas the published human reference is reported as 0.4122 and does not enter the bootstrap computation."
+  },
+  "leaningStrata": [
+    {
+      "cell": "rep-d10-s2a",
+      "cooperativeLeaningPrompts": 8,
+      "defectLeaningPrompts": 8,
+      "cooperativeLeaningMean": 0.61458325,
+      "defectLeaningMean": 0.083333375,
+      "difference": 0.531249875,
+      "episodesPerPrompt": 6
+    },
+    {
+      "cell": "rep-d10-s2p",
+      "cooperativeLeaningPrompts": 8,
+      "defectLeaningPrompts": 8,
+      "cooperativeLeaningMean": 0.760416625,
+      "defectLeaningMean": 0.09375,
+      "difference": 0.666666625,
+      "episodesPerPrompt": 6
+    },
+    {
+      "cell": "rep-d90-s2a",
+      "cooperativeLeaningPrompts": 8,
+      "defectLeaningPrompts": 8,
+      "cooperativeLeaningMean": 0.6875,
+      "defectLeaningMean": 0.17708325,
+      "difference": 0.51041675,
+      "episodesPerPrompt": 6
+    },
+    {
+      "cell": "rep-d90-s2p",
+      "cooperativeLeaningPrompts": 8,
+      "defectLeaningPrompts": 8,
+      "cooperativeLeaningMean": 0.86458325,
+      "defectLeaningMean": 0.145833375,
+      "difference": 0.7187498750000001,
+      "episodesPerPrompt": 6
+    },
+    {
+      "cell": "os-community",
+      "cooperativeLeaningPrompts": 8,
+      "defectLeaningPrompts": 8,
+      "cooperativeLeaningMean": 0.6875,
+      "defectLeaningMean": 0.01875,
+      "difference": 0.66875,
+      "episodesPerPrompt": 20
+    }
+  ],
+  "entropy": {
+    "status": "exact event-store recomputation",
+    "definition": "base-2 Shannon entropy H=-sum_a p(a)log2 p(a) over round-one recorded action indices; the registered secondary pooled all valid seat actions at each temperature",
+    "matchedUnitDefinition": "intersection of (bare/persona lane, cell, personaId) units present at T=0.7, 1.0, and 1.3",
+    "matchedUnits": [
+      [
+        "bare",
+        "rep-d90-s2a",
+        null
+      ],
+      [
+        "persona",
+        "os-swap",
+        "p02"
+      ],
+      [
+        "persona",
+        "os-swap",
+        "p06"
+      ],
+      [
+        "persona",
+        "os-swap",
+        "p11"
+      ],
+      [
+        "persona",
+        "os-swap",
+        "p15"
+      ],
+      [
+        "persona",
+        "rep-d90-s2a",
+        "p02"
+      ],
+      [
+        "persona",
+        "rep-d90-s2a",
+        "p06"
+      ],
+      [
+        "persona",
+        "rep-d90-s2a",
+        "p11"
+      ],
+      [
+        "persona",
+        "rep-d90-s2a",
+        "p15"
+      ],
+      [
+        "persona",
+        "rep-d90-s2p",
+        "p02"
+      ],
+      [
+        "persona",
+        "rep-d90-s2p",
+        "p06"
+      ],
+      [
+        "persona",
+        "rep-d90-s2p",
+        "p11"
+      ],
+      [
+        "persona",
+        "rep-d90-s2p",
+        "p15"
+      ]
+    ],
+    "records": [
+      {
+        "temperature": 0.7,
+        "scope": "matched-sweep-units",
+        "units": 13,
+        "seats": 544,
+        "pooledShannonBits": 0.8310429328537718,
+        "meanUnitShannonBits": 0.4484346086212558,
+        "medianUnitShannonBits": 0.4689955935892812,
+        "allUnits": 97,
+        "allSeats": 2752,
+        "allPooledShannonBits": 0.9057042357051235,
+        "matchedUnits": 13,
+        "matchedSeats": 544,
+        "matchedPooledShannonBits": 0.8310429328537718,
+        "matchedMeanUnitShannonBits": 0.4484346086212558,
+        "matchedMedianUnitShannonBits": 0.4689955935892812
+      },
+      {
+        "temperature": 1.0,
+        "scope": "matched-sweep-units",
+        "units": 13,
+        "seats": 284,
+        "pooledShannonBits": 0.7821619269728939,
+        "meanUnitShannonBits": 0.2565929919487662,
+        "medianUnitShannonBits": 0.0,
+        "allUnits": 15,
+        "allSeats": 336,
+        "allPooledShannonBits": 0.7868287672763264,
+        "matchedUnits": 13,
+        "matchedSeats": 284,
+        "matchedPooledShannonBits": 0.7821619269728939,
+        "matchedMeanUnitShannonBits": 0.2565929919487662,
+        "matchedMedianUnitShannonBits": 0.0
+      },
+      {
+        "temperature": 1.3,
+        "scope": "matched-sweep-units",
+        "units": 13,
+        "seats": 284,
+        "pooledShannonBits": 0.7698205808588191,
+        "meanUnitShannonBits": 0.2877278452121014,
+        "medianUnitShannonBits": 0.0,
+        "allUnits": 15,
+        "allSeats": 336,
+        "allPooledShannonBits": 0.77655578544446,
+        "matchedUnits": 13,
+        "matchedSeats": 284,
+        "matchedPooledShannonBits": 0.7698205808588191,
+        "matchedMeanUnitShannonBits": 0.2877278452121014,
+        "matchedMedianUnitShannonBits": 0.0
+      }
+    ],
+    "registeredPooledDecline": true,
+    "declineSurvivesMatchedComposition": true,
+    "interpretation": "The registered pooled entropy decline is partly composition-confounded but its direction survives on the identical sweep lattice. Mean within-unit entropy is reported separately because pooled entropy can remain high when different prompt-cell units occupy opposite boundaries. The observation remains exploratory and does not identify a temperature mechanism."
+  },
+  "decoding": {
+    "requestEventsInspected": 36251,
+    "eventPayloadKeyCounts": {
+      "temperature": 36251,
+      "maxTokens": 36251,
+      "top_p": 0,
+      "topP": 30421,
+      "presence_penalty": 0,
+      "frequency_penalty": 0,
+      "logit_bias": 0
+    },
+    "temperaturesRecorded": [
+      0.7,
+      1.0,
+      1.3
+    ],
+    "maxTokensRecorded": [
+      16
+    ],
+    "primaryOpenAIPath": {
+      "temperature": "explicitly supplied per request",
+      "max_tokens": "explicitly supplied; primary protocol 16",
+      "top_p": "assembled as 1.0 and intentionally omitted from the wire at 1.0",
+      "presence_penalty": "not supplied; provider default applies",
+      "frequency_penalty": "not supplied; provider default applies",
+      "logit_bias": "not supplied; provider default applies"
+    },
+    "interpretation": "Temperature was the only decoding parameter intentionally varied in the sweep. The manuscript should distinguish explicit fixed fields from omitted fields that therefore inherit provider defaults."
+  }
+}

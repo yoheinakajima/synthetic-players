@@ -32,7 +32,7 @@ Details:
   observations byte-exact (`STEP8_PHASE4_ONLY=1` scopes it to Phase 4;
   the store also holds Phase 5 runs, audited separately), and the
   Phase 5 in-process audit re-derived **1,712/1,712** runs
-  (10,428 recorded calls byte-verified). Total: 4,576/4,576.
+  (10,428 recorded calls byte-verified). Total: 4,916/4,916.
 - Zero-credential guard: every `AI_INTEGRATIONS_*` / provider variable
   unset before the audits; the replay path never touches providers.
 - The capsule-wide manifest (`SHA256SUMS.capsule`) verified before

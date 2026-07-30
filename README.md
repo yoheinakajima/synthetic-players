@@ -1,6 +1,6 @@
 # Synthetic Players
 
-> **STATUS: READY FOR FULL SCIENTIFIC REVIEW — WORKING DRAFT, NOT FOR CITATION.**
+> **STATUS: PREPRINT v12 — NEAR-ARXIV MANUSCRIPT AND COMPLETE PUBLIC RECORD.**
 
 ## Reviewing the paper?
 
@@ -12,7 +12,7 @@ Current manuscript:
 
 [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
 
-**Formatted review copy:** [`docs/paper/synthetic-players-review-v11.pdf`](docs/paper/synthetic-players-review-v11.pdf) · [build notes](docs/paper/PDF-README.md)
+**Formatted review copy:** [`docs/paper/synthetic-players-preprint-v12.pdf`](docs/paper/synthetic-players-preprint-v12.pdf) · [build notes](docs/paper/PDF-README.md)
 
 The sealed experimental program is complete. v11 is an explicit post-v10 review addendum; its zero-call analyses, figures, PDF, lint, and 4,576-run replay are generated in GitHub Actions. Current status: [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md).
 
@@ -26,7 +26,7 @@ cd synthetic-players/capsule
 bash verify.sh
 ```
 
-Expected result: **4,576/4,576 completed Phase 4–5 runs replay byte-exact.**
+Expected result: **4,916/4,916 confirmatory Phase 3–5 runs verified with zero live model calls.**
 
 ## What this project is
 
@@ -39,7 +39,7 @@ Synthetic Players is an open experimental laboratory for placing LLM-controlled 
 
 The paper's narrow empirical result is:
 
-> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. Finite-opportunity-corrected plug-in estimates assign 85%–96% of observed episode-level variation between prompts; a fixed-panel latent-propensity sensitivity yields posterior median shares of 63%–71% with 95% intervals spanning 49%–81%. The observed aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals [−0.171, +0.330] and [−0.181, +0.330] (rounded to three decimals). These are small point estimates with substantial uncertainty—not evidence of equivalence, a null response, or a narrow upper bound.
+> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. A fixed-panel latent-propensity sensitivity yields median between-prompt shares of 63%–71% (95% intervals 49%–81%); conditional plug-in estimates are 85%–96%. Aggregate continuation-probability contrasts are +0.083 and +0.078 with wide exact intervals, so the study does not establish equivalence or a narrow response bound.
 
 This is not a claim of human substitutability. Human references are protocol-nonmatched, the primary evidence comes from one deployment, and the panel consists of sixteen complete prompt bundles rather than independently sampled people.
 
@@ -48,8 +48,8 @@ This is not a claim of human substitutability. Human references are protocol-non
 | artifact | purpose |
 |---|---|
 | [`REVIEW.md`](REVIEW.md) | Canonical review instructions and questions |
-| [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v11 review-revision Markdown manuscript |
-| [`docs/paper/synthetic-players-review-v11.pdf`](docs/paper/synthetic-players-review-v11.pdf) | Clean review PDF with five vector figures |
+| [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v12 preprint Markdown manuscript |
+| [`docs/paper/synthetic-players-preprint-v12.pdf`](docs/paper/synthetic-players-preprint-v12.pdf) | Clean review PDF with five vector figures |
 | [`docs/paper/history/`](docs/paper/history/) | Exact v2 and v3 manuscripts plus history index |
 | [`docs/reviews/`](docs/reviews/) | Round 1–4 review archive, reviewer-role disclosure, and direct outside reproduction |
 | [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json) | Machine-readable generated results |

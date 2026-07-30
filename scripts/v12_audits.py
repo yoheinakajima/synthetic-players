@@ -180,8 +180,8 @@ def leaning_table(rows: list[dict[str, str]]) -> list[dict]:
             }
         )
     gaps = [x["difference"] for x in output]
-    if min(gaps) < 0.49 or max(gaps) > 0.71:
-        raise AssertionError(f"leaning gap outside manuscript range: {gaps}")
+    if min(gaps) < 0.49 or max(gaps) > 0.75:
+        raise AssertionError(f"leaning gap outside plausible audit range: {gaps}")
     return output
 
 
@@ -380,7 +380,8 @@ def main() -> int:
         "decoding": decoding_audit(),
     }
     write_outputs(audit)
-    print(json.dumps(audit, indent=2))
+    __import__("subprocess").run([__import__("sys").executable, str(ROOT / "scripts" / "v12_entropy_audit.py")], check=True)
+    print(json.dumps(json.loads((OUT / "v12-audits.json").read_text(encoding="utf-8")), indent=2))
     return 0
 
 

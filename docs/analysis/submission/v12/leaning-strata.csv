@@ -1,0 +1,6 @@
+cell,cooperativeLeaningPrompts,defectLeaningPrompts,cooperativeLeaningMean,defectLeaningMean,difference,episodesPerPrompt
+rep-d10-s2a,8,8,0.61458325,0.083333375,0.531249875,6
+rep-d10-s2p,8,8,0.760416625,0.09375,0.666666625,6
+rep-d90-s2a,8,8,0.6875,0.17708325,0.51041675,6
+rep-d90-s2p,8,8,0.86458325,0.145833375,0.7187498750000001,6
+os-community,8,8,0.6875,0.01875,0.66875,20

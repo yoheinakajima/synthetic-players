@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-07-30T22:56:56Z",
+  "verdict": "PASS \u2014 CLEAN",
+  "scope": "all completed Phase 3 legacy-prompt runs: the 320 registered main/X1 LLM runs, three entry/diagnostic runs, and the P3-C3 zero-LLM baseline",
+  "expectedPromptCounts": {
+    "pd-repeated-v1": 160,
+    "pd-oneshot-v1": 60,
+    "rps-v1": 60,
+    "pd-repeated-v2a": 20,
+    "pd-repeated-v2b": 20
+  },
+  "observedPromptCounts": {
+    "rps-v1": 61,
+    "pd-repeated-v1": 161,
+    "pd-oneshot-v1": 61,
+    "pd-repeated-v2a": 20,
+    "pd-repeated-v2b": 20
+  },
+  "registeredLlmRuns": 320,
+  "additionalLegacyLlmRuns": 3,
+  "totals": {
+    "llmRuns": 323,
+    "llmRunsOk": 323,
+    "recordedLlmCalls": 5830,
+    "llmCallsVerified": 5830,
+    "roundsCompared": 3916,
+    "baselineRuns": 20,
+    "baselineRunsOk": 20,
+    "baselineRoundsCompared": 1000
+  },
+  "checks": [
+    "zero live calls by construction",
+    "prompt re-render and recorded-cache hash hit",
+    "raw completion re-parse",
+    "action and payoff recomputation",
+    "RNG draw-count verification",
+    "recorded request count parity",
+    "deterministic pattern-tracker-vs-Nash baseline recomputation"
+  ],
+  "failures": []
+}

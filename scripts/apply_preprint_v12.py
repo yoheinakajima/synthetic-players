@@ -22,7 +22,7 @@ P3 = ROOT / "docs" / "analysis" / "submission" / "v12" / "phase3-replay-audit.js
 
 def replace_section(text: str, start: str, end: str, replacement: str) -> str:
     pattern = re.escape(start) + r".*?(?=" + re.escape(end) + r")"
-    new, count = re.subn(pattern, replacement.rstrip() + "\n\n", text, count=1, flags=re.DOTALL)
+    new, count = re.subn(pattern, lambda _m: replacement.rstrip() + "\n\n", text, count=1, flags=re.DOTALL)
     if count != 1:
         raise RuntimeError(f"expected one section {start!r} -> {end!r}, replaced {count}")
     return new
@@ -30,7 +30,7 @@ def replace_section(text: str, start: str, end: str, replacement: str) -> str:
 
 def replace_paragraph(text: str, starts: str, replacement: str) -> str:
     pattern = re.escape(starts) + r".*?(?=\n\n)"
-    new, count = re.subn(pattern, replacement.rstrip(), text, count=1, flags=re.DOTALL)
+    new, count = re.subn(pattern, lambda _m: replacement.rstrip(), text, count=1, flags=re.DOTALL)
     if count != 1:
         raise RuntimeError(f"expected paragraph starting {starts!r}, replaced {count}")
     return new
@@ -91,13 +91,14 @@ def main() -> int:
     lo_values = [r["lo025"] for r in bootstrap["independentRuns"]]
     lo_min, lo_max = min(lo_values), max(lo_values)
     p3_totals = p3["totals"]
-    total_confirmatory = p3_totals["llmRuns"] + p3_totals["baselineRuns"] + 2864 + 1712
-    total_llm_replayed = p3_totals["llmRuns"] + 2864 + 1712
+    registered_phase3_llm = sum(p3["expectedPromptCounts"].values())
+    total_confirmatory = registered_phase3_llm + p3_totals["baselineRuns"] + 2864 + 1712
+    total_llm_replayed = registered_phase3_llm + 2864 + 1712
 
     manuscript = PAPER.read_text(encoding="utf-8")
     title_line, rest = manuscript.split("\n", 1)
     rest = re.sub(
-        r"^\*\*STATUS:.*?\*\*.*?\n\n",
+        r"^\s*\*\*STATUS:.*?\n\n",
         "**Preprint v12 (July 2026).** Historical registrations and mechanical verdicts are preserved verbatim; all post-adjudication analyses are labeled as such. The public repository contains the complete research record, version history, and zero-call replay capsule.\n\n",
         rest,
         count=1,
@@ -125,10 +126,10 @@ Large language models are increasingly used as synthetic research participants, 
 
     manuscript = manuscript.replace(
         "The full event store contains 5,505 completed runs, 54,276 round events, 108,552 seat-round decisions, and 36,251 archived provider-request events. The public Phase 4–5 replay contract covers 4,576 completed runs.",
-        f"The full event store contains 5,505 completed runs, 54,276 round events, 108,552 seat-round decisions, and 36,251 archived provider-request events. The public confirmatory replay contract now verifies {total_confirmatory:,} Phase 3–5 runs: {p3_totals['llmRuns']} Phase 3/X1 LLM runs, {p3_totals['baselineRuns']} deterministic Phase 3 baselines, 2,864 Phase 4 runs, and 1,712 Phase 5 runs.",
+        f"The full event store contains 5,505 completed runs, 54,276 round events, 108,552 seat-round decisions, and 36,251 archived provider-request events. The public confirmatory replay contract now verifies {total_confirmatory:,} Phase 3–5 runs: {registered_phase3_llm} registered Phase 3/X1 LLM runs, {p3_totals['baselineRuns']} deterministic Phase 3 baselines, 2,864 Phase 4 runs, and 1,712 Phase 5 runs; three additional completed legacy entry/diagnostic runs are also replayed but are not counted as confirmatory.",
     )
 
-    glossary = """**Protocol glossary.** `S2-absent` and `S2-present` are the registered repeated-game wording families. **Switch-bearing** means the span whose adjacent substitution produced the largest preregistered ladder gap and subsequently passed held-out confirmation; S2-present contains that replacement-and-reposition operation, while S2-absent contains the original sentence. `P3-A3` is the Phase 3 registered broad-reference cooperation claim, with band [0.36, 0.63]. `P5-1a`, historically called the **corner-mixture predicate**, is the registered support condition that fires when the interior fraction in the exact-bare-twin restricted set is below 0.10 under the frozen seat-level rule; it is not a general theorem about mixture structure. `P5-1b` is the registered between-persona dispersion comparison. `P5-2` pools registered conflict cells and classifies whether choices follow task text or persona-conditioned direction. `P5-3(a)`—clause (a)—asks whether any persona × wording pair has both continuation-probability cells interior and a positive slope lower bound; `P5-3(b)`—clause (b)—asks whether each persona lane rejects the bare configuration’s dominated swap-cell option at a registered minimum rate. Historical verdict labels remain visible even where post-adjudication analyses change their scientific interpretation."""
+    glossary = """**Protocol glossary.** `S2-absent` and `S2-present` are the registered repeated-game wording families. **switch-bearing** means the span whose adjacent substitution produced the largest preregistered ladder gap and subsequently passed held-out confirmation; S2-present contains that replacement-and-reposition operation, while S2-absent contains the original sentence. `P3-A3` is the Phase 3 registered broad-reference cooperation claim, with band [0.36, 0.63]. `P5-1a`, historically called the **corner-mixture predicate**, is the registered support condition that fires when the interior fraction in the exact-bare-twin restricted set is below 0.10 under the frozen seat-level rule; it is not a general theorem about mixture structure. `P5-1b` is the registered between-persona dispersion comparison. `P5-2` pools registered conflict cells and classifies whether choices follow task text or persona-conditioned direction. `P5-3(a)`—clause (a)—asks whether any persona × wording pair has both continuation-probability cells interior and a positive slope lower bound; `P5-3(b)`—clause (b)—asks whether each persona lane rejects the bare configuration’s dominated swap-cell option at a registered minimum rate. Historical verdict labels remain visible even where post-adjudication analyses change their scientific interpretation."""
     manuscript = re.sub(
         r"\*\*Protocol glossary\.\*\*.*?(?=\n\n\*\*Phase 5 condition matrix)",
         glossary,
@@ -225,7 +226,7 @@ The primary evidence comes from one deployment and sixteen complete prompt bundl
 
 The treatment-response intervals are wide because each prompt-cell has six independent episodes and the exact projection retains uncertainty at empirical corners. The binary interior census is correspondingly sensitive to small-n discrete interval width. Explicit persona strings are paired across conditions, but latent-person invariance is untested. The continuation process was manipulated together with its textual representation. The persona-prefix contrast lacks a format-matched neutral control. The label-swap result cannot distinguish semantic valence from memorized game-theoretic associations because no non-PD control retained the same labels.
 
-The registered choice-entropy secondary was base-2 Shannon entropy of pooled round-one payoff-role choices. Historical pooled temperature groups had different unit composition; on the identical matched sweep lattice, pooled entropy at T=0.7, 1.0, and 1.3 was {pooled_values} bits, while mean within-unit empirical entropy was {unit_values} bits. The pooled decline survives matching, but pooled and within-unit entropy capture different phenomena and neither identifies a mechanism. The high-temperature continuation interaction was not registered, and the Gemini tier is descriptive under endpoint non-stationarity.
+The registered choice-entropy secondary was base-2 Shannon entropy of pooled round-one payoff-role choices. Historical pooled temperature groups had different unit composition; on the identical matched sweep lattice, pooled entropy at T=0.7, 1.0, and 1.3 was {pooled_values} bits, while mean within-unit empirical entropy was {unit_values} bits. The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Pooled and mean within-unit entropy capture different objects, and neither identifies a mechanism. The high-temperature continuation interaction was not registered, and the Gemini tier is descriptive under endpoint non-stationarity.
 
 Human references are published and protocol-nonmatched. The original familywise analyses were specified after review and cannot create retrospective confirmation. The exact n=6 family is underpowered by construction; p13 remains a replication target, not evidence for or against a general capability envelope.
 """
@@ -233,7 +234,7 @@ Human references are published and protocol-nonmatched. The original familywise 
 
     reproducibility = f"""## 7. Reproducibility and data availability
 
-The public repository contains the event stores, prompt registries, sealed registrations, adjudication records, timestamp proofs, post-adjudication analyses, figures, manuscript history, and review record. The one-command capsule verifies all {total_confirmatory:,} confirmatory Phase 3–5 runs with zero credentials and zero live model calls. The audit covers {p3_totals['llmRuns']} Phase 3/X1 LLM runs, {p3_totals['baselineRuns']} deterministic Phase 3 baselines, 2,864 Phase 4 runs, and 1,712 Phase 5 runs. Phase 3 replay re-renders every prompt, requires recorded-cache hash hits, reparses raw completions, recomputes actions, payoffs, and RNG draw counts, and checks recorded call parity. The deterministic P3-C3 baseline is independently recomputed from archived seeds and game objects.
+The public repository contains the event stores, prompt registries, sealed registrations, adjudication records, timestamp proofs, post-adjudication analyses, figures, manuscript history, and review record. The one-command capsule verifies all {total_confirmatory:,} confirmatory Phase 3–5 runs with zero credentials and zero live model calls. The audit covers {registered_phase3_llm} registered Phase 3/X1 LLM runs, {p3_totals['baselineRuns']} deterministic Phase 3 baselines, 2,864 Phase 4 runs, and 1,712 Phase 5 runs; three additional completed legacy entry/diagnostic runs are also replayed but are not counted as confirmatory. Phase 3 replay re-renders every prompt, requires recorded-cache hash hits, reparses raw completions, recomputes actions, payoffs, and RNG draw counts, and checks recorded call parity. The deterministic P3-C3 baseline is independently recomputed from archived seeds and game objects.
 
 Phase 3 used a legacy provider path without Phase 4–5 response IDs or deterministic request-body SHA capture. Phase 4–5 contain 30,421 normal request events and 30,397 response events; the 24-event difference is the disclosed provider-failure partial set. Those response records contain rendered prompts, bundle and request-body hashes, engine commit and provider route, raw text, and provider response IDs. Individual completion payloads were not provider-attested or separately hash-chained at receipt. Capsule checksum manifests and external timestamps make the released database snapshot tamper-evident relative to publication; replay cannot prove that no alteration occurred before snapshot sealing.
 
@@ -257,7 +258,7 @@ Choice entropy is defined as base-2 Shannon entropy, \(H=-\sum_a p(a)\log_2p(a)\
 
 {entropy_table(audit)}
 
-The pooled decline survives matching; mean within-unit entropy is reported because pooled entropy can be high even when individual prompt-cell policies are concentrated at opposite boundaries. Neither statistic identifies why temperature and downstream strategic actions interact.
+The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Mean within-unit entropy is reported separately because pooled entropy can remain high when different prompt-cell units occupy opposite boundaries. Neither statistic identifies a temperature mechanism.
 
 ### A.2 Other supplementary findings
 
@@ -278,6 +279,9 @@ The complete correction ledger, sealed discussion text, dead-predictions ledger,
         "\n",
         manuscript,
     )
+    manuscript = manuscript.replace("*End of post-freeze review revision v11.*", "")
+    manuscript = re.sub(r"(?i)review revision v11", "post-adjudication revision", manuscript)
+    manuscript = re.sub(r"(?i)not for citation", "", manuscript)
     PAPER.write_text(manuscript, encoding="utf-8")
 
     readme = README.read_text(encoding="utf-8")
@@ -286,7 +290,7 @@ The complete correction ledger, sealed discussion text, dead-predictions ledger,
     readme = readme.replace("Current v11 review-revision Markdown manuscript", "Current v12 preprint Markdown manuscript")
     readme = re.sub(
         r"> A fixed panel of sixteen lightweight persona prompts passed preregistered \*\*coarse marginal checks\*\*\..*?\n\n",
-        "> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. A fixed-panel latent-propensity sensitivity yields median between-prompt shares of 63%–71% (95% intervals 49%–81%); conditional plug-in estimates are 85%–96%. Aggregate continuation-probability contrasts are +0.083 and +0.078 with wide exact intervals, so the study does not establish equivalence or a narrow response bound.\n\n',
+        "> A fixed panel of sixteen lightweight persona prompts passed preregistered **coarse marginal checks**. A fixed-panel latent-propensity sensitivity yields median between-prompt shares of 63%–71% (95% intervals 49%–81%); conditional plug-in estimates are 85%–96%. Aggregate continuation-probability contrasts are +0.083 and +0.078 with wide exact intervals, so the study does not establish equivalence or a narrow response bound.\n\n",
         readme,
         count=1,
         flags=re.DOTALL,
@@ -299,7 +303,7 @@ The complete correction ledger, sealed discussion text, dead-predictions ledger,
     review = review.replace("Current v11 review-revision Markdown manuscript", "Current v12 preprint Markdown manuscript")
     review = re.sub(
         r"> \*\*CURRENT REVIEW SURFACE:.*?\n",
-        "> **CURRENT PREPRINT SURFACE:** begin with this file, the v12 PDF, and `docs/paper/paper-draft.md`.\n',
+        "> **CURRENT PREPRINT SURFACE:** begin with this file, the v12 PDF, and `docs/paper/paper-draft.md`.\n",
         review,
         count=1,
     )
@@ -332,7 +336,7 @@ preferred-citation:
         )
         status = re.sub(
             r"> \*\*STATUS:.*?\n",
-            "> **STATUS: COMPLETE FOR NEAR-ARXIV REVIEW.** All v11 issues are dispositioned; remaining changes are venue metadata and formatting only.\n',
+            "> **STATUS: COMPLETE FOR NEAR-ARXIV REVIEW.** All v11 issues are dispositioned; remaining changes are venue metadata and formatting only.\n",
             status,
             count=1,
         )

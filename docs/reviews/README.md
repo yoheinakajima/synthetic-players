@@ -37,3 +37,5 @@ This is not presented as independent replication of the experiment. It is an aud
 ## Preservation rule
 
 Reviewer text may be summarized for readability, but material criticisms, numerical corrections, and adopted dispositions should remain recoverable. Sealed research files are never edited in response to review; living interpretation documents and explicit addenda carry the corrections.
+
+- [`round-10-explore-science-v11-review.md`](round-10-explore-science-v11-review.md) and [`round-10-disposition-matrix.md`](round-10-disposition-matrix.md): final Explore Science review and v12 disposition.
