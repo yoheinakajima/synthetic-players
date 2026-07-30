@@ -36,6 +36,10 @@ text = text.replace(
     "The audit covers {registered_phase3_llm} registered Phase 3/X1 LLM runs, {p3_totals['baselineRuns']} deterministic Phase 3 baselines, 2,864 Phase 4 runs, and 1,712 Phase 5 runs; three additional completed legacy entry/diagnostic runs are also replayed but are not counted as confirmatory.",
 )
 text = text.replace(
+    'f"The full event store contains 5,505 completed runs, 54,276 round events, 108,552 seat-round decisions, and 36,251 archived provider-request events. The public confirmatory replay contract now verifies {total_confirmatory:,} Phase 3–5 runs: {p3_totals[\'llmRuns\']} Phase 3/X1 LLM runs, {p3_totals[\'baselineRuns\']} deterministic Phase 3 baselines, 2,864 Phase 4 runs, and 1,712 Phase 5 runs."',
+    'f"The full event store contains 5,505 completed runs, 54,276 round events, 108,552 seat-round decisions, and 36,251 archived provider-request events. The public confirmatory replay contract now verifies {total_confirmatory:,} Phase 3–5 runs: {registered_phase3_llm} registered Phase 3/X1 LLM runs, {p3_totals[\'baselineRuns\']} deterministic Phase 3 baselines, 2,864 Phase 4 runs, and 1,712 Phase 5 runs; three additional completed legacy entry/diagnostic runs are also replayed but are not counted as confirmatory."',
+)
+text = text.replace(
     'The pooled decline survives matching; mean within-unit entropy is reported because pooled entropy can be high even when individual prompt-cell policies are concentrated at opposite boundaries. Neither statistic identifies why temperature and downstream strategic actions interact.',
     'The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Mean within-unit entropy is reported separately because pooled entropy can remain high when different prompt-cell units occupy opposite boundaries. Neither statistic identifies a temperature mechanism.',
 )
@@ -52,4 +56,4 @@ cleanup = '''    manuscript = manuscript.replace("*End of post-freeze review rev
 text = text.replace(needle, cleanup)
 path.write_text(text, encoding="utf-8")
 compile(text, str(path), "exec")
-print("repair_apply_preprint_v12: syntax, literal-safe replacement, clean status, accounting, diagnostics, entropy, switch-bearing, and preprint cleanup verified")
+print("repair_apply_preprint_v12: syntax, literal-safe replacement, clean status, registered-count reconciliation, diagnostics, entropy, switch-bearing, and preprint cleanup verified")
