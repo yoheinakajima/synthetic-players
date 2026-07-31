@@ -1,0 +1,106 @@
+name: preprint-v14-final
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/preprint-v14.yml','scripts/**','capsule/**','docs/paper/**','docs/analysis/**','docs/reviews/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: preprint-v14-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: "${{ github.event.pull_request.head.ref || github.ref_name }}", fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check numpy scipy matplotlib uv
+      - name: Stage archived databases
+        run: |
+          mkdir -p artifacts/api-server/engine/data
+          xz -dkc capsule/data/engine.db.xz > artifacts/api-server/engine/data/engine.db
+          xz -dkc capsule/data/budget.db.xz > artifacts/api-server/engine/data/budget.db
+          cp capsule/data/phase4-driver-plan.json capsule/data/phase4-driver-state.json capsule/data/phase5-driver-plan.json capsule/data/phase5-driver-state.json artifacts/api-server/engine/data/ 2>/dev/null || true
+      - name: Regenerate analyses and integrate final manuscript
+        env:
+          SUBMISSION_DIRICHLET_DRAWS: '200000'
+          SUBMISSION_FAMILY_PERMUTATIONS: '200000'
+          SUBMISSION_FAMILY_BATCH: '5000'
+          SUBMISSION_VARIANCE_BOOTSTRAPS: '50000'
+          ROUND5_ATTAINABILITY_PERMUTATIONS: '200000'
+          ROUND5_ATTAINABILITY_BATCH: '5000'
+          ROUND5_POWER_REPS: '10000'
+          ROUND5_POWER_BATCH: '1000'
+          V11_LATENT_DRAWS: '100000'
+          V12_BOOTSTRAP_REPS: '250000'
+        run: |
+          set -euo pipefail
+          python artifacts/api-server/engine/submission_gate_analyses.py
+          python artifacts/api-server/engine/submission_gate_finalize.py
+          python artifacts/api-server/engine/submission_gate_exact_cluster.py
+          python scripts/augment_p13_audit_variants.py
+          python artifacts/api-server/engine/submission_gate_variance_fixed.py
+          python scripts/generate_prompt_delta_figure.py
+          python artifacts/api-server/engine/round5_review_audit.py
+          python scripts/explore_v11_variance.py
+          python scripts/repair_v12_audits.py
+          python scripts/v12_audits.py
+          (cd artifacts/api-server && uv run --with numpy --with scipy python engine/phase3_replay_audit.py)
+          python scripts/repair_apply_preprint_v12.py
+          python scripts/apply_preprint_v12.py
+          python scripts/generate_review_figures_v11.py
+          python scripts/v13_p52_audit.py
+          python scripts/apply_preprint_v13.py
+          python scripts/generate_prompt_figure_v13.py
+          python scripts/apply_preprint_v14.py
+          python scripts/references_lint.py
+          cp artifacts/api-server/engine/phase3_replay_audit.py capsule/artifacts/api-server/engine/phase3_replay_audit.py
+          python scripts/polish_repo_v12.py
+      - name: Refresh capsule manifest after replay-generated audit files
+        run: |
+          CAPSULE_SKIP_MANIFEST=1 bash capsule/verify.sh
+          python scripts/update_capsule_manifest_v12.py
+          bash capsule/verify.sh
+      - name: Install PDF dependencies
+        run: |
+          sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern fonts-linuxlibertine fonts-lato poppler-utils
+      - name: Build and preflight v14 PDF
+        run: |
+          python scripts/build_preprint_pdf_v14.py
+          pdf='docs/paper/synthetic-players-preprint-v14.pdf'
+          pages="$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')"
+          test "$pages" -ge 16 && test "$pages" -le 28
+          pdftotext "$pdf" /tmp/v14.txt
+          test "$(grep -c 'A Phase 6 replication should preregister the primary/secondary hierarchy' /tmp/v14.txt)" -eq 1
+          grep -q 'Large language models can predict the results of social science experiments' /tmp/v14.txt
+          grep -q '2026.findings-acl.1316' docs/paper/paper-draft.md
+      - name: Lint manuscript and sealed boundary
+        run: python scripts/paper_submission_lint.py --base origin/main
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-players-preprint-v14
+          path: |
+            docs/paper/paper-draft.md
+            docs/paper/synthetic-players-preprint-v14.pdf
+            docs/paper/synthetic-players-preprint-v14.sha256
+            docs/paper/synthetic-players-preprint-v14-artifact.json
+            docs/paper/figures/
+            docs/analysis/
+            docs/reviews/round-12-claude-v13-review.md
+            capsule/SHA256SUMS.capsule
+          retention-days: 30
+      - name: Commit generated final outputs
+        if: github.event_name == 'pull_request'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f capsule/artifacts/api-server/engine/data/engine.db capsule/artifacts/api-server/engine/data/budget.db capsule/artifacts/api-server/engine/data/engine.db-shm capsule/artifacts/api-server/engine/data/engine.db-wal
+          git add -A -- capsule docs scripts
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'build and validate final preprint v14 [skip ci]'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
