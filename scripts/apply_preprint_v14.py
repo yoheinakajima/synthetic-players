@@ -1,48 +1,100 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import json
-ROOT=Path(__file__).resolve().parents[1]
-P=ROOT/'docs/paper/paper-draft.md'
 
-def replace(text, old, new):
+ROOT = Path(__file__).resolve().parents[1]
+P = ROOT / 'docs/paper/paper-draft.md'
+
+
+def replace(text: str, old: str, new: str) -> str:
     if old not in text:
         raise RuntimeError(f'missing anchor: {old[:90]}')
-    return text.replace(old,new)
+    return text.replace(old, new)
 
-def main():
-    t=P.read_text(encoding='utf-8')
-    t=t.replace('**Preprint v13 (July 2026; Claude review candidate).**','**Preprint v14 (July 2026; arXiv candidate).**')
-    t=t.replace('Preprint v13','Preprint v14')
-    # Composition interpretation: quantify prior effect without claiming posterior dominance certainty.
-    t=replace(t,
-      'The results also show why binary certification language should be used sparingly. The historical P5-1a predicate passes under its frozen seat-level rule and under the conservative episode-exact interval, but fails under a reasonable Dirichlet–Jeffreys sensitivity. The underlying continuous evidence is clearer than the thresholded label: plug-in estimates assign most observed variation between prompts, and the fixed-panel latent-propensity sensitivity still places posterior medians above one-half while substantially widening and lowering the intervals.',
-      'The results also show why binary certification language should be used sparingly. The historical P5-1a predicate passes under its frozen seat-level rule and under the conservative episode-exact interval, but fails under a reasonable Dirichlet–Jeffreys sensitivity. The underlying continuous evidence is clearer than the thresholded label: plug-in estimates condition on empirical boundary concentration and therefore tend upward, whereas the Jeffreys posterior shrinks six-episode corner cells toward the interior and therefore tends downward. These views bracket the composition claim under opposite conditioning choices rather than compete as interchangeable estimates; the posterior medians remain above one-half while the lowest 95% bound crosses it.')
-    # Poisson-binomial qualification.
-    t=t.replace('Under the pooled independent-binomial component model this union-bound construction has at least 95% simultaneous coverage;', 'Under the pooled independent-binomial component model this union-bound construction has at least 95% simultaneous coverage; with independent heterogeneous prompt probabilities the component totals are Poisson-binomial and no more dispersed than the equal-probability binomial at the same mean, making the binomial projection conservative for that working model;')
-    # Deduplicate Phase 6 sentence in source defensively and make Section 6 point to appendix for entropy details.
-    phase='A Phase 6 replication should preregister the primary/secondary hierarchy, candidate families, dependence units, maximum statistics, and cross-predicate error allocation before data collection.'
-    t=t.replace(phase+'\n\n'+phase,phase)
-    old_entropy='The registered choice-entropy secondary was base-2 Shannon entropy of pooled round-one payoff-role choices. Historical pooled temperature groups had different unit composition; on the identical matched sweep lattice, pooled entropy at T=0.7, 1.0, and 1.3 was 0.8310, 0.7822, 0.7698 bits, while mean within-unit empirical entropy was 0.4484, 0.2566, 0.2877 bits. The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Pooled and mean within-unit entropy capture different objects, and neither identifies a mechanism. The high-temperature continuation interaction was not registered, and the Gemini tier is descriptive under endpoint non-stationarity.'
-    new_entropy='The registered choice-entropy secondary is defined and reported in Appendix A.1. Its matched-lattice decline survives composition matching, but unequal seat counts imply slightly different finite-sample plug-in bias across temperatures; the comparison is exploratory, mechanism-free, and does not isolate temperature from persona conditioning. The high-temperature continuation interaction was not registered, and the Gemini tier is descriptive under endpoint non-stationarity.'
-    t=replace(t,old_entropy,new_entropy)
-    t=t.replace('Neither statistic identifies a temperature mechanism.','Neither statistic identifies a temperature mechanism. The plug-in Shannon estimates use unequal seat counts (544 versus 284 and 284), so their small finite-sample biases are not identical; no bias-corrected entropy claim is made.')
-    # Restore retrieval-backed bibliography metadata.
-    fixes={
-'Akata, E., Schulz, L., Coda-Forno, J., Oh, S. J., Bethge, M., and Schulz, E. (2025). Playing repeated games with large language models. *Nature Human Behaviour, 9*, 215–228. https://doi.org/10.1038/s41562-025-02172-y':'Akata, E., Schulz, L., Coda-Forno, J., Oh, S. J., Bethge, M., and Schulz, E. (2025). Playing repeated games with large language models. *Nature Human Behaviour, 9*, 1380–1390. https://doi.org/10.1038/s41562-025-02172-y',
-'Anthis, J. R., Chu, J., Huang, S. T.-J., et al. (2025). Position: LLMs should not replace human participants in social science research. *Proceedings of the 42nd International Conference on Machine Learning, PMLR 267*, 2501–2520. https://proceedings.mlr.press/v267/anthis25a.html':'Anthis, J. R., Liu, R., Richardson, S. M., Kozlowski, A. C., Koch, B., Brynjolfsson, E., Evans, J., and Bernstein, M. S. (2025). Position: LLM social simulations are a promising research method. *Proceedings of the 42nd International Conference on Machine Learning, PMLR 267*, 81005–81034. https://proceedings.mlr.press/v267/anthis25a.html',
-'Ashokkumar, A., Hewitt, L., Ghezae, I., and Willer, R. (2026). Leveraging large language models to predict the outcomes of social science experiments. *Nature*. https://doi.org/10.1038/s41586-026-10385-0':'Ashokkumar, A., Hewitt, L., Ghezae, I., and Willer, R. (2026). Large language models can predict the results of social science experiments. *Nature*. https://doi.org/10.1038/s41586-026-10742-x',
-'Batzner, A., Dieckmann, L., Diercks, B., and Strulik, J. (2025). Whose personae? A review of persona-based experiments with large language models. arXiv:2512.00461. https://doi.org/10.48550/arXiv.2512.00461':'Batzner, J., Stocker, V., Tang, B., Natarajan, A., Chen, Q., Schmid, S., and Kasneci, G. (2025). Whose personae? Synthetic persona experiments in LLM research and pathways to transparency. *Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society, 8*(1), 343–354. https://doi.org/10.1609/aies.v8i1.36553',
-'Boelaert, J., Coavoux, M., Ollion, E., and Stoehr, N. (2025). Under the gaze of an LLM: Can large language models generate survey data? *Sociological Methods & Research*. Advance online publication. https://doi.org/10.1177/00491241251343947':'Boelaert, J., Coavoux, S., Ollion, É., Petev, I., and Präg, P. (2025). Machine bias: How do generative language models answer opinion polls? *Sociological Methods & Research, 54*(3), 1156–1196. https://doi.org/10.1177/00491241251330582',
-'Georgousis, S., Perifanis, V., Giannopoulos, G., Papagiannopoulou, C., and Demestichas, P. (2026). Evaluating counterfactual strategic reasoning in large language models. arXiv:2603.19167. https://doi.org/10.48550/arXiv.2603.19167':'Georgousis, D., Lymperaiou, M., Dimitriou, A., Filandrianos, G., and Stamou, G. (2026). Evaluating counterfactual strategic reasoning in large language models. arXiv:2603.19167. https://doi.org/10.48550/arXiv.2603.19167',
-'Harry, A., Ngong, I., Nweke, H. F., Feng, S., and Near, A. (2026). Beyond fixed psychological personas: State beats trait, but language models are state-blind. In *Findings of the Association for Computational Linguistics: ACL 2026*, 26440–26468. Association for Computational Linguistics. https://aclanthology.org/2026.findings-acl.1302/':'Harry, T., Ngong, I. C., Nweke, C., Feng, Y., and Near, J. (2026). Beyond fixed psychological personas: State beats trait, but language models are state-blind. In *Findings of the Association for Computational Linguistics: ACL 2026*, 26440–26468. Association for Computational Linguistics. https://doi.org/10.18653/v1/2026.findings-acl.1316',
-'Hullman, J., Broska, L., Sun, C., and Shaw, A. D. (2026). When can synthetic responses help social science? A statistical perspective. arXiv:2602.15785. https://doi.org/10.48550/arXiv.2602.15785':'Hullman, J., Broska, D., Sun, H., and Shaw, A. (2026). This human study did not involve human subjects: Validating LLM simulations as behavioral evidence. arXiv:2602.15785. https://doi.org/10.48550/arXiv.2602.15785',
-'Lin, Z., Yun, J., Matarić, M. J., Canny, J., Gretton, A., and D’Amour, A. (2026). The illusion of intervention: Your LLM-simulated experiment is an observational study. arXiv:2605.20767. https://doi.org/10.48550/arXiv.2605.20767':'Lin, V., Yun, T., Matarić, M. J., Canny, J., Gretton, A., and D’Amour, A. (2026). The illusion of intervention: Your LLM-simulated experiment is an observational study. arXiv:2605.20767. https://doi.org/10.48550/arXiv.2605.20767',
-'Mousavi Davoudi, M., et al. (2026). Same game, different story: Assessing narrative robustness of strategic reasoning in large language models. arXiv:2607.19670. https://doi.org/10.48550/arXiv.2607.19670':'Mousavi Davoudi, S. P., Amiri-Margavi, A., Gholami Davodi, A., Hasani Balyani, H., and Gharagozlou, A. (2026). Same game, different story: A minimal conservative strategic robustness benchmark for large language model agents. arXiv:2607.19670. https://doi.org/10.48550/arXiv.2607.19670',
-'Park, J. S., Zou, C. Q., Shaw, A., et al. (2024). Generative agent simulations of 1,000 people. arXiv:2411.10109. https://doi.org/10.48550/arXiv.2411.10109':'Park, J. S., Zou, C. Q., Shaw, A., Hill, B. M., Cai, C., Morris, M. R., Willer, R., Liang, P., and Bernstein, M. S. (2024). Generative agent simulations of 1,000 people. arXiv:2411.10109. https://doi.org/10.48550/arXiv.2411.10109',
-'Xiao, Z., et al. (2026). The chameleon’s limit: Investigating persona collapse and homogenization in large language models. arXiv:2604.24698. https://doi.org/10.48550/arXiv.2604.24698':'Xiao, Y., Zhang, V. J., Yang, C., Ma, N., Xuan, W., and Huang, J.-t. (2026). The chameleon’s limit: Investigating persona collapse and homogenization in large language models. arXiv:2604.24698. https://doi.org/10.48550/arXiv.2604.24698'
+
+def main() -> None:
+    t = P.read_text(encoding='utf-8')
+
+    # The release workflow may run again after generated outputs or a
+    # presentation-only repair. Once all v14 markers are present, preserve the
+    # frozen manuscript byte-for-byte instead of attempting the v13->v14
+    # transformation a second time.
+    final_markers = (
+        '**Preprint v14 (July 2026; arXiv candidate).**',
+        '10.1038/s41586-026-10742-x',
+        '2026.findings-acl.1316',
+        'These views bracket the composition claim under opposite conditioning choices',
+        'The registered choice-entropy secondary is defined and reported in Appendix A.1.',
+    )
+    if all(marker in t for marker in final_markers):
+        print('apply_preprint_v14: already integrated; manuscript left unchanged')
+        return
+
+    t = t.replace(
+        '**Preprint v13 (July 2026; Claude review candidate).**',
+        '**Preprint v14 (July 2026; arXiv candidate).**',
+    )
+    t = t.replace('Preprint v13', 'Preprint v14')
+
+    t = replace(
+        t,
+        'The results also show why binary certification language should be used sparingly. The historical P5-1a predicate passes under its frozen seat-level rule and under the conservative episode-exact interval, but fails under a reasonable Dirichlet–Jeffreys sensitivity. The underlying continuous evidence is clearer than the thresholded label: plug-in estimates assign most observed variation between prompts, and the fixed-panel latent-propensity sensitivity still places posterior medians above one-half while substantially widening and lowering the intervals.',
+        'The results also show why binary certification language should be used sparingly. The historical P5-1a predicate passes under its frozen seat-level rule and under the conservative episode-exact interval, but fails under a reasonable Dirichlet–Jeffreys sensitivity. The underlying continuous evidence is clearer than the thresholded label: plug-in estimates condition on empirical boundary concentration and therefore tend upward, whereas the Jeffreys posterior shrinks six-episode corner cells toward the interior and therefore tends downward. These views bracket the composition claim under opposite conditioning choices rather than compete as interchangeable estimates; the posterior medians remain above one-half while the lowest 95% bound crosses it.',
+    )
+
+    t = t.replace(
+        'Under the pooled independent-binomial component model this union-bound construction has at least 95% simultaneous coverage;',
+        'Under the pooled independent-binomial component model this union-bound construction has at least 95% simultaneous coverage; with independent heterogeneous prompt probabilities the component totals are Poisson-binomial and no more dispersed than the equal-probability binomial at the same mean, making the binomial projection conservative for that working model;',
+    )
+
+    phase = (
+        'A Phase 6 replication should preregister the primary/secondary hierarchy, '
+        'candidate families, dependence units, maximum statistics, and '
+        'cross-predicate error allocation before data collection.'
+    )
+    t = t.replace(phase + '\n\n' + phase, phase)
+
+    old_entropy = (
+        'The registered choice-entropy secondary was base-2 Shannon entropy of pooled round-one payoff-role choices. Historical pooled temperature groups had different unit composition; on the identical matched sweep lattice, pooled entropy at T=0.7, 1.0, and 1.3 was 0.8310, 0.7822, 0.7698 bits, while mean within-unit empirical entropy was 0.4484, 0.2566, 0.2877 bits. The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Pooled and mean within-unit entropy capture different objects, and neither identifies a mechanism. The high-temperature continuation interaction was not registered, and the Gemini tier is descriptive under endpoint non-stationarity.'
+    )
+    new_entropy = (
+        'The registered choice-entropy secondary is defined and reported in Appendix A.1. Its matched-lattice decline survives composition matching, but unequal seat counts imply slightly different finite-sample plug-in bias across temperatures; the comparison is exploratory, mechanism-free, and does not isolate temperature from persona conditioning. The high-temperature continuation interaction was not registered, and the Gemini tier is descriptive under endpoint non-stationarity.'
+    )
+    t = replace(t, old_entropy, new_entropy)
+    t = t.replace(
+        'Neither statistic identifies a temperature mechanism.',
+        'Neither statistic identifies a temperature mechanism. The plug-in Shannon estimates use unequal seat counts (544 versus 284 and 284), so their small finite-sample biases are not identical; no bias-corrected entropy claim is made.',
+    )
+
+    fixes = {
+        'Akata, E., Schulz, L., Coda-Forno, J., Oh, S. J., Bethge, M., and Schulz, E. (2025). Playing repeated games with large language models. *Nature Human Behaviour, 9*, 215–228. https://doi.org/10.1038/s41562-025-02172-y': 'Akata, E., Schulz, L., Coda-Forno, J., Oh, S. J., Bethge, M., and Schulz, E. (2025). Playing repeated games with large language models. *Nature Human Behaviour, 9*, 1380–1390. https://doi.org/10.1038/s41562-025-02172-y',
+        'Anthis, J. R., Chu, J., Huang, S. T.-J., et al. (2025). Position: LLMs should not replace human participants in social science research. *Proceedings of the 42nd International Conference on Machine Learning, PMLR 267*, 2501–2520. https://proceedings.mlr.press/v267/anthis25a.html': 'Anthis, J. R., Liu, R., Richardson, S. M., Kozlowski, A. C., Koch, B., Brynjolfsson, E., Evans, J., and Bernstein, M. S. (2025). Position: LLM social simulations are a promising research method. *Proceedings of the 42nd International Conference on Machine Learning, PMLR 267*, 81005–81034. https://proceedings.mlr.press/v267/anthis25a.html',
+        'Ashokkumar, A., Hewitt, L., Ghezae, I., and Willer, R. (2026). Leveraging large language models to predict the outcomes of social science experiments. *Nature*. https://doi.org/10.1038/s41586-026-10385-0': 'Ashokkumar, A., Hewitt, L., Ghezae, I., and Willer, R. (2026). Large language models can predict the results of social science experiments. *Nature*. https://doi.org/10.1038/s41586-026-10742-x',
+        'Batzner, A., Dieckmann, L., Diercks, B., and Strulik, J. (2025). Whose personae? A review of persona-based experiments with large language models. arXiv:2512.00461. https://doi.org/10.48550/arXiv.2512.00461': 'Batzner, J., Stocker, V., Tang, B., Natarajan, A., Chen, Q., Schmid, S., and Kasneci, G. (2025). Whose personae? Synthetic persona experiments in LLM research and pathways to transparency. *Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society, 8*(1), 343–354. https://doi.org/10.1609/aies.v8i1.36553',
+        'Boelaert, J., Coavoux, M., Ollion, E., and Stoehr, N. (2025). Under the gaze of an LLM: Can large language models generate survey data? *Sociological Methods & Research*. Advance online publication. https://doi.org/10.1177/00491241251343947': 'Boelaert, J., Coavoux, S., Ollion, É., Petev, I., and Präg, P. (2025). Machine bias: How do generative language models answer opinion polls? *Sociological Methods & Research, 54*(3), 1156–1196. https://doi.org/10.1177/00491241251330582',
+        'Georgousis, S., Perifanis, V., Giannopoulos, G., Papagiannopoulou, C., and Demestichas, P. (2026). Evaluating counterfactual strategic reasoning in large language models. arXiv:2603.19167. https://doi.org/10.48550/arXiv.2603.19167': 'Georgousis, D., Lymperaiou, M., Dimitriou, A., Filandrianos, G., and Stamou, G. (2026). Evaluating counterfactual strategic reasoning in large language models. arXiv:2603.19167. https://doi.org/10.48550/arXiv.2603.19167',
+        'Harry, A., Ngong, I., Nweke, H. F., Feng, S., and Near, A. (2026). Beyond fixed psychological personas: State beats trait, but language models are state-blind. In *Findings of the Association for Computational Linguistics: ACL 2026*, 26440–26468. Association for Computational Linguistics. https://aclanthology.org/2026.findings-acl.1302/': 'Harry, T., Ngong, I. C., Nweke, C., Feng, Y., and Near, J. (2026). Beyond fixed psychological personas: State beats trait, but language models are state-blind. In *Findings of the Association for Computational Linguistics: ACL 2026*, 26440–26468. Association for Computational Linguistics. https://doi.org/10.18653/v1/2026.findings-acl.1316',
+        'Hullman, J., Broska, L., Sun, C., and Shaw, A. D. (2026). When can synthetic responses help social science? A statistical perspective. arXiv:2602.15785. https://doi.org/10.48550/arXiv.2602.15785': 'Hullman, J., Broska, D., Sun, H., and Shaw, A. (2026). This human study did not involve human subjects: Validating LLM simulations as behavioral evidence. arXiv:2602.15785. https://doi.org/10.48550/arXiv.2602.15785',
+        'Lin, Z., Yun, J., Matarić, M. J., Canny, J., Gretton, A., and D’Amour, A. (2026). The illusion of intervention: Your LLM-simulated experiment is an observational study. arXiv:2605.20767. https://doi.org/10.48550/arXiv.2605.20767': 'Lin, V., Yun, T., Matarić, M. J., Canny, J., Gretton, A., and D’Amour, A. (2026). The illusion of intervention: Your LLM-simulated experiment is an observational study. arXiv:2605.20767. https://doi.org/10.48550/arXiv.2605.20767',
+        'Mousavi Davoudi, M., et al. (2026). Same game, different story: Assessing narrative robustness of strategic reasoning in large language models. arXiv:2607.19670. https://doi.org/10.48550/arXiv.2607.19670': 'Mousavi Davoudi, S. P., Amiri-Margavi, A., Gholami Davodi, A., Hasani Balyani, H., and Gharagozlou, A. (2026). Same game, different story: A minimal conservative strategic robustness benchmark for large language model agents. arXiv:2607.19670. https://doi.org/10.48550/arXiv.2607.19670',
+        'Park, J. S., Zou, C. Q., Shaw, A., et al. (2024). Generative agent simulations of 1,000 people. arXiv:2411.10109. https://doi.org/10.48550/arXiv.2411.10109': 'Park, J. S., Zou, C. Q., Shaw, A., Hill, B. M., Cai, C., Morris, M. R., Willer, R., Liang, P., and Bernstein, M. S. (2024). Generative agent simulations of 1,000 people. arXiv:2411.10109. https://doi.org/10.48550/arXiv.2411.10109',
+        'Xiao, Z., et al. (2026). The chameleon’s limit: Investigating persona collapse and homogenization in large language models. arXiv:2604.24698. https://doi.org/10.48550/arXiv.2604.24698': 'Xiao, Y., Zhang, V. J., Yang, C., Ma, N., Xuan, W., and Huang, J.-t. (2026). The chameleon’s limit: Investigating persona collapse and homogenization in large language models. arXiv:2604.24698. https://doi.org/10.48550/arXiv.2604.24698',
     }
-    for old,new in fixes.items(): t=replace(t,old,new)
-    P.write_text(t,encoding='utf-8')
-    (ROOT/'docs/reviews/round-12-claude-v13-review.md').write_text('# Round 12 - Claude deep review of preprint v13\n\nArtifact reviewed: PDF SHA-256 `6cb35baba5e25a2168e8652f1779ae4c5eb8cb00ca0bd49de38150c588660edf`, main at `30b2b63`. Release blockers: bibliography regression, capsule-manifest ordering, and duplicated PDF sentence. All were adopted for v14; optional statistical clarifications were also incorporated.\n',encoding='utf-8')
+    for old, new in fixes.items():
+        t = replace(t, old, new)
+
+    P.write_text(t, encoding='utf-8')
+    (ROOT / 'docs/reviews/round-12-claude-v13-review.md').write_text(
+        '# Round 12 - Claude deep review of preprint v13\n\n'
+        'Artifact reviewed: PDF SHA-256 '
+        '`6cb35baba5e25a2168e8652f1779ae4c5eb8cb00ca0bd49de38150c588660edf`, '
+        'main at `30b2b63`. Release blockers: bibliography regression, '
+        'capsule-manifest ordering, and duplicated PDF sentence. All were '
+        'adopted for v14; optional statistical clarifications were also '
+        'incorporated.\n',
+        encoding='utf-8',
+    )
     print('apply_preprint_v14: final corrections integrated')
-if __name__=='__main__': main()
+
+
+if __name__ == '__main__':
+    main()
