@@ -17,7 +17,7 @@ Everything needed to assess the paper's claims, analyses, chronology, correction
 
 ## What the paper claims
 
-A fixed panel of sixteen lightweight persona prompts passed preregistered coarse marginal checks. A fixed-panel latent-propensity sensitivity places median between-prompt shares at 63%-71% with 95% intervals spanning 49%-81%; finite-opportunity plug-in estimates are 85%-96%. Aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals [-0.171, +0.330] and [-0.181, +0.330].
+A fixed panel of sixteen lightweight persona prompts met three of four preregistered broad-reference condition-mean criteria; the sole miss was 0.011 below the lower bound. Median between-prompt shares are 63%-71% under the Jeffreys prior and 47%-53% under a symmetric uniform prior, so substantial composition is supported but dominance is prior-sensitive; finite-opportunity plug-in estimates are 85%-96%. Aggregate continuation-probability contrasts are +0.083 and +0.078, with conservative exact intervals [-0.171, +0.330] and [-0.181, +0.330].
 
 The paper does **not** claim equivalence, a null response, incentive insensitivity, human substitutability, or generalization beyond the fixed model-prompt panel. The continuation treatment changed both the environment and the wording communicating it.
 
@@ -26,7 +26,7 @@ The paper does **not** claim equivalence, a null response, incentive insensitivi
 - The historical P5-1a boundary census is interval-method-sensitive: 3/32 under the frozen seat rule, 2/32 under the conservative exact-episode sensitivity, and 5/32 under a Dirichlet-Jeffreys sensitivity.
 - The favored p13 interpretation is withdrawn. Post-review familywise constructions are disclosed symmetrically; none was prospectively registered, and the conservative exact family is underpowered at six episodes per condition.
 - P5-2 remains below its registered boundary under prompt-cluster and fixed-panel Bayesian sensitivities, but the pooled classification is carried by a mechanism-confounded swap cell.
-- The between-prompt composition claim is shown through three distinct uncertainty views rather than one thresholded label.
+- The between-prompt composition claim is shown through multiple uncertainty views and an explicit symmetric-prior sweep; the stronger “share above one-half” interpretation is prior-sensitive.
 - Human references are protocol-nonmatched and contextual.
 - External reviewers first diagnosed defects; one later helped specify post-adjudication analyses. That role transition and all dispositions are archived under [`docs/reviews/`](docs/reviews/).
 
