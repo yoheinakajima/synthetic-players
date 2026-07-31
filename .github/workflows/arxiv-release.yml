@@ -1,0 +1,186 @@
+name: arXiv release
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/arxiv-release.yml'
+      - 'scripts/**'
+      - 'artifacts/api-server/engine/**'
+      - 'capsule/**'
+      - 'docs/paper/**'
+      - 'docs/analysis/**'
+      - 'docs/reviews/**'
+      - 'site/**'
+      - 'README.md'
+      - 'REVIEW.md'
+      - 'CITATION.cff'
+      - 'ARXIV_SUBMISSION.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: arxiv-release-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install analysis and timestamp dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib uv opentimestamps-client
+      - name: Stage archived databases
+        run: |
+          mkdir -p artifacts/api-server/engine/data
+          xz -dkc capsule/data/engine.db.xz > artifacts/api-server/engine/data/engine.db
+          xz -dkc capsule/data/budget.db.xz > artifacts/api-server/engine/data/budget.db
+          cp capsule/data/phase4-driver-plan.json capsule/data/phase4-driver-state.json capsule/data/phase5-driver-plan.json capsule/data/phase5-driver-state.json artifacts/api-server/engine/data/ 2>/dev/null || true
+      - name: Regenerate analyses, figures, and canonical manuscript
+        env:
+          SUBMISSION_DIRICHLET_DRAWS: '200000'
+          SUBMISSION_FAMILY_PERMUTATIONS: '200000'
+          SUBMISSION_FAMILY_BATCH: '5000'
+          SUBMISSION_VARIANCE_BOOTSTRAPS: '50000'
+          ROUND5_ATTAINABILITY_PERMUTATIONS: '200000'
+          ROUND5_ATTAINABILITY_BATCH: '5000'
+          ROUND5_POWER_REPS: '10000'
+          ROUND5_POWER_BATCH: '1000'
+          V11_LATENT_DRAWS: '100000'
+          V12_BOOTSTRAP_REPS: '250000'
+        run: |
+          set -euo pipefail
+          python artifacts/api-server/engine/submission_gate_analyses.py
+          python artifacts/api-server/engine/submission_gate_finalize.py
+          python artifacts/api-server/engine/submission_gate_exact_cluster.py
+          python scripts/augment_p13_audit_variants.py
+          python artifacts/api-server/engine/submission_gate_variance_fixed.py
+          python scripts/generate_prompt_delta_figure.py
+          python artifacts/api-server/engine/round5_review_audit.py
+          python scripts/explore_v11_variance.py
+          python scripts/repair_v12_audits.py
+          python scripts/v12_audits.py
+          (cd artifacts/api-server && uv run --with numpy --with scipy python engine/phase3_replay_audit.py)
+          python scripts/generate_review_figures_v11.py
+          python scripts/v13_p52_audit.py
+          python scripts/generate_prompt_figure_v13.py
+          python scripts/apply_preprint_v14.py
+          python scripts/prepare_arxiv_release.py
+          python scripts/references_lint.py
+          cp artifacts/api-server/engine/phase3_replay_audit.py capsule/artifacts/api-server/engine/phase3_replay_audit.py
+      - name: Verify replay capsule from its public entry point
+        run: |
+          set -euo pipefail
+          CAPSULE_SKIP_MANIFEST=1 bash capsule/verify.sh
+          python scripts/update_capsule_manifest_v12.py
+          bash capsule/verify.sh
+      - name: Install TeX and PDF utilities
+        run: |
+          sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+            pandoc texlive-latex-base texlive-latex-extra texlive-fonts-recommended \
+            lmodern poppler-utils unzip
+      - name: Build arXiv PDF and source archive
+        run: python scripts/build_arxiv_release.py
+      - name: Timestamp the canonical PDF checksum
+        run: |
+          set -euo pipefail
+          proof='docs/paper/synthetic-players.sha256.ots'
+          rm -f "$proof"
+          for attempt in 1 2 3; do
+            if ots stamp docs/paper/synthetic-players.sha256; then break; fi
+            test "$attempt" -lt 3
+            sleep 10
+          done
+          test -s "$proof"
+          ots info "$proof" | head -80
+      - name: Compile the exact arXiv upload archive in a fresh directory
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/synthetic-players-arxiv-check
+          mkdir -p /tmp/synthetic-players-arxiv-check
+          unzip -q docs/paper/synthetic-players-arxiv-source.zip -d /tmp/synthetic-players-arxiv-check
+          cd /tmp/synthetic-players-arxiv-check
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex >/tmp/arxiv-pass1.log
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex >/tmp/arxiv-pass2.log
+          test -s main.pdf
+          test "$(pdfinfo main.pdf | awk '/^Pages:/ {print $2}')" = "$(pdfinfo "$GITHUB_WORKSPACE/docs/paper/synthetic-players.pdf" | awk '/^Pages:/ {print $2}')"
+      - name: Build and preflight the public site
+        run: |
+          python scripts/build_site.py
+          grep -qi 'Passing coarse marginal checks can be cheap' _site/index.html
+          test -s _site/paper.pdf
+          test -s _site/arxiv-source.zip
+          test -s _site/assets/between-prompt-share.png
+      - name: Final manuscript and repository lint
+        run: |
+          set -euo pipefail
+          python scripts/paper_submission_lint.py --base origin/main
+          cmp docs/paper/paper.md docs/paper/paper-draft.md
+          pdftotext docs/paper/synthetic-players.pdf /tmp/synthetic-players.txt
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('docs/paper/paper.md').read_text(encoding='utf-8')
+          extracted = ' '.join(Path('/tmp/synthetic-players.txt').read_text(encoding='utf-8', errors='replace').split())
+          errors = []
+          prefix = 'A Phase 6 test will preregister the candidate family'
+          if source.count(prefix) != 1:
+              errors.append(f'Phase 6 sentence prefix occurs {source.count(prefix)} times in source')
+          if extracted.count(prefix) != 1:
+              errors.append(f'Phase 6 sentence prefix occurs {extracted.count(prefix)} times in PDF')
+          for label in ('Preprint v', 'working draft', 'review candidate', 'arXiv candidate'):
+              if label.lower() in source.lower() or label.lower() in extracted.lower():
+                  errors.append(f'release label remains: {label}')
+          readme = Path('README.md').read_text(encoding='utf-8').lower()
+          for stale in ('preprint-v12', 'synthetic-players-preprint-v12.pdf', 'current paper remains a working draft'):
+              if stale in readme:
+                  errors.append(f'stale README marker remains: {stale}')
+          for marker in ('4,916', 'LLM agents grounded in self-reports enable general-purpose simulation of individuals', 'arXiv:2411.10109v3', 'AI systems are not listed as authors'):
+              if marker not in source:
+                  errors.append(f'canonical source missing {marker!r}')
+          if errors:
+              raise SystemExit('final release lint failed:\n- ' + '\n- '.join(errors))
+          print('final release lint: PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-players-arxiv-release
+          path: |
+            README.md
+            REVIEW.md
+            CITATION.cff
+            ARXIV_SUBMISSION.md
+            docs/paper/paper.md
+            docs/paper/paper-draft.md
+            docs/paper/synthetic-players.pdf
+            docs/paper/synthetic-players.sha256
+            docs/paper/synthetic-players.sha256.ots
+            docs/paper/synthetic-players-artifact.json
+            docs/paper/synthetic-players-arxiv-source.zip
+            docs/paper/arxiv-metadata.txt
+            docs/paper/figures/
+            arxiv/
+            site/
+            docs/reviews/round-13-*.md
+          retention-days: 90
+      - name: Commit generated release outputs
+        if: github.event_name == 'pull_request'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f capsule/artifacts/api-server/engine/data/engine.db capsule/artifacts/api-server/engine/data/budget.db capsule/artifacts/api-server/engine/data/engine.db-shm capsule/artifacts/api-server/engine/data/engine.db-wal
+          rm -rf _site
+          git add -A -- README.md REVIEW.md CITATION.cff ARXIV_SUBMISSION.md arxiv capsule docs site scripts
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'build and validate arXiv submission package [skip ci]'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
