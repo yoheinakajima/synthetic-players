@@ -25,7 +25,7 @@ concurrency:
 
 jobs:
   build-and-verify:
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository && !startsWith(github.event.pull_request.head.ref, 'paper/preprint-v14'))
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
