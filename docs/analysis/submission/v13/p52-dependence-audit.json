@@ -1,0 +1,40 @@
+{
+  "status": "post-adjudication zero-call sensitivity",
+  "historical": {
+    "episodes": 352,
+    "episodeMeanTotal": 45,
+    "mean": 0.1278409090909091,
+    "iidExactProjection95": [
+      0.091753,
+      0.172069
+    ]
+  },
+  "stratifiedPromptClusterBootstrap": {
+    "promptConditionClusters": 40,
+    "strata": 5,
+    "replicates": 200000,
+    "seed": 20260731,
+    "median": 0.1278409090909091,
+    "interval95": [
+      0.07102272727272728,
+      0.18892045454545456
+    ]
+  },
+  "fixedPanelDirichletJeffreys": {
+    "promptConditionUnits": 40,
+    "draws": 200000,
+    "seed": 20260732,
+    "prior": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "posteriorMedian": 0.17238999433995372,
+    "interval95": [
+      0.15221530290700624,
+      0.19490668238288078
+    ],
+    "probabilityAtOrBelowRegisteredBoundary": 0.99115
+  },
+  "interpretation": "Both dependence-aware sensitivities remain below the registered 0.20 persona-dominant boundary; the pooled classification remains carried by the mechanism-confounded swap cell."
+}

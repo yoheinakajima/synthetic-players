@@ -1,0 +1,10 @@
+{
+  "repository": "yoheinakajima/synthetic-players",
+  "source_commit": "5507e4d67a2c7132db99a7aad9205ca7985c091b",
+  "source": "docs/paper/paper-draft.md",
+  "pdf": "docs/paper/synthetic-players-preprint-v13.pdf",
+  "pdf_sha256": "6cb35baba5e25a2168e8652f1779ae4c5eb8cb00ca0bd49de38150c588660edf",
+  "pages": 19,
+  "workflow_run": "30602644575",
+  "status": "Claude review candidate v13"
+}
