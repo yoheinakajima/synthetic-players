@@ -1,4 +1,4 @@
-# Preprint v12 status — scientific revision complete
+# Preprint v14 status — scientific revision complete
 
 > **STATUS: COMPLETE FOR NEAR-ARXIV REVIEW.** The v11 issues are verified and dispositioned; remaining changes are venue metadata and formatting only.
 
@@ -112,7 +112,7 @@ The Explore Science review PDF contains a formatted reference section and re-ver
 
 - 5,540 distinct run IDs with any event;
 - 5,505 archived completed runs;
-- 4,576 completed Phase 4–5 runs in the replay contract;
+- 4,916 completed Phase 3–5 runs in the replay contract (confirmatory; plus 3 legacy diagnostics);
 - 54,276 round events;
 - 108,552 seat-round decisions;
 - 36,251 provider-request events in the full store;

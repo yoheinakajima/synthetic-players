@@ -1,6 +1,6 @@
 # Synthetic Players
 
-> **STATUS: PREPRINT v12 — NEAR-ARXIV MANUSCRIPT AND COMPLETE PUBLIC RECORD.**
+> **STATUS: PREPRINT v14 — ARXIV CANDIDATE MANUSCRIPT AND COMPLETE PUBLIC RECORD.**
 
 ## Reviewing the paper?
 
@@ -12,7 +12,7 @@ Current manuscript:
 
 [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md)
 
-**Formatted review copy:** [`docs/paper/synthetic-players-preprint-v12.pdf`](docs/paper/synthetic-players-preprint-v12.pdf) · [build notes](docs/paper/PDF-README.md)
+**Formatted review copy:** [`docs/paper/synthetic-players-preprint-v14.pdf`](docs/paper/synthetic-players-preprint-v14.pdf) · [build notes](docs/paper/PDF-README.md)
 
 The sealed experimental program is complete. v11 is an explicit post-v10 review addendum; its zero-call analyses, figures, PDF, lint, and 4,576-run replay are generated in GitHub Actions. Current status: [`docs/analysis/submission-blockers.md`](docs/analysis/submission-blockers.md).
 
@@ -48,8 +48,8 @@ This is not a claim of human substitutability. Human references are protocol-non
 | artifact | purpose |
 |---|---|
 | [`REVIEW.md`](REVIEW.md) | Canonical review instructions and questions |
-| [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v12 preprint Markdown manuscript |
-| [`docs/paper/synthetic-players-preprint-v12.pdf`](docs/paper/synthetic-players-preprint-v12.pdf) | Clean review PDF with five vector figures |
+| [`docs/paper/paper-draft.md`](docs/paper/paper-draft.md) | Current v14 preprint Markdown manuscript |
+| [`docs/paper/synthetic-players-preprint-v14.pdf`](docs/paper/synthetic-players-preprint-v14.pdf) | Clean review PDF with five vector figures |
 | [`docs/paper/history/`](docs/paper/history/) | Exact v2 and v3 manuscripts plus history index |
 | [`docs/reviews/`](docs/reviews/) | Round 1–4 review archive, reviewer-role disclosure, and direct outside reproduction |
 | [`docs/analysis/submission/submission-analysis-summary.json`](docs/analysis/submission/submission-analysis-summary.json) | Machine-readable generated results |
@@ -119,7 +119,7 @@ See [`docs/instance-ledger.md`](docs/instance-ledger.md), [`docs/analysis/claims
 Counts are reconciled in [`docs/analysis/submission/count-reconciliation.md`](docs/analysis/submission/count-reconciliation.md). They are not interchangeable subjects:
 
 - **5,505 archived completed runs** across the full store;
-- **4,576 Phase 4–5 replay-contract runs**;
+- **4,916 Phase 3–5 replay-contract runs** (confirmatory; plus 3 legacy diagnostics);
 - **54,276 round events** and **108,552 seat-round decisions**;
 - **36,251 provider-request events** across the full store;
 - **30,530 Phase 4–5 calls** in the transactional ledger;
