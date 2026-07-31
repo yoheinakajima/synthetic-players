@@ -282,6 +282,9 @@ The complete correction ledger, sealed discussion text, dead-predictions ledger,
     manuscript = manuscript.replace("*End of post-freeze review revision v11.*", "")
     manuscript = re.sub(r"(?i)review revision v11", "post-adjudication revision", manuscript)
     manuscript = re.sub(r"(?i)not for citation", "", manuscript)
+    manuscript = manuscript.replace("*End of post-freeze review revision v11.*", "")
+    manuscript = re.sub(r"(?i)review revision v11", "post-adjudication revision", manuscript)
+    manuscript = re.sub(r"(?i)not for citation", "", manuscript)
     PAPER.write_text(manuscript, encoding="utf-8")
 
     readme = README.read_text(encoding="utf-8")

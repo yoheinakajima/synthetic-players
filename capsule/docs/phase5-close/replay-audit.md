@@ -1,6 +1,6 @@
 # Phase 5 close-out replay audit
 
-- Generated: 2026-07-30T22:58:46Z  ·  live calls: 0
+- Generated: 2026-07-31T03:56:26Z  ·  live calls: 0
 - **Verdict: PASS — CLEAN**
 - Runs replayed: 1712 (ok 1712, invalid-trial runs 0, failures 0)
 - Recorded LLM calls: 10428; byte-verified 10428 (bundle shas 10428, request-body shas 10428, parsed actions 10428)

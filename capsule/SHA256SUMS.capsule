@@ -144,8 +144,8 @@ ee0ba0548d099eeebb5c4ae264bb1ce7d607e0b59756a7141cd2f6a72d08aa58  ./docs/phase4/
 c8d51bf352319a9554face83279137451e55fac4d9f5f39e79496bc2bd1d2a23  ./docs/phase4/SHA256SUMS.txt.ots
 1f3b628bf5a14b67f9bcf7fff079b0df83cb3e98e9d4e67989fb470b8188745c  ./docs/phase4/SHA256SUMS.txt.ots.bak
 8060d693a409fe8ffe28d6b87fd57763e6dcc7d623ffba0477e2d432fde78040  ./docs/phase4/shedding-order.md
-6d2de1d72f51f14857d9aeb575a3e633b1ea0a5443f9832ba42935e9a7eb9ee1  ./docs/phase4/step8-replay-audit.json
-8a6076b2792071c0b50a828b58b52e0ca68e99efb3e6bbd91990def88bbf505d  ./docs/phase4/step8-replay-audit.md
+6941e428cb5692ddf86c5029edf74d8f962cf4c1d972ff8c2b9d51c47634565a  ./docs/phase4/step8-replay-audit.json
+b236d512b798a3ded13cf23cd12d4714f92eddcc4fd51f5ebc6a5858fde8e029  ./docs/phase4/step8-replay-audit.md
 ff51fc4c9ae8db208dbf41d0bf4e8d8e2831298ba8112fbf2a2f87b410131669  ./docs/phase4/x1-parser-audit.md
 1f31dcffa1665805b0e0919991532365c9479c7171d5d0367591acb6983ae5f0  ./docs/phase4/x1-prompt-disclosure.md
 a3dd02b9e63e54a70af14545f8f60ba12a52b306bd02f9e9315378827508eb83  ./docs/phase4/x1-semantic-equivalence.md
@@ -162,8 +162,8 @@ ab753651b4c0e335f180af1d9c60a37c32c855dfc151b3f6bcf89d412ba5b018  ./docs/phase5/
 94897a0b0331de20a963d7ddcdf6f5dc3e8c2c3f0930abc4d8a490f0823f3314  ./docs/phase5-close/adjudication-report.json
 e13b78ae49a10f02a2f5b3ecac400a10d61ed1dd7c81e676330f8b540648a8d8  ./docs/phase5-close/adjudication-report.md
 aa32149546c401f9f86413b8e39aa878b70a5655a3f8f1b263be4b88084c994c  ./docs/phase5-close/branch-selection.md
-36723896e70fbb08e670a4f2a99de488bb46296db35cf125a929e1ff8e641fba  ./docs/phase5-close/replay-audit.json
-f94b3fccf8cae5a551d19cd9f3d6255c6cce7965f1fb728aa2c155d5c2ebb1f1  ./docs/phase5-close/replay-audit.md
+2442766852605c7cf1de4d3e7c73ff237458b8edb836e7d35488f9cabd0bc562  ./docs/phase5-close/replay-audit.json
+54c1a27f8e1906aa6d5a2654fdc86c9263db342394c996ec34299dcc398f8284  ./docs/phase5-close/replay-audit.md
 ec812bc948ba120109a733f0f3b084f94ae114de7fb04d3c5fc017ca80d9ab03  ./docs/phase5-close/SHA256SUMS-final.txt
 5ecaca3dc71592aa856d5606766420026d9a9874d9db85257af1e58875fc0b5c  ./docs/phase5-close/SHA256SUMS-final.txt.ots
 d99781985472ad899338fc2115e9f707dac08eb93e2bcb132c3da9c46ffd2d85  ./docs/phase5-close/SHA256SUMS-final.txt.ots.bak
