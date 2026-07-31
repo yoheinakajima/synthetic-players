@@ -57,7 +57,8 @@ under their versioned names.
         t = t.replace("current manuscript is [`../paper/paper-draft.md`](../paper/paper-draft.md)", "current near-arXiv manuscript is [`../paper/paper-draft.md`](../paper/paper-draft.md)")
         t = t.replace("4,576", "4,916")
         t = t.replace("Phase 4–5", "Phase 3–5")
-        t = t.replace("85%–96%", "63%–71% posterior medians (85%–96% conditional plug-in estimates)")
+        if "63%–71% posterior medians (85%–96% conditional plug-in estimates)" not in t:
+            t = t.replace("85%–96%", "63%–71% posterior medians (85%–96% conditional plug-in estimates)")
         return t
     update(synthesis, synthesis_transform)
 
