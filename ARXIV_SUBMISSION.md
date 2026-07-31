@@ -45,3 +45,7 @@ The generated abstract is ASCII-only and remains below arXiv's metadata length l
 ## Scientific freeze
 
 The experiment is closed. The arXiv package may receive typographic, metadata, or clearly labeled correction updates, but historical registrations, event data, and mechanical verdicts must not be rewritten. New empirical claims require a new registration and release lineage.
+
+## Final artifact checks
+
+Before upload, confirm that page 1 ends the abstract with “do not establish human substitutability,” rather than truncating at a percentage sign. The build workflow normalizes the complete source abstract and requires it to be recoverable from extracted PDF text. Also verify the checksum in `synthetic-players.sha256` against the uploaded reference PDF.
