@@ -13,9 +13,9 @@ The paper studies whether a lightweight panel of persona-conditioned LLM agents 
 
 ### Main result
 
-A fixed panel of sixteen GPT-4.1 persona prompts passed preregistered broad-reference checks in three of four repeated-game cells. A fixed-panel latent-propensity sensitivity places median between-prompt shares of episode-level variation at **63%-71%** with 95% intervals spanning **49%-81%**; finite-opportunity plug-in estimates are **85%-96%**. Aggregate continuation-probability contrasts are **+0.083** and **+0.078**, with conservative simultaneous 95% intervals **[-0.171, +0.330]** and **[-0.181, +0.330]**.
+A fixed panel of sixteen GPT-4.1 persona prompts met preregistered broad-reference condition-mean criteria in three of four repeated-game cells; the sole miss was **0.011** below the lower bound. Composition is substantial but the stronger dominance reading is prior-sensitive: median between-prompt shares are **63%-71%** under the Jeffreys prior and **47%-53%** under a symmetric uniform prior, while finite-opportunity plug-in estimates are **85%-96%**. Aggregate continuation-probability contrasts are **+0.083** and **+0.078**, with conservative simultaneous 95% intervals **[-0.171, +0.330]** and **[-0.181, +0.330]**.
 
-Separate representation experiments found that replacing and repositioning one sentence moved cooperation from **0/40 to 37/40** in a bare configuration. The treatment changed both continuation probability and its textual representation, so incentive and framing channels remain undecomposed.
+Separate representation experiments found that replacing and repositioning one sentence moved cooperation from **0/40 to 37/40** in a bare configuration. The treatment changed both continuation probability and its textual representation, so incentive and framing channels remain undecomposed. The historical p13 result was not prospectively family-controlled and remains a replication target rather than a finding.
 
 These results concern one fixed model-prompt panel. Human references are protocol-nonmatched, and the paper does **not** claim human substitutability.
 
@@ -45,7 +45,7 @@ The verifier replays 4,896 archived LLM runs byte-exact and independently recomp
 | [`docs/paper/`](docs/paper/) | Canonical manuscript, PDF, checksum, arXiv metadata, and uploadable source archive |
 | [`arxiv/`](arxiv/) | The exact TeX and figure files contained in the arXiv source package |
 | [`capsule/`](capsule/) | One-command zero-credential replay capsule |
-| [`docs/analysis/submission/`](docs/analysis/submission/) | Dependence-aware sensitivities, variance decomposition, family audit, and count reconciliation |
+| [`docs/analysis/submission/`](docs/analysis/submission/) | Dependence-aware sensitivities, variance decomposition, prior sensitivity, family audit, and count reconciliation |
 | [`docs/phase3-report.md`](docs/phase3-report.md) | Registered Phase 3 results |
 | [`docs/phase4/`](docs/phase4/) | Representation, counterfactual, adversary, and drift experiments |
 | [`docs/phase5/`](docs/phase5/) | Persona-panel experiment and historical adjudication |
