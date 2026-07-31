@@ -1,6 +1,6 @@
 # Phase 3 zero-call replay audit
 
-- Generated: 2026-07-31T14:47:14Z
+- Generated: 2026-07-31T16:29:18Z
 - **Verdict: PASS — CLEAN**
 - LLM runs replayed: 323 (clean 323)
 - LLM calls byte/prompt/action verified: 5830/5830

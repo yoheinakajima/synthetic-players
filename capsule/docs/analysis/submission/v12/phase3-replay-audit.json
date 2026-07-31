@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T14:48:08Z",
+  "generatedAt": "2026-07-31T16:30:14Z",
   "verdict": "PASS \u2014 CLEAN",
   "scope": "all completed Phase 3 legacy-prompt runs: the 320 registered main/X1 LLM runs, three entry/diagnostic runs, and the P3-C3 zero-LLM baseline",
   "expectedPromptCounts": {

@@ -1,6 +1,6 @@
 # Step-8 replay audit
 
-Generated 2026-07-31T14:48:25Z — zero live calls; §F.3 extended replay (bundle-sha byte-compare, request-body-sha recompute, parsed-action re-derivation, rng draw-count re-verification) for every completed Phase 4 observation.
+Generated 2026-07-31T16:30:31Z — zero live calls; §F.3 extended replay (bundle-sha byte-compare, request-body-sha recompute, parsed-action re-derivation, rng draw-count re-verification) for every completed Phase 4 observation.
 
 - runs in store: 2888
 - completed observations replayed: 2864
