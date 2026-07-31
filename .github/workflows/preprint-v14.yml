@@ -68,14 +68,40 @@ jobs:
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern fonts-linuxlibertine fonts-lato poppler-utils
       - name: Build and preflight v14 PDF
         run: |
+          set -euo pipefail
           python scripts/build_preprint_pdf_v14.py
           pdf='docs/paper/synthetic-players-preprint-v14.pdf'
           pages="$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')"
           test "$pages" -ge 16 && test "$pages" -le 28
           pdftotext "$pdf" /tmp/v14.txt
-          test "$(grep -c 'A Phase 6 replication should preregister the primary/secondary hierarchy' /tmp/v14.txt)" -eq 1
-          grep -q 'Large language models can predict the results of social science experiments' /tmp/v14.txt
-          grep -q '2026.findings-acl.1316' docs/paper/paper-draft.md
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('docs/paper/paper-draft.md').read_text(encoding='utf-8')
+          extracted = Path('/tmp/v14.txt').read_text(encoding='utf-8', errors='replace')
+          normalized = ' '.join(extracted.split())
+          errors = []
+
+          phase6 = 'A Phase 6 replication should preregister the primary/secondary hierarchy'
+          count = normalized.count(phase6)
+          if count != 1:
+              errors.append(f'Phase 6 sentence prefix appears {count} times in PDF; expected exactly 1')
+
+          title = 'Large language models can predict the results of social science experiments'
+          if title not in normalized:
+              errors.append('corrected Ashokkumar title missing from PDF')
+
+          if '2026.findings-acl.1316' not in source:
+              errors.append('corrected ACL Anthology identifier missing from source')
+
+          for bad in ('s41586-026-10385-0', '2026.findings-acl.1302', '00491241251343947'):
+              if bad in source:
+                  errors.append(f'known regressed reference remains in source: {bad}')
+
+          if errors:
+              raise SystemExit('v14 PDF preflight failed:\n- ' + '\n- '.join(errors))
+          print(f'v14 PDF preflight: PASS ({len(extracted.splitlines())} extracted lines)')
+          PY
       - name: Lint manuscript and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
       - uses: actions/upload-artifact@v4
