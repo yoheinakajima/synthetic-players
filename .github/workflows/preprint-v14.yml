@@ -50,11 +50,8 @@ jobs:
           python scripts/repair_v12_audits.py
           python scripts/v12_audits.py
           (cd artifacts/api-server && uv run --with numpy --with scipy python engine/phase3_replay_audit.py)
-          python scripts/repair_apply_preprint_v12.py
-          python scripts/apply_preprint_v12.py
           python scripts/generate_review_figures_v11.py
           python scripts/v13_p52_audit.py
-          python scripts/apply_preprint_v13.py
           python scripts/generate_prompt_figure_v13.py
           python scripts/apply_preprint_v14.py
           python scripts/references_lint.py
