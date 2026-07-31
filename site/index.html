@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synthetic Players — Auditable LLM Behavioral Experiments</title>
+  <meta name="description" content="An open, auditable research program on LLM-controlled agents in strategic games, with preregistration, event-sourced execution, public correction, and zero-call replay.">
+  <link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Passing Coarse Marginal Checks Can Be Cheap">
+  <meta property="og:description" content="Persona mixtures and imprecise treatment-response estimates in an LLM persona panel.">
+  <meta property="og:url" content="https://yoheinakajima.github.io/synthetic-players/">
+  <meta property="og:image" content="https://yoheinakajima.github.io/synthetic-players/assets/between-prompt-share.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Passing Coarse Marginal Checks Can Be Cheap: Persona Mixtures and Imprecise Treatment-Response Estimates in an LLM Persona Panel",
+    "author": {"@type": "Person", "name": "Yohei Nakajima"},
+    "datePublished": "2026-07-31",
+    "url": "https://yoheinakajima.github.io/synthetic-players/",
+    "isAccessibleForFree": true,
+    "codeRepository": "https://github.com/yoheinakajima/synthetic-players",
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Synthetic Players home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Synthetic Players</span></a>
+    <nav aria-label="Primary navigation"><a href="#findings">Findings</a><a href="#audit">Audit</a><a href="#reproduce">Reproduce</a><a href="https://github.com/yoheinakajima/synthetic-players">GitHub</a></nav>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow">Open computational behavioral science</p>
+        <h1>Passing coarse marginal checks can be cheap.</h1>
+        <p class="dek">Persona mixtures and imprecise treatment-response estimates in an LLM persona panel.</p>
+        <p class="byline">Yohei Nakajima · Untapped Capital</p>
+        <div class="actions"><a class="button primary" href="paper.pdf">Read the paper</a><a class="button secondary" href="arxiv-source.zip">Download arXiv source</a></div>
+        <p class="scope">One fixed model-prompt panel. Protocol-nonmatched human references. No claim of human substitutability.</p>
+      </div>
+      <div class="hero-card" aria-label="Key results">
+        <div class="metric"><strong>63–71%</strong><span>posterior median between-prompt share</span></div>
+        <div class="metric split"><strong>+0.083<br>+0.078</strong><span>observed treatment contrasts, both imprecisely estimated</span></div>
+        <div class="metric"><strong>0/40 → 37/40</strong><span>cooperation after one wording-and-position change</span></div>
+      </div>
+    </section>
+
+    <section class="finding-strip" aria-label="Research summary"><div class="shell strip-grid"><p><b>The panel passed.</b> Three of four repeated-game condition means entered the preregistered broad-reference band.</p><p><b>The response remained loose.</b> Conservative intervals span roughly −0.18 to +0.33.</p><p><b>The representation mattered.</b> A single sentence operation moved behavior from one corner to the other.</p></div></section>
+
+    <section id="findings" class="section shell">
+      <div class="section-heading"><p class="eyebrow">What the paper shows</p><h2>Marginal resemblance is not response validation.</h2></div>
+      <div class="two-col">
+        <div class="prose"><p>Sixteen sealed persona prompts were crossed with strategic-game conditions. The panel produced plausible aggregate levels and substantial cross-prompt dispersion, but the treatment-response object that the broad checks might be taken to validate was only loosely bounded.</p><p>A fixed-panel Dirichlet–Jeffreys sensitivity yields median between-prompt shares of 63%–71%, with 95% intervals spanning 49%–81%. Conditional plug-in estimates are higher, 85%–96%, because they treat observed boundary concentration more literally.</p><p>The treatment changed both the continuation process and the language communicating it. The paper therefore reports a represented-treatment response, not a pure incentive effect.</p></div>
+        <figure class="figure-card"><img src="assets/between-prompt-share.png" alt="Between-prompt share estimates under plug-in and latent-propensity uncertainty views"><figcaption>Two uncertainty views of the same fixed persona panel.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section shell section-alt">
+      <div class="section-heading compact"><p class="eyebrow">Prompt-indexed response</p><h2>Composition can look like diversity without identifying adaptation.</h2></div>
+      <figure class="wide-figure"><img src="assets/prompt-indexed-delta.png" alt="Prompt-indexed continuation-probability differences with simultaneous intervals"><figcaption>Prompt-indexed differences are often concentrated at observed boundaries, while uncertainty remains wide.</figcaption></figure>
+    </section>
+
+    <section id="audit" class="section shell">
+      <div class="section-heading"><p class="eyebrow">Audit architecture</p><h2>The correction record is part of the result.</h2></div>
+      <div class="audit-grid">
+        <article><span>01</span><h3>Register</h3><p>Claims, prompts, thresholds, and execution rules were sealed before their adjudicating data.</p></article>
+        <article><span>02</span><h3>Execute</h3><p>An event-sourced engine archived rendered prompts, completions, actions, payoffs, seeds, and provenance.</p></article>
+        <article><span>03</span><h3>Adjudicate</h3><p>Mechanical predicates produced verdicts without hand-setting outcomes.</p></article>
+        <article><span>04</span><h3>Correct</h3><p>External review exposed family-error, dependence, construct, and boundary-uncertainty defects.</p></article>
+        <article><span>05</span><h3>Replay</h3><p>The public capsule verifies 4,916 confirmatory runs with no credentials or live model calls.</p></article>
+        <article><span>06</span><h3>Preserve</h3><p>Historical records remain intact; revised interpretations travel beside them.</p></article>
+      </div>
+    </section>
+
+    <section id="reproduce" class="section shell reproduce">
+      <div><p class="eyebrow">One-command verification</p><h2>Replay the confirmatory record.</h2><p>The capsule stages archived databases, verifies Phase 3 prompts and actions, replays Phase 4–5 byte-exact, independently recomputes deterministic baselines, then checks immutable inputs.</p></div>
+      <div class="terminal"><button id="copy-command" type="button">Copy</button><pre><code id="verify-command">git clone https://github.com/yoheinakajima/synthetic-players
+cd synthetic-players/capsule
+bash verify.sh</code></pre><p>Expected: 4,919 archived runs verified — 4,916 confirmatory + 3 legacy diagnostics.</p></div>
+    </section>
+
+    <section class="section shell resources">
+      <div class="section-heading compact"><p class="eyebrow">Open materials</p><h2>Paper, source, data, and review lineage.</h2></div>
+      <div class="resource-grid">
+        <a href="paper.pdf"><b>Paper PDF</b><span>Canonical submission-ready paper</span></a>
+        <a href="arxiv-source.zip"><b>arXiv source</b><span>Minimal PDFLaTeX package</span></a>
+        <a href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/paper/paper.md"><b>Manuscript</b><span>Readable Markdown source</span></a>
+        <a href="https://github.com/yoheinakajima/synthetic-players/tree/main/docs/analysis/submission"><b>Analyses</b><span>Zero-call sensitivity outputs</span></a>
+        <a href="https://github.com/yoheinakajima/synthetic-players/tree/main/docs/reviews"><b>Reviews</b><span>Critiques, dispositions, and corrections</span></a>
+        <a href="https://github.com/yoheinakajima/synthetic-players/tree/main/capsule"><b>Capsule</b><span>Anonymous one-command replay</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="shell footer-grid"><p><b>Synthetic Players</b><br>Auditable strategic experiments with LLM-controlled agents.</p><p>Paper and research record © 2026 Yohei Nakajima.<br>Code: MIT · Released research artifacts: CC BY 4.0.</p></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
