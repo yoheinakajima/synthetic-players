@@ -85,16 +85,57 @@ jobs:
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern fonts-linuxlibertine fonts-lato poppler-utils
       - name: Build and preflight v13 PDF
         run: |
+          set -euo pipefail
           python scripts/build_preprint_pdf_v13.py
           pdf='docs/paper/synthetic-players-preprint-v13.pdf'
           pages="$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')"
           test "$pages" -ge 16
           test "$pages" -le 28
           pdftotext "$pdf" /tmp/preprint-v13.txt
-          grep -q '0.071, 0.189' /tmp/preprint-v13.txt
-          grep -q 'study-wide alpha allocation' /tmp/preprint-v13.txt
-          grep -q 'preregistered heuristic tolerance' /tmp/preprint-v13.txt
-          grep -q 'never decoded as an action' /tmp/preprint-v13.txt
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('docs/paper/paper-draft.md').read_text(encoding='utf-8')
+          extracted = Path('/tmp/preprint-v13.txt').read_text(encoding='utf-8')
+          normalized_pdf = ' '.join(extracted.split())
+          errors = []
+
+          required_source = [
+              '0.071, 0.189',
+              'study-wide alpha allocation',
+              'preregistered heuristic tolerance',
+              'never decoded as an action',
+              'fixed-panel Dirichlet–Jeffreys latent-propensity aggregation',
+          ]
+          for marker in required_source:
+              if marker not in source:
+                  errors.append(f'manuscript source missing {marker!r}')
+
+          required_pdf = [
+              'Abstract',
+              '0.071',
+              '0.189',
+              'P5-2',
+              '0.172',
+              '0.195',
+              'provider-failure',
+          ]
+          for marker in required_pdf:
+              if marker not in normalized_pdf:
+                  errors.append(f'PDF text missing {marker!r}')
+
+          for path in (
+              'docs/paper/synthetic-players-preprint-v13.sha256',
+              'docs/paper/synthetic-players-preprint-v13-artifact.json',
+              'docs/analysis/submission/v13/p52-dependence-audit.json',
+          ):
+              if not Path(path).is_file() or Path(path).stat().st_size == 0:
+                  errors.append(f'missing generated artifact {path}')
+
+          if errors:
+              raise SystemExit('v13 preflight failed:\n- ' + '\n- '.join(errors))
+          print(f'preprint v13 preflight: PASS ({pages if False else len(extracted.splitlines())} extracted lines)')
+          PY
       - name: Lint living assertions and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
       - name: Verify complete confirmatory capsule
