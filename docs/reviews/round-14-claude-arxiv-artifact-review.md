@@ -1,0 +1,5 @@
+# Round 14 - Claude review of the first unversioned arXiv artifact
+
+The reviewed PDF was rejected as an artifact because an unescaped percent sign truncated the rendered abstract after “63”. Claude also requested a final submission edit: move the evidentiary-economy definition forward, clarify why the six-episode design is itself informative about the validation criterion, foreground composition and representation results, state persona provenance, make Phase 6 allocation commitments, reduce repetition and repository paths, expose prior sensitivity, repair the episode-outcome notation, explain the low output-token average, and flag p05/p13 in Figure 2.
+
+All blocking and substantive items were adopted. The abstract is now inserted through Pandoc metadata and the build compares a normalized complete abstract against extracted PDF text. A zero-call symmetric-Dirichlet prior sweep (alpha = 0.25, 0.5, 1.0) is committed and changes the interpretation from “likely dominant” to “substantial, with dominance prior-dependent.” Historical registrations and verdicts remain unchanged.
