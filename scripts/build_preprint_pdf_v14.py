@@ -2,10 +2,10 @@
 from __future__ import annotations
 import hashlib,json,os,re,shutil,subprocess
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]; PAPER=ROOT/'docs/paper'; SOURCE=PAPER/'paper-draft.md'; HEADER=PAPER/'preprint-v13-header.tex'; OUTPUT=PAPER/'synthetic-players-preprint-v14.pdf'; SHA_FILE=PAPER/'synthetic-players-preprint-v14.sha256'; MANIFEST=PAPER/'synthetic-players-preprint-v14-artifact.json'; BUILD=ROOT/'.preprint-v14-build'; BUILD_MD=BUILD/'synthetic-players-preprint-v14.md'; FIGURES=('prompt-indexed-delta','condition-means','between-prompt-share','representation-effects','p13-audit')
+ROOT=Path(__file__).resolve().parents[1]; PAPER=ROOT/'docs/paper'; SOURCE=PAPER/'paper-draft.md'; HEADER=PAPER/'preprint-v14-header.tex'; OUTPUT=PAPER/'synthetic-players-preprint-v14.pdf'; SHA_FILE=PAPER/'synthetic-players-preprint-v14.sha256'; MANIFEST=PAPER/'synthetic-players-preprint-v14-artifact.json'; BUILD=ROOT/'.preprint-v14-build'; BUILD_MD=BUILD/'synthetic-players-preprint-v14.md'; FIGURES=('prompt-indexed-delta','condition-means','between-prompt-share','representation-effects','p13-audit')
 def req(n):
     if shutil.which(n) is None: raise RuntimeError(f'required program not found: {n}')
-def git(*args): return subprocess.check_output(['git',*args],cwd=ROOT,text=True).strip()
+def git(*args): return subprocess.check_output(['git',*args,cwd=ROOT,text=True).strip()
 def prepare():
     lines=SOURCE.read_text(encoding='utf-8').splitlines(); title=lines[0][2:].strip().replace('"','\\"'); body='\n'.join(lines[1:]).lstrip(); body=re.sub(r'^\*\*Preprint v14.*?\n\n','',body,count=1,flags=re.S)
     for figure in FIGURES:
@@ -38,5 +38,7 @@ urlcolor: "1F4E79"
     info=subprocess.check_output(['pdfinfo',str(OUTPUT)],cwd=ROOT,text=True); pages=int(next(x.split(':',1)[1].strip() for x in info.splitlines() if x.startswith('Pages:'))); digest=hashlib.sha256(OUTPUT.read_bytes()).hexdigest(); SHA_FILE.write_text(f'{digest}  {OUTPUT.name}\n',encoding='utf-8'); MANIFEST.write_text(json.dumps({'repository':'yoheinakajima/synthetic-players','source_commit':git('rev-parse','HEAD'),'source':'docs/paper/paper-draft.md','pdf':'docs/paper/synthetic-players-preprint-v14.pdf','pdf_sha256':digest,'pages':pages,'workflow_run':os.environ.get('GITHUB_RUN_ID','local'),'status':'arXiv candidate v14'},indent=2)+'\n',encoding='utf-8')
     text=subprocess.check_output(['pdftotext',str(OUTPUT),'-'],cwd=ROOT,text=True); sentence='A Phase 6 replication should preregister the primary/secondary hierarchy'
     if text.count(sentence)!=1: raise RuntimeError(f'Phase 6 sentence count in PDF is {text.count(sentence)}, expected 1')
+    if 'Preprint v13' in text: raise RuntimeError('stale Preprint v13 running header remains in v14 PDF')
+    if text.count('Preprint v14') < pages: raise RuntimeError(f'Preprint v14 header count in PDF is {text.count("Preprint v14")}, expected at least {pages}')
     print(info); print(f'build_preprint_pdf_v14: sha256={digest}'); return 0
 if __name__=='__main__': raise SystemExit(main())
