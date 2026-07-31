@@ -1,50 +1,31 @@
-name: preprint-v13
-
+name: preprint-v14-final
 on:
   pull_request:
     branches: [main]
-    paths:
-      - '.github/workflows/preprint-v12.yml'
-      - 'scripts/**'
-      - 'artifacts/api-server/engine/**'
-      - 'capsule/**'
-      - 'docs/paper/**'
-      - 'docs/analysis/**'
-      - 'docs/reviews/**'
-      - 'README.md'
-      - 'REVIEW.md'
-      - 'CITATION.cff'
+    paths: ['.github/workflows/preprint-v14.yml','scripts/**','capsule/**','docs/paper/**','docs/analysis/**','docs/reviews/**']
   workflow_dispatch:
-
 permissions:
   contents: write
-
 concurrency:
-  group: preprint-v13-${{ github.event.pull_request.number || github.ref }}
+  group: preprint-v14-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-
 jobs:
   build-and-verify:
-    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository && !startsWith(github.event.pull_request.head.ref, 'paper/preprint-v14'))
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
-          fetch-depth: 0
+        with: {ref: "${{ github.event.pull_request.head.ref || github.ref_name }}", fetch-depth: 0}
       - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install analysis dependencies
-        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib uv
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check numpy scipy matplotlib uv
       - name: Stage archived databases
         run: |
           mkdir -p artifacts/api-server/engine/data
           xz -dkc capsule/data/engine.db.xz > artifacts/api-server/engine/data/engine.db
           xz -dkc capsule/data/budget.db.xz > artifacts/api-server/engine/data/budget.db
           cp capsule/data/phase4-driver-plan.json capsule/data/phase4-driver-state.json capsule/data/phase5-driver-plan.json capsule/data/phase5-driver-state.json artifacts/api-server/engine/data/ 2>/dev/null || true
-      - name: Regenerate record and integrate v13
+      - name: Regenerate analyses and integrate final manuscript
         env:
           SUBMISSION_DIRICHLET_DRAWS: '200000'
           SUBMISSION_FAMILY_PERMUTATIONS: '200000'
@@ -69,99 +50,80 @@ jobs:
           python scripts/repair_v12_audits.py
           python scripts/v12_audits.py
           (cd artifacts/api-server && uv run --with numpy --with scipy python engine/phase3_replay_audit.py)
-          python scripts/repair_apply_preprint_v12.py
-          python scripts/apply_preprint_v12.py
           python scripts/generate_review_figures_v11.py
           python scripts/v13_p52_audit.py
-          python scripts/apply_preprint_v13.py
           python scripts/generate_prompt_figure_v13.py
+          python scripts/apply_preprint_v14.py
+          python scripts/references_lint.py
           cp artifacts/api-server/engine/phase3_replay_audit.py capsule/artifacts/api-server/engine/phase3_replay_audit.py
           python scripts/polish_repo_v12.py
+      - name: Refresh capsule manifest after replay-generated audit files
+        run: |
+          CAPSULE_SKIP_MANIFEST=1 bash capsule/verify.sh
           python scripts/update_capsule_manifest_v12.py
-          python -m py_compile scripts/v13_p52_audit.py scripts/apply_preprint_v13.py scripts/generate_prompt_figure_v13.py scripts/build_preprint_pdf_v13.py
+          bash capsule/verify.sh
       - name: Install PDF dependencies
         run: |
           sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern fonts-linuxlibertine fonts-lato poppler-utils
-      - name: Build and preflight v13 PDF
+      - name: Build and preflight v14 PDF
         run: |
           set -euo pipefail
-          python scripts/build_preprint_pdf_v13.py
-          pdf='docs/paper/synthetic-players-preprint-v13.pdf'
+          python scripts/build_preprint_pdf_v14.py
+          pdf='docs/paper/synthetic-players-preprint-v14.pdf'
           pages="$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')"
-          test "$pages" -ge 16
-          test "$pages" -le 28
-          pdftotext "$pdf" /tmp/preprint-v13.txt
+          test "$pages" -ge 16 && test "$pages" -le 28
+          pdftotext "$pdf" /tmp/v14.txt
           python - <<'PY'
           from pathlib import Path
 
           source = Path('docs/paper/paper-draft.md').read_text(encoding='utf-8')
-          extracted = Path('/tmp/preprint-v13.txt').read_text(encoding='utf-8')
-          normalized_pdf = ' '.join(extracted.split())
+          extracted = Path('/tmp/v14.txt').read_text(encoding='utf-8', errors='replace')
+          normalized = ' '.join(extracted.split())
           errors = []
 
-          required_source = [
-              '0.071, 0.189',
-              'study-wide alpha allocation',
-              'preregistered heuristic tolerance',
-              'never decoded as an action',
-              'fixed-panel Dirichlet–Jeffreys latent-propensity aggregation',
-          ]
-          for marker in required_source:
-              if marker not in source:
-                  errors.append(f'manuscript source missing {marker!r}')
+          phase6 = 'A Phase 6 replication should preregister the primary/secondary hierarchy'
+          count = normalized.count(phase6)
+          if count != 1:
+              errors.append(f'Phase 6 sentence prefix appears {count} times in PDF; expected exactly 1')
 
-          required_pdf = [
-              'Abstract',
-              '0.071',
-              '0.189',
-              'P5-2',
-              '0.172',
-              '0.195',
-              'provider-failure',
-          ]
-          for marker in required_pdf:
-              if marker not in normalized_pdf:
-                  errors.append(f'PDF text missing {marker!r}')
+          title = 'Large language models can predict the results of social science experiments'
+          if title not in normalized:
+              errors.append('corrected Ashokkumar title missing from PDF')
 
-          for path in (
-              'docs/paper/synthetic-players-preprint-v13.sha256',
-              'docs/paper/synthetic-players-preprint-v13-artifact.json',
-              'docs/analysis/submission/v13/p52-dependence-audit.json',
-          ):
-              if not Path(path).is_file() or Path(path).stat().st_size == 0:
-                  errors.append(f'missing generated artifact {path}')
+          if '2026.findings-acl.1316' not in source:
+              errors.append('corrected ACL Anthology identifier missing from source')
+
+          for bad in ('s41586-026-10385-0', '2026.findings-acl.1302', '00491241251343947'):
+              if bad in source:
+                  errors.append(f'known regressed reference remains in source: {bad}')
 
           if errors:
-              raise SystemExit('v13 preflight failed:\n- ' + '\n- '.join(errors))
-          print(f'preprint v13 preflight: PASS ({pages if False else len(extracted.splitlines())} extracted lines)')
+              raise SystemExit('v14 PDF preflight failed:\n- ' + '\n- '.join(errors))
+          print(f'v14 PDF preflight: PASS ({len(extracted.splitlines())} extracted lines)')
           PY
-      - name: Lint living assertions and sealed boundary
+      - name: Lint manuscript and sealed boundary
         run: python scripts/paper_submission_lint.py --base origin/main
-      - name: Verify complete confirmatory capsule
-        run: bash capsule/verify.sh
       - uses: actions/upload-artifact@v4
         with:
-          name: synthetic-players-preprint-v13
+          name: synthetic-players-preprint-v14
           path: |
-            README.md
-            REVIEW.md
-            CITATION.cff
             docs/paper/paper-draft.md
-            docs/paper/synthetic-players-preprint-v13.pdf
-            docs/paper/synthetic-players-preprint-v13.sha256
-            docs/paper/synthetic-players-preprint-v13-artifact.json
+            docs/paper/synthetic-players-preprint-v14.pdf
+            docs/paper/synthetic-players-preprint-v14.sha256
+            docs/paper/synthetic-players-preprint-v14-artifact.json
             docs/paper/figures/
-            docs/analysis/submission/v13/
-            docs/reviews/round-11-*.md
+            docs/analysis/
+            docs/reviews/round-12-claude-v13-review.md
+            capsule/SHA256SUMS.capsule
           retention-days: 30
-      - name: Commit generated v13 outputs
+      - name: Commit generated final outputs
         if: github.event_name == 'pull_request'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           rm -f capsule/artifacts/api-server/engine/data/engine.db capsule/artifacts/api-server/engine/data/budget.db capsule/artifacts/api-server/engine/data/engine.db-shm capsule/artifacts/api-server/engine/data/engine.db-wal
-          git add -A -- README.md REVIEW.md CITATION.cff capsule capsule-README.md docs/analysis docs/paper docs/reviews scripts
+          git add -A -- capsule docs scripts
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'build and validate preprint v13 for Claude review [skip ci]'
+          git commit -m 'build and validate final preprint v14 [skip ci]'
           git push origin HEAD:${{ github.event.pull_request.head.ref }}

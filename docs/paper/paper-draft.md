@@ -1,5 +1,5 @@
 # Passing Coarse Marginal Checks Can Be Cheap: Persona Mixtures and Imprecise Treatment-Response Estimates in an LLM Persona Panel
-**Preprint v13 (July 2026; Claude review candidate).** Historical registrations and mechanical verdicts are preserved verbatim; all post-adjudication analyses are labeled as such. The public repository contains the complete research record, version history, and zero-call replay capsule.
+**Preprint v14 (July 2026; arXiv candidate).** Historical registrations and mechanical verdicts are preserved verbatim; all post-adjudication analyses are labeled as such. The public repository contains the complete research record, version history, and zero-call replay capsule.
 
 **Author:** Yohei Nakajima (Untapped Capital). Experiments executed by an autonomous pipeline (Replit Agent + ActiveGraph event-sourced engine). Attribution and reviewer-role disclosure: §8.
 
@@ -61,7 +61,7 @@ constructs simultaneous Clopper–Pearson intervals for the two episode-level bi
 [L_{.90}-U_{.10},\;U_{.90}-L_{.10}].
 \]
 
-Under the pooled independent-binomial component model this union-bound construction has at least 95% simultaneous coverage; its role is a conservative small-sample projection rather than a claim that the sixteen prompt propensities are homogeneous. It does not assume seat independence and does not collapse to zero uncertainty when all observed episodes agree. A Dirichlet–Jeffreys sensitivity uses the symmetric Dirichlet(0.5, 0.5, 0.5) prior on the probabilities of episode outcomes {0, 0.5, 1}; posterior draws project \(E[Y]=0.5q_{0.5}+q_1\). The percentile cluster bootstrap is also retained as a post-adjudication sensitivity. The exact Clopper–Pearson projection is the conservative reference because it provides finite-sample coverage for the discrete episode mean; at n=6 the percentile bootstrap has no comparable coverage guarantee and can understate uncertainty. Its degeneracy at exact corners is a symptom of that limitation, not by itself a false-positive mechanism for this strict interiority gate.
+Under the pooled independent-binomial component model this union-bound construction has at least 95% simultaneous coverage; with independent heterogeneous prompt probabilities the component totals are Poisson-binomial and no more dispersed than the equal-probability binomial at the same mean, making the binomial projection conservative for that working model; its role is a conservative small-sample projection rather than a claim that the sixteen prompt propensities are homogeneous. It does not assume seat independence and does not collapse to zero uncertainty when all observed episodes agree. A Dirichlet–Jeffreys sensitivity uses the symmetric Dirichlet(0.5, 0.5, 0.5) prior on the probabilities of episode outcomes {0, 0.5, 1}; posterior draws project \(E[Y]=0.5q_{0.5}+q_1\). The percentile cluster bootstrap is also retained as a post-adjudication sensitivity. The exact Clopper–Pearson projection is the conservative reference because it provides finite-sample coverage for the discrete episode mean; at n=6 the percentile bootstrap has no comparable coverage guarantee and can understate uncertainty. Its degeneracy at exact corners is a symptom of that limitation, not by itself a false-positive mechanism for this strict interiority gate.
 
 The hierarchy is deployment → explicit persona prompt → condition → episode → seat → round → provider request. Phase 5’s confirmatory unit is the complete persona sentence; name, age, occupation, and traits are bundled semantic treatments. Registered claims attach to the conditional finite-panel estimand for these sixteen prompts. Claims about a wider persona generator are exploratory at \(n=16\). Pairing the same explicit prompt across conditions identifies a prompt-indexed contrast, not necessarily a stable latent person’s treatment effect.
 
@@ -197,7 +197,7 @@ For synthetic-participant practice, broad marginal resemblance is a weak validat
 
 The result can be read as a synthetic-subject analogue of the reduced-form/structural distinction associated with the Lucas critique [Lucas 1976]: fitting or selecting for aggregate resemblance need not identify behavior under a changed treatment. In psychometric terms, it is a construct-validity and assay-sensitivity problem [Cronbach & Meehl 1955; ICH E10; Temple & Ellenberg 2000]. Agent-based modeling’s equifinality and pattern-oriented validation provide a related analogy [Windrum et al. 2007; Grimm et al. 2005]. These are organizing analogies, not claims that the study literally estimates a structural economic model or validates a human measurement model.
 
-The results also show why binary certification language should be used sparingly. The historical P5-1a predicate passes under its frozen seat-level rule and under the conservative episode-exact interval, but fails under a reasonable Dirichlet–Jeffreys sensitivity. The underlying continuous evidence is clearer than the thresholded label: plug-in estimates assign most observed variation between prompts, and the fixed-panel latent-propensity sensitivity still places posterior medians above one-half while substantially widening and lowering the intervals.
+The results also show why binary certification language should be used sparingly. The historical P5-1a predicate passes under its frozen seat-level rule and under the conservative episode-exact interval, but fails under a reasonable Dirichlet–Jeffreys sensitivity. The underlying continuous evidence is clearer than the thresholded label: plug-in estimates condition on empirical boundary concentration and therefore tend upward, whereas the Jeffreys posterior shrinks six-episode corner cells toward the interior and therefore tends downward. These views bracket the composition claim under opposite conditioning choices rather than compete as interchangeable estimates; the posterior medians remain above one-half while the lowest 95% bound crosses it.
 
 For deployment, behavior that can be rewritten by a sentence, an action token, or an identity prefix is safety-relevant. The label-conflict result does not show that lexical valence always dominates incentives: numerical payoffs move behavior in other cells, and the observed choice may reflect semantic framing, learned game-theoretic priors, or their interaction.
 
@@ -224,7 +224,7 @@ The primary evidence comes from one deployment and sixteen complete prompt bundl
 
 The treatment-response intervals are wide because each prompt-cell has six independent episodes and the exact projection retains uncertainty at empirical corners. The binary interior census is correspondingly sensitive to small-n discrete interval width. Explicit persona strings are paired across conditions, but latent-person invariance is untested. The continuation process was manipulated together with its textual representation. The persona-prefix contrast lacks a format-matched neutral control. The label-swap result cannot distinguish semantic valence from memorized game-theoretic associations because no non-PD control retained the same labels.
 
-The registered choice-entropy secondary was base-2 Shannon entropy of pooled round-one payoff-role choices. Historical pooled temperature groups had different unit composition; on the identical matched sweep lattice, pooled entropy at T=0.7, 1.0, and 1.3 was 0.8310, 0.7822, 0.7698 bits, while mean within-unit empirical entropy was 0.4484, 0.2566, 0.2877 bits. The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Pooled and mean within-unit entropy capture different objects, and neither identifies a mechanism. The high-temperature continuation interaction was not registered, and the Gemini tier is descriptive under endpoint non-stationarity.
+The registered choice-entropy secondary is defined and reported in Appendix A.1. Its matched-lattice decline survives composition matching, but unequal seat counts imply slightly different finite-sample plug-in bias across temperatures; the comparison is exploratory, mechanism-free, and does not isolate temperature from persona conditioning. The high-temperature continuation interaction was not registered, and the Gemini tier is descriptive under endpoint non-stationarity.
 
 Human references are published and protocol-nonmatched. The original familywise analyses were specified after review and cannot create retrospective confirmation. The exact n=6 family is underpowered by construction; p13 remains a replication target, not evidence for or against a general capability envelope.
 
@@ -264,7 +264,7 @@ Choice entropy is defined as base-2 Shannon entropy, \(H=-\sum_a p(a)\log_2p(a)\
 | 1.0 | 13 | 284 | 0.7822 | 0.2566 |
 | 1.3 | 13 | 284 | 0.7698 | 0.2877 |
 
-The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Mean within-unit entropy is reported separately because pooled entropy can remain high when different prompt-cell units occupy opposite boundaries. Neither statistic identifies a temperature mechanism.
+The registered pooled decline is partly composition-confounded but survives on the identical sweep lattice. Mean within-unit entropy is reported separately because pooled entropy can remain high when different prompt-cell units occupy opposite boundaries. Neither statistic identifies a temperature mechanism. The plug-in Shannon estimates use unequal seat counts (544 versus 284 and 284), so their small finite-sample biases are not identical; no bias-corrected entropy claim is made.
 
 ### A.2 Other supplementary findings
 
@@ -296,49 +296,49 @@ Sklar, A. (1959). Fonctions de répartition à n dimensions et leurs marges. *Pu
 
 Westfall, P. H., and Young, S. S. (1993). *Resampling-Based Multiple Testing: Examples and Methods for p-Value Adjustment*. Wiley.
 
-Akata, E., Schulz, L., Coda-Forno, J., Oh, S. J., Bethge, M., and Schulz, E. (2025). Playing repeated games with large language models. *Nature Human Behaviour, 9*, 215–228. https://doi.org/10.1038/s41562-025-02172-y
+Akata, E., Schulz, L., Coda-Forno, J., Oh, S. J., Bethge, M., and Schulz, E. (2025). Playing repeated games with large language models. *Nature Human Behaviour, 9*, 1380–1390. https://doi.org/10.1038/s41562-025-02172-y
 
-Anthis, J. R., Chu, J., Huang, S. T.-J., et al. (2025). Position: LLMs should not replace human participants in social science research. *Proceedings of the 42nd International Conference on Machine Learning, PMLR 267*, 2501–2520. https://proceedings.mlr.press/v267/anthis25a.html
+Anthis, J. R., Liu, R., Richardson, S. M., Kozlowski, A. C., Koch, B., Brynjolfsson, E., Evans, J., and Bernstein, M. S. (2025). Position: LLM social simulations are a promising research method. *Proceedings of the 42nd International Conference on Machine Learning, PMLR 267*, 81005–81034. https://proceedings.mlr.press/v267/anthis25a.html
 
 Argyle, L. P., Busby, E. C., Fulda, N., Gubler, J. R., Rytting, C., and Wingate, D. (2023). Out of one, many: Using language models to simulate human samples. *Political Analysis, 31*(3), 337–351. https://doi.org/10.1017/pan.2023.2
 
-Ashokkumar, A., Hewitt, L., Ghezae, I., and Willer, R. (2026). Leveraging large language models to predict the outcomes of social science experiments. *Nature*. https://doi.org/10.1038/s41586-026-10385-0
+Ashokkumar, A., Hewitt, L., Ghezae, I., and Willer, R. (2026). Large language models can predict the results of social science experiments. *Nature*. https://doi.org/10.1038/s41586-026-10742-x
 
-Batzner, A., Dieckmann, L., Diercks, B., and Strulik, J. (2025). Whose personae? A review of persona-based experiments with large language models. arXiv:2512.00461. https://doi.org/10.48550/arXiv.2512.00461
+Batzner, J., Stocker, V., Tang, B., Natarajan, A., Chen, Q., Schmid, S., and Kasneci, G. (2025). Whose personae? Synthetic persona experiments in LLM research and pathways to transparency. *Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society, 8*(1), 343–354. https://doi.org/10.1609/aies.v8i1.36553
 
 Bisbee, J., Clinton, J. D., Dorff, C., Kenkel, B., and Larson, J. M. (2024). Synthetic replacements for human survey data? The perils of large language models. *Political Analysis, 32*(4), 401–416. https://doi.org/10.1017/pan.2024.5
 
-Boelaert, J., Coavoux, M., Ollion, E., and Stoehr, N. (2025). Under the gaze of an LLM: Can large language models generate survey data? *Sociological Methods & Research*. Advance online publication. https://doi.org/10.1177/00491241251343947
+Boelaert, J., Coavoux, S., Ollion, É., Petev, I., and Präg, P. (2025). Machine bias: How do generative language models answer opinion polls? *Sociological Methods & Research, 54*(3), 1156–1196. https://doi.org/10.1177/00491241251330582
 
 Cronbach, L. J., and Meehl, P. E. (1955). Construct validity in psychological tests. *Psychological Bulletin, 52*(4), 281–302. https://doi.org/10.1037/h0040957
 
 Dal Bó, P., and Fréchette, G. R. (2011). The evolution of cooperation in infinitely repeated games: Experimental evidence. *American Economic Review, 101*(1), 411–429. https://doi.org/10.1257/aer.101.1.411
 
-Georgousis, S., Perifanis, V., Giannopoulos, G., Papagiannopoulou, C., and Demestichas, P. (2026). Evaluating counterfactual strategic reasoning in large language models. arXiv:2603.19167. https://doi.org/10.48550/arXiv.2603.19167
+Georgousis, D., Lymperaiou, M., Dimitriou, A., Filandrianos, G., and Stamou, G. (2026). Evaluating counterfactual strategic reasoning in large language models. arXiv:2603.19167. https://doi.org/10.48550/arXiv.2603.19167
 
 Grimm, V., Revilla, E., Berger, U., et al. (2005). Pattern-oriented modeling of agent-based complex systems: Lessons from ecology. *Science, 310*(5750), 987–991. https://doi.org/10.1126/science.1116681
 
-Harry, A., Ngong, I., Nweke, H. F., Feng, S., and Near, A. (2026). Beyond fixed psychological personas: State beats trait, but language models are state-blind. In *Findings of the Association for Computational Linguistics: ACL 2026*, 26440–26468. Association for Computational Linguistics. https://aclanthology.org/2026.findings-acl.1302/
+Harry, T., Ngong, I. C., Nweke, C., Feng, Y., and Near, J. (2026). Beyond fixed psychological personas: State beats trait, but language models are state-blind. In *Findings of the Association for Computational Linguistics: ACL 2026*, 26440–26468. Association for Computational Linguistics. https://doi.org/10.18653/v1/2026.findings-acl.1316
 
 Horton, J. J. (2023). Large language models as simulated economic agents: What can we learn from Homo Silicus? NBER Working Paper 31122. https://doi.org/10.3386/w31122
 
-Hullman, J., Broska, L., Sun, C., and Shaw, A. D. (2026). When can synthetic responses help social science? A statistical perspective. arXiv:2602.15785. https://doi.org/10.48550/arXiv.2602.15785
+Hullman, J., Broska, D., Sun, H., and Shaw, A. (2026). This human study did not involve human subjects: Validating LLM simulations as behavioral evidence. arXiv:2602.15785. https://doi.org/10.48550/arXiv.2602.15785
 
 International Council for Harmonisation. (2000). *ICH E10: Choice of control group and related issues in clinical trials*. https://database.ich.org/sites/default/files/E10_Guideline.pdf
 
 Li, Y., and Ji, X. (2026). When simulations look right but causal effects go wrong: Large language models as behavioral simulators. arXiv:2604.02458. https://doi.org/10.48550/arXiv.2604.02458
 
-Lin, Z., Yun, J., Matarić, M. J., Canny, J., Gretton, A., and D’Amour, A. (2026). The illusion of intervention: Your LLM-simulated experiment is an observational study. arXiv:2605.20767. https://doi.org/10.48550/arXiv.2605.20767
+Lin, V., Yun, T., Matarić, M. J., Canny, J., Gretton, A., and D’Amour, A. (2026). The illusion of intervention: Your LLM-simulated experiment is an observational study. arXiv:2605.20767. https://doi.org/10.48550/arXiv.2605.20767
 
 Lucas, R. E., Jr. (1976). Econometric policy evaluation: A critique. *Carnegie-Rochester Conference Series on Public Policy, 1*, 19–46. https://doi.org/10.1016/S0167-2231(76)80003-6
 
 Mei, Q., Xie, Y., Yuan, W., and Jackson, M. O. (2024). A Turing test of whether AI chatbots are behaviorally similar to humans. *Proceedings of the National Academy of Sciences, 121*(9), e2313925121. https://doi.org/10.1073/pnas.2313925121
 
-Mousavi Davoudi, M., et al. (2026). Same game, different story: Assessing narrative robustness of strategic reasoning in large language models. arXiv:2607.19670. https://doi.org/10.48550/arXiv.2607.19670
+Mousavi Davoudi, S. P., Amiri-Margavi, A., Gholami Davodi, A., Hasani Balyani, H., and Gharagozlou, A. (2026). Same game, different story: A minimal conservative strategic robustness benchmark for large language model agents. arXiv:2607.19670. https://doi.org/10.48550/arXiv.2607.19670
 
 Pal, S., Mallela, A., Hilbe, C., Pracher, L., Wei, C., Fu, F., Schnell, S., and Nowak, M. A. (2026). Strategies of cooperation and defection in five large language models. arXiv:2601.09849. https://doi.org/10.48550/arXiv.2601.09849
 
-Park, J. S., Zou, C. Q., Shaw, A., et al. (2024). Generative agent simulations of 1,000 people. arXiv:2411.10109. https://doi.org/10.48550/arXiv.2411.10109
+Park, J. S., Zou, C. Q., Shaw, A., Hill, B. M., Cai, C., Morris, M. R., Willer, R., Liang, P., and Bernstein, M. S. (2024). Generative agent simulations of 1,000 people. arXiv:2411.10109. https://doi.org/10.48550/arXiv.2411.10109
 
 Persson, E., Schultzberg, M., and Ankargren, S. (2026). Statistical foundations of LLM-based A/B testing: A surrogacy framework for human causal inference. arXiv:2606.17165. https://doi.org/10.48550/arXiv.2606.17165
 
@@ -350,7 +350,7 @@ Temple, R., and Ellenberg, S. S. (2000). Placebo-controlled trials and active-co
 
 Windrum, P., Fagiolo, G., and Moneta, A. (2007). Empirical validation of agent-based models: Alternatives and prospects. *Journal of Artificial Societies and Social Simulation, 10*(2), 8. https://www.jasss.org/10/2/8.html
 
-Xiao, Z., et al. (2026). The chameleon’s limit: Investigating persona collapse and homogenization in large language models. arXiv:2604.24698. https://doi.org/10.48550/arXiv.2604.24698
+Xiao, Y., Zhang, V. J., Yang, C., Ma, N., Xuan, W., and Huang, J.-t. (2026). The chameleon’s limit: Investigating persona collapse and homogenization in large language models. arXiv:2604.24698. https://doi.org/10.48550/arXiv.2604.24698
 
 Xie, Y., Liang, L., Li, S., Lu, Y., Xiao, Z., Shi, M., Huang, J., Wang, M., and Xie, Y. (2026). Evaluating the statistical realism of LLM-generated social science data. *Proceedings of the National Academy of Sciences, 123*(19), e2538145123. https://doi.org/10.1073/pnas.2538145123
 
