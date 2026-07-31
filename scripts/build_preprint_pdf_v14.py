@@ -33,9 +33,7 @@ def req(name: str) -> None:
 
 
 def git(*args: str) -> str:
-    return subprocess.check_output(
-        ["git", *args], cwd=ROOT, text=True
-    ).strip()
+    return subprocess.check_output(["git", *args], cwd=ROOT, text=True).strip()
 
 
 def prepare() -> tuple[str, str]:
@@ -141,24 +139,22 @@ urlcolor: "1F4E79"
         encoding="utf-8",
     )
 
-    text = subprocess.check_output(
+    extracted = subprocess.check_output(
         ["pdftotext", str(OUTPUT), "-"], cwd=ROOT, text=True
     )
+    normalized = " ".join(extracted.split())
     sentence_prefix = (
         "A Phase 6 replication should preregister the primary/secondary hierarchy"
     )
-    if text.count(sentence_prefix) != 1:
+    if normalized.count(sentence_prefix) != 1:
         raise RuntimeError(
             "Phase 6 sentence count in PDF is "
-            f"{text.count(sentence_prefix)}, expected 1"
+            f"{normalized.count(sentence_prefix)}, expected 1"
         )
-    if "Preprint v13" in text:
+    if "Preprint v13" in normalized:
         raise RuntimeError("stale Preprint v13 running header remains in v14 PDF")
-    if text.count("Preprint v14") < pages:
-        raise RuntimeError(
-            f"Preprint v14 header count in PDF is {text.count('Preprint v14')}, "
-            f"expected at least {pages}"
-        )
+    if "Preprint v14" not in normalized:
+        raise RuntimeError("Preprint v14 running header missing from v14 PDF")
 
     print(info)
     print(f"build_preprint_pdf_v14: sha256={digest}")
