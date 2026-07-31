@@ -19,7 +19,7 @@ required = {
     'arXiv.2604.24698': 'The chameleon’s limit: Investigating persona collapse and homogenization in large language models',
     'arXiv.2605.20767': 'The illusion of intervention: Your LLM-simulated experiment is an observational study',
     'arXiv.2607.19670': 'Same game, different story: A minimal conservative strategic robustness benchmark for large language model agents',
-    'arXiv.2411.10109v3': 'LLM agents grounded in self-reports enable general-purpose simulation of individuals',
+    'arXiv:2411.10109v3': 'LLM agents grounded in self-reports enable general-purpose simulation of individuals',
     '10.1038/s41562-025-02172-y': 'Playing repeated games with large language models',
 }
 required_fragments = (
