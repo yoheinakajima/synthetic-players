@@ -58,6 +58,7 @@ jobs:
           ROUND5_POWER_BATCH: '1000'
           V11_LATENT_DRAWS: '100000'
           V12_BOOTSTRAP_REPS: '250000'
+          FINAL_PRIOR_DRAWS: '200000'
         run: |
           set -euo pipefail
           python artifacts/api-server/engine/submission_gate_analyses.py
@@ -73,8 +74,9 @@ jobs:
           (cd artifacts/api-server && uv run --with numpy --with scipy python engine/phase3_replay_audit.py)
           python scripts/generate_review_figures_v11.py
           python scripts/v13_p52_audit.py
-          python scripts/generate_prompt_figure_v13.py
-          python scripts/apply_preprint_v14.py
+          python scripts/sync_final_paper.py
+          python scripts/final_prior_sensitivity.py
+          python scripts/generate_prompt_figure_final.py
           python scripts/prepare_arxiv_release.py
           python scripts/references_lint.py
           cp artifacts/api-server/engine/phase3_replay_audit.py capsule/artifacts/api-server/engine/phase3_replay_audit.py
@@ -115,10 +117,13 @@ jobs:
           pdflatex -interaction=nonstopmode -halt-on-error main.tex >/tmp/arxiv-pass2.log
           test -s main.pdf
           test "$(pdfinfo main.pdf | awk '/^Pages:/ {print $2}')" = "$(pdfinfo "$GITHUB_WORKSPACE/docs/paper/synthetic-players.pdf" | awk '/^Pages:/ {print $2}')"
+          pdftotext main.pdf /tmp/arxiv-recompiled.txt
+          grep -q 'do not establish human substitutability' /tmp/arxiv-recompiled.txt
       - name: Build and preflight the public site
         run: |
           python scripts/build_site.py
           grep -qi 'Passing coarse marginal checks can be cheap' _site/index.html
+          grep -q '47–53%' _site/index.html
           test -s _site/paper.pdf
           test -s _site/arxiv-source.zip
           test -s _site/assets/between-prompt-share.png
@@ -130,26 +135,26 @@ jobs:
           pdftotext docs/paper/synthetic-players.pdf /tmp/synthetic-players.txt
           python - <<'PY'
           from pathlib import Path
+          import re
           source = Path('docs/paper/paper.md').read_text(encoding='utf-8')
-          extracted = ' '.join(Path('/tmp/synthetic-players.txt').read_text(encoding='utf-8', errors='replace').split())
-          errors = []
-          prefix = 'A Phase 6 test will preregister the candidate family'
-          if source.count(prefix) != 1:
-              errors.append(f'Phase 6 sentence prefix occurs {source.count(prefix)} times in source')
-          if extracted.count(prefix) != 1:
-              errors.append(f'Phase 6 sentence prefix occurs {extracted.count(prefix)} times in PDF')
-          for label in ('Preprint v', 'working draft', 'review candidate', 'arXiv candidate'):
-              if label.lower() in source.lower() or label.lower() in extracted.lower():
-                  errors.append(f'release label remains: {label}')
-          readme = Path('README.md').read_text(encoding='utf-8').lower()
-          for stale in ('preprint-v12', 'synthetic-players-preprint-v12.pdf', 'current paper remains a working draft'):
-              if stale in readme:
-                  errors.append(f'stale README marker remains: {stale}')
-          for marker in ('4,916', 'LLM agents grounded in self-reports enable general-purpose simulation of individuals', 'arXiv:2411.10109v3', 'AI systems are not listed as authors'):
-              if marker not in source:
-                  errors.append(f'canonical source missing {marker!r}')
-          if errors:
-              raise SystemExit('final release lint failed:\n- ' + '\n- '.join(errors))
+          extracted_raw = Path('/tmp/synthetic-players.txt').read_text(encoding='utf-8', errors='replace')
+          extracted = ' '.join(extracted_raw.split())
+          compact=lambda value: re.sub(r'[^a-z0-9]+','',value.lower())
+          abstract=re.search(r'^## Abstract\n\n(.+?)(?=\n\n## 1\. Introduction)',source,re.M|re.S).group(1)
+          errors=[]
+          if compact(abstract) not in compact(extracted_raw): errors.append('complete abstract is not recoverable from PDF text')
+          prefix='A Phase 6 test will preregister the candidate family'
+          if source.count(prefix)!=1 or extracted.count(prefix)!=1: errors.append('Phase 6 sentence does not occur once in both source and PDF')
+          for label in ('Preprint v','working draft','review candidate','arXiv candidate'):
+              if label.lower() in source.lower() or label.lower() in extracted.lower(): errors.append(f'release label remains: {label}')
+          required=('0.011 below the lower reference bound','63%-71% under Jeffreys alpha=0.5 and 47%-53% under alpha=1','p13 is therefore a replication target rather than a finding','4,916','AI systems are not listed as authors')
+          for marker in required:
+              if marker not in source: errors.append(f'canonical source missing {marker!r}')
+          summary=Path('docs/analysis/submission/submission-analysis-summary.json').read_text(encoding='utf-8')
+          if 'compositionPriorSensitivity' not in summary: errors.append('machine-readable prior sensitivity missing')
+          readme=Path('README.md').read_text(encoding='utf-8')
+          if '47%-53%' not in readme or '0.011' not in readme: errors.append('README does not carry final bounded result')
+          if errors: raise SystemExit('final release lint failed:\n- '+'\n- '.join(errors))
           print('final release lint: PASS')
           PY
       - uses: actions/upload-artifact@v4
@@ -169,9 +174,11 @@ jobs:
             docs/paper/synthetic-players-arxiv-source.zip
             docs/paper/arxiv-metadata.txt
             docs/paper/figures/
+            docs/analysis/submission/final/
+            docs/analysis/submission/submission-analysis-summary.json
             arxiv/
             site/
-            docs/reviews/round-13-*.md
+            docs/reviews/round-14-*.md
           retention-days: 90
       - name: Commit generated release outputs
         if: github.event_name == 'pull_request'
@@ -182,5 +189,5 @@ jobs:
           rm -rf _site
           git add -A -- README.md REVIEW.md CITATION.cff ARXIV_SUBMISSION.md arxiv capsule docs site scripts
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'build and validate arXiv submission package [skip ci]'
+          git commit -m 'build and validate final arXiv submission package [skip ci]'
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
