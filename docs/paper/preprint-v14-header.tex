@@ -1,0 +1,38 @@
+\usepackage{fontspec}
+\setmainfont{Linux Libertine O}
+\setsansfont{Lato}
+\setmonofont{DejaVu Sans Mono}[Scale=0.85]
+\setmathfont{latinmodern-math.otf}
+\usepackage{microtype,booktabs,longtable,array,ragged2e,graphicx,float,caption,xcolor,fancyhdr,lastpage,enumitem,titlesec,etoolbox}
+\captionsetup{font=small,labelfont=bf}
+\definecolor{paperblue}{HTML}{1F4E79}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize Synthetic Players}
+\fancyhead[R]{\sffamily\footnotesize Preprint v14}
+\fancyfoot[C]{\sffamily\footnotesize \thepage}
+\renewcommand{\headrulewidth}{0.35pt}
+\setlength{\headheight}{14pt}
+\setlist{nosep,leftmargin=*}
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\titleformat{\section}{\Large\bfseries\sffamily\color{paperblue}}{}{0pt}{}
+\titleformat{\subsection}{\large\bfseries\sffamily}{}{0pt}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.15em}{0.45em}
+\titlespacing*{\subsection}{0pt}{0.95em}{0.35em}
+\AtBeginEnvironment{longtable}{\small}
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{center}
+  {\sffamily\bfseries\LARGE\color{paperblue}\@title\par}
+  \vspace{0.65em}
+  {\sffamily\large\@author\par}
+  \vspace{0.20em}
+  {\sffamily\small\@date\par}
+  \end{center}
+  \vspace{0.65em}
+  \hrule
+  \vspace{0.85em}
+}
+\makeatother

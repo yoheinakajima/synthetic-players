@@ -1,10 +1,10 @@
 {
   "repository": "yoheinakajima/synthetic-players",
-  "source_commit": "a62043c30b223548fa9af71ea149b6f351bbbf1d",
+  "source_commit": "c344b9d40debf972ca5231aeb582d7760eb5525c",
   "source": "docs/paper/paper-draft.md",
   "pdf": "docs/paper/synthetic-players-preprint-v14.pdf",
-  "pdf_sha256": "3751656e2ddb7ff8b92b04ec28b107a1185bb2ca7ede04ba57fe41b00d99e7ca",
+  "pdf_sha256": "29bc0483f7086eda8ba357f07eebeaa157a9e7195d83be62d00065a174ac02d8",
   "pages": 19,
-  "workflow_run": "30637813828",
+  "workflow_run": "30639910539",
   "status": "arXiv candidate v14"
 }
