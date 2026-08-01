@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Install SHA-256-pinned final public release surfaces and derived site figures."""
+# Release convergence trigger: transactional capsule verification is now byte-clean.
 from __future__ import annotations
 import base64,hashlib,io,shutil,struct,subprocess,tarfile,tempfile
 from pathlib import Path
