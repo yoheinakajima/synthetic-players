@@ -6,6 +6,10 @@ on:
     paths:
       - '.github/workflows/inspect-staged-payload.yml'
       - 'scripts/final_release_chunks/**'
+  pull_request:
+    paths:
+      - '.github/workflows/inspect-staged-payload.yml'
+      - 'scripts/final_release_chunks/**'
   workflow_dispatch:
 
 permissions:
@@ -48,7 +52,6 @@ jobs:
           echo 'TAR HEADER SCAN'
           python - <<'PY'
           from pathlib import Path
-          import os
           b=Path('/tmp/payload-prefix.tar').read_bytes()
           for off in range(0, len(b)-512+1, 512):
               block=b[off:off+512]
