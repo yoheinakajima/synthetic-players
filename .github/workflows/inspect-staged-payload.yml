@@ -1,0 +1,65 @@
+name: Inspect staged release payload
+
+on:
+  push:
+    branches: [agent/final-release-payload-staging]
+    paths:
+      - '.github/workflows/inspect-staged-payload.yml'
+      - 'scripts/final_release_chunks/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect partial stream
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'CHUNK SIZES AND HASHES'
+          wc -c scripts/final_release_chunks/payload-*.txt
+          sha256sum scripts/final_release_chunks/payload-*.txt
+          cat scripts/final_release_chunks/payload-*.txt > /tmp/payload-prefix.b64
+          python - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, zlib
+          raw=''.join(Path('/tmp/payload-prefix.b64').read_text().split())
+          print('base64_chars', len(raw))
+          compressed=base64.b64decode(raw, validate=True)
+          print('compressed_bytes', len(compressed))
+          print('compressed_sha256', hashlib.sha256(compressed).hexdigest())
+          d=zlib.decompressobj(16+zlib.MAX_WBITS)
+          try:
+              out=d.decompress(compressed)
+          except zlib.error as exc:
+              print('zlib_error', exc)
+              out=b''
+          Path('/tmp/payload-prefix.tar').write_bytes(out)
+          print('decompressed_bytes', len(out))
+          print('gzip_eof', d.eof)
+          print('unconsumed_tail', len(d.unconsumed_tail))
+          PY
+          echo 'TAR MEMBERS RECOVERABLE FROM PREFIX'
+          tar -tvf /tmp/payload-prefix.tar --ignore-zeros || true
+          echo 'TAR HEADER SCAN'
+          python - <<'PY'
+          from pathlib import Path
+          import os
+          b=Path('/tmp/payload-prefix.tar').read_bytes()
+          for off in range(0, len(b)-512+1, 512):
+              block=b[off:off+512]
+              if block == b'\0'*512:
+                  continue
+              name=block[:100].split(b'\0',1)[0]
+              magic=block[257:263]
+              if magic.startswith(b'ustar'):
+                  size_raw=block[124:136].rstrip(b'\0 ').strip() or b'0'
+                  try: size=int(size_raw,8)
+                  except Exception: size=-1
+                  print(off, name.decode('utf-8','replace'), size)
+          print('tail_hex', b[-128:].hex())
+          PY
