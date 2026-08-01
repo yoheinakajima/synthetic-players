@@ -1,25 +1,19 @@
 cff-version: 1.2.0
-message: "Please cite the preprint and software record below."
+message: "Please cite the paper below."
 title: "Synthetic Players: auditable strategic experiments with LLM-controlled agents"
 type: software
 authors:
   - family-names: Nakajima
     given-names: Yohei
 repository-code: "https://github.com/yoheinakajima/synthetic-players"
+url: "https://yoheinakajima.github.io/synthetic-players/"
 license: MIT
-version: "preprint-v14"
-date-released: "2026-07-31"
+date-released: "2026-08-01"
 abstract: >-
   An open research program on LLM-controlled agents in strategic games,
   including externally anchored registrations, event-sourced execution,
-  mechanical adjudication, behavioral drift monitoring, byte-exact replay,
-  and public post-adjudication sensitivity analyses. The current paper studies
-  a fixed panel of lightweight persona prompts that passes coarse marginal
-  checks while producing small continuation-probability point estimates with
-  wide dependence-aware intervals. Plug-in estimates assign most observed variation
-  between prompts, while a fixed-panel latent-propensity sensitivity lowers and widens
-  that composition estimate. The repository does not claim
-  human substitutability, and published human references are protocol-nonmatched.
+  mechanical adjudication, behavioral drift monitoring, zero-call replay,
+  and public post-adjudication sensitivity analyses.
 keywords:
   - behavioral game theory
   - large language models
@@ -38,4 +32,4 @@ preferred-citation:
     - family-names: Nakajima
       given-names: Yohei
   year: 2026
-  url: "https://github.com/yoheinakajima/synthetic-players"
+  url: "https://yoheinakajima.github.io/synthetic-players/paper.pdf"
