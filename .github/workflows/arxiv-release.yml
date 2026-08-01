@@ -1,117 +1,13 @@
-name: Final arXiv release
+name: Final arXiv release (staging paused)
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'arxiv/**'
-      - 'docs/paper/**'
-      - 'docs/analysis/**'
-      - 'docs/reviews/**'
-      - 'scripts/**'
-      - 'capsule/**'
-      - 'site/**'
-      - 'README.md'
-      - 'REVIEW.md'
-      - 'CITATION.cff'
-      - 'ARXIV_SUBMISSION.md'
-      - '.github/workflows/arxiv-release.yml'
   workflow_dispatch:
 
 permissions:
-  contents: write
-
-concurrency:
-  group: final-arxiv-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  contents: read
 
 jobs:
-  build-and-verify:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 90
+  paused:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install the checked final release payload
-        run: python scripts/install_final_release.py
-      - name: Stage vector figures for the arXiv source
-        run: |
-          mkdir -p arxiv/figures
-          cp docs/paper/figures/between-prompt-share.pdf arxiv/figures/
-          cp docs/paper/figures/condition-means.pdf arxiv/figures/
-          cp docs/paper/figures/p13-audit.pdf arxiv/figures/
-          cp docs/paper/figures/prompt-indexed-delta.pdf arxiv/figures/
-          cp docs/paper/figures/representation-effects.pdf arxiv/figures/
-      - name: Install validation dependencies
-        run: python -m pip install --disable-pip-version-check opentimestamps-client
-      - name: Verify references
-        run: python scripts/references_lint.py
-      - name: Verify public zero-call capsule
-        run: bash capsule/verify.sh
-      - name: Install TeX and PDF utilities
-        run: |
-          sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends texlive-latex-base texlive-latex-extra texlive-fonts-recommended lmodern poppler-utils unzip
-      - name: Build and preflight the exact arXiv artifact
-        run: python scripts/build_arxiv_release.py
-      - name: Recompile the upload archive in a fresh directory
-        run: |
-          rm -rf /tmp/synthetic-players-arxiv-check
-          mkdir -p /tmp/synthetic-players-arxiv-check
-          unzip -q docs/paper/synthetic-players-arxiv-source.zip -d /tmp/synthetic-players-arxiv-check
-          cd /tmp/synthetic-players-arxiv-check
-          pdflatex -interaction=nonstopmode -halt-on-error main.tex >/tmp/arxiv-pass1.log
-          pdflatex -interaction=nonstopmode -halt-on-error main.tex >/tmp/arxiv-pass2.log
-          test -s main.pdf
-          pdftotext main.pdf /tmp/arxiv-text.txt
-          grep -q 'do not establish human substitutability' /tmp/arxiv-text.txt
-      - name: Timestamp the canonical checksum
-        run: |
-          rm -f docs/paper/synthetic-players.sha256.ots
-          for attempt in 1 2 3; do
-            if ots stamp docs/paper/synthetic-players.sha256; then break; fi
-            test "$attempt" -lt 3
-            sleep 10
-          done
-          test -s docs/paper/synthetic-players.sha256.ots
-      - name: Repository and artifact lint
-        run: |
-          cmp docs/paper/paper.md docs/paper/paper-draft.md
-          python scripts/paper_submission_lint.py --base origin/main
-          grep -q '47%-53%' README.md
-          grep -q '0.011' README.md
-          grep -q 'The stronger dominance interpretation is therefore prior-dependent' docs/paper/paper.md
-          ! grep -RqiE 'PREPRINT v[0-9]+|WORKING DRAFT|ARXIV CANDIDATE' README.md REVIEW.md docs/paper/paper.md CITATION.cff site/index.html
-      - uses: actions/upload-artifact@v4
-        with:
-          name: synthetic-players-final-arxiv
-          path: |
-            arxiv/
-            docs/paper/paper.md
-            docs/paper/paper-draft.md
-            docs/paper/synthetic-players.pdf
-            docs/paper/synthetic-players.sha256
-            docs/paper/synthetic-players.sha256.ots
-            docs/paper/synthetic-players-artifact.json
-            docs/paper/synthetic-players-arxiv-source.zip
-            docs/paper/arxiv-metadata.txt
-            README.md
-            REVIEW.md
-            CITATION.cff
-            ARXIV_SUBMISSION.md
-            site/
-          retention-days: 90
-      - name: Commit generated release artifacts
-        if: github.event_name == 'pull_request'
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A -- README.md REVIEW.md CITATION.cff ARXIV_SUBMISSION.md arxiv docs/paper docs/analysis/INDEX.md docs/analysis/submission/final docs/reviews/round-14-claude-arxiv-artifact-review.md scripts/build_arxiv_release.py scripts/final_prior_sensitivity.py site
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'build and pin final arXiv artifacts [skip ci]'
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+      - run: echo 'Staging final release payload; automatic PR build temporarily paused.'
