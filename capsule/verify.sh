@@ -1,7 +1,55 @@
 #!/usr/bin/env bash
 # One-command zero-credential verifier for the synthetic-players capsule.
+# Replay outputs are transactional: the checkout is restored on success or failure.
 set -euo pipefail
 cd "$(dirname "$0")"
+
+SRV=""
+TXN_DIR="$(mktemp -d)"
+TRANSACTIONAL_PATHS=(
+  docs/analysis/submission/v12/phase3-replay-audit.json
+  docs/analysis/submission/v12/phase3-replay-audit.md
+  docs/phase4/step8-replay-audit.json
+  docs/phase4/step8-replay-audit.md
+  docs/phase5-close/replay-audit.json
+  docs/phase5-close/replay-audit.md
+  artifacts/api-server/engine/data/engine.db
+  artifacts/api-server/engine/data/engine.db-shm
+  artifacts/api-server/engine/data/engine.db-wal
+  artifacts/api-server/engine/data/engine.db-journal
+  artifacts/api-server/engine/data/budget.db
+  artifacts/api-server/engine/data/budget.db-shm
+  artifacts/api-server/engine/data/budget.db-wal
+  artifacts/api-server/engine/data/budget.db-journal
+  artifacts/api-server/engine/data/phase4-driver-plan.json
+  artifacts/api-server/engine/data/phase4-driver-state.json
+  artifacts/api-server/engine/data/phase5-driver-plan.json
+  artifacts/api-server/engine/data/phase5-driver-state.json
+)
+for path in "${TRANSACTIONAL_PATHS[@]}"; do
+  if [ -e "$path" ]; then
+    mkdir -p "$TXN_DIR/original/$(dirname "$path")"
+    cp -a -- "$path" "$TXN_DIR/original/$path"
+  fi
+done
+cleanup() {
+  status=$?
+  trap - EXIT INT TERM
+  if [ -n "${SRV:-}" ]; then
+    kill "$SRV" 2>/dev/null || true
+    wait "$SRV" 2>/dev/null || true
+  fi
+  for path in "${TRANSACTIONAL_PATHS[@]}"; do
+    rm -rf -- "$path"
+    if [ -e "$TXN_DIR/original/$path" ]; then
+      mkdir -p "$(dirname "$path")"
+      cp -a -- "$TXN_DIR/original/$path" "$path"
+    fi
+  done
+  rm -rf -- "$TXN_DIR"
+  exit "$status"
+}
+trap cleanup EXIT INT TERM
 
 echo "== 1/5 stage archived databases"
 mkdir -p artifacts/api-server/engine/data
@@ -22,12 +70,12 @@ uv run --with numpy --with scipy python engine/phase3_replay_audit.py
 echo "== 4/5 Phase 4-5 byte-exact replay audits"
 export ENGINE_PORT=8123 ENGINE_URL="http://127.0.0.1:8123"
 uv run --with fastapi --with uvicorn --with pydantic --with numpy --with scipy python engine/server.py & SRV=$!
-trap 'kill $SRV 2>/dev/null || true' EXIT
 for i in $(seq 1 60); do curl -fsS "$ENGINE_URL/docs" >/dev/null 2>&1 && break; sleep 1; done
 STEP8_PHASE4_ONLY=1 uv run --with numpy --with scipy python engine/phase4_step8_audit.py
 uv run --with fastapi --with uvicorn --with pydantic --with numpy --with scipy python engine/phase5_replay_audit.py
-kill $SRV 2>/dev/null || true
-trap - EXIT
+kill "$SRV" 2>/dev/null || true
+wait "$SRV" 2>/dev/null || true
+SRV=""
 cd ../..
 
 echo "== 5/5 capsule integrity after deterministic audit regeneration"
