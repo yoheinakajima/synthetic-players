@@ -193,7 +193,7 @@ jobs:
               'arxiv.2604.24698':'the chameleon’s limit',
               'arxiv.2605.20767':'the illusion of intervention',
               'arxiv.2607.19670':'same game, different story',
-              'arxiv.2411.10109':'generative agent simulations of 1,000 people',
+              'arxiv.2411.10109':'llm agents grounded in self-reports enable general-purpose simulation of individuals',
               '10.1038/s41562-025-02172-y':'playing repeated games with large language models',
           }
           missing=[f'{i} / {t}' for i,t in required.items() if i.lower() not in text or t not in text]
