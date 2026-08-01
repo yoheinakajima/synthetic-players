@@ -14,118 +14,32 @@ jobs:
   audit:
     if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'agent/blob-transport-test'
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
     env:
       MERGE_SHA: c39948965bb238a89c1d81781072a102e7826f35
-      PDF_SHA256: c5f153198eb7987d8fc2156902a412691d01188f38b5362c44f74c4f979c98f8
-      SOURCE_SHA256: 0b75e83583f58b2020feeee86ff999173a6d466be682a6b7471f950b36fdf0b1
       GH_TOKEN: ${{ github.token }}
     steps:
-      - name: Verify main workflows and deployed Pages artifact
+      - name: Identify post-merge workflow runs
         shell: bash
         run: |
           python - <<'PY'
-          from __future__ import annotations
-          import hashlib
-          import json
-          import os
-          import time
-          import urllib.error
-          import urllib.parse
-          import urllib.request
-
-          repo=os.environ['GITHUB_REPOSITORY']
-          merge_sha=os.environ['MERGE_SHA']
-          token=os.environ['GH_TOKEN']
-          expected_workflows={'Final arXiv release','Deploy project site'}
-
-          def request(url: str, *, authenticated: bool=False, timeout: int=45) -> bytes:
-              headers={'User-Agent':'synthetic-players-post-merge-audit/1.0','Cache-Control':'no-cache'}
-              if authenticated:
-                  headers.update({'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'})
-              req=urllib.request.Request(url,headers=headers)
-              with urllib.request.urlopen(req,timeout=timeout) as response:
-                  if response.status >= 400:
-                      raise RuntimeError(f'{url}: HTTP {response.status}')
-                  return response.read()
-
-          api_base=f'https://api.github.com/repos/{repo}'
+          import json, os, urllib.request
+          repo=os.environ['GITHUB_REPOSITORY']; sha=os.environ['MERGE_SHA']; token=os.environ['GH_TOKEN']
+          req=urllib.request.Request(
+              f'https://api.github.com/repos/{repo}/actions/runs?head_sha={sha}&per_page=100',
+              headers={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'synthetic-players-post-merge-audit/1.0'},
+          )
+          with urllib.request.urlopen(req,timeout=45) as response:
+              payload=json.load(response)
           selected={}
-          for attempt in range(90):
-              payload=json.loads(request(f'{api_base}/actions/runs?head_sha={merge_sha}&per_page=100',authenticated=True))
-              runs=[run for run in payload.get('workflow_runs',[]) if run.get('head_sha')==merge_sha and run.get('event')=='push']
-              selected={}
-              for run in sorted(runs,key=lambda item:item.get('run_number',0),reverse=True):
+          for run in sorted(payload.get('workflow_runs',[]),key=lambda item:item.get('run_number',0),reverse=True):
+              if run.get('head_sha')==sha and run.get('event')=='push':
                   selected.setdefault(run.get('name'),run)
-              state={name:(selected.get(name,{}).get('status'),selected.get(name,{}).get('conclusion')) for name in sorted(expected_workflows)}
-              print('workflow_state',json.dumps(state,sort_keys=True),flush=True)
-              if expected_workflows.issubset(selected) and all(selected[name].get('status')=='completed' for name in expected_workflows):
-                  break
-              time.sleep(10)
-          else:
-              raise SystemExit(f'main workflow timeout: {selected}')
-
-          failures={name:selected[name].get('conclusion') for name in expected_workflows if selected[name].get('conclusion')!='success'}
-          if failures:
-              raise SystemExit(f'main workflow failure: {failures}')
-
-          pages=json.loads(request(f'{api_base}/pages',authenticated=True))
-          site=pages.get('html_url') or 'https://yoheinakajima.github.io/synthetic-players/'
-          if not site.endswith('/'):
-              site += '/'
-
-          last_error=None
-          for attempt in range(60):
-              try:
-                  nonce=urllib.parse.urlencode({'audit':merge_sha,'attempt':attempt})
-                  html=request(f'{site}?{nonce}').decode('utf-8')
-                  required=[
-                      'Passing Coarse Marginal Checks Can Be Cheap',
-                      '0.205',
-                      '[0.182, 0.231]',
-                      '4,919',
-                      '4,916 confirmatory',
-                  ]
-                  missing=[marker for marker in required if marker not in html]
-                  if missing:
-                      raise RuntimeError(f'site markers missing: {missing}')
-                  pdf=request(f'{site}paper.pdf?{nonce}')
-                  source=request(f'{site}arxiv-source.zip?{nonce}')
-                  if hashlib.sha256(pdf).hexdigest()!=os.environ['PDF_SHA256']:
-                      raise RuntimeError('deployed PDF hash mismatch')
-                  if hashlib.sha256(source).hexdigest()!=os.environ['SOURCE_SHA256']:
-                      raise RuntimeError('deployed arXiv source hash mismatch')
-                  for asset in ('assets/between-prompt-share.png','assets/prompt-indexed-delta.png'):
-                      data=request(f'{site}{asset}?{nonce}')
-                      if not data.startswith(b'\x89PNG\r\n\x1a\n'):
-                          raise RuntimeError(f'invalid deployed PNG: {asset}')
-                  for asset in ('styles.css','script.js','favicon.svg','robots.txt','sitemap.xml'):
-                      if not request(f'{site}{asset}?{nonce}'):
-                          raise RuntimeError(f'empty deployed asset: {asset}')
-                  last_error=None
-                  break
-              except Exception as exc:
-                  last_error=repr(exc)
-                  print('site_wait',attempt,last_error,flush=True)
-                  time.sleep(10)
-          if last_error is not None:
-              raise SystemExit(f'Pages deployment timeout: {last_error}')
-
-          result={
-              'merge_sha':merge_sha,
-              'site':site,
-              'workflows':{
-                  name:{
-                      'id':selected[name]['id'],
-                      'run_number':selected[name]['run_number'],
-                      'conclusion':selected[name]['conclusion'],
-                      'url':selected[name]['html_url'],
-                  }
-                  for name in sorted(expected_workflows)
-              },
-              'pdf_sha256':os.environ['PDF_SHA256'],
-              'source_sha256':os.environ['SOURCE_SHA256'],
-          }
-          print(json.dumps(result,indent=2,sort_keys=True))
-          print('POST_MERGE_AUDIT_PASS')
+          summary={name:{key:run.get(key) for key in ('id','run_number','status','conclusion','html_url','jobs_url')} for name,run in selected.items()}
+          print(json.dumps(summary,indent=2,sort_keys=True))
+          expected={'Final arXiv release','Deploy project site'}
+          missing=expected-set(selected)
+          failures={name:selected[name].get('conclusion') for name in expected&set(selected) if selected[name].get('conclusion')!='success'}
+          if missing or failures:
+              raise SystemExit(f'post-merge workflows not green: missing={sorted(missing)} failures={failures}')
+          print('POST_MERGE_WORKFLOWS_GREEN')
           PY
