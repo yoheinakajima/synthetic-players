@@ -11,8 +11,7 @@ while off+512<=len(tb):
  h=tb[off:off+512]
  if h==b'\0'*512 or not h[257:263].startswith(b'ustar'): break
  name=h[:100].split(b'\0',1)[0].decode(); size=int((h[124:136].rstrip(b'\0 ').strip() or b'0'),8); data=tb[off+512:off+512+size]
- if name in source_hashes and len(data)==size:
-  assert hashlib.sha256(data).hexdigest()==source_hashes[name],name
+ if name in source_hashes and len(data)==size and hashlib.sha256(data).hexdigest()==source_hashes[name] and name not in found:
   p=W/name; p.parent.mkdir(parents=True,exist_ok=True); p.write_bytes(data); found[name]=1
  off+=512+((size+511)//512)*512
 assert set(found)==set(source_hashes),set(source_hashes)-set(found)
