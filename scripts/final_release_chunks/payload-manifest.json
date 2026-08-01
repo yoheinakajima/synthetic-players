@@ -1,0 +1,66 @@
+{
+  "payload_sha256": "9b4789753b62f2f21ab7ea75cfeef462dfcbf7a62f704f070e129377ac74ad78",
+  "payload_bytes": 641193,
+  "base64_chars": 854924,
+  "chunks": [
+    {
+      "path": "scripts/final_release_chunks/payload-00.txt",
+      "chars": 85496,
+      "sha256": "6c32a72d2d7bbfcf94d0c53ca56fd3153a847336f0b8f1904c50f244b57f5683"
+    },
+    {
+      "path": "scripts/final_release_chunks/payload-01.txt",
+      "chars": 85496,
+      "sha256": "4915946503cdd0382520e4778acb7630d709c88437028e2bb80712739640f766"
+    },
+    {
+      "path": "scripts/final_release_chunks/payload-02.txt",
+      "chars": 85496,
+      "sha256": "e254d3bcfb1fc224ae1666bd64792cbd7cf8a439cdfc36ab5fd51cab8b4c7454"
+    },
+    {
+      "path": "scripts/final_release_chunks/payload-03.txt",
+      "chars": 85496,
+      "sha256": "bf12a15c8772bf9680449c46353f54f3ffe566724ff33a1282f598dc395df58a"
+    },
+    {
+      "path": "scripts/final_release_chunks/payload-04.txt",
+      "chars": 85496,
+      "sha256": "5782408f2ebe414e9dfbf4d18eb76881894befa423eb332fcd171248c4858c1f"
+    },
+    {
+      "path": "scripts/final_release_chunks/payload-05.txt",
+      "chars": 85496,
+      "sha256": "effcfd942b83d56f5b07585bdb38c9dcf3a1909753a69c25345178fcbddd247d"
+    },
+    {
+      "path": "scripts/final_release_chunks/payload-06.txt",
+      "chars": 85496,
+      "sha256": "062e2dc7da4d966e5c6642e9331bb0a007d832c67e4b5457b23f3e1bd92e30ab"
+    },
+    {
+      "path": "scripts/final_release_chunks/payload-07.txt",
+      "chars": 85496,
+      "sha256": "65205e99b31d8d6ead407e732b67c2fa2e97d152807bf3816bcf39d47daf09cd"
+    },
+    {
+      "path": "scripts/final_release_chunks/payload-08.txt",
+      "chars": 85496,
+      "sha256": "ddc7c841f6bfa212898621b55eeca8f31ddab0af871381af2f615ec4f3291ed2"
+    },
+    {
+      "path": "scripts/final_release_chunks/payload-09.txt",
+      "chars": 85460,
+      "sha256": "6be8bfcf34766edbeae59b9bb4209998a53835bddad24a6df087d713d58efa71"
+    }
+  ],
+  "canonical_artifacts": {
+    "repository": "yoheinakajima/synthetic-players",
+    "status": "final arXiv artifact",
+    "pages": 19,
+    "figures": 5,
+    "pdf_sha256": "c5f153198eb7987d8fc2156902a412691d01188f38b5362c44f74c4f979c98f8",
+    "source_sha256": "0b75e83583f58b2020feeee86ff999173a6d466be682a6b7471f950b36fdf0b1",
+    "markdown_sha256": "b6c8a95d5eba541d23256b36ab3a1c64c4d89a4db52f66762291bc9409d00dc4"
+  }
+}
