@@ -1,12 +1,13 @@
 name: Assemble verified final release payload
 on:
-  push:
-    branches: [agent/final-release-payload-staging]
+  pull_request:
+    branches: [paper/arxiv-final]
     paths: ['.github/workflows/assemble-final-release-payload.yml','scripts/final_release_transport/**','scripts/recover_final_source.py','scripts/build_final_chunks.py']
 permissions:
   contents: write
 jobs:
   assemble:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
