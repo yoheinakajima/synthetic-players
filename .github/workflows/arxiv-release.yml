@@ -1,13 +1,360 @@
-name: Final arXiv release (maintenance hold)
+name: Final arXiv release
 
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/final_release_chunks/**'
+      - 'scripts/install_final_release.py'
+      - 'scripts/install_public_release.py'
+      - '.github/workflows/arxiv-release.yml'
+      - '.github/workflows/pages.yml'
+      - 'README.md'
+      - 'REVIEW.md'
+      - 'CITATION.cff'
+      - 'ARXIV_SUBMISSION.md'
+      - 'arxiv/**'
+      - 'docs/paper/**'
+      - 'docs/analysis/submission/**'
+      - 'docs/reviews/**'
+      - 'site/**'
+      - 'capsule/**'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/final_release_chunks/**'
+      - 'scripts/install_final_release.py'
+      - 'scripts/install_public_release.py'
+      - '.github/workflows/arxiv-release.yml'
+      - '.github/workflows/pages.yml'
+      - 'README.md'
+      - 'REVIEW.md'
+      - 'CITATION.cff'
+      - 'ARXIV_SUBMISSION.md'
+      - 'arxiv/**'
+      - 'docs/paper/**'
+      - 'docs/analysis/submission/**'
+      - 'docs/reviews/**'
+      - 'site/**'
+      - 'capsule/**'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: final-arxiv-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+env:
+  CANONICAL_PDF_SHA256: c5f153198eb7987d8fc2156902a412691d01188f38b5362c44f74c4f979c98f8
+  CANONICAL_SOURCE_SHA256: 0b75e83583f58b2020feeee86ff999173a6d466be682a6b7471f950b36fdf0b1
+  CANONICAL_MARKDOWN_SHA256: b6c8a95d5eba541d23256b36ab3a1c64c4d89a4db52f66762291bc9409d00dc4
 
 jobs:
-  hold:
+  build-and-verify:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
+    timeout-minutes: 120
     steps:
-      - run: echo 'Release workflow temporarily held while canonical source replaces the damaged payload.'
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install release tooling
+        run: |
+          python -m pip install --disable-pip-version-check uv opentimestamps-client
+          sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+            texlive-latex-base texlive-latex-extra texlive-fonts-recommended \
+            lmodern poppler-utils unzip xz-utils curl
+
+      - name: Install the SHA-256-pinned final release
+        run: python scripts/install_final_release.py
+
+      - name: Install the pinned public release surfaces
+        run: python scripts/install_public_release.py
+
+      - name: Regenerate public figure derivatives and submission metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/paper/figures
+          for name in between-prompt-share condition-means p13-audit prompt-indexed-delta representation-effects; do
+            cp "arxiv/figures/${name}.pdf" "docs/paper/figures/${name}.pdf"
+            pdftoppm -png -singlefile -r 180 "arxiv/figures/${name}.pdf" "docs/paper/figures/${name}" >/dev/null 2>&1
+            pdftocairo -svg "arxiv/figures/${name}.pdf" "docs/paper/figures/${name}.svg"
+          done
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('docs/paper/arxiv-metadata.txt')
+          text=path.read_text(encoding='utf-8')
+          text=text.replace('Suggested primary category: cs.AI','Suggested primary category: cs.CL')
+          text=text.replace('Suggested cross-list: cs.HC','Suggested cross-list: cs.CY')
+          path.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Verify canonical artifacts and payload inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(sha256sum docs/paper/synthetic-players.pdf | cut -d' ' -f1)" = "$CANONICAL_PDF_SHA256"
+          test "$(sha256sum docs/paper/synthetic-players-arxiv-source.zip | cut -d' ' -f1)" = "$CANONICAL_SOURCE_SHA256"
+          test "$(sha256sum docs/paper/paper.md | cut -d' ' -f1)" = "$CANONICAL_MARKDOWN_SHA256"
+          test "$(sha256sum docs/paper/paper-draft.md | cut -d' ' -f1)" = "$CANONICAL_MARKDOWN_SHA256"
+          cmp docs/paper/paper.md docs/paper/paper-draft.md
+          (cd docs/paper && sha256sum -c synthetic-players.sha256)
+          test "$(pdfinfo docs/paper/synthetic-players.pdf | awk '/^Pages:/{print $2}')" = 19
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          expected = {
+              'main.tex',
+              'figures/between-prompt-share.pdf',
+              'figures/condition-means.pdf',
+              'figures/p13-audit.pdf',
+              'figures/prompt-indexed-delta.pdf',
+              'figures/representation-effects.pdf',
+          }
+          with ZipFile('docs/paper/synthetic-players-arxiv-source.zip') as z:
+              names = set(z.namelist())
+          assert names == expected, (names, expected)
+          for path in [
+              'docs/paper/figures/between-prompt-share.png',
+              'docs/paper/figures/condition-means.png',
+              'docs/paper/figures/p13-audit.png',
+              'docs/paper/figures/prompt-indexed-delta.png',
+              'docs/paper/figures/representation-effects.png',
+              'docs/analysis/submission/p52-prior-sensitivity.md',
+              'docs/reviews/round-14-middle-path-finalization.md',
+              'site/index.html',
+          ]:
+              assert Path(path).is_file(), path
+          PY
+
+      - name: Independently compile and compare the arXiv package
+        shell: bash
+        env:
+          SOURCE_DATE_EPOCH: '1785542400'
+          TZ: UTC
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/synthetic-players-arxiv-check /tmp/canonical-pages /tmp/rebuilt-pages
+          mkdir -p /tmp/synthetic-players-arxiv-check /tmp/canonical-pages /tmp/rebuilt-pages
+          unzip -q docs/paper/synthetic-players-arxiv-source.zip -d /tmp/synthetic-players-arxiv-check
+          cd /tmp/synthetic-players-arxiv-check
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex >/tmp/arxiv-pass1.log
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex >/tmp/arxiv-pass2.log
+          test "$(pdfinfo main.pdf | awk '/^Pages:/{print $2}')" = 19
+          pdftotext -layout main.pdf /tmp/rebuilt-paper.txt
+          pdftotext -layout "$GITHUB_WORKSPACE/docs/paper/synthetic-players.pdf" /tmp/canonical-paper.txt
+          diff -u /tmp/canonical-paper.txt /tmp/rebuilt-paper.txt
+          pdftoppm -png -r 144 "$GITHUB_WORKSPACE/docs/paper/synthetic-players.pdf" /tmp/canonical-pages/page >/dev/null 2>&1
+          pdftoppm -png -r 144 main.pdf /tmp/rebuilt-pages/page >/dev/null 2>&1
+          test "$(find /tmp/canonical-pages -name 'page-*.png' | wc -l)" = 19
+          test "$(find /tmp/rebuilt-pages -name 'page-*.png' | wc -l)" = 19
+          for f in /tmp/canonical-pages/page-*.png; do
+            cmp "$f" "/tmp/rebuilt-pages/$(basename "$f")"
+          done
+
+      - name: Verify final-text regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdftotext -layout docs/paper/synthetic-players.pdf /tmp/final-paper.txt
+          grep -Fq '0.205' /tmp/final-paper.txt
+          grep -Fq '[0.182, 0.231]' /tmp/final-paper.txt
+          grep -Fq 'prior sweeps in §§4.1 and 4.2' docs/paper/paper.md
+          grep -Fq 'word and payoff dominance were congruent in this cell' docs/paper/paper.md
+          grep -Fq 'A support-only Dirichlet analysis assigned probability 0.0001' docs/paper/paper.md
+          ! grep -Fq -- '-0.278' docs/paper/paper.md
+          ! grep -Fqi 'both remain below' docs/paper/paper.md
+          ! grep -RqiE 'STATUS: PREPRINT|ARXIV CANDIDATE|WORKING DRAFT' \
+            README.md REVIEW.md docs/paper/paper.md CITATION.cff site/index.html
+
+      - name: Verify reference metadata
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text=Path('docs/paper/paper.md').read_text(encoding='utf-8').lower()
+          required={
+              '10.1038/s41586-026-10742-x':'large language models can predict the results of social science experiments',
+              '10.18653/v1/2026.findings-acl.1316':'beyond fixed psychological personas',
+              '10.1609/aies.v8i1.36553':'whose personae?',
+              '10.1177/00491241251330582':'machine bias',
+              'arxiv.2602.15785':'this human study did not involve human subjects',
+              'arxiv.2603.19167':'evaluating counterfactual strategic reasoning',
+              'arxiv.2604.24698':'the chameleon’s limit',
+              'arxiv.2605.20767':'the illusion of intervention',
+              'arxiv.2607.19670':'same game, different story',
+              'arxiv.2411.10109':'generative agent simulations of 1,000 people',
+              '10.1038/s41562-025-02172-y':'playing repeated games with large language models',
+          }
+          missing=[f'{i} / {t}' for i,t in required.items() if i.lower() not in text or t not in text]
+          assert not missing, missing
+          PY
+
+      - name: Probe primary reference URLs
+        continue-on-error: true
+        run: python scripts/references_lint.py
+
+      - name: Create or verify release provenance manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, os, subprocess
+          path=Path('docs/paper/synthetic-players-artifact.json')
+          pdf=Path('docs/paper/synthetic-players.pdf')
+          src=Path('docs/paper/synthetic-players-arxiv-source.zip')
+          md=Path('docs/paper/paper.md')
+          sha=lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+          expected={
+              'repository':'yoheinakajima/synthetic-players',
+              'source':'docs/paper/paper.md',
+              'pdf':'docs/paper/synthetic-players.pdf',
+              'pdf_sha256':sha(pdf),
+              'arxiv_source':'docs/paper/synthetic-players-arxiv-source.zip',
+              'arxiv_source_sha256':sha(src),
+              'markdown_sha256':sha(md),
+              'pages':19,
+              'figures':5,
+          }
+          rewrite=True
+          if path.exists():
+              try:
+                  obj=json.loads(path.read_text())
+                  rewrite=not (
+                      all(obj.get(key)==value for key,value in expected.items())
+                      and obj.get('source_commit')
+                      and 'REPLACE_' not in obj['source_commit']
+                      and obj.get('workflow_run')
+                      and 'REPLACE_' not in obj['workflow_run']
+                  )
+              except Exception:
+                  rewrite=True
+          if rewrite:
+              expected.update({
+                  'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+                  'workflow_run':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}",
+                  'status':'verified release candidate',
+              })
+              path.write_text(json.dumps(expected,indent=2)+'\n')
+          PY
+
+      - name: Timestamp the canonical checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -s docs/paper/synthetic-players.sha256.ots ]; then
+            rm -f docs/paper/synthetic-players.sha256.ots
+            for attempt in 1 2 3 4 5; do
+              if ots stamp docs/paper/synthetic-players.sha256; then break; fi
+              test "$attempt" -lt 5
+              sleep $((attempt * 10))
+            done
+          fi
+          test -s docs/paper/synthetic-players.sha256.ots
+          ots info docs/paper/synthetic-players.sha256.ots >/tmp/ots-info.txt
+          cat /tmp/ots-info.txt
+
+      - name: Repository, sealed-boundary, and site lint
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/paper_submission_lint.py --base origin/main
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlparse
+          class P(HTMLParser):
+              def __init__(self): super().__init__(); self.links=[]
+              def handle_starttag(self, tag, attrs):
+                  d=dict(attrs)
+                  if tag in {'a','link','script','img'}:
+                      v=d.get('href') or d.get('src')
+                      if v: self.links.append(v)
+          root=Path('site'); p=P(); p.feed((root/'index.html').read_text())
+          for link in p.links:
+              if link.startswith(('#','http://','https://','mailto:')): continue
+              target=(root/urlparse(link).path)
+              if link in {'paper.pdf','arxiv-source.zip'}: continue
+              assert target.exists(), (link,target)
+          for required in ['favicon.svg','styles.css','script.js','robots.txt','sitemap.xml']:
+              assert (root/required).is_file(), required
+          text=(root/'index.html').read_text()
+          for required in ['47–71%','0.205','4,919','4,916 confirmatory']:
+              assert required in text, required
+          PY
+
+      - name: Verify the complete zero-call capsule
+        run: bash capsule/verify.sh
+
+      - name: Confirm only release surfaces changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git status --short
+          python - <<'PY'
+          import subprocess
+          allowed=(
+              'README.md','REVIEW.md','CITATION.cff','ARXIV_SUBMISSION.md',
+              'arxiv/','docs/paper/','docs/analysis/submission/p52-prior-sensitivity.',
+              'docs/reviews/round-14-middle-path-finalization.md','site/'
+          )
+          changed=[]
+          for line in subprocess.check_output(['git','status','--porcelain'],text=True).splitlines():
+              path=line[3:]
+              if ' -> ' in path: path=path.split(' -> ',1)[1]
+              changed.append(path)
+          bad=[p for p in changed if not any(p==a or p.startswith(a) for a in allowed)]
+          assert not bad,bad
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-players-final-arxiv
+          path: |
+            arxiv/
+            docs/paper/paper.md
+            docs/paper/paper-draft.md
+            docs/paper/synthetic-players.pdf
+            docs/paper/synthetic-players.sha256
+            docs/paper/synthetic-players.sha256.ots
+            docs/paper/synthetic-players-artifact.json
+            docs/paper/synthetic-players-arxiv-source.zip
+            docs/paper/arxiv-metadata.txt
+            docs/analysis/submission/p52-prior-sensitivity.*
+            docs/reviews/round-14-middle-path-finalization.md
+            README.md
+            REVIEW.md
+            CITATION.cff
+            ARXIV_SUBMISSION.md
+            site/
+          retention-days: 90
+
+      - name: Commit installed and sealed release surfaces
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- README.md REVIEW.md CITATION.cff ARXIV_SUBMISSION.md arxiv docs/paper \
+            docs/analysis/submission/p52-prior-sensitivity.md \
+            docs/analysis/submission/p52-prior-sensitivity.json \
+            docs/analysis/submission/p52-prior-sensitivity.csv \
+            docs/reviews/round-14-middle-path-finalization.md site
+          if git diff --cached --quiet; then
+            echo 'Release tree is converged; no commit required.'
+            exit 0
+          fi
+          git commit -m 'Install and seal canonical arXiv release artifacts'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
