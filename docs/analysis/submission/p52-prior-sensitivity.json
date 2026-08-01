@@ -1,0 +1,50 @@
+{
+  "status": "post-adjudication zero-call prior sensitivity",
+  "estimand": "fixed-panel episode-weighted P5-2 task-consistent share",
+  "historical": {
+    "episodes": 352,
+    "episodeMeanTotal": 45,
+    "mean": 0.1278409090909091
+  },
+  "clusters": 40,
+  "priorDescription": "independent symmetric Dirichlet(alpha,alpha,alpha) on each cluster outcome distribution over {0,0.5,1}",
+  "results": [
+    {
+      "alpha": 0.1,
+      "draws": 500000,
+      "seed": 2026080100,
+      "posteriorMedian": 0.13788446548602673,
+      "interval95": [0.12427592540488483, 0.1531508575139575],
+      "probabilityAtOrBelowRegisteredBoundary": 1.0,
+      "posteriorMean": 0.1380958407589134
+    },
+    {
+      "alpha": 0.25,
+      "draws": 500000,
+      "seed": 2026080101,
+      "posteriorMedian": 0.15186010903194275,
+      "interval95": [0.13502786284135784, 0.17101001635143215],
+      "probabilityAtOrBelowRegisteredBoundary": 0.999992,
+      "posteriorMean": 0.15216884220518928
+    },
+    {
+      "alpha": 0.5,
+      "draws": 500000,
+      "seed": 2026080102,
+      "posteriorMedian": 0.17234661285389208,
+      "interval95": [0.15226141329455228, 0.1949513155706325],
+      "probabilityAtOrBelowRegisteredBoundary": 0.990822,
+      "posteriorMean": 0.17266790938982285
+    },
+    {
+      "alpha": 1.0,
+      "draws": 500000,
+      "seed": 2026080103,
+      "posteriorMedian": 0.2054819546486671,
+      "interval95": [0.18212673054046305, 0.2311303159111238],
+      "probabilityAtOrBelowRegisteredBoundary": 0.329074,
+      "posteriorMean": 0.20576670733869576
+    }
+  ],
+  "interpretation": "The Jeffreys posterior proximity to 0.20 is prior-dependent. The prompt-cluster bootstrap remains the principal dependence-aware sensitivity; the historical verdict is unchanged and the pooled result remains mechanism-confounded by the swap cell."
+}

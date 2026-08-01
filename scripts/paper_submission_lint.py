@@ -48,7 +48,9 @@ STALE = {
     r"episode-clustered sensitivity (?:is|remains) (?:a )?submission blocker": "episode-level sensitivity is complete",
     r"≈30,500 recorded subject calls": "use reconciled request/call counts and exact scope",
     r"program's only registered incentive-transmission pass": "p13 does not survive exact episode inference",
-    r"p13 .*confirmatory": "p13 is a replication target only",
+    # Restrict the p13/confirmatory pairing to one clause. Long Markdown lines
+    # can contain the demotion and an unrelated later use of "confirmatory."
+    r"p13[^.!?;]*\bconfirmatory\b": "p13 is a replication target only",
 }
 
 LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")

@@ -1,0 +1,1 @@
+const button=document.getElementById('copy-command');const command=document.getElementById('verify-command');if(button&&command){button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(command.textContent.trim());button.textContent='Copied';setTimeout(()=>{button.textContent='Copy'},1600)}catch(_){button.textContent='Select text'}})}
