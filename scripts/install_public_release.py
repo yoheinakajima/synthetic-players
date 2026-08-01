@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Install SHA-256-pinned final public release surfaces."""
+"""Install SHA-256-pinned final public release surfaces and derived site figures."""
 from __future__ import annotations
-import base64,hashlib,io,shutil,tarfile,tempfile
+import base64,hashlib,io,shutil,struct,subprocess,tarfile,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 CHUNKS=ROOT/'scripts/public_release_chunks'
@@ -17,6 +17,10 @@ PARTS={
  'part-05b.txt':('e6723cf18cae06ab62eaad656e2913e39e995edee69a015552576e1fe37c30ca',1166),
  'part-06.txt':('4172ca06ae97aad0ad7895dc33e808415d630645b880b95ea88f092bc485ca54',2332),
  'part-07.txt':('e2222329e1c44a4aac6f056b12e0029b02d9ffb1d4789bf492802526115adffa',2316),
+}
+FIGURES={
+ 'between-prompt-share':('c352dea32a034758cd4aa8fa8581dcef3aaa61debf461c483641e05d74e8270b',(1409,769)),
+ 'prompt-indexed-delta':('1cf2a5533b021858921ce2acb2501eb4931bad1f4d3ae81250a2ce42f187376a',(1325,986)),
 }
 parts=[]
 for name,(want,n) in PARTS.items():
@@ -42,4 +46,15 @@ with tempfile.TemporaryDirectory(prefix='synthetic-players-public-') as td:
   src=stage/rel
   if hashlib.sha256(src.read_bytes()).hexdigest()!=want: raise SystemExit(f'public release file hash mismatch: {rel}')
   dst=ROOT/rel; dst.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(src,dst)
+renderer=shutil.which('pdftoppm')
+if not renderer: raise SystemExit('pdftoppm is required to build the site figure derivatives')
+assets=ROOT/'site/assets'; assets.mkdir(parents=True,exist_ok=True)
+for stem,(source_sha,dims) in FIGURES.items():
+ source=ROOT/'arxiv/figures'/f'{stem}.pdf'
+ if hashlib.sha256(source.read_bytes()).hexdigest()!=source_sha: raise SystemExit(f'canonical figure source hash mismatch: {source}')
+ prefix=assets/stem
+ subprocess.run([renderer,'-png','-singlefile','-r','180',str(source),str(prefix)],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+ output=prefix.with_suffix('.png'); header=output.read_bytes()[:24]
+ if header[:8]!=b'\x89PNG\r\n\x1a\n' or len(header)<24: raise SystemExit(f'invalid PNG derivative: {output}')
+ if struct.unpack('>II',header[16:24])!=dims: raise SystemExit(f'PNG derivative dimensions mismatch: {output}')
 print('installed final public release',PAYLOAD_SHA256)
