@@ -3,7 +3,7 @@ from pathlib import Path
 import hashlib, tarfile
 ROOT=Path(__file__).resolve().parents[1]
 PAYLOAD=ROOT/'scripts/final_release_payload.tar.gz'
-EXPECTED='4e86ae1d9ca2678888b2b7c4e6caffc057a0a8e4d6ef967b176305f4057e36f0'
+EXPECTED='70d69abf55f0038a94f378387d1c586606a395b3453c371dda54009dba477677'
 data=PAYLOAD.read_bytes()
 digest=hashlib.sha256(data).hexdigest()
 if digest!=EXPECTED:
