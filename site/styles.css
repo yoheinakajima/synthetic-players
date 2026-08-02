@@ -216,6 +216,22 @@ html.plain .lang-tech { display: none; }
 html.plain .lang-plain { display: block; }
 html.plain .lede .abstract { font-size: 1.02rem; }
 
+/* Q&A page */
+.qa .body h2 {
+  font-family: var(--serif); font-size: 1.18rem; font-weight: 700;
+  text-transform: none; letter-spacing: -0.01em; color: var(--ink);
+  border-top: 1px solid var(--rule); padding-top: 1rem; margin: 1.5rem 0 0.4rem;
+}
+.qa .part {
+  font-family: var(--sans); font-size: 0.74rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-ink);
+  border-top: 2px solid var(--ink); padding-top: 0.9rem; margin: 2.2rem 0 0.2rem;
+}
+.qa .checknote {
+  font-family: var(--sans); font-size: 0.78rem; color: var(--ink-faint);
+  border: 1px dashed var(--rule); border-radius: 4px; padding: 0.5rem 0.8rem; margin: 0.8rem 0;
+}
+
 .colophon { border-top: 2px solid var(--ink); margin-top: 2.5rem; padding: 0.9rem 0 1.6rem; }
 .colophon p { font-family: var(--sans); font-size: 0.76rem; color: var(--ink-faint); margin: 0.25rem 0; }
 .smallprint { font-family: var(--sans); font-size: 0.78rem; color: var(--ink-faint); }
