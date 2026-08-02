@@ -231,6 +231,20 @@ html.plain .lede .abstract { font-size: 1.02rem; }
   font-family: var(--sans); font-size: 0.78rem; color: var(--ink-faint);
   border: 1px dashed var(--rule); border-radius: 4px; padding: 0.5rem 0.8rem; margin: 0.8rem 0;
 }
+.qa-card {
+  width: min(100%, 30rem); margin: 1rem auto 1.8rem;
+}
+.qa-card a:first-child { display: block; }
+.qa-card img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--rule); background: #f4eedf;
+  box-shadow: 0 0.35rem 1.1rem rgba(26, 25, 21, 0.08);
+}
+.qa-card figcaption {
+  margin-top: 0.35rem; text-align: right;
+  font-family: var(--sans); font-size: 0.7rem; color: var(--ink-faint);
+}
+.qa-card figcaption a { color: inherit; }
 
 .colophon { border-top: 2px solid var(--ink); margin-top: 2.5rem; padding: 0.9rem 0 1.6rem; }
 .colophon p { font-family: var(--sans); font-size: 0.76rem; color: var(--ink-faint); margin: 0.25rem 0; }
