@@ -148,6 +148,7 @@ def external_links(it: dict) -> str:
 
 NAV = [
     ("index.html", "Overview"),
+    ("qa.html", "Q&A"),
     ("claims.html", "Claims"),
     ("phases.html", "Phases"),
     ("timeline.html", "Timeline"),

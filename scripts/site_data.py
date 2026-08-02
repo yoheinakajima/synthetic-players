@@ -1600,6 +1600,12 @@ def build_index(idx, back, h):
 <p class="kicker">Open computational behavioral science · final release · August 2026</p>
 <h1>Passing Coarse Marginal Checks Can Be Cheap</h1>
 <p class="authors">Persona mixtures and imprecise treatment-response estimates in an LLM persona panel · <b>Yohei Nakajima</b>, Untapped Capital · <a href="paper.pdf">PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · <a href="https://github.com/yoheinakajima/synthetic-players">repository</a> · <a href="reviews.html">review record</a></p>
+<div class="mode-toggle" role="group" aria-label="Reading mode">
+<button id="mode-tech" type="button" class="on" aria-pressed="true">Technical</button>
+<button id="mode-plain" type="button" aria-pressed="false">Plain English</button>
+</div>
+<p class="mode-note">Prefer a walkthrough? <a href="qa.html">Read the whole study as a Q&amp;A</a> — including the findings that didn't make the paper.</p>
+<div class="lang-tech">
 <p class="abstract">LLMs are increasingly used as synthetic research participants and validated by whether their marginal responses resemble human data. A fixed panel of sixteen lightweight persona-conditioned GPT-4.1 configurations met preregistered broad-reference condition-mean criteria in three of four repeated-game cells — while the treatment-response object those checks might be taken to validate stayed loosely bounded, and much of the apparent behavioral diversity was between-prompt composition of empirically corner-concentrated policies. The registered marginal criteria could be passed without precisely estimating the treatment response. One fixed model-prompt panel; no human-substitutability claim.</p>
 <div class="statrow">
 <div class="stat"><b>3 / 4</b><span>repeated-game cells inside the preregistered band; sole miss 0.011 below</span></div>
@@ -1608,26 +1614,61 @@ def build_index(idx, back, h):
 <div class="stat"><b>0/40 → 37/40</b><span>cooperation after one wording-and-position operation</span></div>
 <div class="stat"><b>4,919</b><span>archived runs replayed by the public capsule — 4,916 confirmatory + 3 diagnostics</span></div>
 </div>
+</div>
+<div class="lang-plain">
+<p class="abstract">Researchers have started using AI models as stand-ins for human study participants — it's fast and nearly free. The usual quality check asks: does the AI's behavior <i>look</i> statistically human? This project built sixteen simple AI “personas” (one sentence each — “You are Harper, a 61-year-old landscape gardener… competitive, patient, and risk-averse”), had them play cooperation games thousands of times, and found something uncomfortable: <b>the panel passed the standard looks-human checks while the thing experiments actually exist to measure — how behavior shifts when you change the incentives — stayed basically unmeasured.</b> Looking human is cheap. Reacting like humans is a different, harder property, and the popular checks don't test it.</p>
+<div class="statrow">
+<div class="stat"><b>3 / 4</b><span>of the game setups passed the “looks human” test — by the usual standard, the panel worked</span></div>
+<div class="stat"><b>≈ 0</b><span>clear reaction when the incentive to cooperate got 9× stronger — the change was tiny and uncertain</span></div>
+<div class="stat"><b>1 sentence</b><span>rewording one line flipped the base model from 0% to 92% cooperation</span></div>
+<div class="stat"><b>1 word</b><span>a label reading “Defect” beat the actual money on the table</span></div>
+<div class="stat"><b>4,919</b><span>archived game runs anyone can re-verify on a laptop — no AI account needed</span></div>
+</div>
+</div>
 </section>
 
 <section class="sec">
+<div class="lang-tech">
 <h2>The result in four sentences</h2>
 <p>Coarse marginal checks were <a href="claim-p3-a3.html">passed</a> while the <a href="claim-response.html">registered treatment response</a> remained imprecisely estimated — the slack in the checks is exactly where the response lives (<a href="concept-estimands.html">Proposition A</a>). The panel's apparent diversity is largely <a href="claim-composition.html">between-prompt composition</a> of corner-concentrated policies, and whether that share is “dominant” is prior-dependent. Representation, not incentives, controlled the corners: <a href="claim-s2-switch.html">one sentence operation</a> moved bare cooperation from 0/40 to 37/40 while ordinary wording changes did <a href="claim-d1-wording.html">nothing</a>, and a displayed label <a href="claim-label-swap.html">overrode payoff dominance</a>. The favored persona-level result, p13, was <a href="claim-p13.html">demoted to a replication target</a> after external review exposed the missing family control — and the P5-2 posterior's proximity to its 0.205 boundary reading is likewise prior-dependent.</p>
+</div>
+<div class="lang-plain">
+<h2>Why this is interesting</h2>
+<p><b>Cheap AI “participants” are already informing real decisions</b> — pretesting surveys, products, and policy messages. This project shows the standard quality bar can be cleared by accident: a panel can look statistically human while nobody has actually checked whether it <i>reacts</i> to changed conditions the way the test seems to promise. It's like hiring an actor who nails the accent but ignores the script — convincing at a glance, wrong for the job.</p>
+<p><b>The “diversity” was a trick of mixing.</b> Almost every persona was locked into a habit — always cooperate or always defect. Stir eight of one and eight of the other together and the <i>averages</i> come out human-shaped, even though no individual is weighing the decision. That's the “cheap pass” in the title: variety that comes from the recipe, not from anyone's judgment (<a href="claim-composition.html">the decomposition</a>).</p>
+<p><b>Words beat money.</b> Rewriting one sentence about the game continuing took the base model from never cooperating to almost always (<a href="claim-s2-switch.html">0/40 → 37/40</a>), while a battery of ordinary wording tweaks did nothing at all. And when a label said “Defect” on the objectively better-paying choice, the model followed <a href="claim-label-swap.html">the word, not the money</a>. Behavior a sentence can rewrite isn't a stable synthetic person — which matters for safety, not just science.</p>
+<p><b>The team caught its own best result being too good.</b> One persona — Harper, the 61-year-old landscape gardener — seemed to genuinely respond to incentives. Outside reviewers showed the test behind that headline had a statistical hole, so <a href="claim-p13.html">the paper demotes its own favorite finding</a> to “needs a proper replication.” The mistakes, the refuted predictions (twelve of them), and every correction are part of the published record — you can watch the science self-correct in the open.</p>
+</div>
 </section>
 
 <section class="sec">
+<div class="lang-tech">
 <h2>Claims ledger</h2>
 <p class="sec-note">Every registered predicate and citable secondary, with its current evidentiary status. Each row is a page; each page links its evidence, analyses, figures, and review history. Full tier definitions on the <a href="claims.html">claims page</a>.</p>
 {claims_tbl}
+</div>
+<div class="lang-plain">
+<h2>The findings, in plain terms</h2>
+<ul>
+<li><b>Passed the resemblance test:</b> in 3 of 4 game setups, group averages landed inside the pre-registered “human range” — <a href="claim-p3-a3.html">the checks the field actually uses</a>.</li>
+<li><b>Barely reacted to incentives:</b> making future rounds 9× more likely moved cooperation by about 8 points out of 100, with uncertainty so wide the true effect could plausibly be negative — <a href="claim-response.html">the imprecise response</a>.</li>
+<li><b>Habits, not decisions:</b> ten of sixteen personas never varied their choice in any setup; the human-looking spread came from mixing stubborn habits — <a href="claim-composition.html">the mixture result</a>.</li>
+<li><b>Wording is the control knob:</b> one rewritten sentence flipped behavior end to end; a one-word label outweighed the payoffs — <a href="claim-s2-switch.html">the switch</a> and <a href="claim-label-swap.html">the label conflict</a>.</li>
+<li><b>The star witness got demoted:</b> the single persona that seemed incentive-sensitive rests on a test with no multiple-comparisons control; it's now officially a “<a href="claim-p13.html">replication target</a>,” not a finding.</li>
+</ul>
+<p class="sec-note">Want the full ledger with statistical detail? Flip to Technical, or open the <a href="claims.html">claims page</a>.</p>
+</div>
 </section>
 
 <section class="sec">
 <h2>Figures</h2>
-<p class="sec-note">The paper's five figures, each with sources and provenance.</p>
+<p class="sec-note lang-tech">The paper's five figures, each with sources and provenance.</p>
+<p class="sec-note lang-plain">The paper's five figures — click any of them for a guided explanation of what you're seeing.</p>
 <div class="figrow">{figs}</div>
 </section>
 
 <section class="sec">
+<div class="lang-tech">
 <h2>The program</h2>
 <p class="sec-note">Five phases, sealed registries, mechanical adjudication, 12 refuted author predictions, 14 review rounds, 15 manuscript versions. Full <a href="timeline.html">timeline</a> · <a href="phases.html">phases</a> · <a href="reviews.html">reviews</a> · <a href="versions.html">versions</a>.</p>
 {tbl(["Phase", "What it established", "Scale"], [
@@ -1637,19 +1678,41 @@ def build_index(idx, back, h):
     [f'<a href="phase-5.html">Phase 5</a>', "the sixteen-persona panel; both author predictions with teeth failed", "1,712 runs, 10,428 calls"],
     [f'<a href="phase-6.html">Phase 6</a>', "preregistered replication — power-planned, not yet run", "prospective"],
 ])}
+</div>
+<div class="lang-plain">
+<h2>How the study was run</h2>
+<p class="sec-note">Five stages over five weeks, with predictions locked in — publicly and tamper-evidently — <i>before</i> the data existed, and a computer (not the author) deciding pass or fail.</p>
+{tbl(["Stage", "Plain-language version"], [
+    [f'<a href="phase-1-2.html">Phases 1–2</a>', "built the lab — and learned that human judgment sneaks into scoring, so scoring was handed to sealed, automatic rules"],
+    [f'<a href="phase-3.html">Phase 3</a>', "the plain AI (no persona) turned out to be an extreme case: it essentially never cooperates — until a rewording flips it completely"],
+    [f'<a href="phase-4.html">Phase 4</a>', "hunted down which words matter: found the one controlling sentence, showed labels can beat money, and a tripwire caught the AI vendor's model changing mid-study"],
+    [f'<a href="phase-5.html">Phase 5</a>', "gave the AI sixteen one-sentence personalities and ran the full experiment — the author's two boldest predictions both failed, and that failure is the finding"],
+    [f'<a href="phase-6.html">Phase 6</a>', "the honest follow-up: a bigger, properly powered redo, designed before any new data is collected"],
+])}
+</div>
 </section>
 
 <section class="sec">
+<div class="lang-tech">
 <h2>How this differs from prior work</h2>
 <p class="sec-note">The broad “realism ≠ effect accuracy” thesis is occupied; the contribution here is narrower and mechanism-level. Full map with per-paper differentiation on the <a href="related-work.html">related-work page</a>.</p>
 <p>Li &amp; Ji establish the realism/effect divergence at survey scale; this project identifies one concrete strategic-interaction pattern behind cheap passes — <a href="ref-li-ji-2026.html">how we differ</a>. Persson et al. formalize LLM causal surrogacy; this is a registered design-side example of what coarse checks leave unidentified — <a href="ref-persson-2026.html">details</a>. Lin et al.'s latent-user drift can coexist with the composition pattern measured here — <a href="ref-lin-2026.html">details</a>. Pal et al. run nearly the same manipulations without the persona panel or audit architecture — <a href="ref-pal-2026.html">details</a>. Ashokkumar et al. is the strong positive counterexample, on a different estimand — <a href="ref-ashokkumar-2026.html">details</a>.</p>
+</div>
+<div class="lang-plain">
+<h2>Hasn't someone shown this already?</h2>
+<p>Partly — and the paper says so. Large studies have shown AI simulations can look right while getting cause-and-effect wrong, and one impressive study shows AI can <i>forecast</i> experiment outcomes surprisingly well. What's new here is the mechanism, caught in the act: a specific, common recipe (one-sentence personas) that passes the checks by mixing stuck habits — plus receipts. Predictions were locked before data, every AI call was archived, and the whole record replays on your machine. The <a href="related-work.html">related-work page</a> compares this paper to each neighboring study in a sentence or two.</p>
+</div>
 </section>
 
 <section class="sec">
-<h2>Reproduce the confirmatory record</h2>
+<h2 class="lang-tech">Reproduce the confirmatory record</h2>
+<h2 class="lang-plain">Don't take our word for it</h2>
 <div class="two-col">
-<div><p>One command replays every confirmatory run — <b>4,916 confirmatory</b> plus three legacy diagnostics — byte-exact from the archived, checksummed, externally timestamped databases. No credentials, no live model calls. The <a href="art-capsule.html">capsule page</a> documents what replay does and does not prove.</p>
+<div>
+<div class="lang-tech"><p>One command replays every confirmatory run — <b>4,916 confirmatory</b> plus three legacy diagnostics — byte-exact from the archived, checksummed, externally timestamped databases. No credentials, no live model calls. The <a href="art-capsule.html">capsule page</a> documents what replay does and does not prove.</p>
 <p class="smallprint">Expected: CAPSULE VERIFICATION PASS — 4,919 archived Phase 3-5 runs verified.</p></div>
+<div class="lang-plain"><p>Every archived game — all 4,919 — re-checks byte-for-byte from the published record with the three lines on the right. No AI accounts or API keys, because nothing is re-generated: your machine verifies the archive against itself, including every prompt, every response, and every scored outcome. <a href="art-capsule.html">What that does and doesn't prove</a>.</p></div>
+</div>
 <div class="terminal"><button id="copy-command" type="button">Copy</button><pre><code id="verify-command">git clone https://github.com/yoheinakajima/synthetic-players
 cd synthetic-players/capsule
 bash verify.sh</code></pre></div>
@@ -1845,6 +1908,93 @@ def build_versions(idx, back, h):
 """
 
 
+def build_qa(idx, back, h):
+    return """
+<article class="item qa">
+<p class="kicker">Conversational walkthrough</p>
+<h1>The whole study, in plain Q&amp;A</h1>
+<p class="dek">The questions people actually ask, in order — including what moved the AI, what didn't, the result that got demoted, and the findings that didn't make the paper.</p>
+<div class="body">
+<p class="checknote">Every number below is fact-checked against the archived record, and every answer links to the page that holds its evidence. Where popular retellings drift from the record (it happens fast), the linked pages are authoritative.</p>
+
+<p class="part">Part 1 · The study</p>
+
+<h2>What was the basic idea?</h2>
+<p>Instead of recruiting people for a behavioral experiment, use an AI (GPT-4.1) as the participants. The project created <a href="concept-personas.html">sixteen fake people</a>, each defined by a single sentence — a name, age, job, and three personality traits (agreeable vs. competitive, patient vs. impulsive, risk-averse vs. risk-seeking), across two age bands. Same AI every time; the only thing that changed was which intro sentence it got (plus a no-sentence control). The question: does this cheap, common trick give you human-like study participants?</p>
+
+<h2>What game did they play?</h2>
+<p>Mainly the Prisoner's Dilemma. Two players each secretly pick “Cooperate” or “Defect.” Both cooperate: both do well. One defects on a cooperator: the defector does great, the cooperator gets burned. Both defect: both do poorly. (Earlier phases also used Rock-Paper-Scissors and framing games — see Part 2.)</p>
+
+<h2>How were the versions different?</h2>
+<p>The key manipulation was whether the game would keep going. In one version, players were told there's a <b>10% chance of another round</b> after each round — the game is basically ending, so betrayal is tempting. In the other, a <b>90% chance</b> — you'll probably face this player again, so cooperating pays. In classic human experiments, people cooperate far more when the game is likely to continue (in the reference data, first-round cooperation roughly tripled between comparable conditions — though that <a href="ref-dalbo-2011.html">human study ran under different rules</a>, so it's context, not a matched benchmark). That continuation incentive is what the AI panel was tested on, in <a href="concept-conditions.html">four repeated-game setups</a> (two continuation odds × two wordings), plus two one-shot cells: a “Community Game” framing, and a trick cell where the words “Cooperate” and “Defect” were pasted onto the opposite choices.</p>
+
+<h2>Did the AI look human?</h2>
+<p>At a glance, yes. Average cooperation rates landed inside a preregistered “consistent with human data” band in <a href="claim-p3-a3.html">three of four repeated-game setups</a>, and the miss was by a hair — 0.011. If you only checked the averages, which is how a lot of this research gets validated, you'd say it passed.</p>
+
+<h2>But where did the variety actually come from?</h2>
+<p>Mostly not from anyone “deciding” anything. <a href="concept-personas.html">Ten of the sixteen characters</a> were locked dials — 0% or 100% cooperation in every setup, every time. The panel's spread came largely from <i>which sentence you fed it</i> rather than from characters weighing choices: less “sixteen people,” more “sixteen wind-up toys, each doing its one thing.” (How dominant that mixing is depends on statistical assumptions — the honest range runs from “about half” to “nearly all” of the variation; <a href="claim-composition.html">the decomposition page</a> shows all the views.)</p>
+
+<h2>Did they respond to the incentive that mattered?</h2>
+<p>Not detectably. Going from “game's ending” to “game continues” moved average cooperation up by only about <a href="claim-response.html">8 points out of 100</a> — and with six games per character per setup, the uncertainty is wide enough that the true effect could plausibly be zero or even negative. The correct claim is “no meaningful response could be pinned down,” not “there was none.” The plain no-character model was starker: <a href="phase-3.html">0% cooperation at every continuation probability</a>.</p>
+
+<h2>What DID move the AI?</h2>
+<p>Words. Rewriting one sentence — re-phrasing and re-positioning how the continue-chance was described, changing nothing about the actual odds — flipped the plain model from <a href="claim-s2-switch.html">0/40 cooperation to 37/40</a>. And in the label-swap game, it picked the option carrying the word “Defect” <a href="claim-label-swap.html">all 40 times, even though that option paid worse</a>. It followed the vocabulary, not the money.</p>
+
+<h2>What about the one character that seemed genuinely responsive?</h2>
+<p>One character — p13, “Harper, a 61-year-old landscape gardener” — went from 33% cooperation to 75% when the game was likely to continue. Exactly what you'd hope for. But the way it was found wasn't a fair test: <a href="claim-p13.html">32 candidate combinations were checked and any hit would have counted</a> — like buying 32 lottery tickets and being amazed one won. External reviewers caught it, and the paper demotes its own best result from “finding” to “worth retesting properly” — with the added twist that the archived data is <i>too small to settle it either way</i>: the conservative re-test literally cannot reach significance at six games per cell.</p>
+
+<h2>So what's the headline?</h2>
+<p>“The averages look human” is a test an AI can pass without behaving like a human where it counts. These synthetic participants matched human-looking numbers while no meaningful reaction to the game's central incentive could be established — and their behavior could be flipped by a reworded sentence or a swapped label. If you use AI as synthetic study participants, validate the specific reaction your study is about, not just the totals. Side story: the whole thing ran with receipts — <a href="an-dead-predictions.html">predictions written down in advance</a> (twelve were refuted), <a href="reviews.html">mistakes found by reviewers</a>, and corrections published instead of quietly edited.</p>
+
+<p class="part">Part 2 · The details people ask next</p>
+
+<h2>How many game variations, exactly?</h2>
+<p>Each of the sixteen characters played six setups — <a href="concept-conditions.html">96 character-setup combinations</a>. The four repeated-game setups ran 6 games per character; the two one-shot setups ran 20 per character. Phase 5 totaled <a href="phase-5.html">1,712 completed runs</a>, on top of ~3,200 from earlier phases.</p>
+
+<h2>Any other games?</h2>
+<p>Yes, mainly with the plain no-character model in <a href="phase-3.html">Phase 3</a> and <a href="phase-4.html">Phase 4</a>: one-shot framing games (“Community Game” vs. “Wall Street Game” — framing worked, 17.5% vs 0%), and Rock-Paper-Scissors — including matches against scripted opponents, where the model's exploitability turned out to depend on who it was playing (Part 3 below), and a strange <a href="claim-rps-role.html">seat-attached bias</a> that survived renaming the moves to neutral symbols.</p>
+
+<h2>Any other models?</h2>
+<p>Two stories. <b>Claude Haiku</b> was the registered second model but failed the <a href="claim-drift.html">basic entry gate</a> — it couldn't reliably produce a one-token move under the protocol — and was replaced, under a sealed amendment, by <b>Gemini 2.5 Flash</b>. Gemini got a smaller, explicitly descriptive side tier (24 persona-cells in Phase 5, mirrors in Phase 4) and behaved noticeably differently: more mixed, non-extreme behavior (9 of 24 cells “interior” versus 14 of 96 for GPT-4.1), and several wording effects <a href="claim-crossvendor-label.html">flipped direction</a>. So “locked dials” is a fact about this GPT-4.1 setup, not a law of LLMs.</p>
+
+<h2>Wasn't it just the temperature setting?</h2>
+<p>No — and this was tested. Main runs used temperature 0.7; a registered sweep re-ran four characters at 1.0 and 1.3. Turning up the randomness did not unlock human-like variety: <a href="claim-entropy.html">measured choice variety actually drifted slightly down</a> (0.83 → 0.78 → 0.77 bits on the matched comparison). The extremeness isn't a randomness dial; it's the model.</p>
+
+<h2>How big was this, really?</h2>
+<p>About <a href="an-counts.html">5,505 completed runs, 54,276 rounds, and 36,251 archived AI requests</a> (13.1 million input tokens; the answers were usually one token). And the record self-verifies: anyone can <a href="art-capsule.html">replay all 4,919 archived runs byte-for-byte</a> on a laptop without making a single new AI call. The one-sentence discovery came from a systematic <a href="claim-s2-switch.html">ladder</a> — swapping one span of the prompt at a time until the single controlling edit emerged. And a monitoring tripwire <a href="claim-drift.html">caught the API provider's model changing behavior mid-project</a>, forcing a freeze and a permanent monitoring fix.</p>
+
+<p class="part">Part 3 · Findings that didn't make the paper's main arc</p>
+
+<p>The paper deliberately narrowed to one causal chain — marginal checks pass → variety is composition → words control the corners → the star result demoted. Phases 3–4 produced more than that. These live in <a href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/paper/paper.md">Appendix A</a>, the <a href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/cut-map.md">cut map</a>, and the archived phase reports — none of it was discarded, but most of it is one paragraph where it could be a paper.</p>
+
+<h2>The exploitability suite: the obvious exploit fails, the dumb one works</h2>
+<p>The model had a near-perfect tell — after losing a round of RPS it switched moves ~97% of the time. An opponent <i>built specifically to punish that tell</i> made essentially nothing (+0.008/round, statistically zero). Meanwhile a simple pattern-matcher tracking the last two moves <a href="claim-adversary.html">profitably exploited it</a> (+0.215/round), and a frequency-tracker actually <i>lost</i> to the model (−0.118) — the opposite of the preregistered prediction. Behavioral signatures measured in one matchup didn't transport to another: exploitability is opponent-contingent. This could be its own short paper.</p>
+
+<h2>The rock thing is weirder than it sounds</h2>
+<p>The plain model played rock 80% of the time — far outside the human band. The strange part came later: with moves renamed to neutral symbols and display order fully counterbalanced, a pull toward the <i>rock-mapped role</i> persisted — attached to the game role, not the word “rock” or its screen position — and the registered position-bias prediction <a href="claim-rps-role.html">reversed sign</a>. Gemini showed the opposite-signed bias on the same contrast. A seat-attached asymmetry in a perfectly symmetric game, different per vendor, is genuinely odd — and it's a few sentences in Appendix A.2.</p>
+
+<h2>GPT follows words absolutely; Gemini follows them only when it's cheap</h2>
+<p>In the label-swap cell, GPT-4.1 followed the word “Defect” 40/40 even at a payoff cost. Gemini's choices mostly landed on the better-paying option instead (word-following ~79% — but in that cell the word and the money pointed the same way for Gemini, so it's confounded). The separator was the <a href="claim-crossvendor-label.html">counterfactual-payoff cell</a>, where the payoffs were flipped so the “Defect”-labeled option became the better one: Gemini followed the money (word-following fell to 1 of 40), while for GPT-4.1 word and payoff agreed, so its cell can't separate the two. One caveat the record is strict about: the fully <i>balanced</i>-payoff probe that would nail this down was never run — it fell outside the sealed experiment boundary. Still, this is the sharpest model-vs-model difference in the program, and it's compressed to one appendix paragraph.</p>
+
+<h2>Wording power is context-dependent — that's the point</h2>
+<p>The sentence rewording that flips repeated-game cooperation from 0/40 to 37/40 does <i>nothing</i> in one-shot games: a full 640-episode sweep of ordinary wording variations was a <a href="claim-d1-wording.html">clean null</a> (+0.6 points, p=1.00). The model isn't “sensitive to phrasing” in general — it's sensitive to phrasing <i>about the future of the game</i>. That null was restored to the paper in the final review pass, but it reads as a footnote to the switch rather than the finding it is.</p>
+
+<h2>Merely mentioning “more rounds” is itself a giant treatment</h2>
+<p>A setup where the model cooperated 10% of the time as a one-shot jumped to 75–100% the moment it was wrapped in repeated-game language — before the continuation odds even mattered. The wrapper saturated behavior so hard that an entire planned family of continuation-sensitivity comparisons became <a href="phase-4.html">uninterpretable (“corner-confounded”) by the registered rules</a>.</p>
+
+<h2>The provider changed the model mid-study — and the tripwire caught it</h2>
+<p>Behavioral fingerprinting caught Gemini's unversioned endpoint drifting over several days — 10/10 baseline matches decaying to 6–7 and oscillating — while version strings and API health looked normal. The study <a href="claim-drift.html">auto-froze at a block boundary, re-baselined, disclosed, and gained an attestation gate</a>; the affected tier was demoted rather than rescued. Zero contaminated confirmatory spend. As an operational case study — “the API you're studying is a moving target; here's how to detect it behaviorally” — it's methods-paper material.</p>
+
+<h2>Two smaller loose ends</h2>
+<p>The <a href="claim-entropy.html">temperature-entropy inversion</a> (more randomness, slightly <i>less</i> measured choice variety — exploratory, mechanism unknown). And the p13-vs-p05 puzzle: <a href="concept-personas.html">p05 “Riley, 35”</a> has the <i>same three traits</i> as p13 “Harper, 61” — competitive, patient, risk-averse — yet only the 61-year-old showed the big apparent slope (p05's was +0.08). The post-hoc “trait tension” theory about why was deliberately excluded from the paper along with the p13 demotion; it's a <a href="phase-6.html">Phase 6 question</a> now.</p>
+
+<h2>If there's a follow-up paper in here, where is it?</h2>
+<p>Two candidates stand out, both with complete, replayable data already in the archive: the opponent-contingent exploitability suite, and the cross-vendor word-versus-payoff dissociation (with the balanced-payoff cell as the missing experiment a follow-up would add). The <a href="phase-6.html">registered Phase 6 replication</a> — the properly powered re-test of incentive response — remains the committed next step.</p>
+</div>
+</article>
+"""
+
+
 def build_artifacts(idx, back, h):
     return f"""
 <article class="item">
@@ -1876,6 +2026,9 @@ SPECIAL_PAGES = [
     ("index.html", "Synthetic Players — Passing Coarse Marginal Checks Can Be Cheap",
      "A fixed panel of sixteen persona-conditioned GPT-4.1 configurations passed preregistered marginal checks while its treatment response stayed imprecisely estimated. Full auditable research record.",
      "index.html", build_index),
+    ("qa.html", "Q&A — the whole study, plainly — Synthetic Players",
+     "A conversational walkthrough of the study: what was tested, what moved the AI, the demoted result, and the findings that didn't make the paper.",
+     "qa.html", build_qa),
     ("claims.html", "Claims ledger — Synthetic Players",
      "Every registered predicate and citable secondary with its evidentiary tier.",
      "claims.html", build_claims),
