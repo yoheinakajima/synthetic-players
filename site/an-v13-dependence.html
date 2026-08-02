@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P5-2 dependence audit (v13) — Synthetic Players</title>
+<meta name="description" content="Prompt-cluster bootstrap [0.071, 0.189] and fixed-panel Dirichlet–Jeffreys [0.152, 0.195] around the 0.128 point.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/an-v13-dependence.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Analysis<span class="chip s-desc">Post-adjudication</span></p><h1>P5-2 dependence audit (v13)</h1><p class="dek">Prompt-cluster bootstrap [0.071, 0.189] and fixed-panel Dirichlet–Jeffreys [0.152, 0.195] around the 0.128 point.</p><p class="item-meta">B = 200,000 · 40 clusters, 5 strata · seeds 20260731–32</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/submission/v13/p52-dependence-audit.md">Record</a></p><div class="body"><p>The dependence-aware companion to the P5-2 story: a stratified bootstrap over the forty persona × conflict-cell clusters preserves the empirical point (0.128) with interval [0.071, 0.189], while the fixed-panel Jeffreys aggregation gives median 0.172, [0.152, 0.195]. Both sit below the frozen 0.20 boundary — but the subsequent prior sweep showed that Bayesian proximity to the boundary moves with α, which is why the bootstrap is the principal sensitivity.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-p5-2.html">P5-2 — persona-direction vs task-text classification</a><span class="chip s-mixed">Registered · mixed record</span><span class="rel-short">Pooled 45/352 = 0.128 task-consistent; historical verdict preserved; Bayesian proximity to 0.20 is prior-dependent.</span></li></ul></div><div class="rel-group"><h3>Analysiss</h3><ul><li><a href="an-p52-prior.html">P5-2 prior-sensitivity sweep</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">Posterior median rises 0.138 → 0.205 across symmetric α; the α=1 interval crosses the registered 0.20 boundary.</span></li></ul></div><div class="rel-group"><h3>Review rounds</h3><ul><li><a href="rev-round-11.html">Round 11 — Explore Science review of v12</a><span class="rel-short">v12 → v13 · 96/100, Platinum</span></li></ul></div><div class="rel-group"><h3>Manuscript versions</h3><ul><li><a href="ver-v13.html">v13 — dependence-aware candidate</a><span class="chip s-desc">Superseded</span><span class="rel-short">Adds the global-multiplicity limitation, provider-failure accounting, P5-2 prompt-cluster bootstrap and Dirichlet–Jeffreys sensitivities, and interval-bearing Figure 3.</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

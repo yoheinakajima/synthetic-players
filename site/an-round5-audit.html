@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round-5 review audit — dynamic gate, attainability, provenance — Synthetic Players</title>
+<meta name="description" content="Gate parity 56/56; dynamic vs frozen mask differs in 14.4% of null draws; exact-gate floor p=0.075 at n=6.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/an-round5-audit.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Analysis<span class="chip s-desc">Post-adjudication</span></p><h1>Round-5 review audit — dynamic gate, attainability, provenance</h1><p class="dek">Gate parity 56/56; dynamic vs frozen mask differs in 14.4% of null draws; exact-gate floor p=0.075 at n=6.</p><p class="item-meta">Answers Explore Science issues B1, B3, A2 · seed 20260792</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/submission/round5/round5-review-audit.md">Audit</a></p><div class="body"><p>Three verifications requested by external review: <b>(B1)</b> the interiority gate is genuinely re-applied inside permutations — 56 precomputed gate values, 25.6M lookup applications, 0 parity failures, and a regression showing a frozen-mask shortcut would change the maximum in 718/5,000 null draws; <b>(B3)</b> with six episodes per condition only 12 of 28 outcome compositions pass the exact gate, two passing cells can differ by at most ⅓, and the archived family’s minimum attainable familywise p is 0.075040 — the power boundary that caps what the archived record can decide about p13; <b>(A2)</b> the provenance boundary: request-side hashes cover 30,421/30,421 Phase 4–5 events, but replay proves reproducibility from the released archive, not provider attestation.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-p13.html">P5-3(a) / p13 — the demoted headline</a><span class="chip s-target">Replication target</span><span class="rel-short">0.333→0.750 under the frozen rule, but no family control; exact-gate family is underpowered. Replication target.</span></li></ul></div><div class="rel-group"><h3>Phases</h3><ul><li><a href="phase-6.html">Phase 6 — the preregistered replication (not yet run)</a><span class="chip s-target">Prospective</span><span class="rel-short">Forbidden before publication by the scope seal; its design requirements are already written.</span></li></ul></div><div class="rel-group"><h3>Analysiss</h3><ul><li><a href="an-p13-family.html">p13 familywise audit (final)</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">Three 200,000-permutation constructions: p 0.0592 / 0.0435 / 0.7732; exact gate excludes p13 entirely.</span></li></ul></div><div class="rel-group"><h3>Figures</h3><ul><li><a href="fig-p13-audit.html">Figure 5 — Post-adjudication familywise constructions for p13</a><span class="rel-short">Three 200,000-permutation gate constructions and the p=0.075 attainability floor.</span></li></ul></div><div class="rel-group"><h3>Review rounds</h3><ul><li><a href="rev-round-5.html">Round 5 — Explore Science review of v6</a><span class="rel-short">v6 → v7 · 92/100, Platinum</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

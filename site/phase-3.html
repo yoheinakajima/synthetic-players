@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 3 — can an LLM serve as a behavioral subject? — Synthetic Players</title>
+<meta name="description" content="Bare GPT-4.1 in repeated PD, framing, and RPS: 3 supported, 6 refuted, 1 inconclusive; X1 flips the corner.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/phase-3.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Phase<span class="chip s-proc">Sealed record</span></p><h1>Phase 3 — can an LLM serve as a behavioral subject?</h1><p class="dek">Bare GPT-4.1 in repeated PD, framing, and RPS: 3 supported, 6 refuted, 1 inconclusive; X1 flips the corner.</p><p class="item-meta">Complete 2026-07-24 · registry phase3-v1/v2 · 320 LLM runs + 20 baselines · claims registered before data</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/phase3-report.md">Phase 3 report</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/phase3-preregistration.md">Preregistration</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/phase3-layer2.md">Layer-2 statistics</a></p><div class="body"><p>Bare GPT-4.1 (temperature 0.7, max_tokens 16, no persona) across three families: <b>A</b> — random-termination repeated PD at δ ∈ {.10, .50, .75, .90} with a payoff isomorph; <b>B</b> — one-shot framing (Community / Wall Street / neutral); <b>C</b> — 50-round RPS versus a pattern tracker, Nash mixing, and self-play. 320 LLM runs, 5,820 calls, plus 20 deterministic baselines.</p><h2>Registered verdicts</h2><div class="tbl-scroll"><table><thead><tr><th>Predicate</th><th>Verdict</th><th>Key number</th></tr></thead><tbody><tr><td>P3-A1 shadow of the future</td><td>refuted</td><td>0.000 cooperation at both δ</td></tr><tr><td>P3-A2 risk-dominance separation</td><td>refuted</td><td>0.000 vs 0.000</td></tr><tr><td>P3-A3 human band [0.36, 0.63]</td><td>refuted</td><td>0.000</td></tr><tr><td>P3-A4 isomorph invariance</td><td>refuted</td><td>fails the separation limb</td></tr><tr><td>P3-B1 framing direction</td><td>supported</td><td>0.175 vs 0.000, CI [0.061, 0.290]</td></tr><tr><td>P3-B2 framing magnitude</td><td>inconclusive</td><td>edge rule at Wall Street = 0</td></tr><tr><td>P3-B3 neutral interior</td><td>supported</td><td>0.000 ≤ 0.000 ≤ 0.175</td></tr><tr><td>P3-C1 RPS rock band</td><td>refuted</td><td>rock 0.80 ∉ [0.33, 0.40]</td></tr><tr><td>P3-C2 win-stay / lose-shift</td><td>supported</td><td>P(shift|lose) 0.974</td></tr><tr><td>P3-C3 tracker exploits LLM</td><td>refuted, sign reversed</td><td>−0.103; subject beat the tracker</td></tr><tr><td>P3-X1 paraphrase robustness</td><td>refuted</td><td>0.000 → 1.000 under two rewordings, same seeds</td></tr></tbody></table></div><p>The approved headline: <i>prompt wording dominated the tested incentive manipulation and rendered single-wording behavioral inference non-identifiable.</i> X1’s total corner flip is what motivated Phase 4’s representation program. All 320 runs replay bit-exact with zero live calls; the disclosed Phase 3 gap (no provider response IDs) is stated in the paper.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-p3-a3.html">P3-A3 / broad marginal checks — 3 of 4 cells in band</a><span class="chip s-pass">Registered · verdict pass</span><span class="rel-short">Registered broad-reference cooperation band [0.36, 0.63]; sole miss 0.011 below the lower bound.</span></li></ul></div><div class="rel-group"><h3>Phases</h3><ul><li><a href="phase-4.html">Phase 4 — representation, counterfactuals, adversaries, drift</a><span class="chip s-proc">Sealed record</span><span class="rel-short">Registry v3, 250 sealed arms, 2,864 runs: the S2 switch, label-swap conflict, corner-confounded δ-assays, adversary suite, and the sentinel that caught endpoint drift.</span></li><li><a href="phase-1-2.html">Phases 1–2 — prototype and instrument repair</a><span class="chip s-desc">Superseded</span><span class="rel-short">The historical v1 prototype and the mechanical re-adjudication layer built after it exposed analyst discretion.</span></li></ul></div><div class="rel-group"><h3>Protocols</h3><ul><li><a href="concept-architecture.html">Audit architecture — register, execute, adjudicate, correct, replay, preserve</a><span class="chip s-pass">Final</span><span class="rel-short">The pipeline is procedurally exact and publicly replayable; the record includes where that stopped short of statistical validity.</span></li><li><a href="concept-conditions.html">The six Phase 5 conditions</a><span class="chip s-proc">Sealed record</span><span class="rel-short">Four repeated-PD cells (δ × S2 wording) plus two one-shot conflict/framing cells, all byte-identical to sealed templates.</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

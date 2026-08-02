@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Units, estimands, and what marginal checks cannot identify — Synthetic Players</title>
+<meta name="description" content="Deployment → persona prompt → condition → episode → seat → round → request; four estimand families kept distinct.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/concept-estimands.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Protocol<span class="chip s-pass">Final</span></p><h1>Units, estimands, and what marginal checks cannot identify</h1><p class="dek">Deployment → persona prompt → condition → episode → seat → round → request; four estimand families kept distinct.</p><p class="item-meta">Sources: hierarchy.md, propositions.md · Paper §3, §4.3</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/hierarchy.md">Unit hierarchy</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/propositions.md">Identification propositions</a></p><div class="body"><p>The unit chain is deployment → explicit persona prompt (16 + bare control) → condition (6 cells, 160 arms) → episode (1,712 in Phase 5) → seat (2/episode) → round (54,276) → provider request (36,251). These nouns are not interchangeable; calls are operational scale, not subjects.</p><h2>Four estimand families</h2><div class="tbl-scroll"><table><thead><tr><th>Family</th><th>Definition</th><th>Status in this program</th></tr></thead><tbody><tr><td>Fixed-panel</td><td>properties of these sixteen sealed prompts</td><td>all registered Phase 5 predicates attach here</td></tr><tr><td>Persona-generator</td><td>a wider persona population</td><td>exploratory at n=16; two-stage bootstrap targets it</td></tr><tr><td>Prompt-indexed</td><td>Δ<sub>i</sub> for the same explicit string across conditions</td><td>identified; a latent person’s effect is not (invariance untested)</td></tr><tr><td>Human-substitution</td><td>human–LLM equivalence</td><td>not claimed; references protocol-nonmatched</td></tr></tbody></table></div><h2>Identification propositions</h2><p><b>Proposition A</b> — accepted bands [ℓ₀,u₀], [ℓ₁,u₁] identify only Δ ∈ [ℓ₁−u₀, u₁−ℓ₀]: the interval can contain zero, an attenuated effect, or the wrong sign. Exact mean matching would force the aggregate effect by identity — the failure lives in the slack of <i>coarse</i> criteria. <b>Proposition B</b> — mean and variance identify neither the between/within split, the shape, boundary mass, nor the cross-condition coupling that defines prompt-indexed response (a Fréchet–Hoeffding/Sklar application, not a new theorem).</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-p3-a3.html">P3-A3 / broad marginal checks — 3 of 4 cells in band</a><span class="chip s-pass">Registered · verdict pass</span><span class="rel-short">Registered broad-reference cooperation band [0.36, 0.63]; sole miss 0.011 below the lower bound.</span></li><li><a href="claim-composition.html">Between-prompt composition — substantial, dominance prior-dependent</a><span class="chip s-mixed">Prior-sensitive</span><span class="rel-short">Median between-prompt share 63–71% (Jeffreys α=.5), 47–53% (α=1); plug-in 85–96%.</span></li><li><a href="claim-response.html">Treatment response — small points, wide intervals</a><span class="chip s-mixed">Imprecisely estimated</span><span class="rel-short">Contrasts +0.083 / +0.078 with conservative simultaneous 95% intervals [−0.171,+0.330] / [−0.181,+0.330].</span></li></ul></div><div class="rel-group"><h3>Analysiss</h3><ul><li><a href="an-counts.html">Count reconciliation</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">Every count noun defined and reconciled: 5,505 runs ≠ 4,916 replay contract ≠ 36,251 requests ≠ 30,530 ledger calls.</span></li><li><a href="an-episode-cluster.html">Episode-cluster sensitivity census</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">Interiority reclassified under episode units: 3/32 → 2/32 → 5/32 across methods; disagreement = method sensitivity.</span></li></ul></div><div class="rel-group"><h3>References</h3><ul><li><a href="ref-stats-methods.html">Statistical methods</a><span class="rel-short">Statistical foundations used by the analyses</span></li><li><a href="ref-persson-2026.html">Persson et al. 2026</a><span class="rel-short">Statistical foundations of LLM-based A/B testing: a surrogacy framework</span></li></ul></div><div class="rel-group"><h3>Protocols</h3><ul><li><a href="concept-conditions.html">The six Phase 5 conditions</a><span class="chip s-proc">Sealed record</span><span class="rel-short">Four repeated-PD cells (δ × S2 wording) plus two one-shot conflict/framing cells, all byte-identical to sealed templates.</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

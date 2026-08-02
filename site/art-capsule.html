@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zero-call replay capsule — Synthetic Players</title>
+<meta name="description" content="One command verifies 4,919 archived runs with no credentials and no live model calls.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/art-capsule.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Artifact<span class="chip s-pass">Final</span></p><h1>Zero-call replay capsule</h1><p class="dek">One command verifies 4,919 archived runs with no credentials and no live model calls.</p><p class="item-meta">bash capsule/verify.sh · transactional (checkout restored) · zero-credential guard</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/tree/main/capsule">Capsule</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/capsule-README.md">Capsule README</a></p><div class="body"><p>The capsule stages the archived engine and budget databases, unsets every provider credential, replays Phase 3 prompts/actions (5,830/5,830 calls byte-verified), replays Phases 4–5 byte-exact against a local engine (2,864 + 1,712 runs; 10,428 Phase 5 calls verified), and independently recomputes the 20 deterministic baselines. Expected output:</p><div class="terminal"><pre>CAPSULE VERIFICATION PASS — 4,919 archived Phase 3-5 runs verified
+(4,916 confirmatory + 3 legacy diagnostics)</pre></div><p>The disclosed boundary: byte-exact replay proves reproducibility from the released, checksummed, externally timestamped archive — it is not provider attestation of what the API returned before sealing.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Analysiss</h3><ul><li><a href="an-counts.html">Count reconciliation</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">Every count noun defined and reconciled: 5,505 runs ≠ 4,916 replay contract ≠ 36,251 requests ≠ 30,530 ledger calls.</span></li><li><a href="an-v12-audits.html">v12 independent audits — coincidence, strata, entropy, decoding</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">The 0.4122 bootstrap/human-reference match is a rounding coincidence; leaning gaps and the entropy decline verified.</span></li></ul></div><div class="rel-group"><h3>Review rounds</h3><ul><li><a href="rev-round-4.html">Round 4 — independent reproduction and final editorial review</a><span class="rel-short">v5 → v6 · 2026-07-29</span></li></ul></div><div class="rel-group"><h3>Protocols</h3><ul><li><a href="concept-architecture.html">Audit architecture — register, execute, adjudicate, correct, replay, preserve</a><span class="chip s-pass">Final</span><span class="rel-short">The pipeline is procedurally exact and publicly replayable; the record includes where that stopped short of statistical validity.</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

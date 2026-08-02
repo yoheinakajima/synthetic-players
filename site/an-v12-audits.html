@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>v12 independent audits — coincidence, strata, entropy, decoding — Synthetic Players</title>
+<meta name="description" content="The 0.4122 bootstrap/human-reference match is a rounding coincidence; leaning gaps and the entropy decline verified.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/an-v12-audits.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Analysis<span class="chip s-desc">Post-adjudication</span></p><h1>v12 independent audits — coincidence, strata, entropy, decoding</h1><p class="dek">The 0.4122 bootstrap/human-reference match is a rounding coincidence; leaning gaps and the entropy decline verified.</p><p class="item-meta">Independent recomputation, 3 seeds × 250,000 reps · exact event-store recomputation</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/submission/v12/v12-audits.md">Record</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/submission/v12/phase3-replay-audit.md">Phase 3 replay audit</a></p><div class="body"><p>Four audits triggered by Round 10: the suspicious equality of a bootstrap lower bound with the human SD reference is independently reproduced as a rounding coincidence (stored 0.412198 vs published 0.4122, zero seed-to-seed range); the leaning-stratum table is recomputed exactly; the temperature-entropy decline survives on the identical 13-unit lattice; and all 36,251 archived request payloads are inspected for decoding parameters (temperature and max_tokens explicit on every request; penalties inherited provider defaults). The companion Phase 3 replay audit extended the capsule to all 320 registered Phase 3/X1 runs plus 20 deterministic baselines — PASS, CLEAN.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-p5-1b.html">P5-1b — between-persona dispersion checkpoint</a><span class="chip s-pass">Registered · verdict pass</span><span class="rel-short">Corrected between-prompt SDs 0.418–0.478 cleared frozen thresholds 0.309/0.234; retained as permissive.</span></li><li><a href="claim-leaning.html">Leaning-stratum gaps — 0.51 to 0.72</a><span class="chip s-desc">Descriptive</span><span class="rel-short">Preregistered trait-rule strata differ by 0.510–0.719 across conditions; bundle contrasts, not trait causality.</span></li><li><a href="claim-entropy.html">Temperature secondary — matched-lattice entropy decline</a><span class="chip s-desc">Descriptive</span><span class="rel-short">Pooled entropy 0.831 → 0.782 → 0.770 bits at T=0.7/1.0/1.3 on the identical 13-unit lattice.</span></li></ul></div><div class="rel-group"><h3>Review rounds</h3><ul><li><a href="rev-round-10.html">Round 10 — Explore Science review of v11</a><span class="rel-short">v11 → v12 · 96/100, Platinum</span></li></ul></div><div class="rel-group"><h3>Manuscript versions</h3><ul><li><a href="ver-v12.html">v12 — near-arXiv preprint</a><span class="chip s-desc">Superseded</span><span class="rel-short">Extends the replay perimeter to all of Phase 3 (320 runs + 20 baselines), adds the independent bootstrap-coincidence audit, full leaning-strata table, matched-lattice entropy reanalysis, and decoding audit; the abstract leads with the latent-propensity posterior.</span></li></ul></div><div class="rel-group"><h3>Artifacts</h3><ul><li><a href="art-capsule.html">Zero-call replay capsule</a><span class="chip s-pass">Final</span><span class="rel-short">One command verifies 4,919 archived runs with no credentials and no live model calls.</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

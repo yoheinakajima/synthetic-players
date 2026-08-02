@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finite-opportunity variance correction — Synthetic Players</title>
+<meta name="description" content="Corrected between-prompt SDs 0.418–0.478; plug-in between-shares 85.5–96.1% with bootstrap intervals.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/an-variance.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Analysis<span class="chip s-desc">Post-adjudication</span></p><h1>Finite-opportunity variance correction</h1><p class="dek">Corrected between-prompt SDs 0.418–0.478; plug-in between-shares 85.5–96.1% with bootstrap intervals.</p><p class="item-meta">50,000 bootstrap replicates · 16 personas × 6 episodes per cell</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/submission/variance-correction.md">Record</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/submission/variance-uncertainty-v11.md">v11 latent-propensity view</a></p><div class="body"><p>Separates real between-prompt variation from finite-opportunity measurement noise (six episodes per cell): corrected SDs 0.4182 / 0.4784 / 0.4408 / 0.4323, between-shares 0.855 / 0.961 / 0.888 / 0.902. The v11 companion adds the fixed-panel Dirichlet–Jeffreys latent-propensity view (share medians 0.631–0.705), created after Round 9 identified that resampling unanimous six-episode cells as point masses is a conditional statement, not a complete uncertainty statement. Together they are the two bracketing views quoted throughout the paper.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-composition.html">Between-prompt composition — substantial, dominance prior-dependent</a><span class="chip s-mixed">Prior-sensitive</span><span class="rel-short">Median between-prompt share 63–71% (Jeffreys α=.5), 47–53% (α=1); plug-in 85–96%.</span></li><li><a href="claim-p5-1b.html">P5-1b — between-persona dispersion checkpoint</a><span class="chip s-pass">Registered · verdict pass</span><span class="rel-short">Corrected between-prompt SDs 0.418–0.478 cleared frozen thresholds 0.309/0.234; retained as permissive.</span></li></ul></div><div class="rel-group"><h3>Figures</h3><ul><li><a href="fig-between-prompt-share.html">Figure 1 — Between-prompt share of episode-level variation</a><span class="rel-short">Two uncertainty views of the same fixed panel: Jeffreys posteriors vs plug-in estimates.</span></li></ul></div><div class="rel-group"><h3>Review rounds</h3><ul><li><a href="rev-round-9.html">Round 9 — Explore Science review of v10</a><span class="rel-short">v10 → v11 addendum · 97/100, Platinum</span></li><li><a href="rev-round-2.html">Round 2 — adversarial methods and framing review</a><span class="rel-short">v2 → v3 · 2026-07-29</span></li></ul></div><div class="rel-group"><h3>Manuscript versions</h3><ul><li><a href="ver-v11.html">v11 — the post-freeze addendum</a><span class="chip s-desc">Superseded</span><span class="rel-short">Adds the fixed-panel Dirichlet–Jeffreys latent-propensity sensitivity — the uncertainty view that turned “85–96% dominant” into “63–71% medians, prior-dependent dominance” — as an explicit, declared addendum to the frozen v10 (22 pages; margin line numbers removed)..</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

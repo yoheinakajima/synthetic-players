@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Endpoint drift and subject eligibility — Synthetic Players</title>
+<meta name="description" content="Gemini sentinel fell from 10/10 to 6/10–7/10 on an unversioned endpoint; Claude Haiku failed the entry gate.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/claim-drift.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Claim<span class="chip s-proc">Procedural record</span></p><h1>Endpoint drift and subject eligibility</h1><p class="dek">Gemini sentinel fell from 10/10 to 6/10–7/10 on an unversioned endpoint; Claude Haiku failed the entry gate.</p><p class="item-meta">Procedural monitoring record, not a behavioral-effect estimate · Appendix A.2</p><div class="body"><p>The Gemini sentinel fingerprint changed from 10/10 baseline matches to an oscillating sequence — 10 → 9 → 9 → 8 → 8 → 7* → [re-baseline 10] → 6* → 7* → 6* → 7* — on the unversioned endpoint, triggering block-boundary freezes, disclosure memos, re-baselining, and a later attestation gate; the Phase 4 F cross-vendor tier was demoted to descriptive-only rather than re-evaluating the rule on the data it fired on. GPT-4.1’s sentinel cells remained 10/10 throughout, and every deviant episode was a clean, valid single-token choice — a distributional change, not an infrastructure fault.</p><p>Separately, the original Claude Haiku candidate failed the registered Gate-0 behavioral entry gate (it could not complete a turn at max_tokens=16) and was replaced under a sealed amendment. Model identity and endpoint availability do not by themselves establish a stable, usable behavioral subject; deployed-model change over time is why behavioral sentinels exist in the architecture. Contaminated confirmatory spend: zero.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Phases</h3><ul><li><a href="phase-4.html">Phase 4 — representation, counterfactuals, adversaries, drift</a><span class="chip s-proc">Sealed record</span><span class="rel-short">Registry v3, 250 sealed arms, 2,864 runs: the S2 switch, label-swap conflict, corner-confounded δ-assays, adversary suite, and the sentinel that caught endpoint drift.</span></li><li><a href="phase-5.html">Phase 5 — the sixteen-persona panel</a><span class="chip s-proc">Sealed record</span><span class="rel-short">16 sealed persona sentences × 6 conditions × 3 temperatures; 1,712 runs; both author predictions with teeth failed.</span></li></ul></div><div class="rel-group"><h3>Protocols</h3><ul><li><a href="concept-architecture.html">Audit architecture — register, execute, adjudicate, correct, replay, preserve</a><span class="chip s-pass">Final</span><span class="rel-short">The pipeline is procedurally exact and publicly replayable; the record includes where that stopped short of statistical validity.</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

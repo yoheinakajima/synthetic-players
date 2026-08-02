@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phases 1–2 — prototype and instrument repair — Synthetic Players</title>
+<meta name="description" content="The historical v1 prototype and the mechanical re-adjudication layer built after it exposed analyst discretion.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/phase-1-2.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Phase<span class="chip s-desc">Superseded</span></p><h1>Phases 1–2 — prototype and instrument repair</h1><p class="dek">The historical v1 prototype and the mechanical re-adjudication layer built after it exposed analyst discretion.</p><p class="item-meta">Not prospective confirmation · v1 frozen July 2026 · postmortem published</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/POSTMORTEM.md">Postmortem</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/v1/paper-v1.md">v1 paper (frozen)</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/METRICS.md">Metrics spec</a></p><div class="body"><p><b>Phase 1</b> was the algorithmic-strategy prototype: 7 classic games, 8 strategies, 40 experiments, and a 2,149-word v1 paper whose 11 claims were all called “supported.” Mechanical re-adjudication in Phase 2 revised that record to <b>6 supported, 1 refuted, 4 inconclusive</b> — the refuted claim (TFT &gt;50% cooperation vs Always Defect; observed 0.02) became dead prediction #1. Four process errors were documented: a literature transplant, payoff totals presented as per-round, metrics applied to undefined game classes, and single unseeded runs treated as facts.</p><p><b>Phase 2</b> rebuilt the instrument: seeded mulberry32 randomness, 20-seed replicate batches, a versioned per-class metric suite, predicate-based mechanical adjudication (verdicts never hand-set; predicates immutable after first adjudication), and a 396-run backfill with zero drift. Neither phase carries confirmatory weight; they exist in the record because the correction is part of the result.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Phases</h3><ul><li><a href="phase-3.html">Phase 3 — can an LLM serve as a behavioral subject?</a><span class="chip s-proc">Sealed record</span><span class="rel-short">Bare GPT-4.1 in repeated PD, framing, and RPS: 3 supported, 6 refuted, 1 inconclusive; X1 flips the corner.</span></li></ul></div><div class="rel-group"><h3>Manuscript versions</h3><ul><li><a href="ver-v1.html">v1 — the refuted prototype paper</a><span class="chip s-desc">Superseded</span><span class="rel-short">“Empirical Deviations from Nash Equilibrium in Classic Game Theory Games” — 40 experiments, 11 claims, all initially called supported.</span></li></ul></div><div class="rel-group"><h3>Protocols</h3><ul><li><a href="concept-architecture.html">Audit architecture — register, execute, adjudicate, correct, replay, preserve</a><span class="chip s-pass">Final</span><span class="rel-short">The pipeline is procedurally exact and publicly replayable; the record includes where that stopped short of statistical validity.</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
