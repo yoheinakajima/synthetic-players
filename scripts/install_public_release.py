@@ -43,16 +43,18 @@ with tempfile.TemporaryDirectory(prefix='synthetic-players-public-') as td:
    names.add(m.name)
   if names!=set(EXPECTED): raise SystemExit('public release member set mismatch')
   tf.extractall(stage,filter='data')
+ # The project site graduated from the pinned one-page payload to a living,
+ # generated surface (scripts/build_site.py + scripts/site_data.py). The sealed
+ # payload's site/* members are still hash-verified above as transport
+ # integrity, but they are no longer installed over the working tree, and the
+ # historical P5-2 sentence patch that targeted the payload copy is retired
+ # with them. Canonical paper artifacts remain pinned by
+ # scripts/install_final_release.py and the workflow-level hash checks.
  for rel,want in EXPECTED.items():
   src=stage/rel
   if hashlib.sha256(src.read_bytes()).hexdigest()!=want: raise SystemExit(f'public release file hash mismatch: {rel}')
+  if rel.startswith('site/'): continue
   dst=ROOT/rel; dst.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(src,dst)
-site=ROOT/'site/index.html'
-site_text=site.read_text(encoding='utf-8')
-old='The historical P5-2 classification is preserved, but its Bayesian proximity to the 0.20 boundary is prior-dependent; the alpha=1 posterior crosses it.'
-new='The historical P5-2 classification is preserved, but its Bayesian proximity to the 0.20 boundary is prior-dependent; the alpha=1 posterior median is 0.205 (95% interval [0.182, 0.231]) and crosses it.'
-if site_text.count(old)!=1: raise SystemExit('public site P5-2 sentence mismatch')
-site.write_text(site_text.replace(old,new),encoding='utf-8')
 renderer=shutil.which('pdftoppm')
 if not renderer: raise SystemExit('pdftoppm is required to build the site figure derivatives')
 assets=ROOT/'site/assets'; assets.mkdir(parents=True,exist_ok=True)

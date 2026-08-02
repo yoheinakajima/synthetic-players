@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Label-swap conflict — semantic label overrides payoff dominance — Synthetic Players</title>
+<meta name="description" content="Bare GPT-4.1 chose the cooperation-worded option 0/40, taking the payoff-dominated role when it carried “Defect.”">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/claim-label-swap.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Claim<span class="chip s-pass">Registered · verdict pass</span></p><h1>Label-swap conflict — semantic label overrides payoff dominance</h1><p class="dek">Bare GPT-4.1 chose the cooperation-worded option 0/40, taking the payoff-dominated role when it carried “Defect.”</p><p class="item-meta">One-shot canonical-payoff label swap (os-swap) · registered cell · Paper §4.2</p><div class="body"><p>With canonical payoffs fixed and “Cooperate”/“Defect” attached to opposite strategic roles, the bare configuration chose the cooperation-worded option <b>0/40</b> times — it took the payoff-dominated role whenever that role carried the word “Defect.”</p><p>What this shows: a displayed label or a label-linked learned prior can override payoff dominance in this registered cell. What it does not show: intrinsic lexical valence. A learned association (“Defect = the dominant action in PD”) is equally plausible, and no structurally equivalent non-PD control retained the same labels. Cross-vendor: Gemini mostly followed payoff dominance instead (0.213 cooperation role, 0.788 the word COOPERATE) — see the cross-vendor dissociation record.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-crossvendor-label.html">Cross-vendor label–payoff dissociation</a><span class="chip s-desc">Descriptive</span><span class="rel-short">GPT-4.1 followed the token DEFECT even when payoff-dominated; Gemini mostly followed payoff dominance.</span></li><li><a href="claim-p5-2.html">P5-2 — persona-direction vs task-text classification</a><span class="chip s-mixed">Registered · mixed record</span><span class="rel-short">Pooled 45/352 = 0.128 task-consistent; historical verdict preserved; Bayesian proximity to 0.20 is prior-dependent.</span></li><li><a href="claim-p5-3b.html">P5-3(b) — dominated-option rejection</a><span class="chip s-pass">Registered · verdict pass</span><span class="rel-short">All 24 evaluable lanes rejected the bare configuration&#x27;s dominated swap choice; minimum lower bound 0.462.</span></li></ul></div><div class="rel-group"><h3>Phases</h3><ul><li><a href="phase-4.html">Phase 4 — representation, counterfactuals, adversaries, drift</a><span class="chip s-proc">Sealed record</span><span class="rel-short">Registry v3, 250 sealed arms, 2,864 runs: the S2 switch, label-swap conflict, corner-confounded δ-assays, adversary suite, and the sentinel that caught endpoint drift.</span></li></ul></div><div class="rel-group"><h3>Figures</h3><ul><li><a href="fig-representation-effects.html">Figure 4 — Representation-channel corner shifts</a><span class="rel-short">The S2 wording operation (0/40 → 37/40) and the label-conflict selection shares.</span></li></ul></div><div class="rel-group"><h3>Review rounds</h3><ul><li><a href="rev-round-10.html">Round 10 — Explore Science review of v11</a><span class="rel-short">v11 → v12 · 96/100, Platinum</span></li></ul></div><div class="rel-group"><h3>References</h3><ul><li><a href="ref-georgousis-2026.html">Georgousis et al. 2026</a><span class="rel-short">Evaluating counterfactual strategic reasoning in large language models</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

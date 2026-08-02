@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P5-1b — between-persona dispersion checkpoint — Synthetic Players</title>
+<meta name="description" content="Corrected between-prompt SDs 0.418–0.478 cleared frozen thresholds 0.309/0.234; retained as permissive.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/claim-p5-1b.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Claim<span class="chip s-pass">Registered · verdict pass</span></p><h1>P5-1b — between-persona dispersion checkpoint</h1><p class="dek">Corrected between-prompt SDs 0.418–0.478 cleared frozen thresholds 0.309/0.234; retained as permissive.</p><p class="item-meta">Registered heuristic tolerance from protocol-nonmatched human SD references (ρ=.75)</p><div class="body"><p>P5-1b compared panel dispersion against thresholds mechanically implied from Dal Bó &amp; Fréchette’s R=40 strategy-frequency SDs (0.4122 for δ=.50, 0.3116 for δ=.75; frozen ρ=.75 gave thresholds <b>0.3092</b> and <b>0.2337</b>). Finite-opportunity-corrected plug-in SDs were <b>0.4182, 0.4784, 0.4408, 0.4323</b> — all clear.</p><p>Caveats made explicit after review: unanimous cells are point masses in the conditional bootstrap; a two-stage prompt+episode bootstrap (a persona-generator estimand) widens the intervals to 0.27–0.51; and the displayed equality of one lower bound with the human 0.4122 reference is a rounding coincidence, verified by independent recomputation. P5-1b is a <b>permissive historical checkpoint, not evidence of human-variance equivalence</b>.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-composition.html">Between-prompt composition — substantial, dominance prior-dependent</a><span class="chip s-mixed">Prior-sensitive</span><span class="rel-short">Median between-prompt share 63–71% (Jeffreys α=.5), 47–53% (α=1); plug-in 85–96%.</span></li></ul></div><div class="rel-group"><h3>Phases</h3><ul><li><a href="phase-5.html">Phase 5 — the sixteen-persona panel</a><span class="chip s-proc">Sealed record</span><span class="rel-short">16 sealed persona sentences × 6 conditions × 3 temperatures; 1,712 runs; both author predictions with teeth failed.</span></li></ul></div><div class="rel-group"><h3>Analysiss</h3><ul><li><a href="an-variance.html">Finite-opportunity variance correction</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">Corrected between-prompt SDs 0.418–0.478; plug-in between-shares 85.5–96.1% with bootstrap intervals.</span></li><li><a href="an-v12-audits.html">v12 independent audits — coincidence, strata, entropy, decoding</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">The 0.4122 bootstrap/human-reference match is a rounding coincidence; leaning gaps and the entropy decline verified.</span></li></ul></div><div class="rel-group"><h3>References</h3><ul><li><a href="ref-dalbo-2011.html">Dal Bó &amp; Fréchette 2011</a><span class="rel-short">The evolution of cooperation in infinitely repeated games</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

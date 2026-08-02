@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Count reconciliation — Synthetic Players</title>
+<meta name="description" content="Every count noun defined and reconciled: 5,505 runs ≠ 4,916 replay contract ≠ 36,251 requests ≠ 30,530 ledger calls.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/an-counts.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Analysis<span class="chip s-desc">Post-adjudication</span></p><h1>Count reconciliation</h1><p class="dek">Every count noun defined and reconciled: 5,505 runs ≠ 4,916 replay contract ≠ 36,251 requests ≠ 30,530 ledger calls.</p><p class="item-meta">Machine-readable definitions committed with the numbers</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/submission/count-reconciliation.md">Record</a></p><div class="body"><div class="tbl-scroll"><table><thead><tr><th>Quantity</th><th class="num">Count</th><th>Definition</th></tr></thead><tbody><tr><td>Distinct run IDs</td><td class="num">5,540</td><td>any event in the store</td></tr><tr><td>Archived completed runs</td><td class="num">5,505</td><td>runs with run.completed, all phases</td></tr><tr><td>Confirmatory replay contract</td><td class="num">4,916</td><td>320 P3/X1 + 20 baselines + 2,864 P4 + 1,712 P5</td></tr><tr><td>Capsule total</td><td class="num">4,919</td><td>4,916 confirmatory + 3 legacy diagnostics</td></tr><tr><td>Round events</td><td class="num">54,276</td><td>simultaneous move pairs</td></tr><tr><td>Seat-round decisions</td><td class="num">108,552</td><td>two per round event</td></tr><tr><td>Provider-request events</td><td class="num">36,251</td><td>all llm.requested, full store</td></tr><tr><td>Phase 4–5 ledger calls</td><td class="num">30,530</td><td>transactional budget ledger (13.1M in / 45.2k out tokens)</td></tr></tbody></table></div><p>The ~1.5 output-token average per call is expected: valid actions were ordinarily one-token completions even though max_tokens=16. The reconciliation exists because an early draft conflated two of these scopes — a Round 2 queue item.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Review rounds</h3><ul><li><a href="rev-round-2.html">Round 2 — adversarial methods and framing review</a><span class="rel-short">v2 → v3 · 2026-07-29</span></li><li><a href="rev-round-7.html">Round 7 — Claude review of v8</a><span class="rel-short">v8 → v9 · external adversarial review</span></li></ul></div><div class="rel-group"><h3>Artifacts</h3><ul><li><a href="art-capsule.html">Zero-call replay capsule</a><span class="chip s-pass">Final</span><span class="rel-short">One command verifies 4,919 archived runs with no credentials and no live model calls.</span></li></ul></div><div class="rel-group"><h3>Protocols</h3><ul><li><a href="concept-architecture.html">Audit architecture — register, execute, adjudicate, correct, replay, preserve</a><span class="chip s-pass">Final</span><span class="rel-short">The pipeline is procedurally exact and publicly replayable; the record includes where that stopped short of statistical validity.</span></li><li><a href="concept-estimands.html">Units, estimands, and what marginal checks cannot identify</a><span class="chip s-pass">Final</span><span class="rel-short">Deployment → persona prompt → condition → episode → seat → round → request; four estimand families kept distinct.</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

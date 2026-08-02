@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checksums, timestamps, and seals — Synthetic Players</title>
+<meta name="description" content="SHA-256 manifests, OpenTimestamps Bitcoin anchors (blocks 959483–960086), annotated tags and releases.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/art-provenance.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Artifact<span class="chip s-pass">Final</span></p><h1>Checksums, timestamps, and seals</h1><p class="dek">SHA-256 manifests, OpenTimestamps Bitcoin anchors (blocks 959483–960086), annotated tags and releases.</p><p class="item-meta">11 OTS proofs across phase seals, close-outs, and the paper checksum</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/phase5/seal-record.md">Phase 5 seal record</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/phase4/seal-record.md">Phase 4 seal record</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/releases">Releases</a></p><div class="body"><p>Every registry seal and close-out is hash-manifested and externally anchored: tags <code>phase4-v3-seal</code>, <code>phase4-final</code>, <code>phase5-v4-seal</code>, <code>phase5-final</code>, and <code>paper-text-freeze-v10</code>, each with a GitHub release timestamp and OpenTimestamps proofs upgraded to complete Bitcoin attestations. The registered language is deliberate: records are <i>externally anchored</i>, not “cryptographically immutable,” and no GPG signature exists (a disclosed plan deviation). Repository made public 2026-07-29T14:03Z with all hashes byte-identical across the flip.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Phases</h3><ul><li><a href="phase-4.html">Phase 4 — representation, counterfactuals, adversaries, drift</a><span class="chip s-proc">Sealed record</span><span class="rel-short">Registry v3, 250 sealed arms, 2,864 runs: the S2 switch, label-swap conflict, corner-confounded δ-assays, adversary suite, and the sentinel that caught endpoint drift.</span></li><li><a href="phase-5.html">Phase 5 — the sixteen-persona panel</a><span class="chip s-proc">Sealed record</span><span class="rel-short">16 sealed persona sentences × 6 conditions × 3 temperatures; 1,712 runs; both author predictions with teeth failed.</span></li></ul></div><div class="rel-group"><h3>Manuscript versions</h3><ul><li><a href="ver-v10.html">v10 — the scientific text freeze</a><span class="chip s-proc">Sealed record</span><span class="rel-short">The frozen scientific text (21 pages, tag paper-text-freeze-v10, OpenTimestamps-anchored).</span></li><li><a href="ver-final.html">Final — canonical release</a><span class="chip s-pass">Final</span><span class="rel-short">The canonical 19-page, five-figure release: PDF, byte-identical Markdown, and minimal PDFLaTeX arXiv package, all SHA-256-pinned, independently recompiled and page-image-compared in CI, OpenTimestamps-anchored, and published with the project site on 2026-08-01 (PR #13)..</span></li></ul></div><div class="rel-group"><h3>Protocols</h3><ul><li><a href="concept-architecture.html">Audit architecture — register, execute, adjudicate, correct, replay, preserve</a><span class="chip s-pass">Final</span><span class="rel-short">The pipeline is procedurally exact and publicly replayable; the record includes where that stopped short of statistical validity.</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

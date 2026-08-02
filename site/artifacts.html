@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artifacts — Synthetic Players</title>
+<meta name="description" content="Verification surfaces: paper, capsule, seals, registries, ledgers.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/artifacts.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html" class="here">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+
+<article class="item">
+<p class="kicker">Materials</p>
+<h1>Artifacts and verification surfaces</h1>
+<p class="dek">Everything needed to read, check, or attack the result — and what each surface can and cannot prove.</p>
+<div class="body">
+<div class="tbl-scroll"><table><thead><tr><th>Artifact</th><th>Contents</th><th>Verification</th></tr></thead><tbody><tr><td><a href="art-paper.html">Canonical paper</a></td><td>19-page PDF · byte-identical Markdown · minimal arXiv PDFLaTeX zip</td><td>SHA-256 pins; CI recompiles and byte-compares all 19 rendered pages</td></tr><tr><td><a href="art-capsule.html">Replay capsule</a></td><td>archived databases + verifier</td><td>4,919 runs replayed with zero credentials and zero live calls</td></tr><tr><td><a href="art-provenance.html">Seals and timestamps</a></td><td>hash manifests, tags, releases, OTS proofs</td><td>external chronology anchors on Bitcoin blocks 959483–960086</td></tr><tr><td><a href="concept-personas.html">Persona registry</a></td><td>16 sealed sentences, construction rule, per-persona SHA-256</td><td>sealed pre-data in registry v4</td></tr><tr><td><a href="concept-discussion.html">Precommitted discussion</a></td><td>four full branches written before Phase 5 data</td><td>byte-identical to sealed hash; correction table beside the quoted excerpt</td></tr><tr><td><a href="an-dead-predictions.html">Dead predictions</a></td><td>12 refuted author predictions</td><td>adjudicated by sealed code; published regardless of direction</td></tr><tr><td><a href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/instance-ledger.md">Instance ledger</a></td><td>22 process failures with causes and durable rules</td><td>every confirmatory-touching resolution went the conservative direction</td></tr><tr><td><a href="https://github.com/yoheinakajima/synthetic-players/tree/main/docs/analysis">Analysis pack</a></td><td>claims ledger, dependency audit, corner map, stability compendium, submission analyses</td><td>zero-call scripts over archived databases, committed with seeds</td></tr></tbody></table></div>
+<h2>Reproduce</h2>
+<div class="terminal"><button id="copy-command" type="button">Copy</button><pre><code id="verify-command">git clone https://github.com/yoheinakajima/synthetic-players
+cd synthetic-players/capsule
+bash verify.sh</code></pre></div>
+<p class="smallprint">Expected: CAPSULE VERIFICATION PASS — 4,919 archived Phase 3-5 runs verified (4,916 confirmatory + 3 legacy diagnostics). The capsule is transactional: the checkout is restored on success or failure.</p>
+</div>
+</article>
+
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

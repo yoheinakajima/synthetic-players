@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P5-2 prior-sensitivity sweep — Synthetic Players</title>
+<meta name="description" content="Posterior median rises 0.138 → 0.205 across symmetric α; the α=1 interval crosses the registered 0.20 boundary.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/an-p52-prior.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Analysis<span class="chip s-desc">Post-adjudication</span></p><h1>P5-2 prior-sensitivity sweep</h1><p class="dek">Posterior median rises 0.138 → 0.205 across symmetric α; the α=1 interval crosses the registered 0.20 boundary.</p><p class="item-meta">500,000 draws per α · seeds 2026080100–03 · 40 clusters over 352 episodes</p><p class="ext-row"><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/submission/p52-prior-sensitivity.md">Record</a><a class="ext" href="https://github.com/yoheinakajima/synthetic-players/blob/main/docs/analysis/submission/p52-prior-sensitivity.json">JSON</a></p><div class="body"><p>Each of 40 sparse persona × conflict-cell clusters receives an independent symmetric Dirichlet prior; at α=0.5 the total prior concentration (≈60 category-count units) is non-negligible against 352 observed episodes and pulls the aggregate toward 0.5. The sweep shows the Jeffreys posterior’s proximity to the registered 0.20 boundary is a prior artifact, not a data signal — the empirical anchor stays 45/352 = 0.128 and the prompt-cluster bootstrap [0.071, 0.189] remains the principal dependence-aware sensitivity. This correction (Round 14) demoted “independent Bayesian corroboration” from the P5-2 story.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-p5-2.html">P5-2 — persona-direction vs task-text classification</a><span class="chip s-mixed">Registered · mixed record</span><span class="rel-short">Pooled 45/352 = 0.128 task-consistent; historical verdict preserved; Bayesian proximity to 0.20 is prior-dependent.</span></li><li><a href="claim-composition.html">Between-prompt composition — substantial, dominance prior-dependent</a><span class="chip s-mixed">Prior-sensitive</span><span class="rel-short">Median between-prompt share 63–71% (Jeffreys α=.5), 47–53% (α=1); plug-in 85–96%.</span></li></ul></div><div class="rel-group"><h3>Phases</h3><ul><li><a href="phase-5.html">Phase 5 — the sixteen-persona panel</a><span class="chip s-proc">Sealed record</span><span class="rel-short">16 sealed persona sentences × 6 conditions × 3 temperatures; 1,712 runs; both author predictions with teeth failed.</span></li></ul></div><div class="rel-group"><h3>Analysiss</h3><ul><li><a href="an-v13-dependence.html">P5-2 dependence audit (v13)</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">Prompt-cluster bootstrap [0.071, 0.189] and fixed-panel Dirichlet–Jeffreys [0.152, 0.195] around the 0.128 point.</span></li></ul></div><div class="rel-group"><h3>Figures</h3><ul><li><a href="fig-between-prompt-share.html">Figure 1 — Between-prompt share of episode-level variation</a><span class="rel-short">Two uncertainty views of the same fixed panel: Jeffreys posteriors vs plug-in estimates.</span></li></ul></div><div class="rel-group"><h3>Review rounds</h3><ul><li><a href="rev-round-14.html">Round 14 — middle-path findings restoration and final precision pass</a><span class="rel-short">v14 → final · accepted into the final candidate</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

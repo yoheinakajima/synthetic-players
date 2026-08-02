@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P5-2 — persona-direction vs task-text classification — Synthetic Players</title>
+<meta name="description" content="Pooled 45/352 = 0.128 task-consistent; historical verdict preserved; Bayesian proximity to 0.20 is prior-dependent.">
+<link rel="canonical" href="https://yoheinakajima.github.io/synthetic-players/claim-p5-2.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="masthead">
+<div class="mast-inner">
+<a class="wordmark" href="index.html">Synthetic&nbsp;Players</a>
+<nav class="mainnav" aria-label="Site"><a href="index.html">Overview</a><a href="claims.html">Claims</a><a href="phases.html">Phases</a><a href="timeline.html">Timeline</a><a href="reviews.html">Reviews</a><a href="related-work.html">Related work</a><a href="versions.html">Versions</a><a href="artifacts.html">Artifacts</a></nav>
+<div class="mast-actions"><a class="pdfbtn" href="paper.pdf">Paper&nbsp;PDF</a></div>
+</div>
+</header>
+<main class="wrap">
+<article class="item"><p class="kicker">Claim<span class="chip s-mixed">Registered · mixed record</span></p><h1>P5-2 — persona-direction vs task-text classification</h1><p class="dek">Pooled 45/352 = 0.128 task-consistent; historical verdict preserved; Bayesian proximity to 0.20 is prior-dependent.</p><p class="item-meta">Registered conflict-cell pooling · frozen boundary 0.20 · Paper §4.2, §5.1</p><div class="body"><p>P5-2 pools registered conflict cells and classifies whether choices follow task text or persona-conditioned direction. The pooled task-consistent share is <b>90/704 seat decisions across 352 episodes</b> — 45/352 = <b>0.128</b> on episode means. The prompt-cluster bootstrap (principal dependence-aware sensitivity) gives <b>[0.071, 0.189]</b>.</p><h2>Prior sensitivity of the Bayesian aggregation</h2><div class="tbl-scroll"><table><thead><tr><th class="num">symmetric α</th><th class="num">posterior median</th><th class="num">95% interval</th><th class="num">P(θ ≤ .20)</th></tr></thead><tbody><tr><td class="num">0.10</td><td class="num">0.138</td><td class="num">[0.124, 0.153]</td><td class="num">1.000</td></tr><tr><td class="num">0.25</td><td class="num">0.152</td><td class="num">[0.135, 0.171]</td><td class="num">&gt;0.999</td></tr><tr><td class="num">0.50</td><td class="num">0.172</td><td class="num">[0.152, 0.195]</td><td class="num">0.991</td></tr><tr><td class="num">1.00</td><td class="num">0.205</td><td class="num">[0.182, 0.231]</td><td class="num">0.329</td></tr></tbody></table></div><p>The α=1 posterior crosses the registered 0.20 boundary, so proximity to the boundary is prior-dependent rather than an independent signal. Every repeated conflict subcell is mixed; only the swap cell is individually persona-dominant — the pooled classification is <b>mechanism-confounded and carried by the word/payoff-confounded swap cell</b>.</p></div><section class="related" aria-label="Linked items"><h2>Linked in the research graph</h2><p class="rel-note">Everything connected to this item, in both directions.</p><div class="rel-group"><h3>Claims</h3><ul><li><a href="claim-label-swap.html">Label-swap conflict — semantic label overrides payoff dominance</a><span class="chip s-pass">Registered · verdict pass</span><span class="rel-short">Bare GPT-4.1 chose the cooperation-worded option 0/40, taking the payoff-dominated role when it carried “Defect.”</span></li></ul></div><div class="rel-group"><h3>Phases</h3><ul><li><a href="phase-5.html">Phase 5 — the sixteen-persona panel</a><span class="chip s-proc">Sealed record</span><span class="rel-short">16 sealed persona sentences × 6 conditions × 3 temperatures; 1,712 runs; both author predictions with teeth failed.</span></li></ul></div><div class="rel-group"><h3>Analysiss</h3><ul><li><a href="an-p52-prior.html">P5-2 prior-sensitivity sweep</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">Posterior median rises 0.138 → 0.205 across symmetric α; the α=1 interval crosses the registered 0.20 boundary.</span></li><li><a href="an-v13-dependence.html">P5-2 dependence audit (v13)</a><span class="chip s-desc">Post-adjudication</span><span class="rel-short">Prompt-cluster bootstrap [0.071, 0.189] and fixed-panel Dirichlet–Jeffreys [0.152, 0.195] around the 0.128 point.</span></li></ul></div><div class="rel-group"><h3>Review rounds</h3><ul><li><a href="rev-round-14.html">Round 14 — middle-path findings restoration and final precision pass</a><span class="rel-short">v14 → final · accepted into the final candidate</span></li><li><a href="rev-round-11.html">Round 11 — Explore Science review of v12</a><span class="rel-short">v12 → v13 · 96/100, Platinum</span></li></ul></div></section></article>
+</main>
+<footer class="colophon">
+<div class="wrap">
+<p><b>Synthetic Players</b> — auditable strategic experiments with LLM-controlled agents. Yohei Nakajima, 2026.</p>
+<p><a href="https://github.com/yoheinakajima/synthetic-players">Repository</a> · <a href="paper.pdf">Paper PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · Code MIT · Research artifacts CC BY 4.0. Historical records are preserved; corrections are additive.</p>
+</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
