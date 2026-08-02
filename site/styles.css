@@ -197,6 +197,25 @@ td a:hover { text-decoration: underline; }
 .timeline b { font-weight: 600; }
 .timeline .tnote { color: var(--ink-soft); font-size: 0.84rem; }
 @media (max-width: 34rem) { .timeline li { grid-template-columns: 1fr; gap: 0.1rem; } }
+/* Reading-mode toggle (overview page) */
+.mode-toggle {
+  display: inline-flex; border: 1px solid var(--ink); border-radius: 4px;
+  overflow: hidden; margin: 0.7rem 0 0.1rem; font-family: var(--sans);
+}
+.mode-toggle button {
+  font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+  padding: 0.32rem 0.75rem; border: none; background: var(--bg);
+  color: var(--ink-soft); cursor: pointer;
+}
+.mode-toggle button + button { border-left: 1px solid var(--ink); }
+.mode-toggle button.on { background: var(--ink); color: var(--bg); }
+.mode-toggle button:not(.on):hover { color: var(--ink); }
+.mode-note { font-family: var(--sans); font-size: 0.72rem; color: var(--ink-faint); margin: 0.25rem 0 0; }
+.lang-plain { display: none; }
+html.plain .lang-tech { display: none; }
+html.plain .lang-plain { display: block; }
+html.plain .lede .abstract { font-size: 1.02rem; }
+
 .colophon { border-top: 2px solid var(--ink); margin-top: 2.5rem; padding: 0.9rem 0 1.6rem; }
 .colophon p { font-family: var(--sans); font-size: 0.76rem; color: var(--ink-faint); margin: 0.25rem 0; }
 .smallprint { font-family: var(--sans); font-size: 0.78rem; color: var(--ink-faint); }
