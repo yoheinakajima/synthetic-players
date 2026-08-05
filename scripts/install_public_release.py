@@ -6,18 +6,15 @@ import base64,hashlib,io,shutil,struct,subprocess,tarfile,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 CHUNKS=ROOT/'scripts/public_release_chunks'
-PAYLOAD_SHA256='1459f3cf44a2f69d48d946095de1f44ec2c26682a17485d67dc198a6c56107ae'
-EXPECTED={'ARXIV_SUBMISSION.md': '027b33c057f9e682f76910bf8c7c470dc8f582a7798f422cf855702f34a9cadf', 'CITATION.cff': 'b3f94a135d45cbc55b249e1712c399581b7fc1644d3451c7e49709593170a831', 'README.md': '42dd5a22f46a90720aff74f0781de48ff9e66dc29a46e3084515e80cd8a1f82c', 'REVIEW.md': '038a5c84736881a1c0f63329157f6e9232d74cb8a9eadd8acc4f1502cdd8b8d4', 'docs/analysis/submission/p52-prior-sensitivity.csv': '6026845e686c5fee7185b18ca46ca71be867ca03c73456360970b0ec7cbbe3c2', 'docs/analysis/submission/p52-prior-sensitivity.json': '8751633e7cc4a6e9eb78e9e724d2e1d54e9dca1fee270b6367350d2c42a66007', 'docs/analysis/submission/p52-prior-sensitivity.md': 'c283a031aed26a0191a44a33ad74817459a7b5f93b69813a9a13ab5e0646076a', 'docs/paper/arxiv-metadata.txt': '583b1ce75b4e60609b7681037d99d116f90d3370476ab6e6c4f34e846cf0c44f', 'docs/reviews/round-14-middle-path-finalization.md': '304cece09d29f8cc26b7743b91ccf7f354e33f185506b7352ab0923e75d0263a', 'site/favicon.svg': '019b52bc3335448de1a06158acdd86d4ddee9830ffe15b9a647d6c15592fdcce', 'site/index.html': 'a4ec05d25dad608efcd03a25698f427739e2ca64b6ed95f904c91f12463b3336', 'site/robots.txt': '4baf119c5f08143dd9cd3135b36f03550d957d84b0ca2da6432f5aae9145abc4', 'site/script.js': 'b48d81d6c2f0c0c5ae3df7c489a2580ba2e5c321b0310e47af551276da143beb', 'site/sitemap.xml': '267e0931e1da363cf48dc7be42a0f3d65e9c2621ccd2291e4ae8c2c55db49735', 'site/styles.css': '63717a140501b5d4d47bc027f35ee2cde45dc9813439aa9cba637e42924e55d1'}
+PAYLOAD_SHA256='35201e31b7da0e4f3fdb1c9f5a3ffb5c7fa3fdb308ce209ab03eabfcacd154da'
+EXPECTED={'ARXIV_SUBMISSION.md': 'b9161a7a8a8d380fa92ddcad822d9c9510384e310458b89162757ba412b31da9', 'CITATION.cff': 'a6fb3ba47b341e680ecf730b4fce99c1351263b70aa712292a09dfd71d275347', 'README.md': '48b46d1c5e1f005bb52f650656a5b10754fbd8d747e49ad87ff3ca7aac10b7fe', 'REVIEW.md': '038a5c84736881a1c0f63329157f6e9232d74cb8a9eadd8acc4f1502cdd8b8d4', 'docs/analysis/submission/p52-prior-sensitivity.csv': '6026845e686c5fee7185b18ca46ca71be867ca03c73456360970b0ec7cbbe3c2', 'docs/analysis/submission/p52-prior-sensitivity.json': '8751633e7cc4a6e9eb78e9e724d2e1d54e9dca1fee270b6367350d2c42a66007', 'docs/analysis/submission/p52-prior-sensitivity.md': 'c283a031aed26a0191a44a33ad74817459a7b5f93b69813a9a13ab5e0646076a', 'docs/paper/arxiv-metadata.txt': '4d764c7e8d147b16a6d7bba04cf88ccc48459151236122a0e804b36045e849e4', 'docs/reviews/round-14-middle-path-finalization.md': '304cece09d29f8cc26b7743b91ccf7f354e33f185506b7352ab0923e75d0263a'}
 PARTS={
- 'part-00.txt':('898e44359aa383bbe6c0b12f4dd74d4cb9c04c3e6231e24eb3e6e14885f9d433',2332),
- 'part-01.txt':('fd13ca75a54bf3869d42e388362edf86140ebd955ae9d8c92f401f36df497dbf',2332),
- 'part-02.txt':('6e44aacea1bff3d38369902445149e8362616004d0e449575ab03998ede0d7bd',2332),
- 'part-03.txt':('c0bfddf4cbbde674528b9adb2a1d63fa2a4db100f7ecb870be2a13b717e0cf98',2332),
- 'part-04.txt':('989c89a257da97b731390c3f2b977e8cc1f54abc49f876713a42ccf7d77c739d',2332),
- 'part-05a.txt':('5b5f0e1980daca67e8227aa34b3fd52d5aba282e941d8a591347a69a1d9d3048',1166),
- 'part-05b.txt':('e6723cf18cae06ab62eaad656e2913e39e995edee69a015552576e1fe37c30ca',1166),
- 'part-06.txt':('4172ca06ae97aad0ad7895dc33e808415d630645b880b95ea88f092bc485ca54',2332),
- 'part-07.txt':('e2222329e1c44a4aac6f056b12e0029b02d9ffb1d4789bf492802526115adffa',2316),
+ 'part-00.txt':('34b4345c13dda2cb1a71c2d375303009fe82d96e7d5a36c5da9141f00ecfa64d',2332),
+ 'part-01.txt':('6d8c2e475d70b54dbcb0a1cee30e28eff0ab6d07fc1a57f5791710636f9c4730',2332),
+ 'part-02.txt':('066a8aada1ae5d706bce541a260e71f3c54eb067cb0de7de5125b5475e572090',2332),
+ 'part-03.txt':('7a13136d6a98aae478d66870a491a06f3b38613a03f43036c9ad9b2e5c58af96',2332),
+ 'part-04.txt':('fdb6e90bb09aae9a0aa48b1fb74a456b1d6b9f0e92963b15e33d1a6ead51a42c',2332),
+ 'part-05.txt':('a6d4b2efd44e29ec4d80a9caee39081e82006350164ee893d064b4210a428c14',832),
 }
 FIGURES={
  'between-prompt-share':('c352dea32a034758cd4aa8fa8581dcef3aaa61debf461c483641e05d74e8270b',(1409,769)),
@@ -30,7 +27,7 @@ for name,(want,n) in PARTS.items():
  if len(s)!=n or got!=want: raise SystemExit(f'public release chunk mismatch: {name} chars={len(s)} sha256={got}')
  parts.append(s)
 raw=''.join(parts)
-if len(raw)!=18640: raise SystemExit(f'public release base64 length mismatch: {len(raw)}')
+if len(raw)!=12492: raise SystemExit(f'public release base64 length mismatch: {len(raw)}')
 data=base64.b64decode(raw,validate=True)
 if hashlib.sha256(data).hexdigest()!=PAYLOAD_SHA256: raise SystemExit('public release payload hash mismatch')
 with tempfile.TemporaryDirectory(prefix='synthetic-players-public-') as td:
@@ -44,12 +41,12 @@ with tempfile.TemporaryDirectory(prefix='synthetic-players-public-') as td:
   if names!=set(EXPECTED): raise SystemExit('public release member set mismatch')
   tf.extractall(stage,filter='data')
  # The project site graduated from the pinned one-page payload to a living,
- # generated surface (scripts/build_site.py + scripts/site_data.py). The sealed
- # payload's site/* members are still hash-verified above as transport
- # integrity, but they are no longer installed over the working tree, and the
- # historical P5-2 sentence patch that targeted the payload copy is retired
- # with them. Canonical paper artifacts remain pinned by
- # scripts/install_final_release.py and the workflow-level hash checks.
+ # generated surface (scripts/build_site.py + scripts/site_data.py); site/*
+ # members were dropped from the payload with the arXiv:2608.00979 metadata
+ # patch, and the historical P5-2 sentence patch that targeted the payload copy
+ # is retired. The site/ guard below is defensive only. Canonical paper
+ # artifacts remain pinned by scripts/install_final_release.py and the
+ # workflow-level hash checks.
  for rel,want in EXPECTED.items():
   src=stage/rel
   if hashlib.sha256(src.read_bytes()).hexdigest()!=want: raise SystemExit(f'public release file hash mismatch: {rel}')

@@ -9,6 +9,13 @@ repository-code: "https://github.com/yoheinakajima/synthetic-players"
 url: "https://yoheinakajima.github.io/synthetic-players/"
 license: MIT
 date-released: "2026-08-01"
+identifiers:
+  - type: other
+    value: "arXiv:2608.00979"
+    description: "arXiv identifier for the paper"
+  - type: doi
+    value: "10.48550/arXiv.2608.00979"
+    description: "arXiv DOI for the paper"
 abstract: >-
   An open research program on LLM-controlled agents in strategic games,
   including externally anchored registrations, event-sourced execution,
@@ -32,4 +39,9 @@ preferred-citation:
     - family-names: Nakajima
       given-names: Yohei
   year: 2026
-  url: "https://yoheinakajima.github.io/synthetic-players/paper.pdf"
+  doi: "10.48550/arXiv.2608.00979"
+  url: "https://arxiv.org/abs/2608.00979"
+  identifiers:
+    - type: other
+      value: "arXiv:2608.00979"
+      description: "arXiv identifier"

@@ -1267,19 +1267,23 @@ add(
 add(
     id="art-paper", type="artifact", status="final",
     title="Canonical paper PDF + arXiv package",
-    short="19 pages, 5 figures; SHA-256-pinned; independently recompiled and byte-compared page-by-page in CI.",
-    meta="PDF sha256 c5f15319…c98f8 · source zip 0b75e835…df0b1 · markdown b6c8a95d…0dc4",
-    links=[{"label": "Paper PDF", "href": "paper.pdf"},
+    short="Published as arXiv:2608.00979 — 19 pages, 5 figures; SHA-256-pinned; independently recompiled and byte-compared in CI.",
+    meta="arXiv:2608.00979 · DOI 10.48550/arXiv.2608.00979 · PDF sha256 c5f15319…c98f8 · source zip 0b75e835…df0b1",
+    links=[{"label": "arXiv:2608.00979 ↗", "href": "https://arxiv.org/abs/2608.00979"},
+           {"label": "Paper PDF", "href": "paper.pdf"},
            {"label": "arXiv source zip", "href": "arxiv-source.zip"},
            {"label": "Manuscript (Markdown)", "href": GHB + "/docs/paper/paper.md"},
            {"label": "Submission metadata", "href": GHB + "/docs/paper/arxiv-metadata.txt"}],
     body=(
+        "<p>The paper is published as <a href=\"https://arxiv.org/abs/2608.00979\">arXiv:2608.00979</a> "
+        "(DOI 10.48550/arXiv.2608.00979), submitted 2026-08-02 from the exact hash-pinned source "
+        "package in this repository.</p>"
         "<p>The release workflow verifies all three pinned hashes, recompiles the arXiv source in "
         "a clean directory with PDFLaTeX, byte-compares all 19 rendered pages and extracted text "
         "against the canonical PDF, lints references and the sealed boundary, replays the capsule, "
         "and stamps the checksum with OpenTimestamps. The upload package contains exactly "
-        "<code>main.tex</code> and five vector figures. Submission fields (title, abstract, "
-        "cs.CL primary with cs.CY cross-list) are frozen in <code>arxiv-metadata.txt</code>.</p>"
+        "<code>main.tex</code> and five vector figures; submission metadata is archived in "
+        "<code>arxiv-metadata.txt</code>.</p>"
     ),
     rel=["ver-final", "concept-architecture"],
 )
@@ -1529,8 +1533,8 @@ VERSIONS = [
     ("ver-final", "Final — canonical release", "final",
      "The canonical 19-page, five-figure release: PDF, byte-identical Markdown, and minimal "
      "PDFLaTeX arXiv package, all SHA-256-pinned, independently recompiled and page-image-"
-     "compared in CI, OpenTimestamps-anchored, and published with the project site on "
-     "2026-08-01 (PR #13).",
+     "compared in CI, OpenTimestamps-anchored, published with the project site on 2026-08-01 "
+     "(PR #13), and submitted to arXiv on 2026-08-02 as arXiv:2608.00979.",
      "docs/paper/synthetic-players.pdf", None, ["rev-round-14", "art-paper", "art-provenance"]),
 ]
 
@@ -1599,7 +1603,7 @@ def build_index(idx, back, h):
 <section class="lede">
 <p class="kicker">Open computational behavioral science · final release · August 2026</p>
 <h1>Passing Coarse Marginal Checks Can Be Cheap</h1>
-<p class="authors">Persona mixtures and imprecise treatment-response estimates in an LLM persona panel · <b>Yohei Nakajima</b>, Untapped Capital · <a href="paper.pdf">PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · <a href="https://github.com/yoheinakajima/synthetic-players">repository</a> · <a href="reviews.html">review record</a></p>
+<p class="authors">Persona mixtures and imprecise treatment-response estimates in an LLM persona panel · <b>Yohei Nakajima</b>, Untapped Capital · <a href="https://arxiv.org/abs/2608.00979">arXiv:2608.00979</a> · <a href="paper.pdf">PDF</a> · <a href="arxiv-source.zip">arXiv source</a> · <a href="https://github.com/yoheinakajima/synthetic-players">repository</a> · <a href="reviews.html">review record</a></p>
 <div class="mode-toggle" role="group" aria-label="Reading mode">
 <button id="mode-tech" type="button" class="on" aria-pressed="true">Technical</button>
 <button id="mode-plain" type="button" aria-pressed="false">Plain English</button>
@@ -1908,8 +1912,44 @@ def build_versions(idx, back, h):
 """
 
 
+QA_CARDS = [
+    ("basic-idea", "Signal card: What was the basic idea? Give the same AI sixteen one-sentence identities, then ask whether they behave like sixteen human participants."),
+    ("prisoners-dilemma", "Signal card explaining the Prisoner's Dilemma: cooperate for mutual gain or defect for a tempting advantage."),
+    ("continuation-odds", "Signal card comparing a 10 percent versus 90 percent chance of another round."),
+    ("human-looking", "Signal card showing three of four repeated-game setups inside a human-like average band, with a 0.011 miss."),
+    ("variety-source", "Signal card showing ten of sixteen personas locked at zero or one hundred percent cooperation."),
+    ("incentive-response", "Signal card showing an approximately eight-point incentive effect with uncertainty crossing zero."),
+    ("words-moved-ai", "Signal card showing wording flipping cooperation from zero of forty to thirty-seven of forty and a swapped label overriding payoff forty of forty times."),
+    ("responsive-character", "Signal card showing Harper moving from thirty-three to seventy-five percent after screening thirty-two combinations, marked for proper retesting."),
+    ("headline", "Signal card: Human-looking averages can hide the wrong behavior. Validate the reaction, not just the totals."),
+    ("variations", "Signal card showing sixteen personas times six setups equals ninety-six cells, with 1,712 Phase 5 games."),
+    ("other-games", "Signal card about framing games and Rock-Paper-Scissors revealing a role-attached bias."),
+    ("other-models", "Signal card explaining that Claude Haiku failed the one-token gate and Gemini 2.5 Flash showed more mixed behavior."),
+    ("temperature", "Signal card showing choice entropy falling from 0.83 to 0.78 to 0.77 bits as temperature increased."),
+    ("scale", "Signal card listing 5,505 runs, 54,276 rounds, 36,251 AI requests, 13.1 million tokens, and 4,919 replayable runs."),
+    ("exploitability", "Signal card showing a ninety-seven percent loss-switch tell earning nearly nothing while a pattern matcher earned 0.215 per round."),
+    ("rock-bias", "Signal card showing an eighty percent rock bias that persisted under neutral names and shuffled order, with Gemini flipping the sign."),
+    ("words-vs-payoffs", "Signal card comparing GPT-4.1 following the word Defect forty of forty times with Gemini following the better payoff thirty-nine of forty times."),
+    ("wording-context", "Signal card contrasting a large repeated-game wording effect with a 0.6-point one-shot null at p equals 1.00."),
+    ("more-rounds", "Signal card showing cooperation jumping from ten percent to seventy-five to one hundred percent when repeated-game language was added."),
+    ("model-drift", "Signal card showing behavioral matches decaying from ten of ten to six or seven and a tripwire freezing the study before contamination."),
+    ("loose-ends", "Signal card showing higher temperature with lower entropy and two same-trait personas with slopes of plus forty-two versus plus eight points."),
+    ("follow-up", "Signal card mapping two follow-up leads: opponent-dependent exploitability and words versus payoffs across models, converging on a missing balanced-payoff cell."),
+]
+
+
+def _qa_card(n):
+    slug, alt = QA_CARDS[n - 1]
+    f = f"assets/qa-cards/qa-{n:02d}-{slug}.jpg"
+    return (
+        f'\n<figure class="qa-card"><a href="{f}" aria-label="Open signal card {n} full size">'
+        f'<img src="{f}" alt="{alt}" width="1536" height="1024" loading="lazy" decoding="async"></a>'
+        f'<figcaption>Signal card {n:02d} / 22 · <a href="{f}">Open full size</a></figcaption></figure>'
+    )
+
+
 def build_qa(idx, back, h):
-    return """
+    html = """
 <article class="item qa">
 <p class="kicker">Conversational walkthrough</p>
 <h1>The whole study, in plain Q&amp;A</h1>
@@ -1993,6 +2033,14 @@ def build_qa(idx, back, h):
 </div>
 </article>
 """
+    # Interleave the 22 shareable signal cards: card n lands directly after the
+    # n-th answer paragraph (the first paragraph of each question section).
+    segs = html.split("<h2>")
+    out = [segs[0]]
+    for n, seg in enumerate(segs[1:], start=1):
+        head, sep, rest = seg.partition("</p>")
+        out.append(head + sep + _qa_card(n) + rest)
+    return "<h2>".join(out)
 
 
 def build_artifacts(idx, back, h):
