@@ -1,5 +1,7 @@
 # arXiv submission checklist
 
+> **STATUS (2026-08-02): SUBMITTED — [arXiv:2608.00979](https://arxiv.org/abs/2608.00979), DOI 10.48550/arXiv.2608.00979.** Operator steps 1–9 are complete; the step-10 metadata patch (CITATION.cff, README, project site, arxiv-metadata.txt) is applied in this repository. Operational note for any future replacement: arXiv's processor auto-detection selected **xelatex**, which fails on this package at `\pdfoutput=1`; explicitly select **pdflatex** on the Process page and reprocess.
+
 The repository produces a canonical 19-page PDF and a minimal source archive containing `main.tex` and five PDF figures.
 
 ## Upload files

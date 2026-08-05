@@ -2,7 +2,7 @@
 
 **Auditable behavioral experiments with LLM-controlled agents.**
 
-[Project site](https://yoheinakajima.github.io/synthetic-players/) · [Paper PDF](docs/paper/synthetic-players.pdf) · [Manuscript](docs/paper/paper.md) · [arXiv source package](docs/paper/synthetic-players-arxiv-source.zip) · [Scientific review record](REVIEW.md)
+[arXiv:2608.00979](https://arxiv.org/abs/2608.00979) · [Project site](https://yoheinakajima.github.io/synthetic-players/) · [Paper PDF](docs/paper/synthetic-players.pdf) · [Manuscript](docs/paper/paper.md) · [arXiv source package](docs/paper/synthetic-players-arxiv-source.zip) · [Scientific review record](REVIEW.md)
 
 ## Paper
 
@@ -78,6 +78,6 @@ See [`ARXIV_SUBMISSION.md`](ARXIV_SUBMISSION.md) for the operator checklist.
 
 ## Citation and license
 
-Citation metadata are in [`CITATION.cff`](CITATION.cff). After arXiv assigns an identifier, the preferred citation, README, and project site will be updated with the stable arXiv URL and DOI.
+Citation metadata are in [`CITATION.cff`](CITATION.cff). The paper is published as [arXiv:2608.00979](https://arxiv.org/abs/2608.00979) (DOI [10.48550/arXiv.2608.00979](https://doi.org/10.48550/arXiv.2608.00979)); the preferred citation uses the arXiv record.
 
 Code is MIT-licensed under [`LICENSE`](LICENSE). Released paper and research artifacts are CC BY 4.0 unless a file states otherwise.
