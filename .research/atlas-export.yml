@@ -1,0 +1,14 @@
+# Research Atlas federation manifest.
+# Source-owned facts this repository asserts about its own work. The Atlas
+# imports these as proposals under owner review; Atlas-owned fields
+# (portfolio_state, visibility, lanes, dependencies, forecasts, next_gate,
+# owner gates) are never asserted here.
+version: 1
+exported_at: "2026-08-05"
+papers:
+  - work: work.synthetic-players-persona-panel
+    research_state: verified
+    manuscript_state: final
+    public_artifact_state: arxiv
+    arxiv: "2608.00979"
+    doi: "10.48550/arXiv.2608.00979"
