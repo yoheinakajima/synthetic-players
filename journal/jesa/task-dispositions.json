@@ -178,10 +178,10 @@
     },
     {
       "id": "MARGINAL-026",
-      "status": "running",
-      "result": "Scientific correction after two-model review and saved-count contrast sensitivities; revised candidate review in progress",
+      "status": "ready",
+      "result": "Bounded exact-candidate manager advisory review accepted at b5346f00a532cc8118b71074ceb7b10ce487efa3; ready for author review",
       "evidence": "model-review-dispositions.md/.json; contrast-sensitivity-plan.json; contrast-sensitivity.json; tools/contrast_sensitivity.py; visual-QA.json",
-      "remaining": "Prior acceptance historical; revised exact-candidate manager review, author approval and external gates remain. No new subjects/frozen evidence edits."
+      "remaining": "Exact accepted PDF hashes and bounded scope recorded in visual-QA.json. Not human replication, a coverage proof or author attestation. Final author/external gates separate; no new subjects/frozen evidence edits."
     },
     {
       "id": "MARGINAL-027",

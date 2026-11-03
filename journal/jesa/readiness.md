@@ -1,11 +1,11 @@
 # Task disposition and readiness
 
-**Status: waiting-owner.** The journal candidate now corrects registration scope and response-uncertainty framing after two advisory AI reviews. P3-A3’s band is not a registered persona validation; every new saved-count Dirichlet/bootstrap contrast sensitivity is reported, including positive intervals. The revised title reflects model-dependent uncertainty. No subjects or frozen study bytes were changed. Prior manager reviews at d73537e/d36fc3d remain historical; revised scientific text/PDF review is pending. All R1–10/G1–6 dispositions and calculation evidence are source-owned. Final author approval and external gates remain; no submission occurred.
+**Status: waiting-owner.** The journal candidate now corrects registration scope and response-uncertainty framing after two advisory AI reviews. P3-A3’s band is not a registered persona validation; every new saved-count Dirichlet/bootstrap contrast sensitivity is reported, including positive intervals. The revised title reflects model-dependent uncertainty. No subjects or frozen study bytes were changed. Prior manager reviews at d73537e/d36fc3d remain historical; bounded revised scientific text/PDF manager advisory review at `b5346f00a532cc8118b71074ceb7b10ce487efa3` is complete, with exact accepted hashes in visual-QA.json. All R1–10/G1–6 dispositions and calculation evidence are source-owned. Final author approval and external gates remain; no submission occurred.
 
 ## Remaining real gates
 
 1. Final author confirmation of contributions, ethics/human-data determination, rights, completeness of additional interests/support, and current/past journal history/exclusivity and overlap. Public identity/support/known interests are supplied and implemented; recoverable AI history is reconstructed, with unknown versions documented rather than returned to the owner as a recall task. Recommended scope remains fixed panel/existing evidence; no new study needed for the bounded claim. Completed private answers must not enter public Git or Atlas.
-2. Author approval of final manuscript and figure descriptions. Manager review of the revised scientific interpretation/PDF set is pending; author attestations remain separate.
+2. Author approval of final manuscript and figure descriptions. Bounded manager advisory review of the exact revised scientific interpretation/PDF set is complete; author attestations remain separate.
 3. Separately authorized portal inspection for exact file/field designations and generated PDF preview. Necessary preprints are accurately versioned; resolve official published/accepted-list wording against express preprint allowance without pretending editor permission.
 4. Authoritative payable APC/tax/eligibility clarification: official table and prose conflict. Owner later chooses truthful coverage/waiver route, compatible license and exact obligation cap. No fee/contact/account/license action is currently authorized.
 5. Trusted replication-archive/Data Editor compliance is a real remaining gate: ESA’s repository index requires a trusted repository; current exact DOI/verification terms need resolution (the linked policy returned404). Git artifacts alone are not a claimed completed deposit. Submission, merge, public arXiv correction and any DOI deposit are distinct later decisions. Preparation/pushing one draft source PR implies none of them.
@@ -114,9 +114,9 @@ Public-policy checklist and exact future portal checks prepared. Evidence: porta
 
 Conflicting official APC evidence preserved. Evidence: portal-and-fees.md; author-worksheet-template.md. USD3655/2925table versus3450/2760prose,pluspotentialtaxes;payableamount/eligibility/license/cap unresolved;nocontact/obligationauthorized.
 
-### MARGINAL-026 — running
+### MARGINAL-026 — ready
 
-Revised scientific text, all two-model dispositions and saved-count sensitivities prepared; builder checks and revised exact-candidate manager review in progress. Evidence: model-review-dispositions.md/.json; contrast-sensitivity-plan.json; contrast-sensitivity.json; tools/contrast_sensitivity.py; visual-QA.json. Prior acceptance is historical and does not certify the superseding registration/uncertainty interpretation. No new subjects, original numerical result changes or frozen evidence edits.
+Revised scientific text, all two-model dispositions and saved-count sensitivities prepared; builder checks and bounded exact-candidate manager advisory review accepted at `b5346f00a532cc8118b71074ceb7b10ce487efa3`. Ready for author review. Evidence: model-review-dispositions.md/.json; contrast-sensitivity-plan.json; contrast-sensitivity.json; tools/contrast_sensitivity.py; visual-QA.json. The accepted exact PDF hashes and review scope are recorded in visual-QA.json. This is not human replication, a coverage proof or author attestation; final author and external gates remain separate. No new subjects, original numerical result changes or frozen evidence edits.
 
 ### MARGINAL-027 — parked
 

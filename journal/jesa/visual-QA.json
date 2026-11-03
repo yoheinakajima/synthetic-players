@@ -1,5 +1,5 @@
 {
-  "status": "PASS builder checks; revised exact-candidate manager review in progress",
+  "status": "PASS builder checks and bounded exact-candidate manager advisory review",
   "pdfs": [
     {
       "path": "manuscript.pdf",
@@ -71,9 +71,31 @@
     }
   ],
   "current_manager_review": {
-    "status": "in progress",
-    "source_scope": "Revised registration scope, target-specific contrast sensitivities, component-binomial coverage qualification, sealed claim/branch history, chronology and concrete evidence route",
-    "rendered_scope_so_far": "Manager reviewed all8 main pages and final widow repair, SI8/16/19 and instructions2/3; scientific/route text, Table2/Figure2 and branch map accepted within bounded scope. Final Instructions3 alias/timing sentence awaits exact-set acceptance.",
-    "independent_calculation_check": "Separately implemented exact-rational moments checked all8 Dirichlet contrast means/variances and2 paired-bootstrap means/variances from the saved64 category vectors; algorithm audit consistent. Not a full independent scientific certification."
+    "status": "accepted; ready for author review",
+    "accepted_source_commit": "b5346f00a532cc8118b71074ceb7b10ce487efa3",
+    "accepted_pdfs": [
+      {
+        "path": "manuscript.pdf",
+        "sha256": "babb225e69e523b3ad51c095e7f31c8ebf2d8c5cc868f86f8e52d12104897ab4",
+        "pages": 8
+      },
+      {
+        "path": "supplement.pdf",
+        "sha256": "f100ab17701d5f3a832ea2cc7a56db91c2318725298f1efcd48eb0e22b3f167b",
+        "pages": 25
+      },
+      {
+        "path": "data-instructions.pdf",
+        "sha256": "9c87d39cf81927af5efeb469c58340875392d4d15baa3a6913f8d46379d88a8c",
+        "pages": 45
+      }
+    ],
+    "package_file_hashes_checked": 63,
+    "baseline_files_unchanged": 1078,
+    "printed_ancestor_paths_checked": 4,
+    "rendered_scope": "Full main8 page layouts including final main7/8; changed SI8/16/19 and Instructions2/3, with scientific text and concrete evidence route reviewed. Builder all-page visual/bounds checks retained.",
+    "independent_calculation_check": "Separately implemented exact-rational formulas passed all8 posterior and2 bootstrap analytic mean/variance targets from saved category vectors.",
+    "result": "No remaining defect found within the bounded manager advisory scope. Manager-review portion of MARGINAL-026 complete; ready for author review.",
+    "limits": "Not human scientific replication, a coverage proof, author attestation, journal-system preview or submission approval. Final author and external gates remain separate."
   }
 }
