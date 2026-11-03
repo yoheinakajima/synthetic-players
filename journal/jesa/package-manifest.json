@@ -7,8 +7,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 4348,
-      "sha256": "af4a172561cfae77a87dbaec5a26e754de2d5323a684058d1ea1a260af3e6815"
+      "bytes": 4658,
+      "sha256": "8da515e3c4f9aa1076d9c02b1c1b443d03b8ca781795fb748ba64c53574bc195"
     },
     {
       "path": "author-metadata.json",
@@ -192,8 +192,8 @@
     },
     {
       "path": "readiness.md",
-      "bytes": 11812,
-      "sha256": "902e6ac37aaa3327ee16a6dbc8a1504a694f493191fdcef4009495de59d617a1"
+      "bytes": 12483,
+      "sha256": "6f176eb094d6886010155b90709af103b202d6b46b6291aa23c20edaaa977cb3"
     },
     {
       "path": "reference-audit.json",
@@ -237,8 +237,8 @@
     },
     {
       "path": "task-dispositions.json",
-      "bytes": 12093,
-      "sha256": "1cd892b09e96c2c2d4f5ea0205cfec791c75c95e96643dad52e90fa7afecabfd"
+      "bytes": 12326,
+      "sha256": "e02b62c8b6246cb737143cca1e6011fb19fbbac5622de6ee901fbe96581c6f2e"
     },
     {
       "path": "tool-use-reconstruction.json",
@@ -277,8 +277,8 @@
     },
     {
       "path": "visual-QA.json",
-      "bytes": 2544,
-      "sha256": "69387fb9fca1b1f023f5483ba08e5f472c2b3848d95ca1bf8df3d8bf00176a5e"
+      "bytes": 3513,
+      "sha256": "f7d27a2fc2f47e21bfd2f785662d411c82792b0499c56017e7adca6597a070e7"
     },
     {
       "path": "word-count.json",

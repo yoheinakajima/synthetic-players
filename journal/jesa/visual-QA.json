@@ -1,5 +1,5 @@
 {
-  "status": "PASS builder checks and changed-page visual review; revised candidate manager review pending",
+  "status": "PASS builder checks and bounded manager exact-candidate update review",
   "pdfs": [
     {
       "path": "manuscript.pdf",
@@ -17,7 +17,7 @@
       "pages": 44
     }
   ],
-  "visual_scope": "Builder reviewed all-page contact sheets (7 main,23 supplement,44 instructions) and full-size changed author/disclosure pages: main1/7, supplement1/3/4, instructions1/2. Final main7 rechecked after bibliography-only spacing refinement. Prior manager all-page scientific/layout acceptance is retained separately; updated candidate requires manager cross-review.",
+  "visual_scope": "Builder reviewed all-page contact sheets (7 main,23 supplement,44 instructions) and full-size changed author/disclosure pages: main1/7, supplement1/3/4, instructions1/2. Final main7 rechecked after bibliography-only spacing refinement. Prior manager all-page scientific/layout acceptance is retained separately; manager checked changed rendered main 1/2/7, SI 2/3 and instruction 2 pages at d36fc3dc0e8e17f7f6c0cf17f4eb008ef1bf3676, with no content/layout defect found within that bounded scope.",
   "checks": [
     "No overlapping/clipped body text observed after URL/pin/slash-list repair",
     "Final all-page bounds:0 word margin violations",
@@ -27,7 +27,7 @@
     "Main bibliography retains10pt type with11pt leading and0.5pt entry spacing; no scientific text or word count changes; two-entry tail now fits page7."
   ],
   "review_limits": [
-    "Final author approval and attestations remain unresolved; manager review of this author/disclosure revision is pending",
+    "Final author approval and attestations remain unresolved; manager preparation/update review is complete, not independent human/scientific certification.",
     "Contact-sheet thumbnails check layout; substantive claims checked in source and full-size relevant pages",
     "No claim of journal-system generated preview or arXiv-render parity"
   ],
@@ -44,5 +44,29 @@
     "portable_checker": "PASS",
     "accepted_scope": "Interval qualification, corrected references, chronology, counts, metadata-window limits, cross-references and rendering, with stated scientific limits",
     "limits": "Not independent specialist reproduction, author attestation, journal-system preview or submission approval"
+  },
+  "manager_review": {
+    "accepted_source_commit": "d36fc3dc0e8e17f7f6c0cf17f4eb008ef1bf3676",
+    "package_file_hashes_checked": 56,
+    "baseline_files_unchanged": 1078,
+    "scoped_diff_files": 29,
+    "rendered_pages_checked": {
+      "manuscript": [
+        1,
+        2,
+        7
+      ],
+      "supplement": [
+        2,
+        3
+      ],
+      "data_instructions": [
+        2
+      ]
+    },
+    "source_scope": "Funding, financial-role and tool-reconstruction sources; scoped author-update diff",
+    "retained_evidence": "Builder full-page bounds/visual QA and prior manager scientific preparation review",
+    "result": "No content/layout defect found within bounded review",
+    "limits": "Not full independent human/scientific certification, author attestation, journal preview or submission approval"
   }
 }

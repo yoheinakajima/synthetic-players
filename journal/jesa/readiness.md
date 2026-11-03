@@ -1,11 +1,11 @@
 # Task disposition and readiness
 
-**Status: waiting-owner.** Approved public author identity/contact/ORCID, Untapped support and known relationships are incorporated into the named candidate. AI/tool history is reconstructed from pinned source/history with unknown models left explicit. The original scientific candidate was accepted by the manager at `d73537e4a14e6fd378a2a25be52d51a73177f491` (7 main,22 supplement,44 instruction pages), with stated limits and without independent specialist reproduction or author attestation. This author/disclosure revision preserves the scientific evidence and needs review of changed rendered pages. No baseline evidence or public-v1 byte is changed. Final author approval and external gates remain; no submission occurred.
+**Status: waiting-owner.** Approved public author identity/contact/ORCID, Untapped support and known relationships are incorporated into the named candidate. AI/tool history is reconstructed from pinned source/history with unknown models left explicit. The original scientific candidate was accepted by the manager at `d73537e4a14e6fd378a2a25be52d51a73177f491` (7 main,22 supplement,44 instruction pages), with stated limits and without independent specialist reproduction or author attestation. Manager accepted the author/disclosure update at `d36fc3dc0e8e17f7f6c0cf17f4eb008ef1bf3676`: all 56 package and 1,078 baseline hashes, the scoped 29-file diff, funding/financial-role/tool-history sources and changed renders (main 1/2/7, SI 2/3, instructions 2) were checked; builder all-page bounds/visual QA were retained. No content/layout defect was found within that bounded review. This is not independent human/scientific certification or author attestation. No baseline evidence or public-v1 byte is changed. Final author approval and external gates remain; no submission occurred.
 
 ## Remaining real gates
 
 1. Final author confirmation of contributions, ethics/human-data determination, rights, completeness of additional interests/support, and current/past journal history/exclusivity and overlap. Public identity/support/known interests are supplied and implemented; recoverable AI history is reconstructed, with unknown versions documented rather than returned to the owner as a recall task. Recommended scope remains fixed panel/existing evidence; no new study needed for the bounded claim. Completed private answers must not enter public Git or Atlas.
-2. Author approval of final manuscript and figure descriptions. Prior manager scientific review is complete; changed author/disclosure-page review and author attestations remain separate.
+2. Author approval of final manuscript and figure descriptions. Manager scientific preparation review and the bounded author/disclosure update review are complete; author attestations remain separate.
 3. Separately authorized portal inspection for exact file/field designations and generated PDF preview. Necessary preprints are accurately versioned; resolve official published/accepted-list wording against express preprint allowance without pretending editor permission.
 4. Authoritative payable APC/tax/eligibility clarification: official table and prose conflict. Owner later chooses truthful coverage/waiver route, compatible license and exact obligation cap. No fee/contact/account/license action is currently authorized.
 5. Submission, merge, public arXiv correction and DOI deposit are distinct later decisions. Preparation/pushing one draft source PR implies none of them.
@@ -114,9 +114,9 @@ Public-policy checklist and exact future portal checks prepared. Evidence: porta
 
 Conflicting official APC evidence preserved. Evidence: portal-and-fees.md; author-worksheet-template.md. USD3655/2925table versus3450/2760prose,pluspotentialtaxes;payableamount/eligibility/license/cap unresolved;nocontact/obligationauthorized.
 
-### MARGINAL-026 — running
+### MARGINAL-026 — milestone-complete
 
-Revised author/disclosure candidate built and checked; prior manager scientific/layout acceptance retained historically. Evidence: check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json. Prior accepted source d73537e4a14e6fd378a2a25be52d51a73177f491 remains recorded. Changed author/disclosure pages need exact-candidate manager review; no new experiment/replay required. Owner/external gates remain separate.
+Builder checks and bounded manager exact-candidate review are complete at `d36fc3dc0e8e17f7f6c0cf17f4eb008ef1bf3676`. Evidence: check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json. Manager checked all 56 package and 1,078 baseline hashes, the 29-file author-update diff, funding/financial-role/tool-history sources and changed rendered main 1/2/7, SI 2/3 and instruction 2 pages; builder all-page bounds/visual QA and prior scientific preparation review were retained. No content/layout defect was found within that scope. This is not independent human/scientific certification or author attestation. Final author and publisher gates remain waiting under their own IDs; no submission is authorized.
 
 ### MARGINAL-027 — parked
 

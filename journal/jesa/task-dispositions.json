@@ -178,10 +178,10 @@
     },
     {
       "id": "MARGINAL-026",
-      "status": "running",
-      "result": "Revised author/disclosure candidate built and checked; prior manager scientific/layout acceptance retained historically",
+      "status": "milestone-complete",
+      "result": "Builder checks and bounded manager exact-candidate preparation review complete at d36fc3dc0e8e17f7f6c0cf17f4eb008ef1bf3676",
       "evidence": "check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json",
-      "remaining": "Prior accepted source d73537e4a14e6fd378a2a25be52d51a73177f491 remains recorded. Changed author/disclosure pages need exact-candidate manager review; no new experiment/replay required. Owner/external gates remain separate."
+      "remaining": "Manager checked all 56 package/all 1,078 baseline hashes, scoped 29-file diff, disclosure/tool-history sources and changed rendered pages (main 1/2/7, SI 2/3, instructions 2), retaining builder all-page QA and prior scientific preparation review. No content/layout defect found within that scope; not independent human/scientific certification or author attestation. Final author and publisher gates remain separate; no submission authority."
     },
     {
       "id": "MARGINAL-027",
