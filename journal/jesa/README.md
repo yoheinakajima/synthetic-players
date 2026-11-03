@@ -1,6 +1,6 @@
 # JESA preparation candidate
 
-Source-owned review packet for **Journal of the Economic Science Association**, Original Paper. Status: **waiting-owner**; final local checks pass and manager cross-review is underway. This is distinct from submitted, accepted, merged, publicly released, or publisher-ready.
+Source-owned review packet for **Journal of the Economic Science Association**, Original Paper. Status: **waiting-owner**; final local checks and manager exact-candidate cross-review are complete. The manager accepted the preparation candidate at `d73537e4a14e6fd378a2a25be52d51a73177f491`, reviewing all 7 main, 22 supplement, and 44 instruction pages plus hashes and integrity checks. This does not constitute independent specialist reproduction or author attestation. Owner and publisher gates remain unresolved; the packet is not submission-ready, submitted, accepted by a journal, merged, or publicly released.
 
 Start with `manuscript.pdf`, `supplement.pdf`, `data-instructions.pdf`, then `readiness.md`. Editable Markdown and TeX accompany each. `jesa-source.zip` contains portable article/supplement/instructions source plus vector figures. `package-manifest.json` pins this candidate; `evidence-manifest.json` pins every baseline tracked file at source main `62ab90beff1d291b069c87f13b6b6b3495171ddd`.
 

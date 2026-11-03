@@ -178,10 +178,10 @@
     },
     {
       "id": "MARGINAL-026",
-      "status": "running",
-      "result": "Builder integrity/source/numeric/PDF checks complete; manager cross-review underway",
+      "status": "milestone-complete",
+      "result": "Builder integrity/source/numeric/PDF checks and manager exact-candidate preparation review complete at d73537e4a14e6fd378a2a25be52d51a73177f491",
       "evidence": "check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json",
-      "remaining": "Manager exact-candidate scientific review and author approvals remain; not journal ready."
+      "remaining": "Author approvals and publisher/portal/fee gates remain waiting under their own task IDs; not submission-ready. Manager review is not independent specialist reproduction or owner attestation."
     },
     {
       "id": "MARGINAL-027",

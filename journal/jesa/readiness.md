@@ -1,11 +1,11 @@
 # Task disposition and readiness
 
-**Status: waiting-owner.** The source packet is reviewable; it is not submission-ready. The main article, source/PDFs, full scientific and instruction appendices, citation/claim audits, count-derived offline replay, rights inventory, public author worksheet template and unsent cover letter are complete as preparation. Manager exact-candidate cross-review is underway. No existing source evidence or public v1 byte was changed.
+**Status: waiting-owner.** The source packet is reviewable; it is not submission-ready. The main article, source/PDFs, full scientific and instruction appendices, citation/claim audits, count-derived offline replay, rights inventory, public author worksheet template and unsent cover letter are complete as preparation. Manager exact-candidate cross-review is complete at `d73537e4a14e6fd378a2a25be52d51a73177f491`: all 7 main, 22 supplement, and 44 instruction pages, all 52 package file hashes, 1,078 baseline files, all 34 task IDs, and the portable checker were accepted with the stated scientific limits. This is not independent specialist reproduction or author attestation. No existing source evidence or public v1 byte was changed.
 
 ## Remaining real gates
 
 1. Private author confirmation of identity/ORCID/contributions, ethics/human-data determination, funding/interests/support/rights, recoverable AI history, current journal history/exclusivity and overlap. Recommended scope remains fixed panel/existing evidence; no new study needed for the bounded claim. Completed private answers must not enter public Git or Atlas.
-2. Author approval of final manuscript/figure descriptions and manager scientific cross-review of the hash-frozen candidate.
+2. Author approval of final manuscript and figure descriptions. The manager review portion is complete; author attestations remain unresolved.
 3. Separately authorized portal inspection for exact file/field designations and generated PDF preview. Necessary preprints are accurately versioned; resolve official published/accepted-list wording against express preprint allowance without pretending editor permission.
 4. Authoritative payable APC/tax/eligibility clarification: official table and prose conflict. Owner later chooses truthful coverage/waiver route, compatible license and exact obligation cap. No fee/contact/account/license action is currently authorized.
 5. Submission, merge, public arXiv correction and DOI deposit are distinct later decisions. Preparation/pushing one draft source PR implies none of them.
@@ -114,9 +114,9 @@ Public-policy checklist and exact future portal checks prepared. Evidence: porta
 
 Conflicting official APC evidence preserved. Evidence: portal-and-fees.md; author-worksheet-template.md. USD3655/2925table versus3450/2760prose,pluspotentialtaxes;payableamount/eligibility/license/cap unresolved;nocontact/obligationauthorized.
 
-### MARGINAL-026 — running
+### MARGINAL-026 — milestone-complete
 
-Builder integrity/source/numeric/PDF checks complete; manager cross-review underway. Evidence: check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json. Manager exact-candidate scientific review and author approvals remain; not journal ready.
+Builder checks and manager exact-candidate review are complete for the preparation milestone at `d73537e4a14e6fd378a2a25be52d51a73177f491`. Evidence: check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json. Manager accepted interval qualification, corrected references, chronology, counts, metadata-window limits, cross-references, and all rendered pages with the stated scientific limits. This is not independent specialist reproduction or author attestation. Author and publisher gates remain waiting; the packet is not submission-ready.
 
 ### MARGINAL-027 — parked
 

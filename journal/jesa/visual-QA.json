@@ -1,5 +1,5 @@
 {
-  "status": "PASS local render and bounds",
+  "status": "PASS builder checks and manager final rendered review",
   "pdfs": [
     {
       "path": "manuscript.pdf",
@@ -17,7 +17,7 @@
       "pages": 44
     }
   ],
-  "visual_scope": "Prior complete-layout pages inspected via rendered contact sheets; final changed pages checked full size. Final instruction hardbreak normalization repaginates templates to44pages without changing instruction wording; all-page bounds pass and exact registry/persona bytes unchanged. Manager exact-candidate render review remains pending.",
+  "visual_scope": "Manager reviewed all 7 main, 22 supplement, and 44 instruction pages at the accepted candidate commit; all final PDF hashes and package/baseline identities were checked. Builder all-page bounds and exact registry/persona checks also pass.",
   "checks": [
     "No overlapping/clipped body text observed after URL/pin/slash-list repair",
     "Final all-page bounds:0 word margin violations",
@@ -26,8 +26,22 @@
     "Main criterion table readable; references10pt; page numbers; supplementary historical discussion explicitly labeled superseded"
   ],
   "review_limits": [
-    "Author final approval and manager exact-candidate scientific review remain separate",
+    "Author final approval and attestations remain unresolved; manager preparation review is complete",
     "Contact-sheet thumbnails check layout; substantive claims checked in source and full-size relevant pages",
     "No claim of journal-system generated preview or arXiv-render parity"
-  ]
+  ],
+  "manager_review": {
+    "accepted_source_commit": "d73537e4a14e6fd378a2a25be52d51a73177f491",
+    "reviewed_pages": {
+      "manuscript": 7,
+      "supplement": 22,
+      "data_instructions": 44
+    },
+    "package_file_hashes_checked": 52,
+    "baseline_files_unchanged": 1078,
+    "task_ids_checked": 34,
+    "portable_checker": "PASS",
+    "accepted_scope": "Interval qualification, corrected references, chronology, counts, metadata-window limits, cross-references and rendering, with stated scientific limits",
+    "limits": "Not independent specialist reproduction, author attestation, journal-system preview or submission approval"
+  }
 }

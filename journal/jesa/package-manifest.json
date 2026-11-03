@@ -7,8 +7,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 3882,
-      "sha256": "315151566156dabbcc01c2b617089979a6aae70c2390d0c521b5be54435b61f7"
+      "bytes": 4223,
+      "sha256": "bd21daaf826ad6ae85435d1c121436389d6c1f14a760f655066f34d28c65c035"
     },
     {
       "path": "author-worksheet-template.md",
@@ -182,8 +182,8 @@
     },
     {
       "path": "readiness.md",
-      "bytes": 10710,
-      "sha256": "2881016ad346498c612f6591ef764ad64dff0a530cbad727eb2688cf7ea73184"
+      "bytes": 11348,
+      "sha256": "3e460b15d64432fb48ed9413afed42ee7b050b01b2bc7d44784e2ef3a2a1a760"
     },
     {
       "path": "reference-audit.json",
@@ -227,8 +227,8 @@
     },
     {
       "path": "task-dispositions.json",
-      "bytes": 11538,
-      "sha256": "5f94da933adc7ed09356b79e0176ee719ff14aabe41abed50b0877e544861987"
+      "bytes": 11710,
+      "sha256": "14578012f6f32deef3aa249c3a23d0545f5f759254352b55a4c473c85c9035bf"
     },
     {
       "path": "tools/build.py",
@@ -257,8 +257,8 @@
     },
     {
       "path": "visual-QA.json",
-      "bytes": 1614,
-      "sha256": "3265b207d5db9ec8c7c4e43869532567521a783f691ef5c66658795168c4249d"
+      "bytes": 2199,
+      "sha256": "8f268e9ec6933f8b6b2765cd661c0987ce263d915c653765b35db219097b0f7e"
     },
     {
       "path": "word-count.json",
