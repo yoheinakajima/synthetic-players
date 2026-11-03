@@ -1,0 +1,243 @@
+{
+  "scope": "authorized existing-evidence JESA preparation, not submission",
+  "tasks": [
+    {
+      "id": "MARGINAL-001",
+      "status": "milestone-complete",
+      "result": "Baseline/source/public-v1/release identities pinned",
+      "evidence": "evidence-manifest.json; README.md",
+      "remaining": "Original arXiv-processed PDF differs in bytes from repository PDF; no silent parity claim."
+    },
+    {
+      "id": "MARGINAL-002",
+      "status": "milestone-complete",
+      "result": "Distinct journal lineage and build selected",
+      "evidence": "README.md; tools/build.py",
+      "remaining": "All preexisting tracked bytes preserved; avoids native release-installer path triggers."
+    },
+    {
+      "id": "MARGINAL-003",
+      "status": "milestone-complete",
+      "result": "Li Z/F and Persson J corrected at intended v3",
+      "evidence": "references.json; reference-audit.json; manuscript/supplement source/PDF",
+      "remaining": "Public v1 not replaced."
+    },
+    {
+      "id": "MARGINAL-004",
+      "status": "milestone-complete",
+      "result": "39 row metadata/narrow-entailment audit covers all37 retained plus2 additions",
+      "evidence": "reference-audit.json; reference-audit.md",
+      "remaining": "Sklar1959 scan unavailable; author1973 primary follow-up supplies theorem/original reference. Primary-source scope is stated rather than full-paper replication."
+    },
+    {
+      "id": "MARGINAL-005",
+      "status": "milestone-complete",
+      "result": "Direct JESA and adjacent contribution comparison implemented",
+      "evidence": "manuscript.md\u00a71; claims-and-comparison.md; supplement.mdS1",
+      "remaining": "No first/general causal-failure claim."
+    },
+    {
+      "id": "MARGINAL-006",
+      "status": "milestone-complete",
+      "result": "Claim/estimand/confound map implemented",
+      "evidence": "manuscript.mdTable1/\u00a72\u20134; claims-and-comparison.md",
+      "remaining": "Fixed deployment and all bundled mechanisms explicit; no wrong-human/zero/equivalence claim."
+    },
+    {
+      "id": "MARGINAL-007",
+      "status": "milestone-complete",
+      "result": "Numerical concordance and uncertainty views retained",
+      "evidence": "claims-and-comparison.md; check_package.py; unchanged analysis outputs",
+      "remaining": "Final-family JSON supersedes earlier summary values; no denominator collapse."
+    },
+    {
+      "id": "MARGINAL-008",
+      "status": "milestone-complete",
+      "result": "p13 family failure, three variants, attainable-alpha and chronology retained",
+      "evidence": "manuscript.md\u00a73.3; supplement.mdS3.4",
+      "remaining": "Replication target; no prospective confirmation or decisive disconfirmation."
+    },
+    {
+      "id": "MARGINAL-009",
+      "status": "milestone-complete",
+      "result": "Chronology/anchors and amendment tiers supplied",
+      "evidence": "supplement.mdS2/S6; evidence-manifest.json",
+      "remaining": "Sealed PROPOSED headers remain unchanged; no header-only registration certification."
+    },
+    {
+      "id": "MARGINAL-010",
+      "status": "milestone-complete",
+      "result": "Panel/provider/instruction provenance supplied",
+      "evidence": "data-instructions.md; evidence/registry.json; evidence/personas-v4.json; supplement.mdS3\u20134",
+      "remaining": "Historical metadata coverage/endpoint drift limits retained; not provider attestation."
+    },
+    {
+      "id": "MARGINAL-011",
+      "status": "milestone-complete",
+      "result": "Native replay logic passed in isolated offline transport",
+      "evidence": "evidence/receipt.json; evidence/*replay-audit.json; replay.log; tools/replay_offline.py",
+      "remaining": "Counts derived/asserted from reports;190checksums before/after;no network/provider/listeners. Not unmodified shell route."
+    },
+    {
+      "id": "MARGINAL-012",
+      "status": "waiting-owner",
+      "result": "Rights/provenance inventory prepared; attestations unresolved",
+      "evidence": "rights-and-provenance.md; author-worksheet-template.md",
+      "remaining": "Owner must confirm redistribution basis for completions/prompts and any external human-data rights."
+    },
+    {
+      "id": "MARGINAL-013",
+      "status": "milestone-complete",
+      "result": "Separate scientific and data/instruction appendices built",
+      "evidence": "supplement.pdf/.md/.tex; data-instructions.pdf/.md/.tex",
+      "remaining": "Retains all secondary results and correction/reviewer record; no private author answers."
+    },
+    {
+      "id": "MARGINAL-014",
+      "status": "milestone-complete",
+      "result": "Main compressed below inclusive cap",
+      "evidence": "word-count.json; manuscript.pdf; tools/build.py",
+      "remaining": "Conservative whitespace count includes all table text/captions and references plus200perfigure; no separate official table formula found."
+    },
+    {
+      "id": "MARGINAL-015",
+      "status": "milestone-complete",
+      "result": "Title consistent; abstract130words",
+      "evidence": "manuscript.md/.pdf; cover-letter-draft.md",
+      "remaining": "Public v1 title retained; no renaming of posted work."
+    },
+    {
+      "id": "MARGINAL-016",
+      "status": "waiting-owner",
+      "result": "Vector assets, readable captions and alt-description draft prepared",
+      "evidence": "figures/; claims-and-comparison.md; visual-QA.json",
+      "remaining": "Author final approval of descriptions remains; technical QA passes."
+    },
+    {
+      "id": "MARGINAL-017",
+      "status": "milestone-complete",
+      "result": "Author\u2013year, cited-only alphabetical lists, exact versions and page numbers",
+      "evidence": "manuscript/supplement source/PDF; references.json; check_package.py",
+      "remaining": "Necessary accurate preprints retained; published/accepted-list wording versus express preprint permission needs final portal interpretation; no editor contact."
+    },
+    {
+      "id": "MARGINAL-018",
+      "status": "waiting-owner",
+      "result": "Public identity baseline plus private-response worksheet template",
+      "evidence": "author-worksheet-template.md",
+      "remaining": "Exact affiliation/address/contact/ORCID and contributions require private owner confirmation."
+    },
+    {
+      "id": "MARGINAL-019",
+      "status": "waiting-owner",
+      "result": "AI apparatus/assistance separation and recoverable history drafted",
+      "evidence": "author-worksheet-template.md; manuscript.md\u00a74\u20135; supplement.mdS2",
+      "remaining": "Actual full tools/versions/dates/access/purpose and author checking await confirmation; no exact model guessed from generic reviewer."
+    },
+    {
+      "id": "MARGINAL-020",
+      "status": "waiting-owner",
+      "result": "Synthetic/human-reference classification drafted",
+      "evidence": "author-worksheet-template.md; rights-and-provenance.md",
+      "remaining": "Actual human-data/ethics determination needed; no fabricated IRB approval or exemption."
+    },
+    {
+      "id": "MARGINAL-021",
+      "status": "waiting-owner",
+      "result": "Funding/interests/support/acknowledgment template prepared",
+      "evidence": "author-worksheet-template.md",
+      "remaining": "No false none declaration; owner verifies all relevant financial/nonfinancial/compute support."
+    },
+    {
+      "id": "MARGINAL-022",
+      "status": "milestone-complete",
+      "result": "Immutable archive, codebook, environment and candidate hashes supplied",
+      "evidence": "README.md; data-instructions.md; evidence-manifest.json; package-manifest.json",
+      "remaining": "Living journal guide reconciles4916/4919and earlier4576 boundaries additively; all public/historical bytes remain intact."
+    },
+    {
+      "id": "MARGINAL-023",
+      "status": "waiting-owner",
+      "result": "JESA-specific unsent cover letter drafted",
+      "evidence": "cover-letter-draft.md",
+      "remaining": "Author exclusivity/overlap/identity/declaration statements unresolved; do not send with placeholders."
+    },
+    {
+      "id": "MARGINAL-024",
+      "status": "blocked-user",
+      "result": "Public-policy checklist and exact future portal checks prepared",
+      "evidence": "portal-and-fees.md",
+      "remaining": "Authenticated fields/file constraints/system preview untested; login/account authority excluded from this milestone."
+    },
+    {
+      "id": "MARGINAL-025",
+      "status": "blocked-external",
+      "result": "Conflicting official APC evidence preserved",
+      "evidence": "portal-and-fees.md; author-worksheet-template.md",
+      "remaining": "USD3655/2925table versus3450/2760prose,pluspotentialtaxes;payableamount/eligibility/license/cap unresolved;nocontact/obligationauthorized."
+    },
+    {
+      "id": "MARGINAL-026",
+      "status": "running",
+      "result": "Builder integrity/source/numeric/PDF checks complete; manager cross-review underway",
+      "evidence": "check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json",
+      "remaining": "Manager exact-candidate scientific review and author approvals remain; not journal ready."
+    },
+    {
+      "id": "MARGINAL-027",
+      "status": "parked",
+      "result": "Later submission handoff deliberately not activated",
+      "evidence": "readiness.md; portal-and-fees.md",
+      "remaining": "No account/upload/submission/payment/signature authority; exact final candidate and fresh owner approval required."
+    },
+    {
+      "id": "MARGINAL-028",
+      "status": "parked",
+      "result": "Conditional matched-human validation declined for present narrow claim",
+      "evidence": "manuscript.md\u00a74; practical-validation-worksheet.md",
+      "remaining": "Would need separate target/protocol/ethics/preregistration/budget and new lineage."
+    },
+    {
+      "id": "MARGINAL-029",
+      "status": "parked",
+      "result": "No new persona/model generalization campaign",
+      "evidence": "manuscript.md\u00a74",
+      "remaining": "No historical endpoint refresh or new provider use; prospective scope/spend approval if chosen."
+    },
+    {
+      "id": "MARGINAL-030",
+      "status": "parked",
+      "result": "Mechanism controls deferred; confounds disclosed",
+      "evidence": "manuscript.md\u00a72/\u00a73.2",
+      "remaining": "New factorial/neutral-prefix/non-PD controls are not implied by journal preparation."
+    },
+    {
+      "id": "MARGINAL-031",
+      "status": "parked",
+      "result": "p13 replication conditional, not required or dispatched",
+      "evidence": "manuscript.md\u00a73.3; supplement.mdS5.3",
+      "remaining": "No Phase6; prospective family/gate/power/budget required if separately chosen."
+    },
+    {
+      "id": "MARGINAL-032",
+      "status": "parked",
+      "result": "Public arXiv correction candidate concept only",
+      "evidence": "README.md; reference-audit.json",
+      "remaining": "No v2 source upload/replacement; separate owner decision and exact source/version diff."
+    },
+    {
+      "id": "MARGINAL-033",
+      "status": "parked",
+      "result": "Optional DOI preservation not deposited",
+      "evidence": "README.md; evidence-manifest.json",
+      "remaining": "Existing immutable Git/release/arXiv pointers supplied; no account/archive/license/DOI action."
+    },
+    {
+      "id": "MARGINAL-034",
+      "status": "milestone-complete",
+      "result": "Practical validation worksheet delivered",
+      "evidence": "practical-validation-worksheet.md",
+      "remaining": "Explicitly derived from one panel; not universal validated instrument."
+    }
+  ]
+}

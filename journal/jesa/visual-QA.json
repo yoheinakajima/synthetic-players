@@ -1,0 +1,33 @@
+{
+  "status": "PASS local render and bounds",
+  "pdfs": [
+    {
+      "path": "manuscript.pdf",
+      "sha256": "e35bea293f7a00a837abe82c01031338082a741ce614723cf1d948e37b6e026f",
+      "pages": 7
+    },
+    {
+      "path": "supplement.pdf",
+      "sha256": "fdd8b74dbb177d09ff16180145a677817bbea0382b9a488ef2c25b446e4bb1b1",
+      "pages": 22
+    },
+    {
+      "path": "data-instructions.pdf",
+      "sha256": "db633b7986aa743cfb553e2933b5f226eecc053a9885bc16053fbabbc90d05a3",
+      "pages": 44
+    }
+  ],
+  "visual_scope": "Prior complete-layout pages inspected via rendered contact sheets; final changed pages checked full size. Final instruction hardbreak normalization repaginates templates to44pages without changing instruction wording; all-page bounds pass and exact registry/persona bytes unchanged. Manager exact-candidate render review remains pending.",
+  "checks": [
+    "No overlapping/clipped body text observed after URL/pin/slash-list repair",
+    "Final all-page bounds:0 word margin violations",
+    "Final TeX logs:no overfull boxes or missing characters",
+    "Figures retained as byte-identical vector assets with separate methods/units/captions",
+    "Main criterion table readable; references10pt; page numbers; supplementary historical discussion explicitly labeled superseded"
+  ],
+  "review_limits": [
+    "Author final approval and manager exact-candidate scientific review remain separate",
+    "Contact-sheet thumbnails check layout; substantive claims checked in source and full-size relevant pages",
+    "No claim of journal-system generated preview or arXiv-render parity"
+  ]
+}

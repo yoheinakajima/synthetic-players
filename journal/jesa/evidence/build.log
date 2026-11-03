@@ -1,0 +1,246 @@
+note: using only cached resource files
+note: Running TeX ...
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial Bold.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial Bold Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Menlo.ttc`; build may not be reproducible in other environments
+warning: manuscript.tex:178: Underfull \hbox (badness 10000) in paragraph at lines 178--178
+warning: manuscript.tex:179: Underfull \hbox (badness 2644) in paragraph at lines 178--179
+warning: manuscript.tex:179: Underfull \hbox (badness 2799) in paragraph at lines 179--179
+warning: manuscript.tex:205: Underfull \hbox (badness 4254) in paragraph at lines 197--205
+warning: manuscript.tex:407: Underfull \hbox (badness 4792) in paragraph at lines 403--407
+note: Rerunning TeX because "manuscript.aux" changed ...
+warning: manuscript.tex:178: Underfull \hbox (badness 10000) in paragraph at lines 178--178
+warning: manuscript.tex:179: Underfull \hbox (badness 2644) in paragraph at lines 178--179
+warning: manuscript.tex:179: Underfull \hbox (badness 2799) in paragraph at lines 179--179
+warning: manuscript.tex:205: Underfull \hbox (badness 4254) in paragraph at lines 197--205
+warning: manuscript.tex:407: Underfull \hbox (badness 4792) in paragraph at lines 403--407
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `manuscript.pdf` (159.5009765625 KiB)
+note: Writing `manuscript.log` (21.7353515625 KiB)
+note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)
+note: using only cached resource files
+note: Running TeX ...
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial Bold.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial Bold Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Menlo.ttc`; build may not be reproducible in other environments
+warning: supplement.tex:207: Underfull \hbox (badness 1881) in paragraph at lines 197--207
+warning: supplement.tex:1348: Underfull \hbox (badness 4792) in paragraph at lines 1344--1348
+note: Rerunning TeX because "supplement.aux" changed ...
+warning: supplement.tex:207: Underfull \hbox (badness 1881) in paragraph at lines 197--207
+warning: supplement.tex:1348: Underfull \hbox (badness 4792) in paragraph at lines 1344--1348
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `supplement.pdf` (294.4345703125 KiB)
+note: Writing `supplement.log` (21.732421875 KiB)
+note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)
+note: using only cached resource files
+note: Running TeX ...
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial Bold.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Arial Bold Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Menlo.ttc`; build may not be reproducible in other environments
+warning: data-instructions.tex:34: Underfull \hbox (badness 2941) in paragraph at lines 25--34
+warning: data-instructions.tex:34: Underfull \hbox (badness 2012) in paragraph at lines 25--34
+warning: data-instructions.tex:63: Underfull \hbox (badness 10000) in paragraph at lines 51--63
+warning: data-instructions.tex:63: Underfull \hbox (badness 1231) in paragraph at lines 51--63
+warning: data-instructions.tex:272: Underfull \hbox (badness 10000) in paragraph at lines 259--272
+warning: data-instructions.tex:274: Underfull \hbox (badness 10000) in paragraph at lines 273--274
+warning: data-instructions.tex:320: Underfull \hbox (badness 10000) in paragraph at lines 309--320
+warning: data-instructions.tex:353: Underfull \hbox (badness 10000) in paragraph at lines 346--353
+warning: data-instructions.tex:355: Underfull \hbox (badness 10000) in paragraph at lines 354--355
+warning: data-instructions.tex:406: Underfull \hbox (badness 10000) in paragraph at lines 394--406
+warning: data-instructions.tex:408: Underfull \hbox (badness 10000) in paragraph at lines 407--408
+warning: data-instructions.tex:450: Underfull \hbox (badness 10000) in paragraph at lines 442--450
+warning: data-instructions.tex:452: Underfull \hbox (badness 10000) in paragraph at lines 451--452
+warning: data-instructions.tex:497: Underfull \hbox (badness 10000) in paragraph at lines 486--497
+warning: data-instructions.tex:540: Underfull \hbox (badness 10000) in paragraph at lines 527--540
+warning: data-instructions.tex:542: Underfull \hbox (badness 10000) in paragraph at lines 541--542
+warning: data-instructions.tex:596: Underfull \hbox (badness 10000) in paragraph at lines 585--596
+warning: data-instructions.tex:639: Underfull \hbox (badness 10000) in paragraph at lines 626--639
+warning: data-instructions.tex:641: Underfull \hbox (badness 10000) in paragraph at lines 640--641
+warning: data-instructions.tex:695: Underfull \hbox (badness 10000) in paragraph at lines 684--695
+warning: data-instructions.tex:738: Underfull \hbox (badness 10000) in paragraph at lines 725--738
+warning: data-instructions.tex:740: Underfull \hbox (badness 10000) in paragraph at lines 739--740
+warning: data-instructions.tex:794: Underfull \hbox (badness 10000) in paragraph at lines 783--794
+warning: data-instructions.tex:837: Underfull \hbox (badness 10000) in paragraph at lines 824--837
+warning: data-instructions.tex:839: Underfull \hbox (badness 10000) in paragraph at lines 838--839
+warning: data-instructions.tex:893: Underfull \hbox (badness 10000) in paragraph at lines 882--893
+warning: data-instructions.tex:936: Underfull \hbox (badness 10000) in paragraph at lines 923--936
+warning: data-instructions.tex:938: Underfull \hbox (badness 10000) in paragraph at lines 937--938
+warning: data-instructions.tex:992: Underfull \hbox (badness 10000) in paragraph at lines 981--992
+warning: data-instructions.tex:1035: Underfull \hbox (badness 10000) in paragraph at lines 1022--1035
+warning: data-instructions.tex:1037: Underfull \hbox (badness 10000) in paragraph at lines 1036--1037
+warning: data-instructions.tex:1091: Underfull \hbox (badness 10000) in paragraph at lines 1080--1091
+warning: data-instructions.tex:1134: Underfull \hbox (badness 10000) in paragraph at lines 1121--1134
+warning: data-instructions.tex:1136: Underfull \hbox (badness 10000) in paragraph at lines 1135--1136
+warning: data-instructions.tex:1190: Underfull \hbox (badness 10000) in paragraph at lines 1179--1190
+warning: data-instructions.tex:1233: Underfull \hbox (badness 10000) in paragraph at lines 1220--1233
+warning: data-instructions.tex:1235: Underfull \hbox (badness 10000) in paragraph at lines 1234--1235
+warning: data-instructions.tex:1289: Underfull \hbox (badness 10000) in paragraph at lines 1278--1289
+warning: data-instructions.tex:1330: Underfull \hbox (badness 10000) in paragraph at lines 1318--1330
+warning: data-instructions.tex:1332: Underfull \hbox (badness 10000) in paragraph at lines 1331--1332
+warning: data-instructions.tex:1385: Underfull \hbox (badness 10000) in paragraph at lines 1374--1385
+warning: data-instructions.tex:1426: Underfull \hbox (badness 10000) in paragraph at lines 1414--1426
+warning: data-instructions.tex:1428: Underfull \hbox (badness 10000) in paragraph at lines 1427--1428
+warning: data-instructions.tex:1481: Underfull \hbox (badness 10000) in paragraph at lines 1470--1481
+warning: data-instructions.tex:1522: Underfull \hbox (badness 10000) in paragraph at lines 1510--1522
+warning: data-instructions.tex:1524: Underfull \hbox (badness 10000) in paragraph at lines 1523--1524
+warning: data-instructions.tex:1577: Underfull \hbox (badness 10000) in paragraph at lines 1566--1577
+warning: data-instructions.tex:1618: Underfull \hbox (badness 10000) in paragraph at lines 1606--1618
+warning: data-instructions.tex:1620: Underfull \hbox (badness 10000) in paragraph at lines 1619--1620
+warning: data-instructions.tex:1673: Underfull \hbox (badness 10000) in paragraph at lines 1662--1673
+warning: data-instructions.tex:1716: Underfull \hbox (badness 10000) in paragraph at lines 1703--1716
+warning: data-instructions.tex:1718: Underfull \hbox (badness 10000) in paragraph at lines 1717--1718
+warning: data-instructions.tex:1772: Underfull \hbox (badness 10000) in paragraph at lines 1761--1772
+warning: data-instructions.tex:1815: Underfull \hbox (badness 10000) in paragraph at lines 1802--1815
+warning: data-instructions.tex:1817: Underfull \hbox (badness 10000) in paragraph at lines 1816--1817
+warning: data-instructions.tex:1871: Underfull \hbox (badness 10000) in paragraph at lines 1860--1871
+warning: data-instructions.tex:1914: Underfull \hbox (badness 10000) in paragraph at lines 1901--1914
+warning: data-instructions.tex:1916: Underfull \hbox (badness 10000) in paragraph at lines 1915--1916
+warning: data-instructions.tex:1970: Underfull \hbox (badness 10000) in paragraph at lines 1959--1970
+warning: data-instructions.tex:2013: Underfull \hbox (badness 10000) in paragraph at lines 2000--2013
+warning: data-instructions.tex:2015: Underfull \hbox (badness 10000) in paragraph at lines 2014--2015
+warning: data-instructions.tex:2071: Underfull \hbox (badness 10000) in paragraph at lines 2058--2071
+warning: data-instructions.tex:2073: Underfull \hbox (badness 10000) in paragraph at lines 2072--2073
+warning: data-instructions.tex:2129: Underfull \hbox (badness 10000) in paragraph at lines 2116--2129
+warning: data-instructions.tex:2131: Underfull \hbox (badness 10000) in paragraph at lines 2130--2131
+warning: data-instructions.tex:2190: Underfull \hbox (badness 10000) in paragraph at lines 2178--2190
+warning: data-instructions.tex:2192: Underfull \hbox (badness 10000) in paragraph at lines 2191--2192
+warning: data-instructions.tex:2252: Underfull \hbox (badness 10000) in paragraph at lines 2239--2252
+warning: data-instructions.tex:2254: Underfull \hbox (badness 10000) in paragraph at lines 2253--2254
+warning: data-instructions.tex:2313: Underfull \hbox (badness 10000) in paragraph at lines 2301--2313
+warning: data-instructions.tex:2315: Underfull \hbox (badness 10000) in paragraph at lines 2314--2315
+warning: data-instructions.tex:2374: Underfull \hbox (badness 10000) in paragraph at lines 2362--2374
+warning: data-instructions.tex:2376: Underfull \hbox (badness 10000) in paragraph at lines 2375--2376
+warning: data-instructions.tex:2436: Underfull \hbox (badness 10000) in paragraph at lines 2423--2436
+warning: data-instructions.tex:2438: Underfull \hbox (badness 10000) in paragraph at lines 2437--2438
+warning: data-instructions.tex:2497: Underfull \hbox (badness 10000) in paragraph at lines 2485--2497
+warning: data-instructions.tex:2499: Underfull \hbox (badness 10000) in paragraph at lines 2498--2499
+warning: data-instructions.tex:2559: Underfull \hbox (badness 10000) in paragraph at lines 2546--2559
+warning: data-instructions.tex:2561: Underfull \hbox (badness 10000) in paragraph at lines 2560--2561
+warning: data-instructions.tex:2620: Underfull \hbox (badness 10000) in paragraph at lines 2608--2620
+warning: data-instructions.tex:2622: Underfull \hbox (badness 10000) in paragraph at lines 2621--2622
+warning: data-instructions.tex:2682: Underfull \hbox (badness 10000) in paragraph at lines 2669--2682
+warning: data-instructions.tex:2684: Underfull \hbox (badness 10000) in paragraph at lines 2683--2684
+warning: data-instructions.tex:2736: Underfull \hbox (badness 10000) in paragraph at lines 2730--2736
+warning: data-instructions.tex:2738: Underfull \hbox (badness 10000) in paragraph at lines 2737--2738
+note: Rerunning TeX because "data-instructions.out" changed ...
+warning: data-instructions.tex:34: Underfull \hbox (badness 2941) in paragraph at lines 25--34
+warning: data-instructions.tex:34: Underfull \hbox (badness 2012) in paragraph at lines 25--34
+warning: data-instructions.tex:63: Underfull \hbox (badness 10000) in paragraph at lines 51--63
+warning: data-instructions.tex:63: Underfull \hbox (badness 1231) in paragraph at lines 51--63
+warning: data-instructions.tex:272: Underfull \hbox (badness 10000) in paragraph at lines 259--272
+warning: data-instructions.tex:274: Underfull \hbox (badness 10000) in paragraph at lines 273--274
+warning: data-instructions.tex:320: Underfull \hbox (badness 10000) in paragraph at lines 309--320
+warning: data-instructions.tex:353: Underfull \hbox (badness 10000) in paragraph at lines 346--353
+warning: data-instructions.tex:355: Underfull \hbox (badness 10000) in paragraph at lines 354--355
+warning: data-instructions.tex:406: Underfull \hbox (badness 10000) in paragraph at lines 394--406
+warning: data-instructions.tex:408: Underfull \hbox (badness 10000) in paragraph at lines 407--408
+warning: data-instructions.tex:450: Underfull \hbox (badness 10000) in paragraph at lines 442--450
+warning: data-instructions.tex:452: Underfull \hbox (badness 10000) in paragraph at lines 451--452
+warning: data-instructions.tex:497: Underfull \hbox (badness 10000) in paragraph at lines 486--497
+warning: data-instructions.tex:540: Underfull \hbox (badness 10000) in paragraph at lines 527--540
+warning: data-instructions.tex:542: Underfull \hbox (badness 10000) in paragraph at lines 541--542
+warning: data-instructions.tex:596: Underfull \hbox (badness 10000) in paragraph at lines 585--596
+warning: data-instructions.tex:639: Underfull \hbox (badness 10000) in paragraph at lines 626--639
+warning: data-instructions.tex:641: Underfull \hbox (badness 10000) in paragraph at lines 640--641
+warning: data-instructions.tex:695: Underfull \hbox (badness 10000) in paragraph at lines 684--695
+warning: data-instructions.tex:738: Underfull \hbox (badness 10000) in paragraph at lines 725--738
+warning: data-instructions.tex:740: Underfull \hbox (badness 10000) in paragraph at lines 739--740
+warning: data-instructions.tex:794: Underfull \hbox (badness 10000) in paragraph at lines 783--794
+warning: data-instructions.tex:837: Underfull \hbox (badness 10000) in paragraph at lines 824--837
+warning: data-instructions.tex:839: Underfull \hbox (badness 10000) in paragraph at lines 838--839
+warning: data-instructions.tex:893: Underfull \hbox (badness 10000) in paragraph at lines 882--893
+warning: data-instructions.tex:936: Underfull \hbox (badness 10000) in paragraph at lines 923--936
+warning: data-instructions.tex:938: Underfull \hbox (badness 10000) in paragraph at lines 937--938
+warning: data-instructions.tex:992: Underfull \hbox (badness 10000) in paragraph at lines 981--992
+warning: data-instructions.tex:1035: Underfull \hbox (badness 10000) in paragraph at lines 1022--1035
+warning: data-instructions.tex:1037: Underfull \hbox (badness 10000) in paragraph at lines 1036--1037
+warning: data-instructions.tex:1091: Underfull \hbox (badness 10000) in paragraph at lines 1080--1091
+warning: data-instructions.tex:1134: Underfull \hbox (badness 10000) in paragraph at lines 1121--1134
+warning: data-instructions.tex:1136: Underfull \hbox (badness 10000) in paragraph at lines 1135--1136
+warning: data-instructions.tex:1190: Underfull \hbox (badness 10000) in paragraph at lines 1179--1190
+warning: data-instructions.tex:1233: Underfull \hbox (badness 10000) in paragraph at lines 1220--1233
+warning: data-instructions.tex:1235: Underfull \hbox (badness 10000) in paragraph at lines 1234--1235
+warning: data-instructions.tex:1289: Underfull \hbox (badness 10000) in paragraph at lines 1278--1289
+warning: data-instructions.tex:1330: Underfull \hbox (badness 10000) in paragraph at lines 1318--1330
+warning: data-instructions.tex:1332: Underfull \hbox (badness 10000) in paragraph at lines 1331--1332
+warning: data-instructions.tex:1385: Underfull \hbox (badness 10000) in paragraph at lines 1374--1385
+warning: data-instructions.tex:1426: Underfull \hbox (badness 10000) in paragraph at lines 1414--1426
+warning: data-instructions.tex:1428: Underfull \hbox (badness 10000) in paragraph at lines 1427--1428
+warning: data-instructions.tex:1481: Underfull \hbox (badness 10000) in paragraph at lines 1470--1481
+warning: data-instructions.tex:1522: Underfull \hbox (badness 10000) in paragraph at lines 1510--1522
+warning: data-instructions.tex:1524: Underfull \hbox (badness 10000) in paragraph at lines 1523--1524
+warning: data-instructions.tex:1577: Underfull \hbox (badness 10000) in paragraph at lines 1566--1577
+warning: data-instructions.tex:1618: Underfull \hbox (badness 10000) in paragraph at lines 1606--1618
+warning: data-instructions.tex:1620: Underfull \hbox (badness 10000) in paragraph at lines 1619--1620
+warning: data-instructions.tex:1673: Underfull \hbox (badness 10000) in paragraph at lines 1662--1673
+warning: data-instructions.tex:1716: Underfull \hbox (badness 10000) in paragraph at lines 1703--1716
+warning: data-instructions.tex:1718: Underfull \hbox (badness 10000) in paragraph at lines 1717--1718
+warning: data-instructions.tex:1772: Underfull \hbox (badness 10000) in paragraph at lines 1761--1772
+warning: data-instructions.tex:1815: Underfull \hbox (badness 10000) in paragraph at lines 1802--1815
+warning: data-instructions.tex:1817: Underfull \hbox (badness 10000) in paragraph at lines 1816--1817
+warning: data-instructions.tex:1871: Underfull \hbox (badness 10000) in paragraph at lines 1860--1871
+warning: data-instructions.tex:1914: Underfull \hbox (badness 10000) in paragraph at lines 1901--1914
+warning: data-instructions.tex:1916: Underfull \hbox (badness 10000) in paragraph at lines 1915--1916
+warning: data-instructions.tex:1970: Underfull \hbox (badness 10000) in paragraph at lines 1959--1970
+warning: data-instructions.tex:2013: Underfull \hbox (badness 10000) in paragraph at lines 2000--2013
+warning: data-instructions.tex:2015: Underfull \hbox (badness 10000) in paragraph at lines 2014--2015
+warning: data-instructions.tex:2071: Underfull \hbox (badness 10000) in paragraph at lines 2058--2071
+warning: data-instructions.tex:2073: Underfull \hbox (badness 10000) in paragraph at lines 2072--2073
+warning: data-instructions.tex:2129: Underfull \hbox (badness 10000) in paragraph at lines 2116--2129
+warning: data-instructions.tex:2131: Underfull \hbox (badness 10000) in paragraph at lines 2130--2131
+warning: data-instructions.tex:2190: Underfull \hbox (badness 10000) in paragraph at lines 2178--2190
+warning: data-instructions.tex:2192: Underfull \hbox (badness 10000) in paragraph at lines 2191--2192
+warning: data-instructions.tex:2252: Underfull \hbox (badness 10000) in paragraph at lines 2239--2252
+warning: data-instructions.tex:2254: Underfull \hbox (badness 10000) in paragraph at lines 2253--2254
+warning: data-instructions.tex:2313: Underfull \hbox (badness 10000) in paragraph at lines 2301--2313
+warning: data-instructions.tex:2315: Underfull \hbox (badness 10000) in paragraph at lines 2314--2315
+warning: data-instructions.tex:2374: Underfull \hbox (badness 10000) in paragraph at lines 2362--2374
+warning: data-instructions.tex:2376: Underfull \hbox (badness 10000) in paragraph at lines 2375--2376
+warning: data-instructions.tex:2436: Underfull \hbox (badness 10000) in paragraph at lines 2423--2436
+warning: data-instructions.tex:2438: Underfull \hbox (badness 10000) in paragraph at lines 2437--2438
+warning: data-instructions.tex:2497: Underfull \hbox (badness 10000) in paragraph at lines 2485--2497
+warning: data-instructions.tex:2499: Underfull \hbox (badness 10000) in paragraph at lines 2498--2499
+warning: data-instructions.tex:2559: Underfull \hbox (badness 10000) in paragraph at lines 2546--2559
+warning: data-instructions.tex:2561: Underfull \hbox (badness 10000) in paragraph at lines 2560--2561
+warning: data-instructions.tex:2620: Underfull \hbox (badness 10000) in paragraph at lines 2608--2620
+warning: data-instructions.tex:2622: Underfull \hbox (badness 10000) in paragraph at lines 2621--2622
+warning: data-instructions.tex:2682: Underfull \hbox (badness 10000) in paragraph at lines 2669--2682
+warning: data-instructions.tex:2684: Underfull \hbox (badness 10000) in paragraph at lines 2683--2684
+warning: data-instructions.tex:2736: Underfull \hbox (badness 10000) in paragraph at lines 2730--2736
+warning: data-instructions.tex:2738: Underfull \hbox (badness 10000) in paragraph at lines 2737--2738
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `data-instructions.log` (27.419921875 KiB)
+note: Writing `data-instructions.pdf` (129.8984375 KiB)
+note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)
+{
+  "method": "all source whitespace tokens including title/author/abstract/text/tables/captions/references/URLs, plus 200 per figure; conservative diagnostic, publisher adjudicates",
+  "abstract": 130,
+  "before_references": 2352,
+  "references": 381,
+  "all_source_tokens": 2735,
+  "figures": 2,
+  "figure_allowance": 400,
+  "inclusive_conservative": 3135,
+  "limit": 5000
+}

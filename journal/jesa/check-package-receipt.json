@@ -1,0 +1,24 @@
+{
+  "verdict": "PASS",
+  "baseline_files_unchanged": 1078,
+  "references": 39,
+  "count": 3135,
+  "pdf_bounds": [
+    {
+      "pdf": "manuscript.pdf",
+      "pages": 7,
+      "word_margin_violations": 0
+    },
+    {
+      "pdf": "supplement.pdf",
+      "pages": 22,
+      "word_margin_violations": 0
+    },
+    {
+      "pdf": "data-instructions.pdf",
+      "pages": 44,
+      "word_margin_violations": 0
+    }
+  ],
+  "replay": "count-derived/native logic/190 checksums/no network"
+}
