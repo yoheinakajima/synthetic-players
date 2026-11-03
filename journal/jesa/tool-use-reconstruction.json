@@ -65,6 +65,18 @@
       "dates": "November 2\u20133, 2026 (local/UTC boundary)",
       "requested_configuration": "gpt-6.1-sol; high reasoning",
       "limits": "Preparation task configuration, not provider-attested backend identity. No new subject-model data."
+    },
+    {
+      "role": "author-commissioned advisory review of journal candidate",
+      "tool": "Claude interface labelled Opus5.5Extra; self-label claude-opus-5-5",
+      "dates": "November2026 preparation round",
+      "limits": "Backend revision unverified; independent of Gemini input, not journal peer review or code/rawDB replication."
+    },
+    {
+      "role": "author-commissioned advisory review of journal candidate",
+      "tool": "Gemini interface labelled Pro",
+      "dates": "November2026 preparation round",
+      "limits": "Backend revision unknown; G1\u20134 were retracted after source/render verification; not journal peer review."
     }
   ],
   "pinned_files": [
@@ -244,5 +256,6 @@
     "Complete access/session chronology and unarchived assistance cannot be reconstructed.",
     "Commit/archive dates are not asserted to be exact tool-access dates."
   ],
-  "human_record": "Sole human author selected questions, approved registered designs, adjudicated review recommendations and accepted responsibility; not proof of independent manual verification of every result."
+  "human_record": "Sole human author selected questions, approved registered designs, adjudicated review recommendations and accepted responsibility; not proof of independent manual verification of every result.",
+  "current_correction_scope": "Codex preparation added explicitly post-adjudication saved-count contrast sensitivity, code, analytic moment checks and source-grounded response to advisory review; manager independently rederived exact-rational means/variances, not full specialist verification."
 }

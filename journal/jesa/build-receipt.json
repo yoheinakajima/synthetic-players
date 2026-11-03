@@ -7,18 +7,18 @@
   "outputs": [
     {
       "path": "manuscript.pdf",
-      "sha256": "7edd180934b6389c44467a72b7d213c9c6c73ff2e8e8b20cbec9a3d5843bec21",
-      "pages": 7
+      "sha256": "babb225e69e523b3ad51c095e7f31c8ebf2d8c5cc868f86f8e52d12104897ab4",
+      "pages": 8
     },
     {
       "path": "supplement.pdf",
-      "sha256": "6120605ff136f1b5af8cc0ec0e3c3b20e37f0b2be052e7c45b0fa66db617edd4",
-      "pages": 23
+      "sha256": "f100ab17701d5f3a832ea2cc7a56db91c2318725298f1efcd48eb0e22b3f167b",
+      "pages": 25
     },
     {
       "path": "data-instructions.pdf",
-      "sha256": "74f2a5aa79e2b5614accd4e89e799689e7aed815bd058f62714b81686df841e7",
-      "pages": 44
+      "sha256": "9c87d39cf81927af5efeb469c58340875392d4d15baa3a6913f8d46379d88a8c",
+      "pages": 45
     }
   ]
 }

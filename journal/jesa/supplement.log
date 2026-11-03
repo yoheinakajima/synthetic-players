@@ -519,46 +519,52 @@ LaTeX Info: Redefining \nameref on input line 18.
 \@outlinefile=\write3
 \openout3 = `supplement.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
 
- (umsa.fd
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[][]\TU/TimesNewRoman(0)/b/n/14.4 Supplement to Coarse Marginal Resemblance and
+ Model-Dependent
+ []
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
+
+(umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
 
  (umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 ] [2] [3]
-Underfull \hbox (badness 1881) in paragraph at lines 259--269
-\TU/TimesNewRoman(0)/m/n/10.95 The primary deployment is gpt-4.1 with 16-token
-outputs and a fixed minimal behavioral-subject
+Underfull \hbox (badness 1158) in paragraph at lines 282--299
+\TU/TimesNewRoman(0)/m/n/10.95 decoding/provenance fields; Phase 3 lacks later
+response IDs/body hashes, and a complete request
  []
 
 [4] [5] [6]
 File: figures/between-prompt-share.pdf Graphic file (type pdf)
 <use figures/between-prompt-share.pdf>
+ [7] [8]
 File: figures/prompt-indexed-delta.pdf Graphic file (type pdf)
 <use figures/prompt-indexed-delta.pdf>
- [7]
 File: figures/condition-means.pdf Graphic file (type pdf)
 <use figures/condition-means.pdf>
- [8] [9] [10]
+ [9] [10] [11]
 File: figures/representation-effects.pdf Graphic file (type pdf)
 <use figures/representation-effects.pdf>
- [11] [12]
+ [12] [13] [14]
 File: figures/p13-audit.pdf Graphic file (type pdf)
 <use figures/p13-audit.pdf>
- [13] [14] [15] [16] [17] [18] [19]
-[20] [21]
-Underfull \hbox (badness 4792) in paragraph at lines 1406--1410
+ [15] [16] [17] [18] [19]
+[20] [21] [22] [23]
+Underfull \hbox (badness 4792) in paragraph at lines 1583--1587
 []\TU/TimesNewRoman(0)/m/n/10 Kumagae, Y., and Kaneko, M. (2026). Silicon sampl
 es match the answers but not the respondents.
  []
 
-[22] [23] (supplement.aux)
+[24] [25] (supplement.aux)
 Package rerunfilecheck Info: File `supplement.out' has not changed.
-(rerunfilecheck)             Checksum: EA31CE46DB8482A9A8246CA300DF68E8;7558.
+(rerunfilecheck)             Checksum: 7DE660332030D747C3240423E3A86B08;8204.
  )
-Output written on supplement.xdv (23 pages, 759692 bytes).
+Output written on supplement.xdv (25 pages, 856532 bytes).

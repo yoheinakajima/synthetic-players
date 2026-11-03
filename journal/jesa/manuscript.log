@@ -531,39 +531,53 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 ] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 181--181
+Underfull \hbox (badness 1337) in paragraph at lines 197--198
+[]\TU/TimesNewRoman(0)/m/n/10.95 Exploratory resemblance, no regis-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 199--199
 []\TU/TimesNewRoman(0)/m/n/10.95 Aggregate re-
  []
 
 
-Underfull \hbox (badness 2644) in paragraph at lines 181--182
-[]\TU/TimesNewRoman(0)/m/n/10.95 Imprecise represented-treatment re-
+Underfull \hbox (badness 6691) in paragraph at lines 199--199
+[]\TU/TimesNewRoman(0)/m/n/10.95 +.083 / +.078; intervals differ by
  []
 
 
-Underfull \hbox (badness 2799) in paragraph at lines 182--182
+Underfull \hbox (badness 10000) in paragraph at lines 199--200
+[]\TU/TimesNewRoman(0)/m/n/10.95 Model-dependent represented-
+ []
+
+
+Underfull \hbox (badness 2799) in paragraph at lines 200--200
 []\TU/TimesNewRoman(0)/m/n/10.95 Latent-person re-
  []
 
-
-Underfull \hbox (badness 4254) in paragraph at lines 200--208
+[3]
+Underfull \hbox (badness 4254) in paragraph at lines 224--232
 []\TU/TimesNewRoman(0)/m/n/10.95 Between-prompt plug-in shares were 85.5%, 96.1
 %, 88.8%, and 90.2%. Fixed-panel Jeffreys
  []
 
 File: figures/between-prompt-share.pdf Graphic file (type pdf)
 <use figures/between-prompt-share.pdf>
-[3]
+[4]
+Underfull \hbox (badness 6592) in paragraph at lines 275--275
+[]\TU/TimesNewRoman(0)/m/n/10.95 Pooled working-model CP / fixed-panel
+ []
+
 File: figures/condition-means.pdf Graphic file (type pdf)
 <use figures/condition-means.pdf>
- [4] [5] [6]
-Underfull \hbox (badness 4792) in paragraph at lines 423--427
+[5] [6] [7]
+Underfull \hbox (badness 4792) in paragraph at lines 484--488
 []\TU/TimesNewRoman(0)/m/n/10 Kumagae, Y., and Kaneko, M. (2026). Silicon sampl
 es match the answers but not the respondents.
  []
 
-[7] (manuscript.aux)
+[8] (manuscript.aux)
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
-(rerunfilecheck)             Checksum: 9DC4420390BA7418B01CD043D0E154A5;2857.
+(rerunfilecheck)             Checksum: F10340E6A876157281F81E44A5DAF5C8;2737.
  )
-Output written on manuscript.xdv (7 pages, 237544 bytes).
+Output written on manuscript.xdv (8 pages, 276388 bytes).

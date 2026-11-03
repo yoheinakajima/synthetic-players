@@ -126,19 +126,30 @@ review, is publicly listed in Untapped Capital's portfolio.
 \subsection{3. Reproduction
 instructions}\label{reproduction-instructions}
 
-Use an isolated non-iCloud clone at the immutable commit. Review the
-verifier before running it. The historical \texttt{capsule/verify.sh}
-uses a temporary loopback server and can resolve dependencies. The
-journal route \texttt{tools/replay\_offline.py} instead invokes
-identical native audit logic, replacing only Phase 4 HTTP transport with
-the function behind that endpoint. It copies the capsule into a new
-external disposable directory, checks all 190 original manifest entries
-before and after, blocks socket connect/bind and provider construction,
-and uses only archived cache hits. It never sets the maintenance
-manifest-bypass variable. Audit reports are copied out before the
-original transactional report bytes are restored for the final manifest
-check. Do not point the tool at production state or an existing output
-directory.
+Use an isolated non-iCloud clone. The immutable study checkout
+\nolinkurl{62ab90beff1d291b069c87f13b6b6b3495171ddd} contains the native
+capsule route (\texttt{cd\ capsule;\ bash\ verify.sh}), not the journal
+tools. The prepared verification ancestor
+\nolinkurl{1bc9cb8dcb44cf514fe2fad53cdbfd96725badd0} contains the
+offline journal wrapper and new contrast plan/script/results:
+\url{https://github.com/yoheinakajima/synthetic-players/tree/1bc9cb8dcb44cf514fe2fad53cdbfd96725badd0/journal/jesa}.
+This is the concrete preparation code/evidence checkout; the final
+editorial commit is separately recorded in the candidate manifest/PR.
+For that route, first \texttt{git\ checkout} the preparation ancestor or
+this exact candidate commit, return to repository root, then use the
+command below. The current candidate additionally contains the
+contrast-sensitivity plan/script/results. Review each verifier before
+execution. The historical \texttt{capsule/verify.sh} uses a temporary
+loopback server and can resolve dependencies. The journal route
+\texttt{tools/replay\_offline.py} instead invokes identical native audit
+logic, replacing only Phase 4 HTTP transport with the function behind
+that endpoint. It copies the capsule into a new external disposable
+directory, checks all 190 original manifest entries before and after,
+blocks socket connect/bind and provider construction, and uses only
+archived cache hits. It never sets the maintenance manifest-bypass
+variable. Audit reports are copied out before the original transactional
+report bytes are restored for the final manifest check. Do not point the
+tool at production state or an existing output directory.
 
 Example using cached dependencies, with no credential environment
 inherited:
@@ -153,12 +164,43 @@ inherited:
 
 Environment needs Python ≥3.11 and the listed packages; exact observed
 versions and platform are in the receipt. A cold machine needs
-dependency setup before offline replay; this preparation installed no
-new TeX runtime. Output includes three audit JSON reports and
+dependency setup before offline replay; the prepared build used cached
+TeX resources. Output includes three audit JSON reports and
 receipt.json. A mismatch, missing cache response, blocked network call,
 or manifest drift is a failure. Replay establishes reconstruction from
 the archive, not provider attestation, power, human validity, or freedom
 from pre-seal alteration.
+
+\subsubsection{3.1 New saved-data contrast
+sensitivity}\label{new-saved-data-contrast-sensitivity}
+
+\texttt{contrast-sensitivity-plan.json} declares all seeds/draw counts
+before calculation, after preparation model review; it is not a
+preregistration. \texttt{tools/contrast\_sensitivity.py} reads the
+immutable category-count CSV
+\nolinkurl{docs/analysis/submission/figure-sources/episode-cluster-cells.csv}
+(SHA256
+7e93f97c012c6ff8907758f55ae35f0ca5d2544a6fcb7a0b05997d0f316fc3e0). It
+computes all four fixed-panel Dirichlet prior sensitivities and
+paired-prompt two-stage bootstrap contrasts in
+\texttt{contrast-sensitivity.json}, with analytic mean/variance checks,
+exact seed labels, input/plan hashes and environment. Supplement S3.1.1
+states assumptions and every outcome, including zero-excluded intervals.
+Running it writes only the derived journal result JSON; no provider, raw
+database, sealed record or ledger access is needed. Cached NumPy
+2.4.6/SciPy 1.17.1 and Python 3.11 were used, with CPU cap 240 seconds
+and observed 1.37 seconds. Current source commit and package manifest
+identify this preparation lineage separately from the study baseline.
+
+Actual
+\href{https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/LICENSE}{repository
+LICENSE} supplies MIT code terms and the CC BY4.0 declaration for
+released research artifacts;
+\href{https://creativecommons.org/licenses/by/4.0/}{CC BY4.0 terms} are
+external license text. These declarations do not independently prove
+third-party/provider permissions. Git commits/hashes identify the
+materials currently supplied; no separate journal replication-archive
+DOI or Data Editor validation is claimed.
 
 \subsection{4. Panel construction and persona
 instructions}\label{panel-construction-and-persona-instructions}
@@ -170,9 +212,10 @@ one prompt bundle, not independently identified treatments. Self-play
 uses the same persona in both seats. Composition: preamble + two newline
 characters + sealed bare system text; user text is unchanged.
 Environment seeds specify episodes; provider generation is not asserted
-seeded. Primary revision pin in Phase 5 is gpt-4.1-2025-04-14; the
-Gemini pin is unversioned/descriptive. Phase 3 legacy capture is less
-complete than Phases 4--5.
+seeded. Phase 5 requests used the gpt-4.1 alias; responses reported
+gpt-4.1-2025-04-14, not an immutable request pin. Gemini is
+unversioned/descriptive. Phase 3 legacy capture is less complete than
+Phases 4--5.
 
 \subsubsection{p01}\label{p01}
 

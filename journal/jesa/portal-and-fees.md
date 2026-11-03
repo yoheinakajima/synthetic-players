@@ -28,3 +28,7 @@ Official sources:
 - [Portal](https://www.editorialmanager.com/esa/default.aspx)
 
 No ordinary deadline or guaranteed review duration was found. Current billing, taxes, waivers and authenticated terms must be rechecked at the actual authorized action date. This checklist does not authorize login, submission, payment, license signing, arXiv replacement, DOI deposit, or automatic retries.
+
+## Trusted archive follow-up
+
+See archive-policy-check.md. Current Cambridge guidance encourages repositories with permanent identifiers; the ESA replication index requires trusted repository publication, while its linked current policy returned404. Exact applicable Data Editor/DOI verification requirements and a permitted final deposit remain unresolved. Git hashes identify the supplied study/preparation lineage; no completed trusted deposit or Data Editor certification is claimed. This gate is separate from any future archive/account/license/contact authority.

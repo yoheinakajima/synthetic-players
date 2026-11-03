@@ -19,8 +19,23 @@ for ref in [r for r in mainrefs.strip().split('\n\n') if r]:
  surname=ref.split(',')[0]
  assert surname in maintext,ref
 assert 'Li, Y., and Ji, X.' not in main+sup and 'Persson, E.,' not in main+sup
-for s in ('[−0.171, +0.330]','[−0.181, +0.330]','[.071,.189]','[.182,.231]','.075040','model-based simultaneous intervals','Under the pooled component-binomial working model','replication target','not a probability sample'):
- assert s in main,s
+for s in ('[−0.171, +0.330]','[−0.181, +0.330]','[.071,.189]','[.182,.231]','.075040','pooled component-binomial','Under the pooled component-binomial working model','replication target','not a probability sample'):
+ assert s.replace(" ","") in main.replace(" ",""),s
+assert 'preregistered broad-reference mean criteria' not in main
+for file in ('manuscript.md','supplement.md','data-instructions.md'):
+ assert 'https://github.com/yoheinakajima/synthetic-players/tree/1bc9cb8dcb44cf514fe2fad53cdbfd96725badd0/journal/jesa' in (J/file).read_text()
+assert 'exploratory extension, not a registered Phase 5 validation result' in main
+assert '5/32=.156 does not' in main and '98.75%' in main
+sensitivity=json.loads((J/'contrast-sensitivity.json').read_text())
+plan=json.loads((J/'contrast-sensitivity-plan.json').read_text())
+assert sha(J/'contrast-sensitivity-plan.json')==sensitivity['plan_sha256']
+assert sha(R/plan['source'])==sensitivity['input_sha256']
+assert len(sensitivity['dirichlet'])==8 and len(sensitivity['two_stage_bootstrap'])==2
+assert [r['zero_excluded'] for r in sensitivity['dirichlet']]==[True,True,True,True,False,False,False,False]
+assert [r['zero_excluded'] for r in sensitivity['two_stage_bootstrap']]==[True,False]
+assert sensitivity['environment']['cpu_seconds']<300
+reviews=json.loads((J/'model-review-dispositions.json').read_text())
+assert [r['id'] for r in reviews['dispositions']]==[f'R{i}' for i in range(1,11)]+[f'G{i}' for i in range(1,7)]
 assert not re.search(r'§[47]|Appendix A\.3',sup),'stale supplementary cross-reference'
 meta=json.loads((J/'author-metadata.json').read_text())
 assert meta['sole_author']=='Yohei Nakajima' and meta['corresponding_email']=='yohei@untapped.vc'

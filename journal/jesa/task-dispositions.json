@@ -102,9 +102,9 @@
     {
       "id": "MARGINAL-015",
       "status": "milestone-complete",
-      "result": "Title consistent; abstract130words",
+      "result": "Journal title revised to model-dependent uncertainty; publicv1title unchanged",
       "evidence": "manuscript.md/.pdf; cover-letter-draft.md",
-      "remaining": "Public v1 title retained; no renaming of posted work."
+      "remaining": "Abstract within150words; exact final count inword-count.json. Title reflects corrected registration/contrast evidence."
     },
     {
       "id": "MARGINAL-016",
@@ -178,10 +178,10 @@
     },
     {
       "id": "MARGINAL-026",
-      "status": "milestone-complete",
-      "result": "Builder checks and bounded manager exact-candidate preparation review complete at d36fc3dc0e8e17f7f6c0cf17f4eb008ef1bf3676",
-      "evidence": "check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json",
-      "remaining": "Manager checked all 56 package/all 1,078 baseline hashes, scoped 29-file diff, disclosure/tool-history sources and changed rendered pages (main 1/2/7, SI 2/3, instructions 2), retaining builder all-page QA and prior scientific preparation review. No content/layout defect found within that scope; not independent human/scientific certification or author attestation. Final author and publisher gates remain separate; no submission authority."
+      "status": "running",
+      "result": "Scientific correction after two-model review and saved-count contrast sensitivities; revised candidate review in progress",
+      "evidence": "model-review-dispositions.md/.json; contrast-sensitivity-plan.json; contrast-sensitivity.json; tools/contrast_sensitivity.py; visual-QA.json",
+      "remaining": "Prior acceptance historical; revised exact-candidate manager review, author approval and external gates remain. No new subjects/frozen evidence edits."
     },
     {
       "id": "MARGINAL-027",
@@ -228,9 +228,9 @@
     {
       "id": "MARGINAL-033",
       "status": "parked",
-      "result": "Optional DOI preservation not deposited",
-      "evidence": "README.md; evidence-manifest.json",
-      "remaining": "Existing immutable Git/release/arXiv pointers supplied; no account/archive/license/DOI action."
+      "result": "Trusted replication-archive/identifier/Data Editor compliance required at applicable publication step, not activated",
+      "evidence": "archive-policy-check.md; portal-and-fees.md",
+      "remaining": "Exact current policy/DOI workflow needs resolution; linked ESA policy404. No trusted archive or DOI deposit claimed; separate owner authority required for external action."
     },
     {
       "id": "MARGINAL-034",
