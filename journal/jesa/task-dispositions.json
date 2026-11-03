@@ -122,17 +122,17 @@
     },
     {
       "id": "MARGINAL-018",
-      "status": "waiting-owner",
-      "result": "Public identity baseline plus private-response worksheet template",
-      "evidence": "author-worksheet-template.md",
-      "remaining": "Exact affiliation/address/contact/ORCID and contributions require private owner confirmation."
+      "status": "milestone-complete",
+      "result": "Approved public author identity/contact/ORCID implemented",
+      "evidence": "author-metadata.json; manuscript/supplement/data-instructions source/PDF; declarations.md",
+      "remaining": "ORCID checksum passes; public resolver unverified, no OAuth/registry claim. Final candidate approval and any portal-only address fields remain separate."
     },
     {
       "id": "MARGINAL-019",
-      "status": "waiting-owner",
-      "result": "AI apparatus/assistance separation and recoverable history drafted",
-      "evidence": "author-worksheet-template.md; manuscript.md\u00a74\u20135; supplement.mdS2",
-      "remaining": "Actual full tools/versions/dates/access/purpose and author checking await confirmation; no exact model guessed from generic reviewer."
+      "status": "milestone-complete",
+      "result": "Source/history-based tool reconstruction implemented with explicit unknown versions",
+      "evidence": "tool-use-reconstruction.md/.json; manuscript.md\u00a75; supplement.mdS2.1",
+      "remaining": "Subject-model and assistance roles separated; known Claude/Explore Science/Replit Agent/Actions/Codex history sourced. Complete access logs/unknown backend versions cannot be reconstructed and are not owner recall blockers."
     },
     {
       "id": "MARGINAL-020",
@@ -144,9 +144,9 @@
     {
       "id": "MARGINAL-021",
       "status": "waiting-owner",
-      "result": "Funding/interests/support/acknowledgment template prepared",
-      "evidence": "author-worksheet-template.md",
-      "remaining": "No false none declaration; owner verifies all relevant financial/nonfinancial/compute support."
+      "result": "Approved support and known financial/tool relationships implemented",
+      "evidence": "declarations.md; author-metadata.json; manuscript.md\u00a75; cover-letter-draft.md",
+      "remaining": "Final completeness/wording approval and any additional relevant interests remain; no false none or independent sponsor assertion."
     },
     {
       "id": "MARGINAL-022",
@@ -158,9 +158,9 @@
     {
       "id": "MARGINAL-023",
       "status": "waiting-owner",
-      "result": "JESA-specific unsent cover letter drafted",
+      "result": "Named JESA-specific unsent cover letter updated with public support/relationships",
       "evidence": "cover-letter-draft.md",
-      "remaining": "Author exclusivity/overlap/identity/declaration statements unresolved; do not send with placeholders."
+      "remaining": "Final candidate/rights/ethics approval and fresh journal history/exclusivity/overlap check remain. No sending authorized."
     },
     {
       "id": "MARGINAL-024",
@@ -178,10 +178,10 @@
     },
     {
       "id": "MARGINAL-026",
-      "status": "milestone-complete",
-      "result": "Builder integrity/source/numeric/PDF checks and manager exact-candidate preparation review complete at d73537e4a14e6fd378a2a25be52d51a73177f491",
+      "status": "running",
+      "result": "Revised author/disclosure candidate built and checked; prior manager scientific/layout acceptance retained historically",
       "evidence": "check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json",
-      "remaining": "Author approvals and publisher/portal/fee gates remain waiting under their own task IDs; not submission-ready. Manager review is not independent specialist reproduction or owner attestation."
+      "remaining": "Prior accepted source d73537e4a14e6fd378a2a25be52d51a73177f491 remains recorded. Changed author/disclosure pages need exact-candidate manager review; no new experiment/replay required. Owner/external gates remain separate."
     },
     {
       "id": "MARGINAL-027",

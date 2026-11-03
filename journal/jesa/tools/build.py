@@ -43,7 +43,9 @@ for name in ('manuscript','supplement','data-instructions'):
     # Wrap shell example verbatim at a safe line width using source line breaks.
     latex=subprocess.check_output(['pandoc','--from=markdown+autolink_bare_uris+tex_math_dollars+tex_math_single_backslash+raw_tex','--to=latex','--syntax-highlighting=none','--top-level-division=section'],input=md,text=True,cwd=J)
     latex=re.sub(r'\\includegraphics(?:\[[^\]]*\])?\{',r'\\includegraphics[width=.95\\linewidth]{',latex)
-    latex=latex.replace(r'\subsection{References}',r'\begingroup\small\setlength{\parskip}{3pt}'+r'\subsection{References}')
+    refspace='0.5pt' if name=='manuscript' else '3pt'
+    refleading=r'\setlength{\baselineskip}{11pt}' if name=='manuscript' else ''
+    latex=latex.replace(r'\subsection{References}',r'\begingroup\small\setlength{\parskip}{'+refspace+'}'+refleading+r'\subsection{References}')
     if r'\begingroup' in latex:latex+=r'\endgroup'
     tex=J/(name+'.tex');tex.write_text(header.read_text()+latex+'\n'+r'\end{document}'+'\n')
     subprocess.run(['tectonic','--only-cached','--untrusted','--keep-logs',name+'.tex'],cwd=J,check=True)
@@ -63,5 +65,7 @@ with zipfile.ZipFile(J/'jesa-source.zip','w',zipfile.ZIP_DEFLATED) as z:
  for name in ('manuscript','supplement','data-instructions'):
   for ext in ('md','tex'):z.write(J/(name+'.'+ext),name+'.'+ext)
  z.write(header,'layout.tex')
+ for extra in ('declarations.md','author-metadata.json','tool-use-reconstruction.md','tool-use-reconstruction.json'):
+  z.write(J/extra,extra)
  for f in sorted((J/'figures').glob('*.pdf')):z.write(f,'figures/'+f.name)
 print(json.dumps(count,indent=2))

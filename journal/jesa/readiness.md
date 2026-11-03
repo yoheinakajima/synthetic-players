@@ -1,11 +1,11 @@
 # Task disposition and readiness
 
-**Status: waiting-owner.** The source packet is reviewable; it is not submission-ready. The main article, source/PDFs, full scientific and instruction appendices, citation/claim audits, count-derived offline replay, rights inventory, public author worksheet template and unsent cover letter are complete as preparation. Manager exact-candidate cross-review is complete at `d73537e4a14e6fd378a2a25be52d51a73177f491`: all 7 main, 22 supplement, and 44 instruction pages, all 52 package file hashes, 1,078 baseline files, all 34 task IDs, and the portable checker were accepted with the stated scientific limits. This is not independent specialist reproduction or author attestation. No existing source evidence or public v1 byte was changed.
+**Status: waiting-owner.** Approved public author identity/contact/ORCID, Untapped support and known relationships are incorporated into the named candidate. AI/tool history is reconstructed from pinned source/history with unknown models left explicit. The original scientific candidate was accepted by the manager at `d73537e4a14e6fd378a2a25be52d51a73177f491` (7 main,22 supplement,44 instruction pages), with stated limits and without independent specialist reproduction or author attestation. This author/disclosure revision preserves the scientific evidence and needs review of changed rendered pages. No baseline evidence or public-v1 byte is changed. Final author approval and external gates remain; no submission occurred.
 
 ## Remaining real gates
 
-1. Private author confirmation of identity/ORCID/contributions, ethics/human-data determination, funding/interests/support/rights, recoverable AI history, current journal history/exclusivity and overlap. Recommended scope remains fixed panel/existing evidence; no new study needed for the bounded claim. Completed private answers must not enter public Git or Atlas.
-2. Author approval of final manuscript and figure descriptions. The manager review portion is complete; author attestations remain unresolved.
+1. Final author confirmation of contributions, ethics/human-data determination, rights, completeness of additional interests/support, and current/past journal history/exclusivity and overlap. Public identity/support/known interests are supplied and implemented; recoverable AI history is reconstructed, with unknown versions documented rather than returned to the owner as a recall task. Recommended scope remains fixed panel/existing evidence; no new study needed for the bounded claim. Completed private answers must not enter public Git or Atlas.
+2. Author approval of final manuscript and figure descriptions. Prior manager scientific review is complete; changed author/disclosure-page review and author attestations remain separate.
 3. Separately authorized portal inspection for exact file/field designations and generated PDF preview. Necessary preprints are accurately versioned; resolve official published/accepted-list wording against express preprint allowance without pretending editor permission.
 4. Authoritative payable APC/tax/eligibility clarification: official table and prose conflict. Owner later chooses truthful coverage/waiver route, compatible license and exact obligation cap. No fee/contact/account/license action is currently authorized.
 5. Submission, merge, public arXiv correction and DOI deposit are distinct later decisions. Preparation/pushing one draft source PR implies none of them.
@@ -82,13 +82,13 @@ Vector assets, readable captions and alt-description draft prepared. Evidence: f
 
 Author–year, cited-only alphabetical lists, exact versions and page numbers. Evidence: manuscript/supplement source/PDF; references.json; check_package.py. Necessary accurate preprints retained; published/accepted-list wording versus express preprint permission needs final portal interpretation; no editor contact.
 
-### MARGINAL-018 — waiting-owner
+### MARGINAL-018 — milestone-complete
 
-Public identity baseline plus private-response worksheet template. Evidence: author-worksheet-template.md. Exact affiliation/address/contact/ORCID and contributions require private owner confirmation.
+Approved public author identity/contact/ORCID implemented. Evidence: author-metadata.json; manuscript/supplement/data-instructions source/PDF; declarations.md. ORCID checksum passes; public resolver unverified, no OAuth/registry claim. Final candidate approval and any portal-only address fields remain separate.
 
-### MARGINAL-019 — waiting-owner
+### MARGINAL-019 — milestone-complete
 
-AI apparatus/assistance separation and recoverable history drafted. Evidence: author-worksheet-template.md; manuscript.md§4–5; supplement.mdS2. Actual full tools/versions/dates/access/purpose and author checking await confirmation; no exact model guessed from generic reviewer.
+Source/history-based tool reconstruction implemented with explicit unknown versions. Evidence: tool-use-reconstruction.md/.json; manuscript.md§5; supplement.mdS2.1. Subject-model and assistance roles separated; known Claude/Explore Science/Replit Agent/Actions/Codex history sourced. Complete access logs/unknown backend versions cannot be reconstructed and are not owner recall blockers.
 
 ### MARGINAL-020 — waiting-owner
 
@@ -96,7 +96,7 @@ Synthetic/human-reference classification drafted. Evidence: author-worksheet-tem
 
 ### MARGINAL-021 — waiting-owner
 
-Funding/interests/support/acknowledgment template prepared. Evidence: author-worksheet-template.md. No false none declaration; owner verifies all relevant financial/nonfinancial/compute support.
+Approved support and known financial/tool relationships implemented. Evidence: declarations.md; author-metadata.json; manuscript.md§5; cover-letter-draft.md. Final completeness/wording approval and any additional relevant interests remain; no false none or independent sponsor assertion.
 
 ### MARGINAL-022 — milestone-complete
 
@@ -104,7 +104,7 @@ Immutable archive, codebook, environment and candidate hashes supplied. Evidence
 
 ### MARGINAL-023 — waiting-owner
 
-JESA-specific unsent cover letter drafted. Evidence: cover-letter-draft.md. Author exclusivity/overlap/identity/declaration statements unresolved; do not send with placeholders.
+Named JESA-specific unsent cover letter updated with public support/relationships. Evidence: cover-letter-draft.md. Final candidate/rights/ethics approval and fresh journal history/exclusivity/overlap check remain. No sending authorized.
 
 ### MARGINAL-024 — blocked-user
 
@@ -114,9 +114,9 @@ Public-policy checklist and exact future portal checks prepared. Evidence: porta
 
 Conflicting official APC evidence preserved. Evidence: portal-and-fees.md; author-worksheet-template.md. USD3655/2925table versus3450/2760prose,pluspotentialtaxes;payableamount/eligibility/license/cap unresolved;nocontact/obligationauthorized.
 
-### MARGINAL-026 — milestone-complete
+### MARGINAL-026 — running
 
-Builder checks and manager exact-candidate review are complete for the preparation milestone at `d73537e4a14e6fd378a2a25be52d51a73177f491`. Evidence: check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json. Manager accepted interval qualification, corrected references, chronology, counts, metadata-window limits, cross-references, and all rendered pages with the stated scientific limits. This is not independent specialist reproduction or author attestation. Author and publisher gates remain waiting; the packet is not submission-ready.
+Revised author/disclosure candidate built and checked; prior manager scientific/layout acceptance retained historically. Evidence: check-package-receipt.json; visual-QA.json; native-checks.txt; package-manifest.json. Prior accepted source d73537e4a14e6fd378a2a25be52d51a73177f491 remains recorded. Changed author/disclosure pages need exact-candidate manager review; no new experiment/replay required. Owner/external gates remain separate.
 
 ### MARGINAL-027 — parked
 

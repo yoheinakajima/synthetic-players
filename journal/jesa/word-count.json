@@ -1,11 +1,11 @@
 {
   "method": "all source whitespace tokens including title/author/abstract/text/tables/captions/references/URLs, plus 200 per figure; conservative diagnostic, publisher adjudicates",
   "abstract": 130,
-  "before_references": 2352,
+  "before_references": 2508,
   "references": 381,
-  "all_source_tokens": 2735,
+  "all_source_tokens": 2891,
   "figures": 2,
   "figure_allowance": 400,
-  "inclusive_conservative": 3135,
+  "inclusive_conservative": 3291,
   "limit": 5000
 }

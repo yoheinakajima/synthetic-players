@@ -519,46 +519,46 @@ LaTeX Info: Redefining \nameref on input line 18.
 \@outlinefile=\write3
 \openout3 = `supplement.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 30.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
 
  (umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
 
  (umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-] [2]
-Underfull \hbox (badness 1881) in paragraph at lines 197--207
+] [2] [3]
+Underfull \hbox (badness 1881) in paragraph at lines 259--269
 \TU/TimesNewRoman(0)/m/n/10.95 The primary deployment is gpt-4.1 with 16-token
 outputs and a fixed minimal behavioral-subject
  []
 
-[3] [4] [5]
+[4] [5] [6]
 File: figures/between-prompt-share.pdf Graphic file (type pdf)
 <use figures/between-prompt-share.pdf>
- [6]
 File: figures/prompt-indexed-delta.pdf Graphic file (type pdf)
 <use figures/prompt-indexed-delta.pdf>
+ [7]
 File: figures/condition-means.pdf Graphic file (type pdf)
 <use figures/condition-means.pdf>
- [7] [8] [9]
+ [8] [9] [10]
 File: figures/representation-effects.pdf Graphic file (type pdf)
 <use figures/representation-effects.pdf>
- [10] [11]
+ [11] [12]
 File: figures/p13-audit.pdf Graphic file (type pdf)
 <use figures/p13-audit.pdf>
- [12] [13] [14] [15] [16] [17] [18]
-[19] [20]
-Underfull \hbox (badness 4792) in paragraph at lines 1344--1348
+ [13] [14] [15] [16] [17] [18] [19]
+[20] [21]
+Underfull \hbox (badness 4792) in paragraph at lines 1406--1410
 []\TU/TimesNewRoman(0)/m/n/10 Kumagae, Y., and Kaneko, M. (2026). Silicon sampl
 es match the answers but not the respondents.
  []
 
-[21] [22] (supplement.aux)
+[22] [23] (supplement.aux)
 Package rerunfilecheck Info: File `supplement.out' has not changed.
-(rerunfilecheck)             Checksum: 63A2358951ECB1D7C1179F9D83074B2B;7194.
+(rerunfilecheck)             Checksum: EA31CE46DB8482A9A8246CA300DF68E8;7558.
  )
-Output written on supplement.xdv (22 pages, 724396 bytes).
+Output written on supplement.xdv (23 pages, 759692 bytes).

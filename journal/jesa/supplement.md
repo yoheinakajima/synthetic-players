@@ -1,6 +1,9 @@
 # Supplement to Passing Coarse Marginal Checks Can Be Cheap
 
-Yohei Nakajima · Untapped Capital
+Yohei Nakajima\
+Untapped Capital, Bellevue, Washington, USA\
+Correspondence: yohei@untapped.vc\
+ORCID: https://orcid.org/0009-0009-1293-6053
 
 This journal supplement preserves the complete uncertainty, secondary-result, and correction record underlying the shortened main article. Sections S1–S5 concern the fixed historical deployment; no new observations were collected. The separate Data and Instructions appendix gives exact prompt and data pointers. All historical evidence URLs below are pinned to commit `62ab90beff1d291b069c87f13b6b6b3495171ddd`.
 
@@ -41,6 +44,18 @@ Exact chronology sources (all pinned):
 - [docs/reviews/README.md](https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/README.md)
 - [docs/reviews/round-2-methods-review.md](https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-2-methods-review.md)
 - [docs/analysis/dead-predictions-final.md](https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/analysis/dead-predictions-final.md)
+
+## S2.1. Research assistance, tool history, and relationships
+
+Subject models generated the observations: primary requests named gpt-4.1 and archived responses named gpt-4.1-2025-04-14; Gemini named gemini-2.5-flash without an immutable deployment revision. A rejected Phase 4 entry candidate named claude-haiku-4-5 and returned claude-haiku-4-5-20251001. Its 16-token truncation failure is part of apparatus testing, not evidence that the manuscript-review tool used Haiku. Earlier exploratory Phase 2 code named GPT-5 Mini via Replit AI Integrations, without a recorded immutable model revision; it is outside this article's confirmatory boundary.
+
+Research assistance was separate. Git commits dated July 24–29, 2026 attribute API/engine implementation, Phase 5 closeout, analysis integration and manuscript revisions to Replit Agent; its underlying foundation-model version is not recorded. The Round 2 methods review later expanded into specifying post-adjudication analyses and assisting integration; its model identity is not named. GitHub Actions executed fixed-seed archive analyses and builds; workflow execution and bot commit attribution do not identify a language model or establish independent human verification.
+
+The public archive names Claude reviews of v7, v8, v9 and v13 and final precision corrections, archived July 29–August 1, 2026. It names Explore Science reviews of v6, v10, v11 and v12, archived July 29–31. These were author-side AI manuscript/artifact reviews that informed corrections, not independent journal peer review. The records preserve reviewed artifact hashes, criticisms and dispositions, but not exact Claude foundation-model revisions, Explore Science backend models/service versions, complete access logs, or every assistance session. Generic reviewer labels are not expanded into guessed model identities. Later reconstruction checks concern the archive, not human substitutability or validation of all scientific claims.
+
+In November 2026, Codex assisted compression, literature/metadata checks, reconstruction of this disclosure, an isolated native-audit wrapper, and source/PDF packaging and checks. The task requested gpt-6.1-sol with high reasoning; this names the preparation configuration, not independently attested backend identity. No new subject-model observations were generated. The source-owned tool-use-reconstruction.json/.md records pinned paths, hashes, commit dates and recoverable roles; dates of archival commits need not be exact service-access times.
+
+The author is Founder and General Partner of Untapped Capital, with a financial interest through that role. Untapped Capital supported this research, including computational resources and model/API usage, and publicly lists Explore Science as a portfolio company. The author is a developer of ActiveGraph, the event-sourced runtime used here. These relationships are disclosed rather than treating the support as independent third-party funding or the AI reviews as arm's-length journal review. The human contribution and responsibility statement appears in the main article. The archive documents selection of research questions, approval of registered designs, adjudication of review recommendations and acceptance of responsibility; it does not prove personal independent verification of every derivation or reference.
 
 ## S3. Complete design, uncertainty, and principal results
 

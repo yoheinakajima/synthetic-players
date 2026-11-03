@@ -2,7 +2,7 @@
   "verdict": "PASS",
   "baseline_files_unchanged": 1078,
   "references": 39,
-  "count": 3135,
+  "count": 3291,
   "pdf_bounds": [
     {
       "pdf": "manuscript.pdf",
@@ -11,7 +11,7 @@
     },
     {
       "pdf": "supplement.pdf",
-      "pages": 22,
+      "pages": 23,
       "word_margin_violations": 0
     },
     {

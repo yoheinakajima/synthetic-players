@@ -1,0 +1,16 @@
+{
+  "sole_author": "Yohei Nakajima",
+  "affiliation": "Untapped Capital",
+  "location": "Bellevue, Washington, USA",
+  "corresponding_email": "yohei@untapped.vc",
+  "orcid": "0009-0009-1293-6053",
+  "orcid_basis": "Author supplied; MOD 11-2 checksum valid. Public resolver was inaccessible to the retrieval tool; no registry identity or OAuth authentication is claimed.",
+  "approved_public_facts_date": "2026-11-02 America/Los_Angeles",
+  "funding": "This research, including computational resources and model/API usage, was supported by Untapped Capital.",
+  "relationships": [
+    "Founder and General Partner of Untapped Capital, with a financial interest through that role.",
+    "Untapped Capital publicly lists Explore Science as a portfolio company; archived author-side manuscript reviews used Explore Science.",
+    "Developer of ActiveGraph, the event-sourced runtime used in the study."
+  ],
+  "scope": "Public facts approved for preparation; final candidate approval and external submission authority are separately tracked in readiness.md."
+}

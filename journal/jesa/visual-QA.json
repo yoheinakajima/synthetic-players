@@ -1,36 +1,37 @@
 {
-  "status": "PASS builder checks and manager final rendered review",
+  "status": "PASS builder checks and changed-page visual review; revised candidate manager review pending",
   "pdfs": [
     {
       "path": "manuscript.pdf",
-      "sha256": "e35bea293f7a00a837abe82c01031338082a741ce614723cf1d948e37b6e026f",
+      "sha256": "7edd180934b6389c44467a72b7d213c9c6c73ff2e8e8b20cbec9a3d5843bec21",
       "pages": 7
     },
     {
       "path": "supplement.pdf",
-      "sha256": "fdd8b74dbb177d09ff16180145a677817bbea0382b9a488ef2c25b446e4bb1b1",
-      "pages": 22
+      "sha256": "6120605ff136f1b5af8cc0ec0e3c3b20e37f0b2be052e7c45b0fa66db617edd4",
+      "pages": 23
     },
     {
       "path": "data-instructions.pdf",
-      "sha256": "db633b7986aa743cfb553e2933b5f226eecc053a9885bc16053fbabbc90d05a3",
+      "sha256": "74f2a5aa79e2b5614accd4e89e799689e7aed815bd058f62714b81686df841e7",
       "pages": 44
     }
   ],
-  "visual_scope": "Manager reviewed all 7 main, 22 supplement, and 44 instruction pages at the accepted candidate commit; all final PDF hashes and package/baseline identities were checked. Builder all-page bounds and exact registry/persona checks also pass.",
+  "visual_scope": "Builder reviewed all-page contact sheets (7 main,23 supplement,44 instructions) and full-size changed author/disclosure pages: main1/7, supplement1/3/4, instructions1/2. Final main7 rechecked after bibliography-only spacing refinement. Prior manager all-page scientific/layout acceptance is retained separately; updated candidate requires manager cross-review.",
   "checks": [
     "No overlapping/clipped body text observed after URL/pin/slash-list repair",
     "Final all-page bounds:0 word margin violations",
     "Final TeX logs:no overfull boxes or missing characters",
     "Figures retained as byte-identical vector assets with separate methods/units/captions",
-    "Main criterion table readable; references10pt; page numbers; supplementary historical discussion explicitly labeled superseded"
+    "Main criterion table readable; references10pt; page numbers; supplementary historical discussion explicitly labeled superseded",
+    "Main bibliography retains10pt type with11pt leading and0.5pt entry spacing; no scientific text or word count changes; two-entry tail now fits page7."
   ],
   "review_limits": [
-    "Author final approval and attestations remain unresolved; manager preparation review is complete",
+    "Final author approval and attestations remain unresolved; manager review of this author/disclosure revision is pending",
     "Contact-sheet thumbnails check layout; substantive claims checked in source and full-size relevant pages",
     "No claim of journal-system generated preview or arXiv-render parity"
   ],
-  "manager_review": {
+  "prior_manager_review": {
     "accepted_source_commit": "d73537e4a14e6fd378a2a25be52d51a73177f491",
     "reviewed_pages": {
       "manuscript": 7,

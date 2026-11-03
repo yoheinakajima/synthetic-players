@@ -1,5 +1,10 @@
 # Data and Instructions Appendix
 
+Yohei Nakajima\
+Untapped Capital, Bellevue, Washington, USA\
+Correspondence: yohei@untapped.vc\
+ORCID: https://orcid.org/0009-0009-1293-6053
+
 ## 1. Scope and immutable archive
 
 The data are synthetic model decisions and procedural records from the historical study, not a new human sample. Readable instructions below retain all template fields; exact byte files are `evidence/registry.json` and `evidence/personas-v4.json`, copied from source commit `62ab90beff1d291b069c87f13b6b6b3495171ddd`. No prompt was regenerated. The sealed arm and schedule files define numeric bindings, seed lanes, horizons, role/display mappings, and permitted replacements; their immutable URLs and hashes are in `evidence-manifest.json`.
@@ -22,6 +27,10 @@ The archived request model is gpt-4.1; responses record gpt-4.1-2025-04-14. Phas
 - phase5: 2026-07-28T14:59:14Z to 2026-07-28T18:18:04Z, 8766 response events.
 
 Gemini and legacy provider-created windows are not recorded in this field; seals/reports supply the separate documented chronology. This is not a fabricated complete event-time audit. The metadata summary joins request/response IDs **within run_id**, because IDs can repeat across runs. Totals reconcile36,251 ordinary requests and36,227 responses; the24 missing responses are Phase4 Gemini failed-run partials. Exact fields, counts, query and decompressed-data SHA are in `evidence/provider-provenance.json`; existing field-coverage CSV gives20390 provider-created timestamps versus30397 Phase4–5 responses.
+
+### 2.2 Subject apparatus versus research assistance
+
+GPT-4.1 and Gemini generated the archived observations; the failed Claude Haiku entry test belongs to apparatus evaluation. Claude and Explore Science manuscript reviews, Replit Agent implementation/analysis/writing, and the later Codex journal preparation are separate research-assistance roles. Supplement S2.1 and the source-owned tool-use reconstruction give recoverable dates, exact known identifiers and unknown versions. They are not additional subject observations or independent journal peer review. Untapped Capital supported computation/model usage; the author is its Founder and General Partner, has a financial interest through that role, and is an ActiveGraph developer. Explore Science, used for author-side manuscript review, is publicly listed in Untapped Capital's portfolio.
 
 ## 3. Reproduction instructions
 

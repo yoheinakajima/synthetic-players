@@ -1,0 +1,248 @@
+{
+  "baseline_commit": "62ab90beff1d291b069c87f13b6b6b3495171ddd",
+  "scope": "Recoverable public source/history plus directly observed journal preparation; not a complete service-access log or independent journal review",
+  "roles": [
+    {
+      "role": "subject apparatus",
+      "tool": "GPT-4.1",
+      "requested": "gpt-4.1",
+      "returned": "gpt-4.1-2025-04-14",
+      "route": "historical Replit AI integration; richer Phase 4\u20135 capture",
+      "limits": "Not a writing/review model identification; provider-created windows are partial, not signed attestations."
+    },
+    {
+      "role": "descriptive subject apparatus",
+      "tool": "Gemini",
+      "requested": "gemini-2.5-flash",
+      "returned": "gemini-2.5-flash",
+      "limits": "Immutable endpoint revision unknown; drift described in study."
+    },
+    {
+      "role": "failed entry apparatus test",
+      "tool": "Claude Haiku",
+      "requested": "claude-haiku-4-5",
+      "returned": "claude-haiku-4-5-20251001",
+      "limits": "16-token truncation failure; not the identity of Claude review assistance."
+    },
+    {
+      "role": "earlier exploratory apparatus",
+      "tool": "GPT-5 Mini via Replit AI Integrations",
+      "requested": "llm-gpt-5-mini",
+      "limits": "Immutable revision unknown; outside current confirmatory boundary."
+    },
+    {
+      "role": "implementation, analysis integration and writing",
+      "tool": "Replit Agent",
+      "dates": "archived commits July 24\u201329, 2026",
+      "limits": "Underlying foundation-model version unknown; commit attribution identifies agent account, not all session contents."
+    },
+    {
+      "role": "post-adjudication analysis specification and integration",
+      "tool": "Round 2 methods reviewer",
+      "dates": "review archive July 2026",
+      "limits": "Model identity unknown; role transition disclosed."
+    },
+    {
+      "role": "author-side manuscript/artifact review",
+      "tool": "Claude",
+      "dates": "v7/v8/v9/v13 reviews and final corrections archived July 29\u2013August 1, 2026",
+      "limits": "Exact foundation-model versions and complete service-access logs unknown."
+    },
+    {
+      "role": "author-side manuscript review",
+      "tool": "Explore Science",
+      "dates": "v6/v10/v11/v12 reviews archived July 29\u201331, 2026",
+      "limits": "Backend model and service versions unknown; Untapped Capital portfolio relationship disclosed."
+    },
+    {
+      "role": "analysis/build execution",
+      "tool": "GitHub Actions",
+      "limits": "Executor, not an identified language model or independent human verifier."
+    },
+    {
+      "role": "journal compression, reference/provenance audit, offline verification wrapper, source/PDF packaging",
+      "tool": "Codex",
+      "dates": "November 2\u20133, 2026 (local/UTC boundary)",
+      "requested_configuration": "gpt-6.1-sol; high reasoning",
+      "limits": "Preparation task configuration, not provider-attested backend identity. No new subject-model data."
+    }
+  ],
+  "pinned_files": [
+    {
+      "path": "docs/paper/paper.md",
+      "sha256": "b6c8a95d5eba541d23256b36ab3a1c64c4d89a4db52f66762291bc9409d00dc4",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/paper/paper.md",
+      "latest_baseline_commit": "4c9162ec5f9ac9421e45750af9601b2c9fe6cc15",
+      "commit_author_date": "2026-08-01T22:19:13+00:00",
+      "commit_subject": "Install and seal canonical arXiv release artifacts"
+    },
+    {
+      "path": "docs/reviews/README.md",
+      "sha256": "aa5a995352fa2fe89c25a3cc06e77538053e063f63438247b24d869f25e3bf10",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/README.md",
+      "latest_baseline_commit": "f3b9804ed21f7f54d87f231834139718d421b833",
+      "commit_author_date": "2026-07-30T22:58:48+00:00",
+      "commit_subject": "build and validate near-arXiv preprint v12 [skip ci]"
+    },
+    {
+      "path": "docs/reviews/round-2-methods-review.md",
+      "sha256": "e73b9ba3f8790105f4a7e186c6fe15cbc33a4091bf37e9d4466ed4c0d6ec0851",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-2-methods-review.md",
+      "latest_baseline_commit": "8772a901a29a0fc2180ae173a369d35bb02a85d6",
+      "commit_author_date": "2026-07-29T12:28:20-07:00",
+      "commit_subject": "Prepare reviewer-ready paper and public analysis surface"
+    },
+    {
+      "path": "docs/reviews/round-5-explore-science-review.md",
+      "sha256": "2f4bb1825de23910c03c14ac2033d668cda35b1f5aa772464bf1c539e71e3a29",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-5-explore-science-review.md",
+      "latest_baseline_commit": "5806f4622759b5e6d5e4dd3543c7e5eb67ab28eb",
+      "commit_author_date": "2026-07-29T16:27:58-07:00",
+      "commit_subject": "archive Explore Science v6 review"
+    },
+    {
+      "path": "docs/reviews/round-6-claude-v7-review.md",
+      "sha256": "ce83db4c8190814a84948103b8ba8ae588cfae5eb554966f2d99844a2afcc8f9",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-6-claude-v7-review.md",
+      "latest_baseline_commit": "eff3df966d27e44b959af2f12ee21f32fc0b2c99",
+      "commit_author_date": "2026-07-29T21:56:11-07:00",
+      "commit_subject": "record validated v8 disposition and artifact identity"
+    },
+    {
+      "path": "docs/reviews/round-7-claude-v8-review.md",
+      "sha256": "07d26d2554bad02cf83659088444a868449fd2b8de4aeb52ea96c25078518a95",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-7-claude-v8-review.md",
+      "latest_baseline_commit": "3fac316db937b38b18963301783350cfb6696ab7",
+      "commit_author_date": "2026-07-30T06:34:59-07:00",
+      "commit_subject": "archive Claude v8 review"
+    },
+    {
+      "path": "docs/reviews/round-8-claude-v9-freeze-review.md",
+      "sha256": "1f305072b4ea96a9104fc9bc768f4a95329e2eea04faf942edfad00ab36566a5",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-8-claude-v9-freeze-review.md",
+      "latest_baseline_commit": "59e64a9365b41666f117bb02f1c163e64ba31697",
+      "commit_author_date": "2026-07-30T06:35:15-07:00",
+      "commit_subject": "archive Claude v9 freeze review"
+    },
+    {
+      "path": "docs/reviews/round-9-explore-science-v10-review.md",
+      "sha256": "d07806cf92a6c9d7ce9902f807cf143667a10e3f9fc3d20b74a2d14dfdee6431",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-9-explore-science-v10-review.md",
+      "latest_baseline_commit": "cb34a0c351c25e6af9086159a881b8009375b8d2",
+      "commit_author_date": "2026-07-30T09:30:58-07:00",
+      "commit_subject": "archive Explore Science v10 review summary"
+    },
+    {
+      "path": "docs/reviews/round-10-explore-science-v11-review.md",
+      "sha256": "89501a008a627d88b40227e7c75fa2177f9f5ea13bbce61c52055e3fcd1b4136",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-10-explore-science-v11-review.md",
+      "latest_baseline_commit": "571bf49254f874b886d9ed34d247fbf155be0638",
+      "commit_author_date": "2026-07-30T14:24:28-07:00",
+      "commit_subject": "archive Explore Science v11 review summary"
+    },
+    {
+      "path": "docs/reviews/round-11-explore-science-v12-review.md",
+      "sha256": "8d14edbb025bdb3214f36cfd16bc002ebdfec7ab4874dd4ef88301f61f64aaac",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-11-explore-science-v12-review.md",
+      "latest_baseline_commit": "22c47e2e0a6748f05591ff267f7d3217c5daf0a2",
+      "commit_author_date": "2026-07-31T03:56:27+00:00",
+      "commit_subject": "build and validate preprint v13 for Claude review [skip ci]"
+    },
+    {
+      "path": "docs/reviews/round-12-claude-v13-review.md",
+      "sha256": "a47e625862fd5cd0d85dab8eac232740f73dfd24afd21147be70a8de9c1d1ec8",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-12-claude-v13-review.md",
+      "latest_baseline_commit": "4da305847e0b1667ad7a45c1e5b1ea55ac2641c6",
+      "commit_author_date": "2026-07-31T14:19:54+00:00",
+      "commit_subject": "build and validate final preprint v14 [skip ci]"
+    },
+    {
+      "path": "docs/reviews/round-14-middle-path-finalization.md",
+      "sha256": "304cece09d29f8cc26b7743b91ccf7f354e33f185506b7352ab0923e75d0263a",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/reviews/round-14-middle-path-finalization.md",
+      "latest_baseline_commit": "4c9162ec5f9ac9421e45750af9601b2c9fe6cc15",
+      "commit_author_date": "2026-08-01T22:19:13+00:00",
+      "commit_subject": "Install and seal canonical arXiv release artifacts"
+    },
+    {
+      "path": "docs/phase4/provider-packet.md",
+      "sha256": "9d1b632432c7c322b971d611b68d75394e973422809689787561d35e45b4920c",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/phase4/provider-packet.md",
+      "latest_baseline_commit": "ab046061ebb77394adfbc0940a74e589aa335c53",
+      "commit_author_date": "2026-07-24T19:06:45+00:00",
+      "commit_subject": "Phase 4 step 3 complete: external anchor recorded (tag phase4-v3-seal, release 2026-07-24T19:04:16Z) in seal record, freeze packet, provider packet"
+    },
+    {
+      "path": "docs/phase4/gate0-report-round1-claude-FAIL.md",
+      "sha256": "01c2fec60da9052e9530b08d77c1aa0a8b1c46c324cb3d742df1e0d982457818",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/docs/phase4/gate0-report-round1-claude-FAIL.md",
+      "latest_baseline_commit": "ddf4e8d55542db7fc3d766f17f0374835e63432c",
+      "commit_author_date": "2026-07-29T06:14:48+00:00",
+      "commit_subject": "pre-flip clearance: banners on 4 unpinned draft docs, OPERATOR-STEPS superseded (capsule rebuilt, manifest re-verified); secret sweeps tree+full-history clean"
+    },
+    {
+      "path": "scripts/run-phase2-track2.mjs",
+      "sha256": "17f5fe54bc892e406ab2b652bdb87ef173771299a688787f0f20d400630c1787",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/scripts/run-phase2-track2.mjs",
+      "latest_baseline_commit": "19bb0c9ceebad4c2bce5f9f92efd74e46216dcf5",
+      "commit_author_date": "2026-07-24T04:18:30+00:00",
+      "commit_subject": "Update API engine and experiment service implementation and documentation"
+    },
+    {
+      "path": ".github/workflows/submission-gate-analyses.yml",
+      "sha256": "27bfcc5220e3c7295a2bb4d01a118ebad4a25eac8cf750ba3bc6ef367002d76c",
+      "url": "https://github.com/yoheinakajima/synthetic-players/blob/62ab90beff1d291b069c87f13b6b6b3495171ddd/.github/workflows/submission-gate-analyses.yml",
+      "latest_baseline_commit": "f2240859e95eb82c154e26726a6411877443c11a",
+      "commit_author_date": "2026-08-01T14:55:54-07:00",
+      "commit_subject": "Fence historical v11 workflow from final release branches"
+    }
+  ],
+  "agent_history_examples": [
+    {
+      "commit": "19bb0c9ceebad4c2bce5f9f92efd74e46216dcf5",
+      "author": "Replit Agent",
+      "author_date": "2026-07-24T04:18:30+00:00",
+      "subject": "Update API engine and experiment service implementation and documentation"
+    },
+    {
+      "commit": "3152552d482830b135ac19af51e0c48084bfd432",
+      "author": "Replit Agent",
+      "author_date": "2026-07-24T13:03:02+00:00",
+      "subject": "Update api server logic and agent documentation"
+    },
+    {
+      "commit": "19f571e2dfcb33680fd9b9c53ab7693368e1c6fb",
+      "author": "Replit Agent",
+      "author_date": "2026-07-24T13:37:41+00:00",
+      "subject": "Update honest science pipeline logic and extend llm engine capabilities"
+    },
+    {
+      "commit": "26bef336166110ae6b81561828aeae5bcf829f16",
+      "author": "Replit Agent",
+      "author_date": "2026-07-28T19:20:27+00:00",
+      "subject": "Implement phase 5 closeout adjudication logic"
+    },
+    {
+      "commit": "78467c92375a8602ce4690eca548c074ef28fa05",
+      "author": "replit-agent",
+      "author_date": "2026-07-29T04:11:47+00:00",
+      "subject": "R2 revision round: p13 family audit + ledger downgrade entry, claim-dependency audit + relabeling pass, propositions A/B, persona table, hierarchy/estimands, cut map, DF microdata stub + selftested reanalysis, public capsule (bundle+tar, clean-dir verification PASS), freeze_lint C8"
+    },
+    {
+      "commit": "fbfe6018805781aac61f21091dbd33c91a13b105",
+      "author": "replit-agent",
+      "author_date": "2026-07-29T04:19:33+00:00",
+      "subject": "R2 review fixes: p13 suggestive-status propagated to all living analysis docs (+ generator), fail-closed DF coop recoding, two-layer capsule secret scan (case-sensitive token formats), capsule rebuilt + clean-dir verification re-PASS"
+    }
+  ],
+  "public_relationship_sources": [
+    "https://untapped.vc/",
+    "https://github.com/yoheinakajima/activegraph/blob/7070112c63b7cffc4b3aef8b7e907c8f2f9a9165/NOTICE"
+  ],
+  "unknowns": [
+    "Exact foundation-model versions for Replit Agent, Claude reviews and Round 2 reviewer; Explore Science backend/service versions.",
+    "Complete access/session chronology and unarchived assistance cannot be reconstructed.",
+    "Commit/archive dates are not asserted to be exact tool-access dates."
+  ],
+  "human_record": "Sole human author selected questions, approved registered designs, adjudicated review recommendations and accepted responsibility; not proof of independent manual verification of every result."
+}

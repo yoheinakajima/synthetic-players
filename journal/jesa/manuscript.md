@@ -1,7 +1,9 @@
 # Passing Coarse Marginal Checks Can Be Cheap: Persona Mixtures and Imprecise Treatment-Response Estimates in an LLM Persona Panel
 
 Yohei Nakajima\
-Untapped Capital
+Untapped Capital, Bellevue, Washington, USA\
+Correspondence: yohei@untapped.vc\
+ORCID: https://orcid.org/0009-0009-1293-6053
 
 ## Abstract
 
@@ -99,7 +101,9 @@ The immutable evidence baseline is repository commit `62ab90beff1d291b069c87f13b
 
 Phase 3 lacks the richer response IDs and request-body hashes of Phases 4–5. The latter contain 30,421 request events and 30,397 response events; twenty-four failed-run partials are excluded from completed analyses but retained in accounting. Snapshot checksums and timestamps detect changes relative to publication; they are not provider attestation or proof of immutability from receipt. Replay reconstructs archived behavior without live models and cannot establish human validity or adequate power.
 
-Author affiliation/contact/ORCID, contributions, actual funding/support, interests, human-data determination, rights, full AI assistance history, and current journal history await author confirmation in a separate worksheet. This review candidate must not be submitted with unresolved declarations. Subject-model apparatus and AI assistance are distinct: archived subject models generated observations; AI coding, writing, analysis, and adversarial-review roles require the author-approved disclosure. AI systems are not authors.
+**Funding and competing interests.** This research, including computational resources and model/API usage, was supported by Untapped Capital. The author is its Founder and General Partner and has a financial interest through that role. Untapped Capital lists Explore Science as a portfolio company; the author used Explore Science for manuscript review. The author is also a developer of ActiveGraph, the event-sourced runtime used here. Support was through the author and firm, rather than an independent third-party sponsor.
+
+**AI assistance and author responsibility.** Subject-model observations (GPT-4.1, descriptive Gemini, and a failed Claude Haiku entry candidate) are distinct from assistance with research. Archived Claude and Explore Science reviews informed critique and revision; Replit Agent contributed implementation, analysis integration, and manuscript revision. The Round 2 methods reviewer later helped specify analyses. Exact underlying assistance-model versions are not recorded. Codex, with task configuration gpt-6.1-sol/high, assisted the November 2026 journal compression, citation audit, offline verification wrapper, and source/PDF preparation; this configuration is not provider attestation. Supplement S2.1 records sources, dates, roles, and unknowns. These author-side AI reviews are not journal peer review. AI systems are not authors. The sole human author selected the questions, approved registered designs, adjudicated review recommendations, and accepts responsibility for the article; this does not assert independent personal rederivation of every archived result.
 
 ## References
 

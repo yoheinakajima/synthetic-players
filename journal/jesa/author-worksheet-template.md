@@ -1,11 +1,11 @@
 # Author worksheet template — complete privately
 
-This public template contains **no owner answers or private correspondence**. Save completed answers outside public Git. These fields are unresolved; do not convert blanks into “none.” The final manuscript declarations and cover letter require author approval before any upload.
+This public template contains approved public author facts and remaining questions, with no private correspondence or raw intake. Save completed private answers outside public Git. Do not convert unresolved fields into “none.” The concrete manuscript declarations and unsent cover letter require final author approval before any upload.
 
 ## Identity, contributions, and current journal history
 
-- Exact author name(s)/order and accountability approval; current public baseline lists Yohei Nakajima only.
-- Affiliation where work was conducted/supported, city/state/country, postal address, corresponding email, and ORCID. Public preprint lists Untapped Capital; this does not confirm all required metadata.
+- Approved public identity: sole author Yohei Nakajima. Final accountability/candidate approval remains separate.
+- Approved public affiliation/location/contact: Untapped Capital; Bellevue, Washington, USA; yohei@untapped.vc; ORCID0009-0009-1293-6053. ORCID is author supplied and checksum valid; public resolver retrieval failed, with no registry/OAuth claim. Supply postal address only if the actual portal requires it; do not repeat identity questions already answered.
 - Human contributions/acknowledgments and any authorship change, with all contributors' agreement. Proposed CRediT categories for review: conceptualization, methodology, software, validation, formal analysis, investigation, data curation, visualization, writing, supervision, funding acquisition. Do not assume every category applies.
 - Fresh current and past journal submissions, IDs/statuses, overlap/companion manuscripts and any permissions. Confirm exclusivity immediately before submission, not from an older chat.
 - Proposed keywords: synthetic participants; experimental validation; repeated games; persona conditioning; large language models. Proposed JEL C72/C73/C90; author selects if requested.
@@ -16,21 +16,21 @@ Confirm whether the project collected any new human participation, or processed 
 
 ## Funding, interests, support, and rights
 
-Identify financial/compute/API/in-kind support and funder roles, or explicitly confirm no such support. Identify relevant financial and nonfinancial interests, including apparatus/business interests, employment, investments, or relationships, or explicitly confirm none. Do not infer that Untapped Capital's public attribution establishes funding or absence of conflicts.
+Approved public support: “This research, including computational resources and model/API usage, was supported by Untapped Capital.” The author is its Founder and General Partner, with a financial interest through that role. Explore Science is publicly listed in Untapped Capital's portfolio and was used for author-side manuscript review. The author is an ActiveGraph developer. These are incorporated into declarations.md and the candidate, without implying independent third-party funding. Confirm any additional relevant interests/support/acknowledgments and final wording; do not reopen supplied facts as missing.
 
 Confirm ownership/redistribution rights for code, manuscript, generated figures, prompts, archived model completions, derived reference values, and any reused source material. Repository declaration is MIT for code and CC BY4.0 for research artifacts; it is not independent proof of provider-contract rights. No third-party figures were imported into this candidate. Do not accept a new journal license or change historical licenses through this worksheet.
 
 ## AI assistance history
 
-Separate **subject-model apparatus** (GPT-4.1 primary; Gemini descriptive; Claude Haiku entry failure) from **research assistance**. For coding, analysis specification/execution, writing/editing, literature checks, adversarial review, and figure production: supply tool/vendor, recoverable model/version, access route, dates, purpose, human checking and unknown details. Public review archive identifies Claude and Explore Science in some rounds; generic “AI reviewer” is not an exact model identity. Round2 reviewer later helped specify post-adjudication analyses/integration. The 2026-11-02 journal-preparation work used Codex for compression, reference checks, offline replay wrapper, source/PDF packaging and local checks; exact task model is manager-assigned gpt-6.1-sol/high, not a subject-model update. Human approval/accountability remains required.
+The recoverable history has been reconstructed in tool-use-reconstruction.md/.json and Supplement S2.1. Subject apparatus (GPT-4.1/Gemini, rejected Haiku entry candidate and earlier exploratory GPT-5 Mini) is separate from Replit Agent implementation/analysis/writing, Claude/Explore Science reviews, an unnamed Round 2 reviewer's later analysis role, GitHub Actions execution and Codex journal preparation. Unrecorded model/service versions and exact access times remain explicit unknowns; the owner is not asked to reconstruct them from memory. Review the concrete disclosure for accuracy; AI systems are not authors and author-side AI review is not journal peer review.
 
-## Suggested declaration structure — unresolved draft
+## Final checks against concrete declarations
 
 Author contribution: [author-approved truthful statement].
-Funding/support and funder role: [author-confirmed statement].
-Competing interests: [author-confirmed financial/nonfinancial statement].
+Funding/support and role: approved wording implemented; confirm completeness.
+Competing interests: known relationships implemented; confirm any additional relevant interests.
 Ethics/human-data determination: [actual determination and basis].
-AI research/writing assistance: [verified history; methods versus acknowledgments separated; unknowns explicit].
+AI research/writing assistance: source-reconstructed history implemented; unknown versions remain unknown.
 Data/code/instructions: use immutable commit/candidate manifests in article and appendices.
 Rights/permissions: [author-confirmed statement, exclusions if any].
 Acknowledgments: [credit and permissions, if applicable].

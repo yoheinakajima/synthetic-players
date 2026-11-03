@@ -519,35 +519,34 @@ LaTeX Info: Redefining \nameref on input line 18.
 \@outlinefile=\write3
 \openout3 = `manuscript.out'.
 
- [1
+LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
 
-]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 114
-.
  (umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 114
-.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
+
  (umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 178--178
+) [1
+
+] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
 []\TU/TimesNewRoman(0)/m/n/10.95 Aggregate re-
  []
 
 
-Underfull \hbox (badness 2644) in paragraph at lines 178--179
+Underfull \hbox (badness 2644) in paragraph at lines 181--182
 []\TU/TimesNewRoman(0)/m/n/10.95 Imprecise represented-treatment re-
  []
 
 
-Underfull \hbox (badness 2799) in paragraph at lines 179--179
+Underfull \hbox (badness 2799) in paragraph at lines 182--182
 []\TU/TimesNewRoman(0)/m/n/10.95 Latent-person re-
  []
 
 
-Underfull \hbox (badness 4254) in paragraph at lines 197--205
+Underfull \hbox (badness 4254) in paragraph at lines 200--208
 []\TU/TimesNewRoman(0)/m/n/10.95 Between-prompt plug-in shares were 85.5%, 96.1
 %, 88.8%, and 90.2%. Fixed-panel Jeffreys
  []
@@ -558,7 +557,7 @@ File: figures/between-prompt-share.pdf Graphic file (type pdf)
 File: figures/condition-means.pdf Graphic file (type pdf)
 <use figures/condition-means.pdf>
  [4] [5] [6]
-Underfull \hbox (badness 4792) in paragraph at lines 403--407
+Underfull \hbox (badness 4792) in paragraph at lines 423--427
 []\TU/TimesNewRoman(0)/m/n/10 Kumagae, Y., and Kaneko, M. (2026). Silicon sampl
 es match the answers but not the respondents.
  []
@@ -567,4 +566,4 @@ es match the answers but not the respondents.
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 9DC4420390BA7418B01CD043D0E154A5;2857.
  )
-Output written on manuscript.xdv (7 pages, 225388 bytes).
+Output written on manuscript.xdv (7 pages, 237544 bytes).

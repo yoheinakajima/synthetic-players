@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Portable integrity/content checks; does not access network or providers."""
 from pathlib import Path
-import hashlib,json,re,subprocess,xml.etree.ElementTree as ET
+import hashlib,json,re,subprocess,zipfile,xml.etree.ElementTree as ET
 R=Path(__file__).resolve().parents[3];J=R/'journal/jesa'
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 base=json.loads((J/'evidence-manifest.json').read_text())
@@ -22,6 +22,26 @@ assert 'Li, Y., and Ji, X.' not in main+sup and 'Persson, E.,' not in main+sup
 for s in ('[−0.171, +0.330]','[−0.181, +0.330]','[.071,.189]','[.182,.231]','.075040','model-based simultaneous intervals','Under the pooled component-binomial working model','replication target','not a probability sample'):
  assert s in main,s
 assert not re.search(r'§[47]|Appendix A\.3',sup),'stale supplementary cross-reference'
+meta=json.loads((J/'author-metadata.json').read_text())
+assert meta['sole_author']=='Yohei Nakajima' and meta['corresponding_email']=='yohei@untapped.vc'
+value=0
+for digit in meta['orcid'].replace('-','')[:-1]:value=(value+int(digit))*2
+assert str((12-value%11)%11)==meta['orcid'][-1]
+for name in ('manuscript.md','supplement.md','data-instructions.md'):
+ text=(J/name).read_text()
+ for value in ('Bellevue, Washington, USA','yohei@untapped.vc','0009-0009-1293-6053','Explore Science'):
+  assert value in text,(name,value)
+ for stale in ('await author confirmation','must not be submitted with unresolved','AUTHOR TO CONFIRM','final approval pending'):
+  assert stale not in text,(name,stale)
+assert meta['funding'] in main
+history=json.loads((J/'tool-use-reconstruction.json').read_text())
+assert history['baseline_commit']=='62ab90beff1d291b069c87f13b6b6b3495171ddd'
+for row in history['pinned_files']:assert sha(R/row['path'])==row['sha256']
+tasks=json.loads((J/'task-dispositions.json').read_text())['tasks']
+assert [r['id'] for r in tasks]==[f'MARGINAL-{i:03}' for i in range(1,35)]
+with zipfile.ZipFile(J/'jesa-source.zip') as source_zip:
+ assert len(source_zip.namelist())==len(set(source_zip.namelist()))
+ for name in source_zip.namelist():assert source_zip.read(name)==(J/name).read_bytes(),('source archive',name)
 # All original figures are exact copies; count source assets separately from PDF inclusion.
 for f in (J/'figures').glob('*.pdf'):assert sha(f)==sha(R/'arxiv/figures'/f.name)
 receipt=json.loads((J/'evidence/receipt.json').read_text());t=receipt['reports'];c=receipt['counts']
