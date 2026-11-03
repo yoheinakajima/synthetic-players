@@ -1,0 +1,101 @@
+{
+  "status": "PASS builder checks and bounded exact-candidate manager advisory review",
+  "pdfs": [
+    {
+      "path": "manuscript.pdf",
+      "sha256": "babb225e69e523b3ad51c095e7f31c8ebf2d8c5cc868f86f8e52d12104897ab4",
+      "pages": 8
+    },
+    {
+      "path": "supplement.pdf",
+      "sha256": "f100ab17701d5f3a832ea2cc7a56db91c2318725298f1efcd48eb0e22b3f167b",
+      "pages": 25
+    },
+    {
+      "path": "data-instructions.pdf",
+      "sha256": "9c87d39cf81927af5efeb469c58340875392d4d15baa3a6913f8d46379d88a8c",
+      "pages": 45
+    }
+  ],
+  "visual_scope": "Builder reviewed all-page contact sheets for revised 8-page main,25-page supplement,45-page instructions, plus enlarged main Table2/Figure2 and supplement8/9/19 and instructions2/3/4. Final rebuild changed only the responsibility qualifier and SI8 heading; final main7/8 and SI8 rendered and reviewed. Main7 retains the complete responsibility paragraph and main8 starts References. Final Instructions-only rebuild clarifies requested model alias versus returned snapshot and preparation-review timing; final instructions3 enlarged render checked. Main/SI PDF bytes preserved.",
+  "checks": [
+    "All-page PDF word bounds:0 margin violations",
+    "Final TeX logs:no overfull boxes or missing characters",
+    "Vector figure bytes unchanged; main Table2 uses readable method/target widths and Figure2 caption stays with its figure",
+    "Main references10pt with11pt leading and0.5pt entry spacing; no global type reduction",
+    "Final title/abstract/table/discussion report model-dependent uncertainty and all contrast sensitivity outcomes; no journal peer-review claim"
+  ],
+  "review_limits": [
+    "Author final approval and attestations remain separate",
+    "Contact sheets check layout; substantive source and enlarged relevant pages checked",
+    "Not independent specialist reproduction, journal-system preview, provider attestation or submission approval"
+  ],
+  "historical_manager_reviews": [
+    {
+      "accepted_source_commit": "d73537e4a14e6fd378a2a25be52d51a73177f491",
+      "reviewed_pages": {
+        "manuscript": 7,
+        "supplement": 22,
+        "data_instructions": 44
+      },
+      "package_file_hashes_checked": 52,
+      "baseline_files_unchanged": 1078,
+      "task_ids_checked": 34,
+      "portable_checker": "PASS",
+      "accepted_scope": "Interval qualification, corrected references, chronology, counts, metadata-window limits, cross-references and rendering, with stated scientific limits",
+      "limits": "Not independent specialist reproduction, author attestation, journal-system preview or submission approval"
+    },
+    {
+      "accepted_source_commit": "d36fc3dc0e8e17f7f6c0cf17f4eb008ef1bf3676",
+      "package_file_hashes_checked": 56,
+      "baseline_files_unchanged": 1078,
+      "scoped_diff_files": 29,
+      "rendered_pages_checked": {
+        "manuscript": [
+          1,
+          2,
+          7
+        ],
+        "supplement": [
+          2,
+          3
+        ],
+        "data_instructions": [
+          2
+        ]
+      },
+      "source_scope": "Funding, financial-role and tool-reconstruction sources; scoped author-update diff",
+      "retained_evidence": "Builder full-page bounds/visual QA and prior manager scientific preparation review",
+      "result": "No content/layout defect found within bounded review",
+      "limits": "Not full independent human/scientific certification, author attestation, journal preview or submission approval"
+    }
+  ],
+  "current_manager_review": {
+    "status": "accepted; ready for author review",
+    "accepted_source_commit": "b5346f00a532cc8118b71074ceb7b10ce487efa3",
+    "accepted_pdfs": [
+      {
+        "path": "manuscript.pdf",
+        "sha256": "babb225e69e523b3ad51c095e7f31c8ebf2d8c5cc868f86f8e52d12104897ab4",
+        "pages": 8
+      },
+      {
+        "path": "supplement.pdf",
+        "sha256": "f100ab17701d5f3a832ea2cc7a56db91c2318725298f1efcd48eb0e22b3f167b",
+        "pages": 25
+      },
+      {
+        "path": "data-instructions.pdf",
+        "sha256": "9c87d39cf81927af5efeb469c58340875392d4d15baa3a6913f8d46379d88a8c",
+        "pages": 45
+      }
+    ],
+    "package_file_hashes_checked": 63,
+    "baseline_files_unchanged": 1078,
+    "printed_ancestor_paths_checked": 4,
+    "rendered_scope": "Full main8 page layouts including final main7/8; changed SI8/16/19 and Instructions2/3, with scientific text and concrete evidence route reviewed. Builder all-page visual/bounds checks retained.",
+    "independent_calculation_check": "Separately implemented exact-rational formulas passed all8 posterior and2 bootstrap analytic mean/variance targets from saved category vectors.",
+    "result": "No remaining defect found within the bounded manager advisory scope. Manager-review portion of MARGINAL-026 complete; ready for author review.",
+    "limits": "Not human scientific replication, a coverage proof, author attestation, journal-system preview or submission approval. Final author and external gates remain separate."
+  }
+}

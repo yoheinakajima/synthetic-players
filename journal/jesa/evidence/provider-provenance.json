@@ -1,0 +1,96 @@
+{
+  "source": "released capsule/data/engine.db.xz, decompressed disposable copy",
+  "decompressed_sha256": "940af378f9787346617126299a0e181b33315686658b0e985328fc1051956e32",
+  "query": "SELECT run_id,id,timestamp,payload FROM events WHERE type='llm.requested'",
+  "scope": "all ordinary requested events, including legacy diagnostics and failed-run partials; not confirmatory-only or ledger call accounting",
+  "rows": [
+    {
+      "phase": "legacy-phase3",
+      "requested_model": "gpt-4.1",
+      "provider_route": "not-recorded",
+      "first_recorded_request_utc": "",
+      "last_recorded_request_utc": "",
+      "request_events": 5830,
+      "response_events": 5830,
+      "returned_models": {
+        "gpt-4.1-2025-04-14": 5830
+      },
+      "provider_created_unix_range": null
+    },
+    {
+      "phase": "phase4",
+      "requested_model": "gpt-4.1",
+      "provider_route": {
+        "host": "localhost:1106",
+        "integration": "replit-ai-integrations:openai",
+        "kind": "openai"
+      },
+      "first_recorded_request_utc": "",
+      "last_recorded_request_utc": "",
+      "request_events": 11624,
+      "response_events": 11624,
+      "returned_models": {
+        "gpt-4.1-2025-04-14": 11624
+      },
+      "provider_created_unix_range": [
+        1784924804,
+        1785211653
+      ]
+    },
+    {
+      "phase": "phase4",
+      "requested_model": "gemini-2.5-flash",
+      "provider_route": {
+        "host": "localhost:1106",
+        "integration": "replit-ai-integrations:gemini",
+        "kind": "gemini"
+      },
+      "first_recorded_request_utc": "",
+      "last_recorded_request_utc": "",
+      "request_events": 8369,
+      "response_events": 8345,
+      "returned_models": {
+        "gemini-2.5-flash": 8345
+      },
+      "provider_created_unix_range": null
+    },
+    {
+      "phase": "phase5",
+      "requested_model": "gpt-4.1",
+      "provider_route": {
+        "host": "localhost:1106",
+        "integration": "replit-ai-integrations:openai",
+        "kind": "openai"
+      },
+      "first_recorded_request_utc": "",
+      "last_recorded_request_utc": "",
+      "request_events": 8766,
+      "response_events": 8766,
+      "returned_models": {
+        "gpt-4.1-2025-04-14": 8766
+      },
+      "provider_created_unix_range": [
+        1785250754,
+        1785262684
+      ]
+    },
+    {
+      "phase": "phase5",
+      "requested_model": "gemini-2.5-flash",
+      "provider_route": {
+        "host": "localhost:1106",
+        "integration": "replit-ai-integrations:gemini",
+        "kind": "gemini"
+      },
+      "first_recorded_request_utc": "",
+      "last_recorded_request_utc": "",
+      "request_events": 1662,
+      "response_events": 1662,
+      "returned_models": {
+        "gemini-2.5-flash": 1662
+      },
+      "provider_created_unix_range": null
+    }
+  ],
+  "limits": "Recorded request timestamps may be empty; missing values do not establish collection windows. Provider-created Unix ranges, where present, are provider metadata only. Model names/routes are archive metadata, not provider-signed identity or exact runtime window attestation. Phase3 lacks newer request capture."
+}

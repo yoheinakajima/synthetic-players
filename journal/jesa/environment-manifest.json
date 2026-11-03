@@ -1,0 +1,107 @@
+{
+  "build_tools": {
+    "pandoc": "pandoc 3.10.1",
+    "tectonic": "Tectonic 0.16.9"
+  },
+  "replay_environment": {
+    "source_base": "62ab90beff1d291b069c87f13b6b6b3495171ddd",
+    "route": "native audit logic, phase4 in-process transport adapter; not unmodified verify.sh",
+    "manifest_sha256": "6d80f3b19b921d6c0b188123ad49e7f62324f59f495b2d72ea8c85f2652d641d",
+    "manifest_files_checked_before_and_after": 190,
+    "network_attempts": 0,
+    "listening_ports": 0,
+    "provider_construction": 0,
+    "elapsed_seconds": 18.69,
+    "max_rss_platform_units": 210321408,
+    "python": "3.11.15 (main, May 10 2026, 19:23:07) [Clang 22.1.3 ]",
+    "platform": "macOS-15.5-arm64-arm-64bit",
+    "dependencies": {
+      "activegraph": "1.10.0",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "pydantic": "2.14.2"
+    },
+    "counts": {
+      "confirmatory_runs": 4916,
+      "legacy_diagnostic_runs": 3,
+      "total_verifier_runs": 4919,
+      "confirmatory_llm_runs": 4896,
+      "verifier_llm_runs_including_legacy": 4899,
+      "deterministic_baselines": 20
+    },
+    "reports": {
+      "phase3": {
+        "llmRuns": 323,
+        "llmRunsOk": 323,
+        "recordedLlmCalls": 5830,
+        "llmCallsVerified": 5830,
+        "roundsCompared": 3916,
+        "baselineRuns": 20,
+        "baselineRunsOk": 20,
+        "baselineRoundsCompared": 1000
+      },
+      "phase4": {
+        "runs": 2888,
+        "replayedObservations": 2864,
+        "invalidTrialsVerified": 0,
+        "partialsSkippedBySignature": 24,
+        "fRngProfilesChecked": 220
+      },
+      "phase5": {
+        "runs": 1712,
+        "ok": 1712,
+        "invalidTrials": 0,
+        "llmCallsVerified": 10428,
+        "bundleShasVerified": 10428,
+        "requestBodyShasVerified": 10428,
+        "parsedActionsVerified": 10428,
+        "recordedLlmCalls": 10428
+      }
+    },
+    "verdict": "PASS"
+  },
+  "build_mode": "cache-only untrusted Tectonic; no TeX runtime installed; installed system fonts, not redistributed",
+  "font_files": [
+    {
+      "path": "/System/Library/Fonts/Supplemental/Times New Roman.ttf",
+      "sha256": "f3b4ffff71c2a0c7227d37497683b2498fb2d0a4e8beae26f022e3ccfcaabfa3"
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Times New Roman Italic.ttf",
+      "sha256": "7bb99c3a67697fbce15ab66d806d9a2151432ce1dab2eaba4156e1251da486c0"
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Times New Roman Bold.ttf",
+      "sha256": "50f5b1f27b7d34621090e437e8b1dd4510a22d2823fc876b3286bed327b64bbb"
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Times New Roman Bold Italic.ttf",
+      "sha256": "906157e8294fdf168d83002eaabde01c2d30fc3f44977be89e33fa22f262002a"
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Arial.ttf",
+      "sha256": "525979822591a3447cfc49d943d6f7683508e25543407871c0ed8fed05fd2bd9"
+    },
+    {
+      "path": "/System/Library/Fonts/Menlo.ttc",
+      "sha256": "dc256e0b39c2a6fec947129d421fef41b8b429f58f9b6e5d1b148c87f775c1f6"
+    }
+  ],
+  "historical_environment_note": "capsule requirements.lock states Python3.11.14,numpy2.4.6,scipy1.17.1,pandas3.0.5; this replay used Python3.11.15, direct audited dependencies in receipt; no claim of byte-identical historical environment",
+  "new_saved_data_sensitivity": {
+    "evidence_code_ancestor": "1bc9cb8dcb44cf514fe2fad53cdbfd96725badd0",
+    "plan": "contrast-sensitivity-plan.json",
+    "result": "contrast-sensitivity.json",
+    "environment": {
+      "python": "3.11.15 (main, May 10 2026, 19:23:07) [Clang 22.1.3 ]",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.5-arm64-arm-64bit",
+      "cpu_seconds": 1.3668269999999998,
+      "wall_seconds": 1.7967745419591665,
+      "network": "socket connect/bind denied; no provider modules/DB access",
+      "source_only": "saved category counts; no modification to study/ledger/capsule"
+    },
+    "scope": "Post-adjudication counts only; independent rational moment checking by manager; no new study/provider calls."
+  }
+}

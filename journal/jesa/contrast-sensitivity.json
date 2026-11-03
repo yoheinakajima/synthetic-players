@@ -1,0 +1,556 @@
+{
+  "plan_sha256": "5acef63292d024fef8990f72a2919a495abb58f10bc79338dcd1f2a9ce3bfda0",
+  "input_sha256": "7e93f97c012c6ff8907758f55ae35f0ca5d2544a6fcb7a0b05997d0f316fc3e0",
+  "prepared_source_head": "1a59b65001579e4985f799d667da4ab406c68d64",
+  "seed_rule": "SHA256(label) first8bytes big-endian XOR base_seed, modulo 2**63-1; labels dirichlet:alpha={alpha:g}, bootstrap:s2a, bootstrap:s2p",
+  "counts": {
+    "rep-d10-s2a": [
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        1,
+        4,
+        1
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        4,
+        2,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        3,
+        2,
+        1
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        1,
+        4,
+        1
+      ],
+      [
+        6,
+        0,
+        0
+      ]
+    ],
+    "rep-d10-s2p": [
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        5,
+        1
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        4,
+        2,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ]
+    ],
+    "rep-d90-s2a": [
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        1
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        1,
+        3,
+        2
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        4,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        3
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        4
+      ],
+      [
+        6,
+        0,
+        0
+      ]
+    ],
+    "rep-d90-s2p": [
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        2,
+        3,
+        1
+      ],
+      [
+        0,
+        5,
+        1
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        3,
+        3,
+        0
+      ],
+      [
+        2,
+        4,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        6,
+        0
+      ],
+      [
+        6,
+        0,
+        0
+      ]
+    ]
+  },
+  "observed": {
+    "s2a": 0.08333333333333337,
+    "s2p": 0.07812500000000006
+  },
+  "dirichlet": [
+    {
+      "alpha": 0.1,
+      "contrast": "s2a",
+      "draws": 50000,
+      "seed": 7638990121611090686,
+      "lower": 0.02852679414146644,
+      "median": 0.0793393348953827,
+      "upper": 0.12927049792831638,
+      "probability_positive": 0.99854,
+      "zero_excluded": true,
+      "mc_mean": 0.07920842470677154,
+      "analytic_mean": 0.0793650793650793,
+      "mc_variance": 0.0006512128957553044,
+      "analytic_variance": 0.0006522617925912123,
+      "mc_mean_z": -1.371568006097768
+    },
+    {
+      "alpha": 0.1,
+      "contrast": "s2p",
+      "draws": 50000,
+      "seed": 7638990121611090686,
+      "lower": 0.02989196112226725,
+      "median": 0.07454942243393536,
+      "upper": 0.11826770638063235,
+      "probability_positive": 0.99918,
+      "zero_excluded": true,
+      "mc_mean": 0.0744028854845021,
+      "analytic_mean": 0.07440476190476192,
+      "mc_variance": 0.0004975845997182116,
+      "analytic_variance": 0.0004928364991354231,
+      "mc_mean_z": -0.01890008179164869
+    },
+    {
+      "alpha": 0.25,
+      "contrast": "s2a",
+      "draws": 50000,
+      "seed": 8618615292519332908,
+      "lower": 0.013965410660572986,
+      "median": 0.07420948847289299,
+      "upper": 0.13290934503147728,
+      "probability_positive": 0.99162,
+      "zero_excluded": true,
+      "mc_mean": 0.07399903702252315,
+      "analytic_mean": 0.07407407407407401,
+      "mc_variance": 0.0009168276730523888,
+      "analytic_variance": 0.0009264790477454758,
+      "mc_mean_z": -0.5512428404901141
+    },
+    {
+      "alpha": 0.25,
+      "contrast": "s2p",
+      "draws": 50000,
+      "seed": 8618615292519332908,
+      "lower": 0.013535994394281952,
+      "median": 0.06944330510177332,
+      "upper": 0.12453260119243767,
+      "probability_positive": 0.99156,
+      "zero_excluded": true,
+      "mc_mean": 0.06926321405152462,
+      "analytic_mean": 0.06944444444444448,
+      "mc_variance": 0.0007951851391042356,
+      "analytic_variance": 0.0007944212133280239,
+      "mc_mean_z": -1.4377739739921893
+    },
+    {
+      "alpha": 0.5,
+      "contrast": "s2a",
+      "draws": 50000,
+      "seed": 1011200804247264476,
+      "lower": -0.0023172107596727888,
+      "median": 0.06662172657943399,
+      "upper": 0.13397768083444173,
+      "probability_positive": 0.97128,
+      "zero_excluded": false,
+      "mc_mean": 0.06644515513819271,
+      "analytic_mean": 0.06666666666666665,
+      "mc_variance": 0.0012064157095648047,
+      "analytic_variance": 0.0012050653594771238,
+      "mc_mean_z": -1.4268424932988581
+    },
+    {
+      "alpha": 0.5,
+      "contrast": "s2p",
+      "draws": 50000,
+      "seed": 1011200804247264476,
+      "lower": -0.0037633334310537042,
+      "median": 0.06281051799234941,
+      "upper": 0.12704492651053034,
+      "probability_positive": 0.96766,
+      "zero_excluded": false,
+      "mc_mean": 0.06250031867412074,
+      "analytic_mean": 0.0625,
+      "mc_variance": 0.0011110909120452502,
+      "analytic_variance": 0.001106004901960784,
+      "mc_mean_z": 0.00214266005113062
+    },
+    {
+      "alpha": 1.0,
+      "contrast": "s2a",
+      "draws": 50000,
+      "seed": 3108269218927440541,
+      "lower": -0.018768363446445665,
+      "median": 0.05542050470342036,
+      "upper": 0.12920673398648966,
+      "probability_positive": 0.92878,
+      "zero_excluded": false,
+      "mc_mean": 0.0552434045368119,
+      "analytic_mean": 0.055555555555555525,
+      "mc_variance": 0.0014149673989433875,
+      "analytic_variance": 0.0014130015432098765,
+      "mc_mean_z": -1.856856921010635
+    },
+    {
+      "alpha": 1.0,
+      "contrast": "s2p",
+      "draws": 50000,
+      "seed": 3108269218927440541,
+      "lower": -0.020410967376544697,
+      "median": 0.05262100347717144,
+      "upper": 0.12419721772919716,
+      "probability_positive": 0.92196,
+      "zero_excluded": false,
+      "mc_mean": 0.05235546270402927,
+      "analytic_mean": 0.05208333333333337,
+      "mc_variance": 0.001355388150342083,
+      "analytic_variance": 0.001352719907407407,
+      "mc_mean_z": 1.6544607891993273
+    }
+  ],
+  "two_stage_bootstrap": [
+    {
+      "contrast": "s2a",
+      "draws": 50000,
+      "seed": 6598932310529505975,
+      "lower": 0.010416666666666666,
+      "median": 0.078125,
+      "upper": 0.17708333333333334,
+      "probability_positive": 0.98678,
+      "zero_excluded": true,
+      "mc_mean": 0.08322375,
+      "analytic_mean": 0.08333333333333333,
+      "mc_variance": 0.0018506543448577305,
+      "analytic_variance": 0.0018807870370370374,
+      "mc_mean_z": -0.5650146356170932
+    },
+    {
+      "contrast": "s2p",
+      "draws": 50000,
+      "seed": 3627577639765771462,
+      "lower": -0.010416666666666666,
+      "median": 0.07291666666666667,
+      "upper": 0.1875,
+      "probability_positive": 0.94244,
+      "zero_excluded": false,
+      "mc_mean": 0.07816104166666667,
+      "analytic_mean": 0.07812500000000001,
+      "mc_variance": 0.0025631543477657743,
+      "analytic_variance": 0.0025617811414930555,
+      "mc_mean_z": 0.15922778575497878
+    }
+  ],
+  "cp_allocation": {
+    "s2a": {
+      "component_confidence": 0.9875,
+      "condition_mean_minimum_working_model_confidence": 0.975,
+      "contrast_minimum_working_model_confidence": 0.95,
+      "simultaneous_scope": "four binary component-condition means within this one contrast only; not both contrasts or32rows",
+      "condition_intervals": {
+        "10": [
+          0.23324039058366033,
+          0.4792976390283552
+        ],
+        "90": [
+          0.30817968043644656,
+          0.5629474746045713
+        ]
+      },
+      "contrast_interval": [
+        -0.17111795859190865,
+        0.329707084020911
+      ]
+    },
+    "s2p": {
+      "component_confidence": 0.9875,
+      "condition_mean_minimum_working_model_confidence": 0.975,
+      "contrast_minimum_working_model_confidence": 0.95,
+      "simultaneous_scope": "four binary component-condition means within this one contrast only; not both contrasts or32rows",
+      "condition_intervals": {
+        "10": [
+          0.3022911284481524,
+          0.5589140888287041
+        ],
+        "90": [
+          0.3778709627483917,
+          0.6320417043035391
+        ]
+      },
+      "contrast_interval": [
+        -0.18104312608031237,
+        0.3297505758553867
+      ]
+    }
+  },
+  "execution_note": "First invocation stopped before any draws at overly strict equality against rounded CSV display means; validation tolerance corrected to half-unit in6decimal display precision, no seeds/draws/methods changed.",
+  "verification": "Source category totals, six episodes/prompt, independent frozen pool means and analytic moments checked; all planned outcomes retained",
+  "environment": {
+    "python": "3.11.15 (main, May 10 2026, 19:23:07) [Clang 22.1.3 ]",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "platform": "macOS-15.5-arm64-arm-64bit",
+    "cpu_seconds": 1.3668269999999998,
+    "wall_seconds": 1.7967745419591665,
+    "network": "socket connect/bind denied; no provider modules/DB access",
+    "source_only": "saved category counts; no modification to study/ledger/capsule"
+  }
+}

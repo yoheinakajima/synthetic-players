@@ -1,0 +1,16 @@
+{
+  "status": "post-adjudication saved-data sensitivity; settings recorded before execution, not a preregistration or confirmation",
+  "prepared_source_head": "1a59b65001579e4985f799d667da4ab406c68d64",
+  "source": "docs/analysis/submission/figure-sources/episode-cluster-cells.csv",
+  "alphas": [0.1, 0.25, 0.5, 1.0],
+  "draws_per_alpha": 50000,
+  "bootstrap_draws": 50000,
+  "base_seed": 20261103,
+  "seed_rule": "SHA256(label) first8bytes big-endian XOR base_seed, modulo 2**63-1; labels dirichlet:alpha={alpha:g}, bootstrap:s2a, bootstrap:s2p",
+  "estimand": "equal-weight average of sixteen fixed prompt latent high-minus-low condition means, separately for s2a and s2p",
+  "dirichlet": "Independent symmetric Dirichlet(alpha,alpha,alpha) priors for each prompt-condition probabilities over episode outcomes {0,.5,1}; posterior counts+alpha; independent condition draws; central95% marginal credible intervals per contrast, not simultaneous confidence intervals",
+  "bootstrap": "Existing two-stage scheme extended to paired contrast: resample16 prompt indices with replacement, preserving same prompt at high/low; independently resample6 empirical episodes per selected prompt per condition; average high-low. Central95% percentile intervals. Exploratory hypothetical-generator target, no random-sampling design or coverage guarantee; empirical corners remain point masses.",
+  "verification": "Check exact source counts/n=6/16prompts, observed contrasts; compare Monte Carlo means/variances to independently computed analytic posterior and bootstrap moments; cross-check category totals and independently recorded condition means from frozen variance summary; no raw DB access; record every alpha and both contrasts including zero-excluded outcomes",
+  "execution_limits": "Existing cached NumPy/SciPy only, no installs/network/providers/subjects/optimizer changes; process CPU limit240seconds, total<=300seconds; one planned numerical execution, no selective reruns",
+  "scope_limits": "Conditional independence across episodes/prompt-cells is assumed for posterior; no latent-person invariance or general human claim; no new registered scientific result"
+}

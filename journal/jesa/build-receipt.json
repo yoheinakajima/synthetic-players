@@ -1,0 +1,24 @@
+{
+  "tools": {
+    "pandoc": "pandoc 3.10.1",
+    "tectonic": "Tectonic 0.16.9"
+  },
+  "mode": "Tectonic --only-cached --untrusted; no TeX installation; no live publication",
+  "outputs": [
+    {
+      "path": "manuscript.pdf",
+      "sha256": "babb225e69e523b3ad51c095e7f31c8ebf2d8c5cc868f86f8e52d12104897ab4",
+      "pages": 8
+    },
+    {
+      "path": "supplement.pdf",
+      "sha256": "f100ab17701d5f3a832ea2cc7a56db91c2318725298f1efcd48eb0e22b3f167b",
+      "pages": 25
+    },
+    {
+      "path": "data-instructions.pdf",
+      "sha256": "9c87d39cf81927af5efeb469c58340875392d4d15baa3a6913f8d46379d88a8c",
+      "pages": 45
+    }
+  ]
+}

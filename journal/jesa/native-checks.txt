@@ -1,0 +1,3 @@
+paper_submission_lint: PASS
+checked 5 assertion documents, 9 link surfaces, and the sealed-file boundary
+reference lint: PASS (11 verified metadata pairs; 10 retrievable primary URLs resolved)
